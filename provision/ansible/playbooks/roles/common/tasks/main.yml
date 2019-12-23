@@ -1,6 +1,6 @@
 ---
 - name: Install Python3 Pip
-  script: ../files/python_install.sh
+  script: python_install.sh
 
 - name: Install j2cli
   command: python3 -m pip install j2cli j2cli[yaml]
@@ -42,7 +42,7 @@
         state: absent
         path: /tmp/{{ NODE_EXPORTER_FILE | default('node_exporter-0.16.0.linux-amd64.tar.gz') }}
     - copy:
-        src: ../files/node_exporter.service
+        src: node_exporter.service
         dest: /etc/systemd/system/node_exporter.service
     - systemd:
         name: node_exporter

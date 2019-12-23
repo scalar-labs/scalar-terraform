@@ -23,7 +23,7 @@
 
 - name: Add Cassandra Tuned Profile
   template:
-    src: ../templates/tuned.conf.j2
+    src: tuned.conf.j2
     dest: /etc/tuned/cassandra/tuned.conf
 
 - name: Set Active Tuned Profile to Cassandra
@@ -31,19 +31,19 @@
 
 - name: Copy Cassy Backup Tool
   copy:
-    src: ../files/cassy
+    src: cassy
     dest: /opt/
     mode: '755'
 
 - name: Copy Drive Mount Script
   copy:
-    src: ../files/drive_mount.sh
+    src: drive_mount.sh
     dest: /usr/local/bin/
     mode: '755'
 
 - name: Copy Drive Mount Service
   copy:
-    src: ../files/drivemount.service
+    src: drivemount.service
     dest: /etc/systemd/system/drivemount.service
 
 - name: Setup Drive Mount Service
@@ -54,10 +54,9 @@
     state: started
 
 - name: Add Cassandra Repo Debian
-  lineinfile:
-    line: "deb http://www.apache.org/dist/cassandra/debian 311x main"
-    path: /etc/apt/sources.list.d/cassandra.sources.list
-    create: yes
+  copy:
+    src: cassandra.repo
+    dest: /etc/yum.repos.d/cassandra.repo
   when: ansible_facts['os_family'] == "Debian"
 
 - name: Add Keys
@@ -118,7 +117,7 @@
 
 - name: Copy Cassandra Config
   template:
-    src: ../templates/cassandra.yaml.j2
+    src: cassandra.yaml.j2
     dest: /etc/cassandra/conf/cassandra.yaml
 
 - name: Setup Cassandra Service
@@ -134,10 +133,10 @@
         url: https://github.com/criteo/cassandra_exporter/releases/download/2.1.0/cassandra_exporter-2.1.0-all.jar
         dest: /etc/prometheus/cassandra_exporter.jar
     - copy:
-        src: ../files/cassandra_exporter_config.yml
+        src: cassandra_exporter_config.yml
         dest: /etc/prometheus/cassandra_exporter_config.yml
     - copy:
-        src: ../files/cassandra_exporter.service
+        src: cassandra_exporter.service
         dest: /etc/systemd/system/cassandra_exporter.service
     - systemd:
         name: cassandra_exporter

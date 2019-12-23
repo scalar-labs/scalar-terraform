@@ -1,6 +1,6 @@
 ---
 - name: Install Docker From Script
-  script: ../files/docker_install.sh
+  script: docker_install.sh
   become: yes
 
 - name: Check if td-agent is installed
@@ -13,7 +13,7 @@
         path: /etc/docker
         state: directory
     - copy:
-        src: ../files/daemon.json
+        src: daemon.json
         dest: /etc/docker/daemon.json
   become: yes
   when: "'td-agent' in ansible_facts.packages"
@@ -50,7 +50,7 @@
         dest: /usr/local/bin/cadvisor
         mode: 0755
     - copy:
-        src: ../files/cadvisor.service
+        src: cadvisor.service
         dest: /etc/systemd/system/cadvisor.service
     - systemd:
         name: cadvisor

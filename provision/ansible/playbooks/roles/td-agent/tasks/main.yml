@@ -19,7 +19,7 @@
 #       limit_type: hard
 
 - name: Install td-agent From Script
-  script: ../files/td-agent_install.sh
+  script: td-agent_install.sh
   become: yes
 
 - name: Enable td-agent
@@ -42,7 +42,7 @@
 
 - name: copy new td-agent.conf from role's default
   copy:
-    src: ../files/td-agent.conf
+    src: td-agent.conf
     dest: /etc/td-agent/td-agent.conf
     owner: td-agent
     group: td-agent

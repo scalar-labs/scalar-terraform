@@ -40,8 +40,8 @@ resource "aws_volume_attachment" "cassandra_data_volume_attachment" {
   count = local.enable_data_volume && false == local.data_use_local_volume ? local.resource_count : 0
 
   device_name = "/dev/xvdh"
-  volume_id   = element(aws_ebs_volume.cassandra_data_volume.*.id, count.index)
-  instance_id = element(module.cassandra_cluster.id, count.index)
+  volume_id   = aws_ebs_volume.cassandra_data_volume[count.index].id
+  instance_id = module.cassandra_cluster[count.index].id
 
   force_detach = true
 }
@@ -50,12 +50,12 @@ resource "null_resource" "volume_data" {
   count = local.enable_data_volume && false == local.data_use_local_volume ? local.resource_count : 0
 
   triggers = {
-    triggers = element(module.cassandra_cluster.id, count.index)
+    triggers = module.cassandra_cluster[count.index].id
   }
 
   connection {
     bastion_host = local.bastion_ip
-    host         = element(module.cassandra_cluster.private_ip, count.index)
+    host         = module.cassandra_cluster[count.index].private_ip
     user         = local.user_name
     agent        = true
     private_key  = file(local.private_key_path)
@@ -63,7 +63,7 @@ resource "null_resource" "volume_data" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo sh -c 'echo export DATA_STORE=${element(aws_ebs_volume.cassandra_data_volume.*.id, count.index)} >> /etc/profile.d/volumes.sh'",
+      "sudo sh -c 'echo export DATA_STORE=${aws_ebs_volume.cassandra_data_volume[count.index].id} >> /etc/profile.d/volumes.sh'",
     ]
   }
 }
@@ -72,12 +72,12 @@ resource "null_resource" "volume_data_local" {
   count = local.enable_data_volume && local.data_use_local_volume ? local.resource_count : 0
 
   triggers = {
-    triggers = element(module.cassandra_cluster.id, count.index)
+    triggers = module.cassandra_cluster[count.index].id
   }
 
   connection {
     bastion_host = local.bastion_ip
-    host         = element(module.cassandra_cluster.private_ip, count.index)
+    host         = module.cassandra_cluster[count.index].private_ip
     user         = local.user_name
     agent        = true
     private_key  = file(local.private_key_path)
@@ -103,7 +103,7 @@ resource "aws_volume_attachment" "cassandra_commitlog_volume_attachment" {
 
   device_name = "/dev/xvdi"
   volume_id   = aws_ebs_volume.cassandra_commitlog_volume[count.index].id
-  instance_id = element(module.cassandra_cluster.id, count.index)
+  instance_id = module.cassandra_cluster[count.index].id
 
   force_detach = true
 }
@@ -111,12 +111,12 @@ resource "aws_volume_attachment" "cassandra_commitlog_volume_attachment" {
 resource "null_resource" "volume_commitlog" {
   count = local.enable_commitlog_volume && false == local.commitlog_use_local_volume ? local.resource_count : 0
   triggers = {
-    triggers = element(module.cassandra_cluster.id, count.index)
+    triggers = module.cassandra_cluster[count.index].id
   }
 
   connection {
     bastion_host = local.bastion_ip
-    host         = element(module.cassandra_cluster.private_ip, count.index)
+    host         = module.cassandra_cluster[count.index].private_ip
     user         = local.user_name
     agent        = true
     private_key  = file(local.private_key_path)
@@ -124,7 +124,7 @@ resource "null_resource" "volume_commitlog" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo sh -c 'echo export COMMIT_STORE=${element(aws_ebs_volume.cassandra_commitlog_volume.*.id, count.index)}  >> /etc/profile.d/volumes.sh'",
+      "sudo sh -c 'echo export COMMIT_STORE=${aws_ebs_volume.cassandra_commitlog_volume[count.index].id}  >> /etc/profile.d/volumes.sh'",
     ]
   }
 }
@@ -132,12 +132,12 @@ resource "null_resource" "volume_commitlog" {
 resource "null_resource" "volume_commitlog_local" {
   count = local.enable_commitlog_volume && local.commitlog_use_local_volume ? local.resource_count : 0
   triggers = {
-    triggers = element(module.cassandra_cluster.id, count.index)
+    triggers = module.cassandra_cluster[count.index].id
   }
 
   connection {
     bastion_host = local.bastion_ip
-    host         = element(module.cassandra_cluster.private_ip, count.index)
+    host         = module.cassandra_cluster[count.index].private_ip
     user         = local.user_name
     agent        = true
     private_key  = file(local.private_key_path)
@@ -248,7 +248,7 @@ resource "aws_route53_record" "cassandra-dns" {
   name    = "cassandra-${count.index + 1}"
   type    = "A"
   ttl     = "300"
-  records = [element(module.cassandra_cluster.private_ip, count.index)]
+  records = [module.cassandra_cluster.private_ip[count.index]]
 }
 
 resource "aws_route53_record" "cassandra-exporter-dns-srv" {

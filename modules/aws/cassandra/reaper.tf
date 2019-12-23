@@ -94,7 +94,7 @@ resource "aws_route53_record" "reaper-dns" {
   name    = "reaper"
   type    = "A"
   ttl     = "300"
-  records = [element(module.reaper_cluster.private_ip, count.index)]
+  records = [module.reaper_cluster.private_ip[count.index]]
 }
 
 resource "aws_route53_record" "reaper-dns-srv" {

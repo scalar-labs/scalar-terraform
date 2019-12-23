@@ -88,12 +88,13 @@ resource "aws_security_group" "cassy" {
 }
 
 resource "aws_route53_record" "cassy-dns" {
-  count   = local.cassy_resource_count
+  count = local.cassy_resource_count
+
   zone_id = local.network_dns
   name    = "cassy"
   type    = "A"
   ttl     = "300"
-  records = [element(module.cassy_cluster.private_ip, count.index)]
+  records = [module.cassy_cluster.private_ip[count.index]]
 }
 
 resource "aws_route53_record" "cassy-dns-srv" {

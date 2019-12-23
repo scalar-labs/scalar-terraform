@@ -40,26 +40,21 @@ variable "trigger" {
 }
 
 variable "resource_type" {
-  default     = "t2.micro"
   description = "The resource type of the bastion instance"
 }
 
 variable "resource_count" {
-  default     = 1
   description = "The number of bastion resources to create"
 }
 
 variable "resource_root_volume_size" {
-  default = "16"
+  description = "The root volume size of bastion instance"
 }
 
 variable "bastion_access_cidr" {
-  default     = "0.0.0.0/0"
   description = "You can limit access to the bastion node to a specified IP cidr range"
 }
 
 variable "enable_tdagent" {
-  default     = true
   description = "A flag to install td-agent that forwards logs to the monitor host"
 }
-

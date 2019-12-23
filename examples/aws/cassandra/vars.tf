@@ -1,4 +1,6 @@
 # General Settings
+variable "region" {}
+
 variable "base" {
   default = "default"
 }

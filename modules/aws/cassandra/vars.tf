@@ -4,7 +4,7 @@ variable "base" {
 }
 
 variable "network" {
-  type        = {}
+  type        = map(string)
   description = "The network settings of cassandra"
 }
 

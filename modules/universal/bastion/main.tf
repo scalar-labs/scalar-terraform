@@ -6,11 +6,11 @@ resource "null_resource" "copy" {
   count = var.provision_count
 
   triggers = {
-    triggers = element(var.triggers, count.index)
+    triggers = var.triggers[count.index]
   }
 
   connection {
-    host        = element(var.bastion_host_ips, count.index)
+    host        = var.bastion_host_ips[count.index]
     user        = var.user_name
     private_key = file(var.private_key_path)
   }
@@ -33,4 +33,3 @@ resource "null_resource" "ansible" {
     working_dir = module.ansible.local_playbook_path
   }
 }
-

@@ -61,5 +61,5 @@ module "bastion" {
   resource_count            = local.bastion_resource_count
   resource_root_volume_size = local.resource_root_volume_size
   bastion_access_cidr       = local.bastion_access_cidr
-  enable_tdagent            = local.enable_tdagent
+  enable_tdagent            = local.bastion_enable_tdagent
 }

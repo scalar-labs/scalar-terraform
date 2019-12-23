@@ -54,9 +54,10 @@
     state: started
 
 - name: Add Cassandra Repo Debian
-  copy:
-    src: cassandra.repo
-    dest: /etc/yum.repos.d/cassandra.repo
+  lineinfile:
+    line: "deb http://www.apache.org/dist/cassandra/debian 311x main"
+    path: /etc/apt/sources.list.d/cassandra.sources.list
+    create: yes
   when: ansible_facts['os_family'] == "Debian"
 
 - name: Add Keys
@@ -68,10 +69,9 @@
   when: ansible_facts['os_family'] == "Debian"
 
 - name: Add Cassandra Repo
-  lineinfile:
-    line: "[cassandra] \nname=Apache Cassandra \nbaseurl=https://www.apache.org/dist/cassandra/redhat/311x/ \ngpgcheck=1 \nrepo_gpgcheck=1 \ngpgkey=https://www.apache.org/dist/cassandra/KEYS"
-    path: /etc/yum.repos.d/cassandra.repo
-    create: yes
+  copy:
+    src: cassandra.repo
+    dest: /etc/yum.repos.d/cassandra.repo
   when: ansible_facts['os_family'] == "RedHat"
 
 - name: Install jemalloc

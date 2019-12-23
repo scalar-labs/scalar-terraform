@@ -1,4 +1,4 @@
-#Required Variable
+# Required Variable
 variable "name" {
   description = "A short name to attach to resources"
 }
@@ -17,3 +17,10 @@ variable "private_key_path" {
 
 variable "internal_root_dns" {
   description = "An internal DNS domain name to use for mapping IP addresses"
+}
+
+# Optinal Variable
+variable "network" {
+  default     = {}
+  description = "Custom definition for network and bastion"
+}

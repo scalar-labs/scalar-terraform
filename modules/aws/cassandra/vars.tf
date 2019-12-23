@@ -4,17 +4,21 @@ variable "base" {
 }
 
 variable "network" {
-  default = {}
+  type        = {}
+  description = "The network settings of cassandra"
 }
 
 variable "cassandra" {
-  default = {}
+  default     = {}
+  description = "The cluster settings of cassandra"
 }
 
 variable "cassy" {
-  default = {}
+  default     = {}
+  description = "The cluster settings of cassy"
 }
 
 variable "reaper" {
-  default = {}
+  default     = {}
+  description = "The cluster settings of reaper"
 }

@@ -1,11 +1,11 @@
 module "cassandra" {
-  #source = "git@github.com:scalar-labs/scalardl-terraform.git//modules/aws/cassandra?ref=master"
+  source = "git@github.com:scalar-labs/scalardl-terraform.git//modules/aws/cassandra?ref=master"
+  #source = "../../../modules/aws/cassandra"
 
-  source = "../../../modules/aws/cassandra"
-
-  # remote state vars
+  # Required Variables (from network remote state)
   network = local.network
 
+  # Optional Variables
   base      = var.base
   cassandra = var.cassandra
   cassy     = var.cassy

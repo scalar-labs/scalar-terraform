@@ -9,7 +9,7 @@ module "cassy_cluster" {
   instance_type               = local.cassy_resource_type
   key_name                    = local.key_name
   monitoring                  = false
-  vpc_security_group_ids      = [aws_security_group.cassy.id]
+  vpc_security_group_ids      = aws_security_group.cassy.*.id
   subnet_id                   = local.subnet_id
   associate_public_ip_address = false
 
@@ -40,6 +40,8 @@ module "cassy_provision" {
 }
 
 resource "aws_security_group" "cassy" {
+  count = local.cassy_create_count
+
   name        = "${local.network_name}-cassy-nodes"
   description = "cassy nodes"
   vpc_id      = local.network_id
@@ -50,67 +52,77 @@ resource "aws_security_group" "cassy" {
 }
 
 resource "aws_security_group_rule" "cassy_ssh" {
+  count = local.cassy_create_count
+
   type        = "ingress"
   from_port   = 22
   to_port     = 22
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
 
-  security_group_id = aws_security_group.cassy.id
+  security_group_id = aws_security_group.cassy[count.index].id
 }
 
 resource "aws_security_group_rule" "cassy_cassandra" {
+  count = local.cassy_create_count
+
   type        = "ingress"
   from_port   = 20051
   to_port     = 20051
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
 
-  security_group_id = aws_security_group.cassy.id
+  security_group_id = aws_security_group.cassy[count.index].id
 }
 
 resource "aws_security_group_rule" "cassy_node_expoter" {
+  count = local.cassy_create_count
+
   type        = "ingress"
   from_port   = 9100
   to_port     = 9100
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
 
-  security_group_id = aws_security_group.cassy.id
+  security_group_id = aws_security_group.cassy[count.index].id
 }
 
 resource "aws_security_group_rule" "cassy_cadvisor" {
+  count = local.cassy_create_count
+
   type        = "ingress"
   from_port   = 18080
   to_port     = 18080
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
 
-  security_group_id = aws_security_group.cassy.id
+  security_group_id = aws_security_group.cassy[count.index].id
 }
 
 resource "aws_security_group_rule" "cassy_egress" {
+  count = local.cassy_create_count
+
   type        = "egress"
   from_port   = 0
   to_port     = 0
   protocol    = "all"
   cidr_blocks = ["0.0.0.0/0"]
 
-  security_group_id = aws_security_group.cassy.id
+  security_group_id = aws_security_group.cassy[count.index].id
 }
 
 resource "aws_route53_record" "cassy-dns" {
-  count = local.cassy_resource_count
+  count = local.cassy_create_count
 
   zone_id = local.network_dns
   name    = "cassy"
   type    = "A"
   ttl     = "300"
-  records = [module.cassy_cluster.private_ip[count.index]]
+  records = module.cassy_cluster.private_ip
 }
 
 resource "aws_route53_record" "cassy-dns-srv" {
-  count = local.cassy_resource_count > 0 ? 1 : 0
+  count = local.cassy_create_count
 
   zone_id = local.network_dns
   name    = "_cassy._tcp.cassy"
@@ -124,7 +136,7 @@ resource "aws_route53_record" "cassy-dns-srv" {
 }
 
 resource "aws_route53_record" "cassy-cadvisor-dns-srv" {
-  count = local.cassy_resource_count > 0 ? 1 : 0
+  count = local.cassy_create_count
 
   zone_id = local.network_dns
   name    = "_cadvisor._tcp.cassy"
@@ -138,7 +150,7 @@ resource "aws_route53_record" "cassy-cadvisor-dns-srv" {
 }
 
 resource "aws_route53_record" "cassy-node-exporter-dns-srv" {
-  count = local.cassy_resource_count > 0 ? 1 : 0
+  count = local.cassy_create_count
 
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.cassy"

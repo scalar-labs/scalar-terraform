@@ -14,8 +14,8 @@ output "cassandra_host_ids" {
   value = module.cassandra_cluster.id
 }
 
-output "cassandra_security_id" {
-  value = aws_security_group.cassandra.id
+output "cassandra_security_ids" {
+  value = aws_security_group.cassandra.*.id
 }
 
 output "cassandra_hosts" {

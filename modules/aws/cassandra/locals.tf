@@ -94,6 +94,7 @@ locals {
   commitlog_remote_volume_type = local.cassandra.commitlog_remote_volume_type
   enable_tdagent               = local.cassandra.enable_tdagent
   start_on_initial_boot        = local.cassandra.start_on_initial_boot
+  create_count                 = local.resource_count > 0 ? 1 : 0
 }
 
 ### cassy
@@ -130,6 +131,7 @@ locals {
   cassy_resource_count            = local.cassy.resource_count
   cassy_resource_root_volume_size = local.cassy.resource_root_volume_size
   cassy_enable_tdagent            = local.cassy.enable_tdagent
+  cassy_create_count              = local.cassy_resource_count > 0 ? 1 : 0
 }
 
 ### reaper
@@ -168,4 +170,5 @@ locals {
   reaper_repliation_factor         = local.reaper.repliation_factor
   reaper_resource_count            = local.reaper.resource_count
   reaper_enable_tdagent            = local.reaper.enable_tdagent
+  reaper_create_count              = local.reaper_resource_count > 0 ? 1 : 0
 }

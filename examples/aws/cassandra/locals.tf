@@ -1,10 +1,10 @@
 locals {
   network = {
-    network_cidr = data.terraform_remote_state.network.outputs.network_cidr
-    network_name = data.terraform_remote_state.network.outputs.network_name
-    network_dns  = data.terraform_remote_state.network.outputs.network_dns
-    network_id   = data.terraform_remote_state.network.outputs.network_id
-    location     = data.terraform_remote_state.network.outputs.location
+    cidr     = data.terraform_remote_state.network.outputs.network_cidr
+    name     = data.terraform_remote_state.network.outputs.network_name
+    dns      = data.terraform_remote_state.network.outputs.network_dns
+    id       = data.terraform_remote_state.network.outputs.network_id
+    location = data.terraform_remote_state.network.outputs.location
 
     subnet_id = data.terraform_remote_state.network.outputs.cassandra_subnet_id
     image_id  = data.terraform_remote_state.network.outputs.image_id

@@ -16,6 +16,6 @@ variable "cassy" {
 }
 
 variable "reaper" {
-  type = map
+  type    = map
   default = {}
 }

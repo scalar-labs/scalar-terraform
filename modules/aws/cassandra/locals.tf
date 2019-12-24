@@ -1,9 +1,9 @@
 ### General
 locals {
-  network_cidr     = var.network.network_cidr
-  network_name     = var.network.network_name
-  network_dns      = var.network.network_dns
-  network_id       = var.network.network_id
+  network_cidr     = var.network.cidr
+  network_name     = var.network.name
+  network_dns      = var.network.dns
+  network_id       = var.network.id
   location         = var.network.location
   subnet_id        = var.network.subnet_id
   image_id         = var.network.image_id

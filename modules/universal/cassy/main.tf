@@ -44,7 +44,7 @@ resource "null_resource" "docker_install" {
   provisioner "remote-exec" {
     inline = [
       "cd ${module.ansible.remote_playbook_path}/playbooks",
-      "ansible-playbook -u ${var.user_name} -i ${element(var.host_list, count.index)}, docker-server.yml --extra-vars='enable_tdagent=${var.enable_tdagent ? 1 : 0}'",
+      "ansible-playbook -u ${var.user_name} -i ${var.host_list[count.index]}, docker-server.yml --extra-vars='enable_tdagent=${var.enable_tdagent ? 1 : 0}'",
     ]
   }
 }
@@ -58,7 +58,7 @@ resource "null_resource" "cassy_container" {
 
   connection {
     bastion_host = var.bastion_host_ip
-    host         = element(var.host_list, count.index)
+    host         = var.host_list[count.index]
     user         = var.user_name
     agent        = true
     private_key  = file(var.private_key_path)

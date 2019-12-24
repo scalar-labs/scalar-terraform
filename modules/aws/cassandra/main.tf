@@ -110,6 +110,7 @@ resource "aws_volume_attachment" "cassandra_commitlog_volume_attachment" {
 
 resource "null_resource" "volume_commitlog" {
   count = local.enable_commitlog_volume && false == local.commitlog_use_local_volume ? local.resource_count : 0
+
   triggers = {
     triggers = module.cassandra_cluster[count.index].id
   }
@@ -131,6 +132,7 @@ resource "null_resource" "volume_commitlog" {
 
 resource "null_resource" "volume_commitlog_local" {
   count = local.enable_commitlog_volume && local.commitlog_use_local_volume ? local.resource_count : 0
+
   triggers = {
     triggers = module.cassandra_cluster[count.index].id
   }
@@ -174,67 +176,108 @@ resource "aws_security_group" "cassandra" {
   tags = {
     Name = "${local.network_name} Cassandra"
   }
+}
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-    self        = false
-  }
+resource "aws_security_group_rule" "cassandra_ssh" {
+  type        = "ingress"
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
 
-  ingress {
-    from_port   = 7199
-    to_port     = 7199
-    protocol    = "tcp"
-    self        = true
-    cidr_blocks = [local.network_cidr]
-    description = "Cassandra JMX"
-  }
+  security_group_id = aws_security_group.cassandra.id
+}
 
-  ingress {
-    from_port   = 7000
-    to_port     = 7001
-    protocol    = "tcp"
-    self        = true
-    description = "Cassandra internode communication"
-  }
+resource "aws_security_group_rule" "cassandra_jmx" {
+  type        = "ingress"
+  from_port   = 7199
+  to_port     = 7199
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Cassandra JMX"
 
-  ingress {
-    from_port   = 9042
-    to_port     = 9042
-    protocol    = "tcp"
-    self        = true
-    cidr_blocks = [local.network_cidr]
-    description = "Cassandra CQL"
-  }
+  security_group_id = aws_security_group.cassandra.id
+}
 
-  # Cassandra Exporter
-  ingress {
-    from_port   = 7070
-    to_port     = 7070
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+resource "aws_security_group_rule" "cassandra_jmx_self" {
+  type        = "ingress"
+  from_port   = 7199
+  to_port     = 7199
+  protocol    = "tcp"
+  self        = true
+  description = "Cassandra JMX Self"
 
-  # Node Exporter
-  ingress {
-    from_port   = 9100
-    to_port     = 9100
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+  security_group_id = aws_security_group.cassandra.id
+}
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group_rule" "cassandra_internode" {
+  type        = "ingress"
+  from_port   = 7000
+  to_port     = 7001
+  protocol    = "tcp"
+  self        = true
+  description = "Cassandra internode communication"
+
+  security_group_id = aws_security_group.cassandra.id
+}
+
+resource "aws_security_group_rule" "cassandra_cql" {
+  type        = "ingress"
+  from_port   = 9042
+  to_port     = 9042
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Cassandra CQL"
+
+  security_group_id = aws_security_group.cassandra.id
+}
+
+resource "aws_security_group_rule" "cassandra_cql_self" {
+  type        = "ingress"
+  from_port   = 9042
+  to_port     = 9042
+  protocol    = "tcp"
+  self        = true
+  description = "Cassandra CQL Self"
+
+  security_group_id = aws_security_group.cassandra.id
+}
+
+resource "aws_security_group_rule" "cassandra_exporter" {
+  type        = "ingress"
+  from_port   = 7070
+  to_port     = 7070
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Cassandra Exporter"
+
+  security_group_id = aws_security_group.cassandra.id
+}
+
+resource "aws_security_group_rule" "cassandra_node_exporter" {
+  type        = "ingress"
+  from_port   = 9100
+  to_port     = 9100
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Prometheus Node Exporter"
+
+  security_group_id = aws_security_group.cassandra.id
+}
+
+resource "aws_security_group_rule" "cassandra_egress" {
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "all"
+  cidr_blocks = ["0.0.0.0/0"]
+
+  security_group_id = aws_security_group.cassandra.id
 }
 
 resource "aws_route53_record" "cassandra-dns-lb" {
   count   = local.resource_count > 0 ? 1 : 0
+
   zone_id = local.network_dns
   name    = "cassandra-lb"
   type    = "A"
@@ -244,6 +287,7 @@ resource "aws_route53_record" "cassandra-dns-lb" {
 
 resource "aws_route53_record" "cassandra-dns" {
   count   = local.resource_count
+
   zone_id = local.network_dns
   name    = "cassandra-${count.index + 1}"
   type    = "A"
@@ -253,6 +297,7 @@ resource "aws_route53_record" "cassandra-dns" {
 
 resource "aws_route53_record" "cassandra-exporter-dns-srv" {
   count   = local.resource_count > 0 ? 1 : 0
+
   zone_id = local.network_dns
   name    = "_cassandra-exporter._tcp.cassandra"
   type    = "SRV"
@@ -266,6 +311,7 @@ resource "aws_route53_record" "cassandra-exporter-dns-srv" {
 
 resource "aws_route53_record" "node-exporter-dns-srv" {
   count   = local.resource_count > 0 ? 1 : 0
+
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.cassandra"
   type    = "SRV"

@@ -47,44 +47,56 @@ resource "aws_security_group" "cassy" {
   tags = {
     Name = "${local.network_name} cassy"
   }
+}
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-    self        = false
-  }
+resource "aws_security_group_rule" "cassy_ssh" {
+  type        = "ingress"
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
 
-  ingress {
-    from_port   = 20051
-    to_port     = 20051
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+  security_group_id = aws_security_group.cassy.id
+}
 
-  # Node Exporter
-  ingress {
-    from_port   = 9100
-    to_port     = 9100
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+resource "aws_security_group_rule" "cassy_cassandra" {
+  type        = "ingress"
+  from_port   = 20051
+  to_port     = 20051
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
 
-  # cAdvisor
-  ingress {
-    from_port   = 18080
-    to_port     = 18080
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+  security_group_id = aws_security_group.cassy.id
+}
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group_rule" "cassy_node_expoter" {
+  type        = "ingress"
+  from_port   = 9100
+  to_port     = 9100
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+
+  security_group_id = aws_security_group.cassy.id
+}
+
+resource "aws_security_group_rule" "cassy_cadvisor" {
+  type        = "ingress"
+  from_port   = 18080
+  to_port     = 18080
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+
+  security_group_id = aws_security_group.cassy.id
+}
+
+resource "aws_security_group_rule" "cassy_egress" {
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "all"
+  cidr_blocks = ["0.0.0.0/0"]
+
+  security_group_id = aws_security_group.cassy.id
 }
 
 resource "aws_route53_record" "cassy-dns" {

@@ -48,48 +48,61 @@ resource "aws_security_group" "reaper" {
   tags = {
     Name = "${local.network_name} reaper"
   }
+}
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-    self        = false
-  }
+resource "aws_security_group_rule" "reaper_ssh" {
+  type        = "ingress"
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
 
-  ingress {
-    from_port   = 8080
-    to_port     = 8081
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+  security_group_id = aws_security_group.reaper.id
+}
 
-  # Node Exporter
-  ingress {
-    from_port   = 9100
-    to_port     = 9100
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+resource "aws_security_group_rule" "reaper_cassandra" {
+  type        = "ingress"
+  from_port   = 20051
+  to_port     = 20051
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
 
-  # cAdvisor
-  ingress {
-    from_port   = 18080
-    to_port     = 18080
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+  security_group_id = aws_security_group.reaper.id
+}
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group_rule" "reaper_node_expoter" {
+  type        = "ingress"
+  from_port   = 9100
+  to_port     = 9100
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+
+  security_group_id = aws_security_group.reaper.id
+}
+
+resource "aws_security_group_rule" "reaper_cadvisor" {
+  type        = "ingress"
+  from_port   = 18080
+  to_port     = 18080
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+
+  security_group_id = aws_security_group.reaper.id
+}
+
+resource "aws_security_group_rule" "reaper_egress" {
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "all"
+  cidr_blocks = ["0.0.0.0/0"]
+
+  security_group_id = aws_security_group.reaper.id
 }
 
 resource "aws_route53_record" "reaper-dns" {
   count   = local.reaper_resource_count
+
   zone_id = local.network_dns
   name    = "reaper"
   type    = "A"
@@ -99,6 +112,7 @@ resource "aws_route53_record" "reaper-dns" {
 
 resource "aws_route53_record" "reaper-dns-srv" {
   count   = local.reaper_resource_count > 0 ? 1 : 0
+
   zone_id = local.network_dns
   name    = "_reaper._tcp.reaper"
   type    = "SRV"
@@ -112,6 +126,7 @@ resource "aws_route53_record" "reaper-dns-srv" {
 
 resource "aws_route53_record" "reaper-cadvisor-dns-srv" {
   count   = local.reaper_resource_count > 0 ? 1 : 0
+
   zone_id = local.network_dns
   name    = "_cadvisor._tcp.reaper"
   type    = "SRV"
@@ -125,6 +140,7 @@ resource "aws_route53_record" "reaper-cadvisor-dns-srv" {
 
 resource "aws_route53_record" "reaper-node-exporter-dns-srv" {
   count   = local.reaper_resource_count > 0 ? 1 : 0
+
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.reaper"
   type    = "SRV"

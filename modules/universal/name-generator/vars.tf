@@ -4,7 +4,7 @@ variable "byte_length" {
 }
 
 variable "name" {
-  default     = "scalardl"
+  default     = "scalar"
   description = "A prefix to random generator"
 }
 

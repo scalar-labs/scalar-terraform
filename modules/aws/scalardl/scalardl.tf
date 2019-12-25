@@ -74,6 +74,7 @@ resource "aws_security_group_rule" "scalardl_ssh" {
   to_port     = 22
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
+  description = "Scalar DL SSH"
 
   security_group_id = aws_security_group.scalardl.id
 }

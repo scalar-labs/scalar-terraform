@@ -19,8 +19,9 @@ variable "internal_root_dns" {
   description = "An internal DNS domain name to use for mapping IP addresses"
 }
 
-# Optinal Variable
+# Optional Variable
 variable "network" {
+  type        = map
   default     = {}
   description = "Custom definition for network and bastion"
 }

@@ -9,6 +9,6 @@ module "scalar-network" {
   private_key_path  = var.private_key_path
   internal_root_dns = var.internal_root_dns
 
-  # Optinal Variables
+  # Optional Variables
   network = var.network
 }

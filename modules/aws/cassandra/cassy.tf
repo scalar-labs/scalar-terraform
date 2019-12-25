@@ -131,7 +131,7 @@ resource "aws_route53_record" "cassy-dns-srv" {
   records = formatlist(
     "0 0 8081 %s.%s",
     aws_route53_record.cassy-dns.*.name,
-    "internal.scalar-labs.com.",
+    "${local.internal_root_dns}.",
   )
 }
 
@@ -145,7 +145,7 @@ resource "aws_route53_record" "cassy-cadvisor-dns-srv" {
   records = formatlist(
     "0 0 18080 %s.%s",
     aws_route53_record.cassy-dns.*.name,
-    "internal.scalar-labs.com.",
+    "${local.internal_root_dns}.",
   )
 }
 
@@ -159,6 +159,6 @@ resource "aws_route53_record" "cassy-node-exporter-dns-srv" {
   records = formatlist(
     "0 0 9100 %s.%s",
     aws_route53_record.cassy-dns.*.name,
-    "internal.scalar-labs.com.",
+    "${local.internal_root_dns}.",
   )
 }

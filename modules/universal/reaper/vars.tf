@@ -34,3 +34,6 @@ variable "enable_tdagent" {
   description = "A flag to install td-agent that forwards logs to the monitor host"
 }
 
+variable "internal_root_dns" {
+  description = "Set the reaper cass contact points"
+}

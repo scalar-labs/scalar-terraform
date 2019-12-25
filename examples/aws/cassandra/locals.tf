@@ -13,7 +13,8 @@ locals {
     key_name   = data.terraform_remote_state.network.outputs.key_name
     bastion_ip = data.terraform_remote_state.network.outputs.bastion_ip
 
-    private_key_path = data.terraform_remote_state.network.outputs.private_key_path
-    user_name        = data.terraform_remote_state.network.outputs.user_name
+    private_key_path  = data.terraform_remote_state.network.outputs.private_key_path
+    user_name         = data.terraform_remote_state.network.outputs.user_name
+    internal_root_dns = data.terraform_remote_state.network.outputs.internal_root_dns
   }
 }

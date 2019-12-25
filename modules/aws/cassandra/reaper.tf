@@ -38,6 +38,7 @@ module "reaper_provision" {
   provision_count    = local.reaper_resource_count
   replication_factor = local.reaper_repliation_factor
   enable_tdagent     = local.reaper_enable_tdagent
+  internal_root_dns  = local.internal_root_dns
 }
 
 resource "aws_security_group" "reaper" {
@@ -132,7 +133,7 @@ resource "aws_route53_record" "reaper-dns-srv" {
   records = formatlist(
     "0 0 8081 %s.%s",
     aws_route53_record.reaper-dns.*.name,
-    "internal.scalar-labs.com.",
+    "${local.internal_root_dns}.",
   )
 }
 
@@ -146,7 +147,7 @@ resource "aws_route53_record" "reaper-cadvisor-dns-srv" {
   records = formatlist(
     "0 0 18080 %s.%s",
     aws_route53_record.reaper-dns.*.name,
-    "internal.scalar-labs.com.",
+    "${local.internal_root_dns}.",
   )
 }
 
@@ -160,6 +161,6 @@ resource "aws_route53_record" "reaper-node-exporter-dns-srv" {
   records = formatlist(
     "0 0 9100 %s.%s",
     aws_route53_record.reaper-dns.*.name,
-    "internal.scalar-labs.com.",
+    "${local.internal_root_dns}.",
   )
 }

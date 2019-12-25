@@ -71,7 +71,7 @@ resource "null_resource" "reaper_container" {
       "export REAPER_JMX_AUTH_PASSWORD=",
       "export REAPER_STORAGE_TYPE=cassandra",
       "export CASSANDRA_REPLICATION_FACTOR=${var.replication_factor}",
-      "export REAPER_CASS_CONTACT_POINTS=cassandra-lb.internal.scalar-labs.com",
+      "export REAPER_CASS_CONTACT_POINTS=cassandra-lb.${var.internal_root_dns}",
       "j2 ./docker-compose.yml.j2 > ./docker-compose.yml",
       "docker-compose up -d",
     ]

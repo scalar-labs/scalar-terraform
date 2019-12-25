@@ -80,8 +80,8 @@ resource "aws_security_group_rule" "scalardl_ssh" {
 
 resource "aws_security_group_rule" "scalardl_target_port" {
   type        = "ingress"
-  from_port   = local.target_port
-  to_port     = local.target_port
+  from_port   = local.scalardl_target_port
+  to_port     = local.scalardl_target_port
   protocol    = "tcp"
   cidr_blocks = [local.scalardl_nlb_internal ? local.network_cidr : "0.0.0.0/0"]
   description = "Scalar DL Target Port"
@@ -91,8 +91,8 @@ resource "aws_security_group_rule" "scalardl_target_port" {
 
 resource "aws_security_group_rule" "scalardl_privileged_port" {
   type        = "ingress"
-  from_port   = local.privileged_target_port
-  to_port     = local.privileged_target_port
+  from_port   = local.scalardl_privileged_target_port
+  to_port     = local.scalardl_privileged_target_port
   protocol    = "tcp"
   cidr_blocks = [local.scalardl_nlb_internal ? local.network_cidr : "0.0.0.0/0"]
   description = "Scalar DL Privileged Port"

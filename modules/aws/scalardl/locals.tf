@@ -7,7 +7,7 @@ locals {
   location          = var.network.location
   subnet_id         = var.network.subnet_id
   image_id          = var.network.image_id
-  triggers          = var.network.triggers
+  triggers          = [var.network.triggers]
   key_name          = var.network.key_name
   bastion_ip        = var.network.bastion_ip
   private_key_path  = var.network.private_key_path

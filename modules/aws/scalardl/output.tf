@@ -27,13 +27,13 @@ output "scalardl_lb_arn" {
 }
 
 output "scalardl_blue_resource_count" {
-  value = local.blue_resource_count
+  value = local.scalardl_blue_resource_count
 }
 
 output "scalardl_green_resource_count" {
-  value = local.green_resource_count
+  value = local.scalardl_green_resource_count
 }
 
 output "scalardl_replication_factor" {
-  value = local.replication_factor
+  value = local.scalardl_replication_factor
 }

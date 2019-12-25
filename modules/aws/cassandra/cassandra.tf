@@ -188,6 +188,7 @@ resource "aws_security_group_rule" "cassandra_ssh" {
   to_port     = 22
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
+  description = "Cassandra SSH"
 
   security_group_id = aws_security_group.cassandra[count.index].id
 }
@@ -278,7 +279,7 @@ resource "aws_security_group_rule" "cassandra_node_exporter" {
   to_port     = 9100
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
-  description = "Prometheus Node Exporter"
+  description = "Cassandra Prometheus Node Exporter"
 
   security_group_id = aws_security_group.cassandra[count.index].id
 }

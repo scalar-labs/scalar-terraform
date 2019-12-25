@@ -59,6 +59,7 @@ resource "aws_security_group_rule" "cassy_ssh" {
   to_port     = 22
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
+  description = "Cassy SSH"
 
   security_group_id = aws_security_group.cassy[count.index].id
 }
@@ -71,6 +72,7 @@ resource "aws_security_group_rule" "cassy_cassandra" {
   to_port     = 20051
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
+  description = "Cassy Cassandra"
 
   security_group_id = aws_security_group.cassy[count.index].id
 }
@@ -83,6 +85,7 @@ resource "aws_security_group_rule" "cassy_node_expoter" {
   to_port     = 9100
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
+  description = "Cassy Prometheus Node Exporter"
 
   security_group_id = aws_security_group.cassy[count.index].id
 }
@@ -95,6 +98,7 @@ resource "aws_security_group_rule" "cassy_cadvisor" {
   to_port     = 18080
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
+  description = "Cassy cAdvisor"
 
   security_group_id = aws_security_group.cassy[count.index].id
 }
@@ -107,6 +111,7 @@ resource "aws_security_group_rule" "cassy_egress" {
   to_port     = 0
   protocol    = "all"
   cidr_blocks = ["0.0.0.0/0"]
+  description = "Cassy Egress"
 
   security_group_id = aws_security_group.cassy[count.index].id
 }

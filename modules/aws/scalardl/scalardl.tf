@@ -64,53 +64,71 @@ resource "aws_security_group" "scalardl" {
   tags = {
     Name = "${local.network_name} Scalar DL"
   }
+}
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-    self        = false
-  }
+resource "aws_security_group_rule" "scalardl_ssh" {
+  type        = "ingress"
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
 
-  ingress {
-    from_port   = local.target_port
-    to_port     = local.target_port
-    protocol    = "tcp"
-    cidr_blocks = [local.scalardl_nlb_internal ? local.network_cidr : "0.0.0.0/0"]
-    description = "Scalar DL Port"
-  }
+  security_group_id = aws_security_group.scalardl.id
+}
 
-  ingress {
-    from_port   = local.privileged_target_port
-    to_port     = local.privileged_target_port
-    protocol    = "tcp"
-    cidr_blocks = [local.scalardl_nlb_internal ? local.network_cidr : "0.0.0.0/0"]
-    description = "Scalar DL Privileged Port"
-  }
+resource "aws_security_group_rule" "scalardl_target_port" {
+  type        = "ingress"
+  from_port   = local.target_port
+  to_port     = local.target_port
+  protocol    = "tcp"
+  cidr_blocks = [local.scalardl_nlb_internal ? local.network_cidr : "0.0.0.0/0"]
+  description = "Scalar DL Target Port"
 
-  # Node Exporter
-  ingress {
-    from_port   = 9100
-    to_port     = 9100
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+  security_group_id = aws_security_group.scalardl.id
+}
 
-  # cAdvisor
-  ingress {
-    from_port   = 18080
-    to_port     = 18080
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+resource "aws_security_group_rule" "scalardl_privileged_port" {
+  type        = "ingress"
+  from_port   = local.privileged_target_port
+  to_port     = local.privileged_target_port
+  protocol    = "tcp"
+  cidr_blocks = [local.scalardl_nlb_internal ? local.network_cidr : "0.0.0.0/0"]
+  description = "Scalar DL Privileged Port"
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  security_group_id = aws_security_group.scalardl.id
+}
+
+resource "aws_security_group_rule" "scalardl_node_exporter" {
+  type        = "ingress"
+  from_port   = 9100
+  to_port     = 9100
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Scalar DL Prometheus Node Exporter"
+
+  security_group_id = aws_security_group.scalardl.id
+}
+
+resource "aws_security_group_rule" "scalardl_cadvisor" {
+  type        = "ingress"
+  from_port   = 18080
+  to_port     = 18080
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Scalar DL cAdvisor"
+
+  security_group_id = aws_security_group.scalardl.id
+}
+
+resource "aws_security_group_rule" "scalardl_egress" {
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "all"
+  cidr_blocks = ["0.0.0.0/0"]
+  description = "Scalar DL Egress"
+
+  security_group_id = aws_security_group.scalardl.id
 }
 
 resource "aws_lb" "scalardl-lb" {

@@ -62,4 +62,5 @@ module "bastion" {
   resource_root_volume_size = local.resource_root_volume_size
   bastion_access_cidr       = local.bastion_access_cidr
   enable_tdagent            = local.bastion_enable_tdagent
+  internal_root_dns         = var.internal_root_dns
 }

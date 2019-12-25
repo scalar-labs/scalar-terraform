@@ -94,6 +94,6 @@ resource "aws_route53_record" "node-exporter-dns-srv" {
   records = formatlist(
     "0 0 9100 %s.%s",
     aws_route53_record.bastion-dns.*.name,
-    "internal.scalar-labs.com.",
+    "${var.internal_root_dns}.",
   )
 }

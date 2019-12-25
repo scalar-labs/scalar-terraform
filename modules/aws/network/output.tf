@@ -71,9 +71,9 @@ StrictHostKeyChecking no
 
 Host bastion
 HostName ${module.bastion.bastion_host_ips[0]}
-LocalForward 8000 monitor.internal.scalar-labs.com:80
+LocalForward 8000 monitor.${var.internal_root_dns}:80
 
-Host *.internal.scalar-labs.com
+Host *.${var.internal_root_dns}
 ProxyCommand ssh -F ssh.cfg bastion -W %h:%p
 EOF
 }

@@ -64,22 +64,22 @@ locals {
 }
 
 locals {
-  resource_type             = local.scalardl.resource_type
-  resource_root_volume_size = local.scalardl.resource_root_volume_size
-  blue_resource_count       = local.scalardl.blue_resource_count
-  blue_image_tag            = local.scalardl.blue_image_tag
-  blue_image_name           = local.scalardl.blue_image_name
-  green_resource_count      = local.scalardl.green_resource_count
-  green_image_tag           = local.scalardl.green_image_tag
-  replication_factor        = local.scalardl.replication_factor
-  green_image_name          = local.scalardl.green_image_name
-  target_port               = local.scalardl.target_port
-  privileged_target_port    = local.scalardl.privileged_target_port
-  enable_nlb                = local.scalardl.enable_nlb
-  nlb_internal              = local.scalardl.nlb_internal
-  enable_tdagent            = local.scalardl.enable_tdagent
-  listen_port               = local.scalardl.listen_port
-  privileged_listen_port    = local.scalardl.privileged_listen_port
+  scalardl_resource_type             = local.scalardl.resource_type
+  scalardl_resource_root_volume_size = local.scalardl.resource_root_volume_size
+  scalardl_blue_resource_count       = local.scalardl.blue_resource_count
+  scalardl_blue_image_tag            = local.scalardl.blue_image_tag
+  scalardl_blue_image_name           = local.scalardl.blue_image_name
+  scalardl_green_resource_count      = local.scalardl.green_resource_count
+  scalardl_green_image_tag           = local.scalardl.green_image_tag
+  scalardl_replication_factor        = local.scalardl.replication_factor
+  scalardl_green_image_name          = local.scalardl.green_image_name
+  scalardl_target_port               = local.scalardl.target_port
+  scalardl_privileged_target_port    = local.scalardl.privileged_target_port
+  scalardl_enable_nlb                = local.scalardl.enable_nlb
+  scalardl_nlb_internal              = local.scalardl.nlb_internal
+  scalardl_enable_tdagent            = local.scalardl.enable_tdagent
+  scalardl_listen_port               = local.scalardl.listen_port
+  scalardl_privileged_listen_port    = local.scalardl.privileged_listen_port
 }
 
 

@@ -4,10 +4,10 @@ module "scalardl_blue" {
   bastion_ip         = local.bastion_ip
   network_name       = local.network_name
 
-  resource_type             = local.resource_type
-  resource_count            = local.blue_resource_count
+  resource_type             = local.scalardl_resource_type
+  resource_count            = local.scalardl_blue_resource_count
   resource_cluster_name     = "blue"
-  resource_root_volume_size = local.resource_root_volume_size
+  resource_root_volume_size = local.scalardl_resource_root_volume_size
   triggers                  = local.triggers
   private_key_path          = local.private_key_path
   user_name                 = local.user_name
@@ -15,16 +15,16 @@ module "scalardl_blue" {
   image_id                  = local.image_id
   key_name                  = local.key_name
   network_dns               = local.network_dns
-  scalardl_image_name       = local.blue_image_name
-  scalardl_image_tag        = local.blue_image_tag
-  enable_nlb                = local.enable_nlb
-  replication_factor        = local.replication_factor
-  enable_tdagent            = local.enable_tdagent
+  scalardl_image_name       = local.scalardl_blue_image_name
+  scalardl_image_tag        = local.scalardl_blue_image_tag
+  enable_nlb                = local.scalardl_enable_nlb
+  replication_factor        = local.scalardl_replication_factor
+  enable_tdagent            = local.scalardl_enable_tdagent
 
   target_group_arn                = aws_lb_target_group.scalardl-lb-target-group[0].arn
-  scalardl_target_port            = local.target_port
+  scalardl_target_port            = local.scalardl_target_port
   privileged_target_group_arn     = aws_lb_target_group.scalardl-privileged-lb-target-group[0].arn
-  scalardl_privileged_target_port = local.privileged_target_port
+  scalardl_privileged_target_port = local.scalardl_privileged_target_port
 }
 
 module "scalardl_green" {
@@ -33,10 +33,10 @@ module "scalardl_green" {
   bastion_ip         = local.bastion_ip
   network_name       = local.network_name
 
-  resource_type             = local.resource_type
-  resource_count            = local.green_resource_count
+  resource_type             = local.scalardl_resource_type
+  resource_count            = local.scalardl_green_resource_count
   resource_cluster_name     = "green"
-  resource_root_volume_size = local.resource_root_volume_size
+  resource_root_volume_size = local.scalardl_resource_root_volume_size
   triggers                  = local.triggers
   private_key_path          = local.private_key_path
   user_name                 = local.user_name
@@ -44,16 +44,16 @@ module "scalardl_green" {
   image_id                  = local.image_id
   key_name                  = local.key_name
   network_dns               = local.network_dns
-  scalardl_image_name       = local.green_image_name
-  scalardl_image_tag        = local.green_image_tag
-  enable_nlb                = local.enable_nlb
-  replication_factor        = local.replication_factor
-  enable_tdagent            = local.enable_tdagent
+  scalardl_image_name       = local.scalardl_green_image_name
+  scalardl_image_tag        = local.scalardl_green_image_tag
+  enable_nlb                = local.scalardl_enable_nlb
+  replication_factor        = local.scalardl_replication_factor
+  enable_tdagent            = local.scalardl_enable_tdagent
 
   target_group_arn                = aws_lb_target_group.scalardl-lb-target-group[0].arn
-  scalardl_target_port            = local.target_port
+  scalardl_target_port            = local.scalardl_target_port
   privileged_target_group_arn     = aws_lb_target_group.scalardl-privileged-lb-target-group[0].arn
-  scalardl_privileged_target_port = local.privileged_target_port
+  scalardl_privileged_target_port = local.scalardl_privileged_target_port
 }
 
 resource "aws_security_group" "scalardl" {
@@ -77,7 +77,7 @@ resource "aws_security_group" "scalardl" {
     from_port   = local.target_port
     to_port     = local.target_port
     protocol    = "tcp"
-    cidr_blocks = [local.nlb_internal ? local.network_cidr : "0.0.0.0/0"]
+    cidr_blocks = [local.scalardl_nlb_internal ? local.network_cidr : "0.0.0.0/0"]
     description = "Scalar DL Port"
   }
 
@@ -85,7 +85,7 @@ resource "aws_security_group" "scalardl" {
     from_port   = local.privileged_target_port
     to_port     = local.privileged_target_port
     protocol    = "tcp"
-    cidr_blocks = [local.nlb_internal ? local.network_cidr : "0.0.0.0/0"]
+    cidr_blocks = [local.scalardl_nlb_internal ? local.network_cidr : "0.0.0.0/0"]
     description = "Scalar DL Privileged Port"
   }
 
@@ -114,9 +114,9 @@ resource "aws_security_group" "scalardl" {
 }
 
 resource "aws_lb" "scalardl-lb" {
-  count              = local.enable_nlb ? 1 : 0
+  count              = local.scalardl_enable_nlb ? 1 : 0
   name               = "${local.network_name}-scalardl-lb"
-  internal           = local.nlb_internal
+  internal           = local.scalardl_nlb_internal
   load_balancer_type = "network"
   subnets            = [local.nlb_subnet_id]
 
@@ -124,9 +124,9 @@ resource "aws_lb" "scalardl-lb" {
 }
 
 resource "aws_lb_target_group" "scalardl-lb-target-group" {
-  count    = local.enable_nlb ? 1 : 0
+  count    = local.scalardl_enable_nlb ? 1 : 0
   name     = "${local.network_name}-scalardl-tg"
-  port     = local.target_port
+  port     = local.scalardl_target_port
   protocol = "TCP"
   vpc_id   = local.network_id
 
@@ -139,9 +139,9 @@ resource "aws_lb_target_group" "scalardl-lb-target-group" {
 }
 
 resource "aws_lb_target_group" "scalardl-privileged-lb-target-group" {
-  count    = local.enable_nlb ? 1 : 0
+  count    = local.scalardl_enable_nlb ? 1 : 0
   name     = "${local.network_name}-scalardl-pr-tg"
-  port     = local.privileged_target_port
+  port     = local.scalardl_privileged_target_port
   protocol = "TCP"
   vpc_id   = local.network_id
 
@@ -154,9 +154,9 @@ resource "aws_lb_target_group" "scalardl-privileged-lb-target-group" {
 }
 
 resource "aws_lb_listener" "scalardl-lb-listener" {
-  count             = local.enable_nlb ? 1 : 0
+  count             = local.scalardl_enable_nlb ? 1 : 0
   load_balancer_arn = aws_lb.scalardl-lb[0].arn
-  port              = local.listen_port
+  port              = local.scalardl_listen_port
   protocol          = "TCP"
 
   default_action {
@@ -166,9 +166,9 @@ resource "aws_lb_listener" "scalardl-lb-listener" {
 }
 
 resource "aws_lb_listener" "scalardl-privileged-lb-listener" {
-  count             = local.enable_nlb ? 1 : 0
+  count             = local.scalardl_enable_nlb ? 1 : 0
   load_balancer_arn = aws_lb.scalardl-lb[0].arn
-  port              = local.privileged_listen_port
+  port              = local.scalardl_privileged_listen_port
   protocol          = "TCP"
 
   default_action {
@@ -178,7 +178,7 @@ resource "aws_lb_listener" "scalardl-privileged-lb-listener" {
 }
 
 resource "aws_route53_record" "scalardl-dns-lb" {
-  count   = local.enable_nlb ? 1 : 0
+  count   = local.scalardl_enable_nlb ? 1 : 0
   zone_id = local.network_dns
   name    = "scalar-lb"
   type    = "A"
@@ -191,7 +191,7 @@ resource "aws_route53_record" "scalardl-dns-lb" {
 }
 
 resource "aws_route53_record" "scalardl-blue-dns" {
-  count   = local.blue_resource_count
+  count   = local.scalardl_blue_resource_count
   zone_id = local.network_dns
   name    = "scalardl-blue-${count.index + 1}"
   type    = "A"
@@ -200,7 +200,7 @@ resource "aws_route53_record" "scalardl-blue-dns" {
 }
 
 resource "aws_route53_record" "scalardl-green-dns" {
-  count   = local.green_resource_count
+  count   = local.scalardl_green_resource_count
   zone_id = local.network_dns
   name    = "scalardl-green-${count.index + 1}"
   type    = "A"
@@ -209,7 +209,7 @@ resource "aws_route53_record" "scalardl-green-dns" {
 }
 
 resource "aws_route53_record" "scalardl-blue-cadvisor-dns-srv" {
-  count = local.blue_resource_count > 0 ? 1 : 0
+  count = local.scalardl_blue_resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_cadvisor._tcp.scalardl-blue"
@@ -223,7 +223,7 @@ resource "aws_route53_record" "scalardl-blue-cadvisor-dns-srv" {
 }
 
 resource "aws_route53_record" "scalardl-green-cadvisor-dns-srv" {
-  count = local.green_resource_count > 0 ? 1 : 0
+  count = local.scalardl_green_resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_cadvisor._tcp.scalardl-green"
@@ -237,7 +237,7 @@ resource "aws_route53_record" "scalardl-green-cadvisor-dns-srv" {
 }
 
 resource "aws_route53_record" "scalardl-blue-node-exporter-dns-srv" {
-  count = local.blue_resource_count > 0 ? 1 : 0
+  count = local.scalardl_blue_resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.scalardl-blue"
@@ -251,7 +251,7 @@ resource "aws_route53_record" "scalardl-blue-node-exporter-dns-srv" {
 }
 
 resource "aws_route53_record" "scalardl-green-node-exporter-dns-srv" {
-  count = local.green_resource_count > 0 ? 1 : 0
+  count = local.scalardl_green_resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.scalardl-green"
@@ -265,10 +265,10 @@ resource "aws_route53_record" "scalardl-green-node-exporter-dns-srv" {
 }
 
 resource "aws_route53_record" "scalardl-service-dns-srv" {
-  count   = local.green_resource_count > 0 || local.blue_resource_count > 0 ? 1 : 0
+  count   = local.scalardl_green_resource_count > 0 || local.scalardl_blue_resource_count > 0 ? 1 : 0
   zone_id = local.network_dns
   name    = "_scalardl._tcp.scalardl-service"
   type    = "SRV"
   ttl     = "300"
-  records = formatlist("0 0 %s %s.%s", local.target_port, concat(aws_route53_record.scalardl-blue-dns.*.name, aws_route53_record.scalardl-green-dns.*.name), "internal.scalar-labs.com.")
+  records = formatlist("0 0 %s %s.%s", local.scalardl_target_port, concat(aws_route53_record.scalardl-blue-dns.*.name, aws_route53_record.scalardl-green-dns.*.name), "internal.scalar-labs.com.")
 }

@@ -3,10 +3,10 @@ module "cassandra_cluster" {
   version = "~> 2.0"
 
   name           = "${local.network_name} Cassandra Cluster"
-  instance_count = local.resource_count
+  instance_count = local.cassandra_resource_count
 
   ami                         = local.image_id
-  instance_type               = local.resource_type
+  instance_type               = local.cassandra_resource_type
   key_name                    = local.key_name
   monitoring                  = false
   vpc_security_group_ids      = aws_security_group.cassandra.*.id
@@ -21,7 +21,7 @@ module "cassandra_cluster" {
 
   root_block_device = [
     {
-      volume_size           = local.resource_root_volume_size
+      volume_size           = local.cassandra_resource_root_volume_size
       delete_on_termination = true
       volume_type           = "gp2"
     },
@@ -29,15 +29,15 @@ module "cassandra_cluster" {
 }
 
 resource "aws_ebs_volume" "cassandra_data_volume" {
-  count = local.enable_data_volume && false == local.data_use_local_volume ? local.resource_count : 0
+  count = local.cassandra_enable_data_volume && false == local.cassandra_data_use_local_volume ? local.cassandra_resource_count : 0
 
   availability_zone = local.location
-  size              = local.data_remote_volume_size
-  type              = local.data_remote_volume_type
+  size              = local.cassandra_data_remote_volume_size
+  type              = local.cassandra_data_remote_volume_type
 }
 
 resource "aws_volume_attachment" "cassandra_data_volume_attachment" {
-  count = local.enable_data_volume && false == local.data_use_local_volume ? local.resource_count : 0
+  count = local.cassandra_enable_data_volume && false == local.cassandra_data_use_local_volume ? local.cassandra_resource_count : 0
 
   device_name = "/dev/xvdh"
   volume_id   = aws_ebs_volume.cassandra_data_volume[count.index].id
@@ -47,7 +47,7 @@ resource "aws_volume_attachment" "cassandra_data_volume_attachment" {
 }
 
 resource "null_resource" "volume_data" {
-  count = local.enable_data_volume && false == local.data_use_local_volume ? local.resource_count : 0
+  count = local.cassandra_enable_data_volume && false == local.cassandra_data_use_local_volume ? local.cassandra_resource_count : 0
 
   triggers = {
     triggers = module.cassandra_cluster[count.index].id
@@ -69,7 +69,7 @@ resource "null_resource" "volume_data" {
 }
 
 resource "null_resource" "volume_data_local" {
-  count = local.enable_data_volume && local.data_use_local_volume ? local.resource_count : 0
+  count = local.cassandra_enable_data_volume && local.cassandra_data_use_local_volume ? local.cassandra_resource_count : 0
 
   triggers = {
     triggers = module.cassandra_cluster[count.index].id
@@ -91,15 +91,15 @@ resource "null_resource" "volume_data_local" {
 }
 
 resource "aws_ebs_volume" "cassandra_commitlog_volume" {
-  count = local.enable_commitlog_volume && false == local.commitlog_use_local_volume ? local.resource_count : 0
+  count = local.cassandra_enable_commitlog_volume && false == local.cassandra_commitlog_use_local_volume ? local.cassandra_resource_count : 0
 
   availability_zone = local.location
-  size              = local.commitlog_remote_volume_size
-  type              = local.commitlog_remote_volume_type
+  size              = local.cassandra_commitlog_remote_volume_size
+  type              = local.cassandra_commitlog_remote_volume_type
 }
 
 resource "aws_volume_attachment" "cassandra_commitlog_volume_attachment" {
-  count = local.enable_commitlog_volume && false == local.commitlog_use_local_volume ? local.resource_count : 0
+  count = local.cassandra_enable_commitlog_volume && false == local.cassandra_commitlog_use_local_volume ? local.cassandra_resource_count : 0
 
   device_name = "/dev/xvdi"
   volume_id   = aws_ebs_volume.cassandra_commitlog_volume[count.index].id
@@ -109,7 +109,7 @@ resource "aws_volume_attachment" "cassandra_commitlog_volume_attachment" {
 }
 
 resource "null_resource" "volume_commitlog" {
-  count = local.enable_commitlog_volume && false == local.commitlog_use_local_volume ? local.resource_count : 0
+  count = local.cassandra_enable_commitlog_volume && false == local.cassandra_commitlog_use_local_volume ? local.cassandra_resource_count : 0
 
   triggers = {
     triggers = module.cassandra_cluster[count.index].id
@@ -131,7 +131,7 @@ resource "null_resource" "volume_commitlog" {
 }
 
 resource "null_resource" "volume_commitlog_local" {
-  count = local.enable_commitlog_volume && local.commitlog_use_local_volume ? local.resource_count : 0
+  count = local.cassandra_enable_commitlog_volume && local.cassandra_commitlog_use_local_volume ? local.cassandra_resource_count : 0
 
   triggers = {
     triggers = module.cassandra_cluster[count.index].id
@@ -158,18 +158,18 @@ module "cassandra_provision" {
   triggers              = local.triggers
   bastion_host_ip       = local.bastion_ip
   host_list             = module.cassandra_cluster.private_ip
-  host_seed_list        = local.resource_count > 0 ? slice(module.cassandra_cluster.private_ip, 0, min(local.resource_count, 3)) : []
+  host_seed_list        = local.cassandra_resource_count > 0 ? slice(module.cassandra_cluster.private_ip, 0, min(local.cassandra_resource_count, 3)) : []
   user_name             = local.user_name
   private_key_path      = local.private_key_path
-  provision_count       = local.resource_count
-  enable_tdagent        = local.enable_tdagent
-  memtable_threshold    = local.memtable_threshold
+  provision_count       = local.cassandra_resource_count
+  enable_tdagent        = local.cassandra_enable_tdagent
+  memtable_threshold    = local.cassandra_memtable_threshold
   cassy_public_key      = module.cassy_provision.public_key
-  start_on_initial_boot = local.start_on_initial_boot
+  start_on_initial_boot = local.cassandra_start_on_initial_boot
 }
 
 resource "aws_security_group" "cassandra" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   name        = "${local.network_name}-cassandra-nodes"
   description = "Cassandra nodes"
@@ -181,7 +181,7 @@ resource "aws_security_group" "cassandra" {
 }
 
 resource "aws_security_group_rule" "cassandra_ssh" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   type        = "ingress"
   from_port   = 22
@@ -193,7 +193,7 @@ resource "aws_security_group_rule" "cassandra_ssh" {
 }
 
 resource "aws_security_group_rule" "cassandra_jmx" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   type        = "ingress"
   from_port   = 7199
@@ -206,7 +206,7 @@ resource "aws_security_group_rule" "cassandra_jmx" {
 }
 
 resource "aws_security_group_rule" "cassandra_jmx_self" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   type        = "ingress"
   from_port   = 7199
@@ -219,7 +219,7 @@ resource "aws_security_group_rule" "cassandra_jmx_self" {
 }
 
 resource "aws_security_group_rule" "cassandra_internode" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   type        = "ingress"
   from_port   = 7000
@@ -232,7 +232,7 @@ resource "aws_security_group_rule" "cassandra_internode" {
 }
 
 resource "aws_security_group_rule" "cassandra_cql" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   type        = "ingress"
   from_port   = 9042
@@ -245,7 +245,7 @@ resource "aws_security_group_rule" "cassandra_cql" {
 }
 
 resource "aws_security_group_rule" "cassandra_cql_self" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   type        = "ingress"
   from_port   = 9042
@@ -258,7 +258,7 @@ resource "aws_security_group_rule" "cassandra_cql_self" {
 }
 
 resource "aws_security_group_rule" "cassandra_exporter" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   type        = "ingress"
   from_port   = 7070
@@ -271,7 +271,7 @@ resource "aws_security_group_rule" "cassandra_exporter" {
 }
 
 resource "aws_security_group_rule" "cassandra_node_exporter" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   type        = "ingress"
   from_port   = 9100
@@ -284,7 +284,7 @@ resource "aws_security_group_rule" "cassandra_node_exporter" {
 }
 
 resource "aws_security_group_rule" "cassandra_egress" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   type        = "egress"
   from_port   = 0
@@ -296,7 +296,7 @@ resource "aws_security_group_rule" "cassandra_egress" {
 }
 
 resource "aws_route53_record" "cassandra-dns-lb" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   zone_id = local.network_dns
   name    = "cassandra-lb"
@@ -306,7 +306,7 @@ resource "aws_route53_record" "cassandra-dns-lb" {
 }
 
 resource "aws_route53_record" "cassandra-dns" {
-  count   = local.resource_count
+  count   = local.cassandra_resource_count
 
   zone_id = local.network_dns
   name    = "cassandra-${count.index + 1}"
@@ -316,7 +316,7 @@ resource "aws_route53_record" "cassandra-dns" {
 }
 
 resource "aws_route53_record" "cassandra-exporter-dns-srv" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   zone_id = local.network_dns
   name    = "_cassandra-exporter._tcp.cassandra"
@@ -330,7 +330,7 @@ resource "aws_route53_record" "cassandra-exporter-dns-srv" {
 }
 
 resource "aws_route53_record" "node-exporter-dns-srv" {
-  count = local.create_count
+  count = local.cassandra_create_count
 
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.cassandra"

@@ -80,21 +80,21 @@ locals {
 }
 
 locals {
-  resource_type                = local.cassandra.resource_type
-  resource_count               = local.cassandra.resource_count
-  resource_root_volume_size    = local.cassandra.resource_root_volume_size
-  enable_data_volume           = local.cassandra.enable_data_volume
-  data_use_local_volume        = local.cassandra.data_use_local_volume
-  data_remote_volume_size      = local.cassandra.data_remote_volume_size
-  enable_commitlog_volume      = local.cassandra.enable_commitlog_volume
-  commitlog_use_local_volume   = local.cassandra.commitlog_use_local_volume
-  commitlog_remote_volume_size = local.cassandra.commitlog_remote_volume_size
-  memtable_threshold           = local.cassandra.memtable_threshold
-  data_remote_volume_type      = local.cassandra.data_remote_volume_type
-  commitlog_remote_volume_type = local.cassandra.commitlog_remote_volume_type
-  enable_tdagent               = local.cassandra.enable_tdagent
-  start_on_initial_boot        = local.cassandra.start_on_initial_boot
-  create_count                 = local.resource_count > 0 ? 1 : 0
+  cassandra_resource_type                = local.cassandra.resource_type
+  cassandra_resource_count               = local.cassandra.resource_count
+  cassandra_resource_root_volume_size    = local.cassandra.resource_root_volume_size
+  cassandra_enable_data_volume           = local.cassandra.enable_data_volume
+  cassandra_data_use_local_volume        = local.cassandra.data_use_local_volume
+  cassandra_data_remote_volume_size      = local.cassandra.data_remote_volume_size
+  cassandra_enable_commitlog_volume      = local.cassandra.enable_commitlog_volume
+  cassandra_commitlog_use_local_volume   = local.cassandra.commitlog_use_local_volume
+  cassandra_commitlog_remote_volume_size = local.cassandra.commitlog_remote_volume_size
+  cassandra_memtable_threshold           = local.cassandra.memtable_threshold
+  cassandra_data_remote_volume_type      = local.cassandra.data_remote_volume_type
+  cassandra_commitlog_remote_volume_type = local.cassandra.commitlog_remote_volume_type
+  cassandra_enable_tdagent               = local.cassandra.enable_tdagent
+  cassandra_start_on_initial_boot        = local.cassandra.start_on_initial_boot
+  cassandra_create_count                 = local.cassandra_resource_count > 0 ? 1 : 0
 }
 
 ### cassy

@@ -81,6 +81,8 @@ locals {
   scalardl_enable_tdagent            = local.scalardl.enable_tdagent
   scalardl_listen_port               = local.scalardl.listen_port
   scalardl_privileged_listen_port    = local.scalardl.privileged_listen_port
+
+  scalardl_create_count = local.scalardl_green_resource_count > 0 || local.scalardl_blue_resource_count > 0 ? 1 : 0
 }
 
 
@@ -142,4 +144,5 @@ locals {
   envoy_tls                       = local.envoy.tls
   envoy_cert_auto_gen             = local.envoy.cert_auto_gen
   envoy_custom_config_path        = local.envoy.custom_config_path
+  envoy_create_count              = local.envoy_resource_count > 0 ? 1 : 0
 }

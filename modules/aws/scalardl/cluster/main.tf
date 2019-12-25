@@ -48,6 +48,7 @@ module "scalardl_provision" {
 
 resource "aws_lb_target_group_attachment" "scalardl-target-group-attachments" {
   count            = var.enable_nlb ? var.resource_count : 0
+
   target_group_arn = var.target_group_arn
   target_id        = module.scalardl_cluster.id[count.index]
   port             = var.scalardl_target_port
@@ -59,6 +60,7 @@ resource "aws_lb_target_group_attachment" "scalardl-target-group-attachments" {
 
 resource "aws_lb_target_group_attachment" "scalardl-privileged-target-group-attachments" {
   count            = var.enable_nlb ? var.resource_count : 0
+
   target_group_arn = var.privileged_target_group_arn
   target_id        = module.scalardl_cluster.id[count.index]
   port             = var.scalardl_privileged_target_port
@@ -70,6 +72,7 @@ resource "aws_lb_target_group_attachment" "scalardl-privileged-target-group-atta
 
 resource "aws_route53_record" "scalardl-dns" {
   count   = var.resource_count
+
   zone_id = var.network_dns
   name    = "scalar-${var.resource_cluster_name}-${count.index + 1}"
   type    = "A"

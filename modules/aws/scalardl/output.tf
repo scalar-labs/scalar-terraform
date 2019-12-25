@@ -15,7 +15,7 @@ output "green_scalardl_ips" {
 }
 
 output "scalardl_security_id" {
-  value = aws_security_group.scalardl.id
+  value = aws_security_group.scalardl.*.id
 }
 
 output "scalardl_lb_dns" {

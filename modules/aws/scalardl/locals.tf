@@ -86,7 +86,7 @@ locals {
 ### envoy
 locals {
   envoy_default = {
-    resource_type             = "t3.large"
+    resource_type             = "t3.medium"
     resource_count            = 3
     resource_root_volume_size = 64
     target_port               = 50051
@@ -109,23 +109,11 @@ locals {
   envoy_base = {
     default = local.envoy_default
 
-    bai = merge(local.envoy_default,
-      {
-        resource_type             = "t3.medium"
-      }
-    )
+    bai = merge(local.envoy_default, {})
 
-    chiku = merge(local.envoy_default,
-      {
-        resource_type             = "t3.medium"
-      }
-    )
+    chiku = merge(local.envoy_default, {})
 
-    sho = merge(local.envoy_default,
-      {
-        resource_type             = "t3.medium"
-      }
-    )
+    sho = merge(local.envoy_default, {})
   }
 }
 

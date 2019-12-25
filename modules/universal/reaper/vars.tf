@@ -35,5 +35,5 @@ variable "enable_tdagent" {
 }
 
 variable "internal_root_dns" {
-  description = "Set the reaper cass contact points"
+  description = "Internal root dns"
 }

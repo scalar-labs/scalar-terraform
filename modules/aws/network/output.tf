@@ -58,6 +58,10 @@ output "private_key_path" {
   value = abspath(var.private_key_path)
 }
 
+output "internal_root_dns" {
+  value = var.internal_root_dns
+}
+
 output "ssh_config" {
   value = <<EOF
 Host *

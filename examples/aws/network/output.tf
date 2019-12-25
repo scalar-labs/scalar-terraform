@@ -46,7 +46,6 @@ output "private_key_path" {
   value = module.scalar-network.private_key_path
 }
 
-
 output "ssh_config" {
   value = module.scalar-network.ssh_config
 }
@@ -61,4 +60,8 @@ output "scalardl_blue_subnet_id" {
 
 output "scalardl_green_subnet_id" {
   value = module.scalar-network.scalardl_green_subnet_id
+}
+
+output "internal_root_dns" {
+  value = module.scalar-network.internal_root_dns
 }

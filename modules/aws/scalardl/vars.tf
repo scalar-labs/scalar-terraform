@@ -4,13 +4,16 @@ variable "base" {
 }
 
 variable "network" {
+  type    = map
   default = {}
 }
 
 variable "scalardl" {
+  type    = map
   default = {}
 }
 
 variable "envoy" {
+  type    = map
   default = {}
 }

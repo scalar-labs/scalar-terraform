@@ -20,6 +20,7 @@ module "scalardl_blue" {
   enable_nlb                = local.scalardl_enable_nlb
   replication_factor        = local.scalardl_replication_factor
   enable_tdagent            = local.scalardl_enable_tdagent
+  internal_root_dns         = local.internal_root_dns
 
   target_group_arn                = aws_lb_target_group.scalardl-lb-target-group[0].arn
   scalardl_target_port            = local.scalardl_target_port
@@ -49,6 +50,7 @@ module "scalardl_green" {
   enable_nlb                = local.scalardl_enable_nlb
   replication_factor        = local.scalardl_replication_factor
   enable_tdagent            = local.scalardl_enable_tdagent
+  internal_root_dns         = local.internal_root_dns
 
   target_group_arn                = aws_lb_target_group.scalardl-lb-target-group[0].arn
   scalardl_target_port            = local.scalardl_target_port
@@ -236,7 +238,7 @@ resource "aws_route53_record" "scalardl-blue-cadvisor-dns-srv" {
   records = formatlist(
     "0 0 18080 %s.%s",
     aws_route53_record.scalardl-blue-dns.*.name,
-    "internal.scalar-labs.com.",
+    "${local.internal_root_dns}.",
   )
 }
 
@@ -250,7 +252,7 @@ resource "aws_route53_record" "scalardl-green-cadvisor-dns-srv" {
   records = formatlist(
     "0 0 18080 %s.%s",
     aws_route53_record.scalardl-green-dns.*.name,
-    "internal.scalar-labs.com.",
+    "${local.internal_root_dns}.",
   )
 }
 
@@ -264,7 +266,7 @@ resource "aws_route53_record" "scalardl-blue-node-exporter-dns-srv" {
   records = formatlist(
     "0 0 9100 %s.%s",
     aws_route53_record.scalardl-blue-dns.*.name,
-    "internal.scalar-labs.com.",
+    "${local.internal_root_dns}.",
   )
 }
 
@@ -278,7 +280,7 @@ resource "aws_route53_record" "scalardl-green-node-exporter-dns-srv" {
   records = formatlist(
     "0 0 9100 %s.%s",
     aws_route53_record.scalardl-green-dns.*.name,
-    "internal.scalar-labs.com.",
+    "${local.internal_root_dns}.",
   )
 }
 
@@ -288,5 +290,10 @@ resource "aws_route53_record" "scalardl-service-dns-srv" {
   name    = "_scalardl._tcp.scalardl-service"
   type    = "SRV"
   ttl     = "300"
-  records = formatlist("0 0 %s %s.%s", local.scalardl_target_port, concat(aws_route53_record.scalardl-blue-dns.*.name, aws_route53_record.scalardl-green-dns.*.name), "internal.scalar-labs.com.")
+  records = formatlist(
+    "0 0 %s %s.%s",
+    local.scalardl_target_port,
+    concat(aws_route53_record.scalardl-blue-dns.*.name, aws_route53_record.scalardl-green-dns.*.name),
+    "${local.internal_root_dns}."
+  )
 }

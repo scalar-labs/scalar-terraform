@@ -1,12 +1,12 @@
 module "scalardl" {
-  source = "git@github.com:scalar-labs/scalardl-orchestration.git//modules/aws/scalardl?ref=feature/separate-cassandra-module-for-s3"
+  source = "git@github.com:scalar-labs/scalardl-terraform.git//modules/aws/scalardl?ref=master"
+  #source = "../../../modules/aws/scalardl"
 
-  # remote state vars
+  # Required Variables (Use network remote state)
   network = local.network
 
-  base = var.base
-
+  # Optional Variables
+  base     = var.base
   scalardl = var.scalardl
-
-  envoy = var.envoy
+  envoy    = var.envoy
 }

@@ -1,5 +1,6 @@
 module "monitor" {
-  source = "git@github.com:scalar-labs/scalardl-orchestration.git//modules/aws/monitor?ref=feature/separate-cassandra-module-for-s3"
+  source = "git@github.com:scalar-labs/scalardl-terraform.git//modules/aws/monitor?ref=master"
+  #source = "../../../modules/aws/monitor"
 
   # Required Variables (Use remote state)
   network   = local.network

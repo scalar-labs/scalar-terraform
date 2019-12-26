@@ -12,14 +12,12 @@ locals {
   bastion_ip       = var.network.bastion_ip
   private_key_path = var.network.private_key_path
   user_name        = var.network.user_name
+  triggers         = [var.network.bastion_provision_id]
 
-  triggers = var.network.bastion_provision_id
-
-  cassandra_resource_count = var.cassandra.cassandra_resource_count
-
-  scalardl_blue_resource_count  = var.scalardl.scalardl_blue_resource_count
-  scalardl_green_resource_count = var.scalardl.scalardl_green_resource_count
-  scalardl_replication_factor   = var.scalardl.scalardl_replication_factor
+  cassandra_resource_count      = var.cassandra.resource_count
+  scalardl_blue_resource_count  = var.scalardl.blue_resource_count
+  scalardl_green_resource_count = var.scalardl.green_resource_count
+  scalardl_replication_factor   = var.scalardl.replication_factor
 }
 
 ### default
@@ -60,16 +58,4 @@ locals {
     local.monitor_base[var.base],
     var.monitor
   )
-}
-
-locals {
-  resource_type             = local.monitor.resource_type
-  resource_count            = local.monitor.resource_count
-  resource_root_volume_size = local.monitor.resource_root_volume_size
-  enable_log_volume         = local.monitor.enable_log_volume
-  log_volume_size           = local.monitor.log_volume_size
-  log_volume_type           = local.monitor.log_volume_type
-  #replication_factor        = local.monitor.replication_factor
-
-  enable_tdagent = local.monitor.enable_tdagent
 }

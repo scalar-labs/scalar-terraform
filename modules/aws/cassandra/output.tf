@@ -1,5 +1,5 @@
-output "cassandra_provision_id" {
-  value = module.cassandra_provision.provision_id
+output "cassandra_provision_ids" {
+  value = module.cassandra_provision.provision_ids
 }
 
 output "cassandra_host_ips" {

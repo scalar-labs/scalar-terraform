@@ -1,6 +1,6 @@
 # General Settings
 variable "region" {
-  defualt = "ap-northeast-1"
+  default = "ap-northeast-1"
 }
 
 variable "base" {

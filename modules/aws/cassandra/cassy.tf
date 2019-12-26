@@ -64,7 +64,7 @@ resource "aws_security_group_rule" "cassy_ssh" {
   security_group_id = aws_security_group.cassy[count.index].id
 }
 
-resource "aws_security_group_rule" "cassy_cassandra" {
+resource "aws_security_group_rule" "cassy_grpc" {
   count = local.cassy_create_count
 
   type        = "ingress"
@@ -72,7 +72,7 @@ resource "aws_security_group_rule" "cassy_cassandra" {
   to_port     = 20051
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
-  description = "Cassy Cassandra"
+  description = "Cassy GRPC"
 
   security_group_id = aws_security_group.cassy[count.index].id
 }

@@ -1,14 +1,18 @@
 # General Settings
-variable "region" {}
+variable "region" {
+  default = "ap-northeast-1"
+}
 
 variable "base" {
   default = "default"
 }
 
 variable "scalardl" {
-  type = map
+  type    = map
+  default = {}
 }
 
 variable "envoy" {
-  type = map
+  type    = map
+  default = {}
 }

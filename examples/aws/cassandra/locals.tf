@@ -8,10 +8,10 @@ locals {
 
     subnet_id = data.terraform_remote_state.network.outputs.cassandra_subnet_id
     image_id  = data.terraform_remote_state.network.outputs.image_id
-    triggers  = data.terraform_remote_state.network.outputs.bastion_provision_id
+    key_name  = data.terraform_remote_state.network.outputs.key_name
 
-    key_name   = data.terraform_remote_state.network.outputs.key_name
-    bastion_ip = data.terraform_remote_state.network.outputs.bastion_ip
+    bastion_ip           = data.terraform_remote_state.network.outputs.bastion_ip
+    bastion_provision_id = data.terraform_remote_state.network.outputs.bastion_provision_id
 
     private_key_path  = data.terraform_remote_state.network.outputs.private_key_path
     user_name         = data.terraform_remote_state.network.outputs.user_name

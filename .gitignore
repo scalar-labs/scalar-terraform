@@ -16,3 +16,6 @@
 
 .DS_Store
 *.tar.gz
+
+# SSH cfg
+*.cfg

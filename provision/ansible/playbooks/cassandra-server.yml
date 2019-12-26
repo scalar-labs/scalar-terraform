@@ -1,0 +1,19 @@
+---
+- name: Common
+  hosts: all
+  roles:
+    - 'common'
+    - role: td-agent
+      when: enable_tdagent is undefined or enable_tdagent == '1'
+  vars:
+    tdagent_conf_copy: files/cassandra-server/td-agent.conf
+  gather_facts: no
+  become: yes
+
+- name: Cassandra
+  hosts: all
+  roles:
+    - 'java'
+    - 'cassandra'
+  gather_facts: yes
+  become: yes

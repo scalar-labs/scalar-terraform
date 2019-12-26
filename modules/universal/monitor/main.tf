@@ -74,7 +74,7 @@ resource "null_resource" "monitor_container" {
     inline = [
       "cd $HOME/provision",
       "export slack_webhook_url=${var.slack_webhook_url}",
-      "export alertmanager_url=monitor.internal.scalar-labs.com:9093",
+      "export alertmanager_url=monitor.${var.internal_root_dns}:9093",
       "export environment_name=${var.network_name}",
       "export scalardl_blue_resource_count=${var.scalardl_blue_resource_count}",
       "export scalardl_green_resource_count=${var.scalardl_green_resource_count}",

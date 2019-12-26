@@ -12,7 +12,8 @@ locals {
   private_key_path  = var.network.private_key_path
   user_name         = var.network.user_name
   internal_root_dns = var.network.internal_root_dns
-  triggers          = [var.network.bastion_provision_id]
+
+  triggers = [var.network.bastion_provision_id]
 }
 
 ### cassandra
@@ -78,24 +79,8 @@ locals {
     local.cassandra_base[var.base],
     var.cassandra
   )
-}
 
-locals {
-  cassandra_resource_type                = local.cassandra.resource_type
-  cassandra_resource_count               = local.cassandra.resource_count
-  cassandra_resource_root_volume_size    = local.cassandra.resource_root_volume_size
-  cassandra_enable_data_volume           = local.cassandra.enable_data_volume
-  cassandra_data_use_local_volume        = local.cassandra.data_use_local_volume
-  cassandra_data_remote_volume_size      = local.cassandra.data_remote_volume_size
-  cassandra_enable_commitlog_volume      = local.cassandra.enable_commitlog_volume
-  cassandra_commitlog_use_local_volume   = local.cassandra.commitlog_use_local_volume
-  cassandra_commitlog_remote_volume_size = local.cassandra.commitlog_remote_volume_size
-  cassandra_memtable_threshold           = local.cassandra.memtable_threshold
-  cassandra_data_remote_volume_type      = local.cassandra.data_remote_volume_type
-  cassandra_commitlog_remote_volume_type = local.cassandra.commitlog_remote_volume_type
-  cassandra_enable_tdagent               = local.cassandra.enable_tdagent
-  cassandra_start_on_initial_boot        = local.cassandra.start_on_initial_boot
-  cassandra_create_count                 = local.cassandra_resource_count > 0 ? 1 : 0
+  cassandra_create_count = local.cassandra.resource_count > 0 ? 1 : 0
 }
 
 ### cassy
@@ -125,14 +110,8 @@ locals {
     local.cassy_base[var.base],
     var.cassy
   )
-}
 
-locals {
-  cassy_resource_type             = local.cassy.resource_type
-  cassy_resource_count            = local.cassy.resource_count
-  cassy_resource_root_volume_size = local.cassy.resource_root_volume_size
-  cassy_enable_tdagent            = local.cassy.enable_tdagent
-  cassy_create_count              = local.cassy_resource_count > 0 ? 1 : 0
+  cassy_create_count = local.cassy.resource_count > 0 ? 1 : 0
 }
 
 ### reaper
@@ -163,13 +142,6 @@ locals {
     local.reaper_base[var.base],
     var.reaper
   )
-}
 
-locals {
-  reaper_resource_type             = local.reaper.resource_type
-  reaper_resource_root_volume_size = local.reaper.resource_root_volume_size
-  reaper_repliation_factor         = local.reaper.repliation_factor
-  reaper_resource_count            = local.reaper.resource_count
-  reaper_enable_tdagent            = local.reaper.enable_tdagent
-  reaper_create_count              = local.reaper_resource_count > 0 ? 1 : 0
+  reaper_create_count = local.reaper.resource_count > 0 ? 1 : 0
 }

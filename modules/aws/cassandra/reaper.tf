@@ -3,10 +3,10 @@ module "reaper_cluster" {
   version = "~> v2.0"
 
   name           = "${local.network_name} Reaper Cluster"
-  instance_count = local.reaper_resource_count
+  instance_count = local.reaper.resource_count
 
   ami                         = local.image_id
-  instance_type               = local.reaper_resource_type
+  instance_type               = local.reaper.resource_type
   key_name                    = local.key_name
   monitoring                  = false
   vpc_security_group_ids      = aws_security_group.reaper.*.id
@@ -21,7 +21,7 @@ module "reaper_cluster" {
 
   root_block_device = [
     {
-      volume_size           = local.reaper_resource_root_volume_size
+      volume_size           = local.reaper.resource_root_volume_size
       delete_on_termination = true
       volume_type           = "gp2"
     },
@@ -35,9 +35,9 @@ module "reaper_provision" {
   host_list          = module.reaper_cluster.private_ip
   user_name          = local.user_name
   private_key_path   = local.private_key_path
-  provision_count    = local.reaper_resource_count
-  replication_factor = local.reaper_repliation_factor
-  enable_tdagent     = local.reaper_enable_tdagent
+  provision_count    = local.reaper.resource_count
+  replication_factor = local.reaper.repliation_factor
+  enable_tdagent     = local.reaper.enable_tdagent
   internal_root_dns  = local.internal_root_dns
 }
 

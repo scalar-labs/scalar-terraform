@@ -7,7 +7,7 @@ output "cassandra_host_ips" {
 }
 
 output "cassandra_seed_ips" {
-  value = local.cassandra_resource_count > 0 ? slice(module.cassandra_cluster.private_ip, 0, min(local.cassandra_resource_count, 3)) : []
+  value = local.cassandra.resource_count > 0 ? slice(module.cassandra_cluster.private_ip, 0, min(local.cassandra.resource_count, 3)) : []
 }
 
 output "cassandra_host_ids" {
@@ -27,9 +27,9 @@ output "network_interface_ids" {
 }
 
 output "cassandra_resource_count" {
-  value = local.cassandra_resource_count
+  value = local.cassandra.resource_count
 }
 
 output "cassandra_start_on_initial_boot" {
-  value = local.cassandra_start_on_initial_boot
+  value = local.cassandra.start_on_initial_boot
 }

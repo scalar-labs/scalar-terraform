@@ -3,10 +3,10 @@ module "cassy_cluster" {
   version = "~> v2.0"
 
   name           = "${local.network_name} Cassy Cluster"
-  instance_count = local.cassy_resource_count
+  instance_count = local.cassy.resource_count
 
   ami                         = local.image_id
-  instance_type               = local.cassy_resource_type
+  instance_type               = local.cassy.resource_type
   key_name                    = local.key_name
   monitoring                  = false
   vpc_security_group_ids      = aws_security_group.cassy.*.id
@@ -21,7 +21,7 @@ module "cassy_cluster" {
 
   root_block_device = [
     {
-      volume_size           = local.cassy_resource_root_volume_size
+      volume_size           = local.cassy.resource_root_volume_size
       delete_on_termination = true
       volume_type           = "gp2"
     },
@@ -35,8 +35,8 @@ module "cassy_provision" {
   host_list        = module.cassy_cluster.private_ip
   user_name        = local.user_name
   private_key_path = local.private_key_path
-  provision_count  = local.cassy_resource_count
-  enable_tdagent   = local.cassy_enable_tdagent
+  provision_count  = local.cassy.resource_count
+  enable_tdagent   = local.cassy.enable_tdagent
 }
 
 resource "aws_security_group" "cassy" {

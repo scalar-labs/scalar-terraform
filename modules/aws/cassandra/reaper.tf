@@ -66,15 +66,15 @@ resource "aws_security_group_rule" "reaper_ssh" {
   security_group_id = aws_security_group.reaper[count.index].id
 }
 
-resource "aws_security_group_rule" "reaper_cassandra" {
+resource "aws_security_group_rule" "reaper_ui" {
   count = local.reaper_create_count
 
   type        = "ingress"
-  from_port   = 20051
-  to_port     = 20051
+  from_port   = 8080
+  to_port     = 8081
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
-  description = "Reaper Cassandra"
+  description = "Reaper UI"
 
   security_group_id = aws_security_group.reaper[count.index].id
 }

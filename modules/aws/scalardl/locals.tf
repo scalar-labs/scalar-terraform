@@ -7,7 +7,6 @@ locals {
   location          = var.network.location
   subnet_id         = var.network.subnet_id
   image_id          = var.network.image_id
-  triggers          = [var.network.triggers]
   key_name          = var.network.key_name
   bastion_ip        = var.network.bastion_ip
   private_key_path  = var.network.private_key_path
@@ -16,6 +15,8 @@ locals {
   blue_subnet_id    = var.network.blue_subnet_id
   green_subnet_id   = var.network.green_subnet_id
   internal_root_dns = var.network.internal_root_dns
+
+  triggers = [var.cassandra.start_on_initial_boot == true ? var.cassandra.provision_ids : var.network.bastion_provision_id]
 }
 
 ### default

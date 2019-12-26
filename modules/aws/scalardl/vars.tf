@@ -1,11 +1,14 @@
 variable "base" {
-  default = "default"
+  default     = "default"
   description = "The base of scalardl"
 }
 
 variable "network" {
-  type    = map
-  default = {}
+  type = map
+}
+
+variable "cassandra" {
+  type = map
 }
 
 variable "scalardl" {

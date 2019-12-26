@@ -8,10 +8,10 @@ locals {
 
     subnet_id = data.terraform_remote_state.network.outputs.cassandra_subnet_id
     image_id  = data.terraform_remote_state.network.outputs.image_id
-    triggers  = data.terraform_remote_state.network.outputs.bastion_provision_id
+    key_name  = data.terraform_remote_state.network.outputs.key_name
 
-    key_name   = data.terraform_remote_state.network.outputs.key_name
-    bastion_ip = data.terraform_remote_state.network.outputs.bastion_ip
+    bastion_ip           = data.terraform_remote_state.network.outputs.bastion_ip
+    bastion_provision_id = data.terraform_remote_state.network.outputs.bastion_provision_id
 
     private_key_path  = data.terraform_remote_state.network.outputs.private_key_path
     user_name         = data.terraform_remote_state.network.outputs.user_name
@@ -20,5 +20,10 @@ locals {
     nlb_subnet_id   = data.terraform_remote_state.network.outputs.scalardl_nlb_subnet_id
     blue_subnet_id  = data.terraform_remote_state.network.outputs.scalardl_blue_subnet_id
     green_subnet_id = data.terraform_remote_state.network.outputs.scalardl_green_subnet_id
+  }
+
+  cassandra = {
+    start_on_initial_boot = data.terraform_remote_state.cassandra.outputs.cassandra_start_on_initial_boot
+    provision_ids         = join(",", data.terraform_remote_state.cassandra.outputs.cassandra_provision_ids)
   }
 }

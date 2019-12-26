@@ -3,10 +3,10 @@ module "envoy_cluster" {
   version = "~> v2.0"
 
   name           = "${local.network_name} Envoy Cluster"
-  instance_count = local.envoy_resource_count
+  instance_count = local.envoy.resource_count
 
   ami                         = local.image_id
-  instance_type               = local.envoy_resource_type
+  instance_type               = local.envoy.resource_type
   key_name                    = local.key_name
   monitoring                  = false
   vpc_security_group_ids      = aws_security_group.envoy.*.id
@@ -21,7 +21,7 @@ module "envoy_cluster" {
 
   root_block_device = [
     {
-      volume_size           = local.envoy_resource_root_volume_size
+      volume_size           = local.envoy.resource_root_volume_size
       delete_on_termination = true
       volume_type           = "gp2"
     },
@@ -35,16 +35,16 @@ module "envoy_provision" {
   host_list           = module.envoy_cluster.private_ip
   user_name           = local.user_name
   private_key_path    = local.private_key_path
-  provision_count     = local.envoy_resource_count
-  key                 = local.envoy_key
-  cert                = local.envoy_cert
-  envoy_tls           = local.envoy_tls
-  envoy_cert_auto_gen = local.envoy_cert_auto_gen
-  envoy_tag           = local.envoy_tag
-  envoy_image         = local.envoy_image
-  envoy_port          = local.envoy_target_port
-  enable_tdagent      = local.envoy_enable_tdagent
-  custom_config_path  = local.envoy_custom_config_path
+  provision_count     = local.envoy.resource_count
+  key                 = local.envoy.key
+  cert                = local.envoy.cert
+  envoy_tls           = local.envoy.tls
+  envoy_cert_auto_gen = local.envoy.cert_auto_gen
+  envoy_tag           = local.envoy.tag
+  envoy_image         = local.envoy.image
+  envoy_port          = local.envoy.target_port
+  enable_tdagent      = local.envoy.enable_tdagent
+  custom_config_path  = local.envoy.custom_config_path
 }
 
 resource "aws_security_group" "envoy" {
@@ -76,10 +76,10 @@ resource "aws_security_group_rule" "envoy_target_port" {
   count = local.envoy_create_count
 
   type        = "ingress"
-  from_port   = local.envoy_target_port
-  to_port     = local.envoy_target_port
+  from_port   = local.envoy.target_port
+  to_port     = local.envoy.target_port
   protocol    = "tcp"
-  cidr_blocks = [local.envoy_nlb_internal ? local.network_cidr : "0.0.0.0/0"]
+  cidr_blocks = [local.envoy.nlb_internal ? local.network_cidr : "0.0.0.0/0"]
   description = "Envoy Target Port"
 
   security_group_id = aws_security_group.envoy[count.index].id
@@ -141,7 +141,7 @@ resource "aws_lb" "envoy-lb" {
   count = local.envoy_nlb_create_count
 
   name               = "${local.network_name}-envoy-lb"
-  internal           = local.envoy_nlb_internal
+  internal           = local.envoy.nlb_internal
   load_balancer_type = "network"
   subnets            = [local.subnet_id]
 
@@ -152,7 +152,7 @@ resource "aws_lb_target_group" "envoy-lb-target-group" {
   count = local.envoy_nlb_create_count
 
   name     = "${local.network_name}-envoy-tg"
-  port     = local.envoy_target_port
+  port     = local.envoy.target_port
   protocol = "TCP"
   vpc_id   = local.network_id
 
@@ -168,7 +168,7 @@ resource "aws_lb_listener" "envoy-lb-listener" {
   count = local.envoy_nlb_create_count
 
   load_balancer_arn = aws_lb.envoy-lb[0].arn
-  port              = local.envoy_listen_port
+  port              = local.envoy.listen_port
   protocol          = "TCP"
 
   default_action {
@@ -178,11 +178,11 @@ resource "aws_lb_listener" "envoy-lb-listener" {
 }
 
 resource "aws_lb_target_group_attachment" "envoy-target-group-attachments" {
-  count = local.envoy_enable_nlb ? local.envoy_resource_count : 0
+  count = local.envoy.enable_nlb ? local.envoy.resource_count : 0
 
   target_group_arn = aws_lb_target_group.envoy-lb-target-group[0].arn
   target_id        = module.envoy_cluster.id[count.index]
-  port             = local.envoy_target_port
+  port             = local.envoy.target_port
 
   lifecycle {
     ignore_changes = all
@@ -204,7 +204,7 @@ resource "aws_route53_record" "envoy-dns-lb" {
 }
 
 resource "aws_route53_record" "envoy-dns" {
-  count = local.envoy_resource_count
+  count = local.envoy.resource_count
 
   zone_id = local.network_dns
   name    = "envoy-${count.index + 1}"

@@ -63,30 +63,9 @@ locals {
     local.scalardl_base[var.base],
     var.scalardl
   )
+  scalardl_create_count     = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
+  scalardl_nlb_create_count = local.scalardl.enable_nlb ? 1 : 0
 }
-
-locals {
-  scalardl_resource_type             = local.scalardl.resource_type
-  scalardl_resource_root_volume_size = local.scalardl.resource_root_volume_size
-  scalardl_blue_resource_count       = local.scalardl.blue_resource_count
-  scalardl_blue_image_tag            = local.scalardl.blue_image_tag
-  scalardl_blue_image_name           = local.scalardl.blue_image_name
-  scalardl_green_resource_count      = local.scalardl.green_resource_count
-  scalardl_green_image_tag           = local.scalardl.green_image_tag
-  scalardl_replication_factor        = local.scalardl.replication_factor
-  scalardl_green_image_name          = local.scalardl.green_image_name
-  scalardl_target_port               = local.scalardl.target_port
-  scalardl_privileged_target_port    = local.scalardl.privileged_target_port
-  scalardl_enable_nlb                = local.scalardl.enable_nlb
-  scalardl_nlb_internal              = local.scalardl.nlb_internal
-  scalardl_enable_tdagent            = local.scalardl.enable_tdagent
-  scalardl_listen_port               = local.scalardl.listen_port
-  scalardl_privileged_listen_port    = local.scalardl.privileged_listen_port
-
-  scalardl_create_count     = local.scalardl_green_resource_count > 0 || local.scalardl_blue_resource_count > 0 ? 1 : 0
-  scalardl_nlb_create_count = local.scalardl_enable_nlb ? 1 : 0
-}
-
 
 ### envoy
 locals {
@@ -127,25 +106,7 @@ locals {
     local.envoy_base[var.base],
     var.envoy
   )
-}
 
-locals {
-  envoy_resource_type             = local.envoy.resource_type
-  envoy_resource_root_volume_size = local.envoy.resource_root_volume_size
-  envoy_resource_count            = local.envoy.resource_count
-  envoy_target_port               = local.envoy.target_port
-  envoy_listen_port               = local.envoy.listen_port
-  envoy_enable_nlb                = local.envoy.enable_nlb
-  envoy_nlb_internal              = local.envoy.nlb_internal
-  envoy_enable_tdagent            = local.envoy.enable_tdagent
-  envoy_nlb_subnet_id             = local.envoy.nlb_subnet_id
-  envoy_key                       = local.envoy.key
-  envoy_cert                      = local.envoy.cert
-  envoy_tag                       = local.envoy.tag
-  envoy_image                     = local.envoy.image
-  envoy_tls                       = local.envoy.tls
-  envoy_cert_auto_gen             = local.envoy.cert_auto_gen
-  envoy_custom_config_path        = local.envoy.custom_config_path
-  envoy_create_count              = local.envoy_resource_count > 0 ? 1 : 0
-  envoy_nlb_create_count          = local.envoy_enable_nlb ? 1 : 0
+  envoy_create_count     = local.envoy.resource_count > 0 ? 1 : 0
+  envoy_nlb_create_count = local.envoy.enable_nlb ? 1 : 0
 }

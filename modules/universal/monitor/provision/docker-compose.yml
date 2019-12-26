@@ -43,17 +43,6 @@ services:
       - ./grafana/config.monitoring
     restart: always
 
-  jenkins:
-    build:
-      context: ./jenkins
-    image: scalar-labs/jenkins:latest
-    ports:
-      - 8080:8080
-      - 50000:50000
-    volumes:
-      - ./jenkins:/var/jenkins_home
-    restart: always
-
   nginx:
     image: nginx:1.15.9
     ports:

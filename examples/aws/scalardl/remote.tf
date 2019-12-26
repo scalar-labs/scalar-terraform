@@ -8,3 +8,12 @@ data "terraform_remote_state" "network" {
   }
 }
 
+data "terraform_remote_state" "cassandra" {
+  backend = "s3"
+
+  config = {
+    bucket = "example-scalar-tfstate"
+    key    = "cassandra/terraform.tfstate"
+    region = "ap-northeast-1"
+  }
+}

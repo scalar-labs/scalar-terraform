@@ -9,7 +9,7 @@ module "monitor_cluster" {
   instance_type               = local.monitor.resource_type
   key_name                    = local.key_name
   monitoring                  = false
-  vpc_security_group_ids      = [aws_security_group.monitor.id]
+  vpc_security_group_ids      = aws_security_group.monitor.*.id
   subnet_id                   = local.subnet_id
   associate_public_ip_address = false
 
@@ -85,6 +85,8 @@ module "monitor_provision" {
 }
 
 resource "aws_security_group" "monitor" {
+  count   = local.monitor_create_count
+
   name        = "${local.network_name}-monitor-nodes"
   description = "Monitor nodes"
   vpc_id      = local.network_id
@@ -92,72 +94,122 @@ resource "aws_security_group" "monitor" {
   tags = {
     Name = "${local.network_name} monitor"
   }
+}
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-    self        = false
-  }
+resource "aws_security_group_rule" "monitor_ssh" {
+  count = local.monitor_create_count
 
-  ingress {
-    from_port   = 9090
-    to_port     = 9090
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+  type        = "ingress"
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Monitor SSH"
 
-  ingress {
-    from_port   = 9093
-    to_port     = 9093
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+  security_group_id = aws_security_group.monitor[count.index].id
+}
 
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+resource "aws_security_group_rule" "monitor_prometheus" {
+  count = local.monitor_create_count
 
-  # Node Exporter
-  ingress {
-    from_port   = 9100
-    to_port     = 9100
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+  type        = "ingress"
+  from_port   = 9090
+  to_port     = 9090
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Monitor Prometheus"
 
-  # Fluentd aggregation server
-  ingress {
-    from_port   = 24224
-    to_port     = 24224
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+  security_group_id = aws_security_group.monitor[count.index].id
+}
 
-  ingress {
-    from_port   = 24224
-    to_port     = 24224
-    protocol    = "udp"
-    cidr_blocks = [local.network_cidr]
-  }
+resource "aws_security_group_rule" "monitor_alertmanager" {
+  count = local.monitor_create_count
 
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = [local.network_cidr]
-  }
+  type        = "ingress"
+  from_port   = 9093
+  to_port     = 9093
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Monitor Alertmanager"
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  security_group_id = aws_security_group.monitor[count.index].id
+}
+
+resource "aws_security_group_rule" "monitor_grafana" {
+  count = local.monitor_create_count
+
+  type        = "ingress"
+  from_port   = 3000
+  to_port     = 3000
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Monitor Grafana"
+
+  security_group_id = aws_security_group.monitor[count.index].id
+}
+
+resource "aws_security_group_rule" "monitor_node_exporter" {
+  count = local.monitor_create_count
+
+  type        = "ingress"
+  from_port   = 9100
+  to_port     = 9100
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Monitor Prometheus Node Exporter"
+
+  security_group_id = aws_security_group.monitor[count.index].id
+}
+
+resource "aws_security_group_rule" "monitor_fluentd_tcp" {
+  count = local.monitor_create_count
+
+  type        = "ingress"
+  from_port   = 24224
+  to_port     = 24224
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Monitor Fluentd aggregation TCP"
+
+  security_group_id = aws_security_group.monitor[count.index].id
+}
+
+resource "aws_security_group_rule" "monitor_fluentd_udp" {
+  count = local.monitor_create_count
+
+  type        = "ingress"
+  from_port   = 24224
+  to_port     = 24224
+  protocol    = "udp"
+  cidr_blocks = [local.network_cidr]
+  description = "Monitor Fluentd aggregation UDP"
+
+  security_group_id = aws_security_group.monitor[count.index].id
+}
+
+resource "aws_security_group_rule" "monitor_nginx" {
+  count = local.monitor_create_count
+
+  type        = "ingress"
+  from_port   = 80
+  to_port     = 80
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Monitor Nginx"
+
+  security_group_id = aws_security_group.monitor[count.index].id
+}
+
+resource "aws_security_group_rule" "monitor_egress" {
+  count = local.monitor_create_count
+
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "all"
+  cidr_blocks = ["0.0.0.0/0"]
+
+  security_group_id = aws_security_group.monitor[count.index].id
 }
 
 resource "aws_route53_record" "monitor-dns" {

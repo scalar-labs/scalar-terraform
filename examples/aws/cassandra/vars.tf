@@ -1,5 +1,7 @@
 # General Settings
-variable "region" {}
+variable "region" {
+  defualt = "ap-northeast-1"
+}
 
 variable "base" {
   default = "default"

@@ -77,5 +77,5 @@ resource "aws_route53_record" "scalardl-dns" {
   name    = "scalar-${var.resource_cluster_name}-${count.index + 1}"
   type    = "A"
   ttl     = "300"
-  records = [element(module.scalardl_cluster.private_ip, count.index)]
+  records = [module.scalardl_cluster.private_ip[count.index]]
 }

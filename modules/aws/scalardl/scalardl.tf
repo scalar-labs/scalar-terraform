@@ -149,7 +149,7 @@ resource "aws_security_group_rule" "scalardl_egress" {
 }
 
 resource "aws_lb" "scalardl-lb" {
-  count = local.scalardl_enable_nlb ? 1 : 0
+  count = local.scalardl_nlb_create_count
 
   name               = "${local.network_name}-scalardl-lb"
   internal           = local.scalardl_nlb_internal
@@ -160,7 +160,7 @@ resource "aws_lb" "scalardl-lb" {
 }
 
 resource "aws_lb_target_group" "scalardl-lb-target-group" {
-  count = local.scalardl_enable_nlb ? 1 : 0
+  count = local.scalardl_nlb_create_count
 
   name     = "${local.network_name}-scalardl-tg"
   port     = local.scalardl_target_port
@@ -176,7 +176,7 @@ resource "aws_lb_target_group" "scalardl-lb-target-group" {
 }
 
 resource "aws_lb_target_group" "scalardl-privileged-lb-target-group" {
-  count = local.scalardl_enable_nlb ? 1 : 0
+  count = local.scalardl_nlb_create_count
 
   name     = "${local.network_name}-scalardl-pr-tg"
   port     = local.scalardl_privileged_target_port
@@ -192,7 +192,7 @@ resource "aws_lb_target_group" "scalardl-privileged-lb-target-group" {
 }
 
 resource "aws_lb_listener" "scalardl-lb-listener" {
-  count = local.scalardl_enable_nlb ? 1 : 0
+  count = local.scalardl_nlb_create_count
 
   load_balancer_arn = aws_lb.scalardl-lb[0].arn
   port              = local.scalardl_listen_port
@@ -205,7 +205,7 @@ resource "aws_lb_listener" "scalardl-lb-listener" {
 }
 
 resource "aws_lb_listener" "scalardl-privileged-lb-listener" {
-  count = local.scalardl_enable_nlb ? 1 : 0
+  count = local.scalardl_nlb_create_count
 
   load_balancer_arn = aws_lb.scalardl-lb[0].arn
   port              = local.scalardl_privileged_listen_port
@@ -218,7 +218,7 @@ resource "aws_lb_listener" "scalardl-privileged-lb-listener" {
 }
 
 resource "aws_route53_record" "scalardl-dns-lb" {
-  count = local.scalardl_enable_nlb ? 1 : 0
+  count = local.scalardl_nlb_create_count
 
   zone_id = local.network_dns
   name    = "scalar-lb"
@@ -238,7 +238,7 @@ resource "aws_route53_record" "scalardl-blue-dns" {
   name    = "scalardl-blue-${count.index + 1}"
   type    = "A"
   ttl     = "300"
-  records = [element(module.scalardl_blue.ip, count.index)]
+  records = [module.scalardl_blue.ip[count.index]]
 }
 
 resource "aws_route53_record" "scalardl-green-dns" {
@@ -248,7 +248,7 @@ resource "aws_route53_record" "scalardl-green-dns" {
   name    = "scalardl-green-${count.index + 1}"
   type    = "A"
   ttl     = "300"
-  records = [element(module.scalardl_green.ip, count.index)]
+  records = [module.scalardl_green.ip[count.index]]
 }
 
 resource "aws_route53_record" "scalardl-blue-cadvisor-dns-srv" {

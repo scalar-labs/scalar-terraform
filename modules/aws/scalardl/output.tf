@@ -23,7 +23,7 @@ output "scalardl_lb_dns" {
 }
 
 output "scalardl_lb_arn" {
-  value = element(aws_lb.scalardl-lb.*.arn, 0)
+  value = aws_lb.scalardl-lb.*.arn[0]
 }
 
 output "scalardl_blue_resource_count" {

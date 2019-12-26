@@ -82,7 +82,8 @@ locals {
   scalardl_listen_port               = local.scalardl.listen_port
   scalardl_privileged_listen_port    = local.scalardl.privileged_listen_port
 
-  scalardl_create_count = local.scalardl_green_resource_count > 0 || local.scalardl_blue_resource_count > 0 ? 1 : 0
+  scalardl_create_count     = local.scalardl_green_resource_count > 0 || local.scalardl_blue_resource_count > 0 ? 1 : 0
+  scalardl_nlb_create_count = local.scalardl_enable_nlb ? 1 : 0
 }
 
 
@@ -145,4 +146,5 @@ locals {
   envoy_cert_auto_gen             = local.envoy.cert_auto_gen
   envoy_custom_config_path        = local.envoy.custom_config_path
   envoy_create_count              = local.envoy_resource_count > 0 ? 1 : 0
+  envoy_nlb_create_count          = local.envoy_enable_nlb ? 1 : 0
 }

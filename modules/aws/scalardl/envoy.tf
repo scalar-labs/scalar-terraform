@@ -138,7 +138,7 @@ resource "aws_security_group_rule" "envoy_egress" {
 }
 
 resource "aws_lb" "envoy-lb" {
-  count = local.envoy_enable_nlb ? 1 : 0
+  count = local.envoy_nlb_create_count
 
   name               = "${local.network_name}-envoy-lb"
   internal           = local.envoy_nlb_internal
@@ -149,7 +149,7 @@ resource "aws_lb" "envoy-lb" {
 }
 
 resource "aws_lb_target_group" "envoy-lb-target-group" {
-  count = local.envoy_enable_nlb ? 1 : 0
+  count = local.envoy_nlb_create_count
 
   name     = "${local.network_name}-envoy-tg"
   port     = local.envoy_target_port
@@ -165,7 +165,7 @@ resource "aws_lb_target_group" "envoy-lb-target-group" {
 }
 
 resource "aws_lb_listener" "envoy-lb-listener" {
-  count = local.envoy_enable_nlb ? 1 : 0
+  count = local.envoy_nlb_create_count
 
   load_balancer_arn = aws_lb.envoy-lb[0].arn
   port              = local.envoy_listen_port
@@ -190,7 +190,7 @@ resource "aws_lb_target_group_attachment" "envoy-target-group-attachments" {
 }
 
 resource "aws_route53_record" "envoy-dns-lb" {
-  count = local.envoy_enable_nlb ? 1 : 0
+  count = local.envoy_nlb_create_count
 
   zone_id = local.network_dns
   name    = "envoy-lb"
@@ -210,7 +210,7 @@ resource "aws_route53_record" "envoy-dns" {
   name    = "envoy-${count.index + 1}"
   type    = "A"
   ttl     = "300"
-  records = [element(module.envoy_cluster.private_ip, count.index)]
+  records = [module.envoy_cluster.private_ip[count.index]]
 }
 
 resource "aws_route53_record" "envoy-exporter-dns-srv" {

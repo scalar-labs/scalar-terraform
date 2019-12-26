@@ -29,3 +29,7 @@ output "network_interface_ids" {
 output "cassandra_resource_count" {
   value = local.cassandra_resource_count
 }
+
+output "cassandra_start_on_initial_boot" {
+  value = local.cassandra_start_on_initial_boot
+}

@@ -15,7 +15,7 @@ resource "null_resource" "envoy_waitfor" {
 
   connection {
     bastion_host = var.bastion_host_ip
-    host         = element(var.host_list, count.index)
+    host         = var.host_list[count.index]
     user         = var.user_name
     agent        = true
     private_key  = file(var.private_key_path)
@@ -43,7 +43,7 @@ resource "null_resource" "docker_install" {
   provisioner "remote-exec" {
     inline = [
       "cd ${module.ansible.remote_playbook_path}/playbooks",
-      "ansible-playbook -u ${var.user_name} -i ${element(var.host_list, count.index)}, docker-server.yml --extra-vars='enable_tdagent=${var.enable_tdagent ? 1 : 0}'",
+      "ansible-playbook -u ${var.user_name} -i ${var.host_list[count.index]}, docker-server.yml --extra-vars='enable_tdagent=${var.enable_tdagent ? 1 : 0}'",
     ]
   }
 }
@@ -65,7 +65,7 @@ resource "null_resource" "envoy_container" {
   depends_on = [null_resource.envoy_tls]
 
   triggers = {
-    triggers            = element(null_resource.docker_install.*.id, count.index)
+    triggers            = null_resource.docker_install.*.id[count.index]
     envoy_image         = var.envoy_image
     envoy_tag           = var.envoy_tag
     envoy_tls           = var.envoy_tls
@@ -75,7 +75,7 @@ resource "null_resource" "envoy_container" {
 
   connection {
     bastion_host = var.bastion_host_ip
-    host         = element(var.host_list, count.index)
+    host         = var.host_list[count.index]
     user         = var.user_name
     agent        = true
     private_key  = file(var.private_key_path)

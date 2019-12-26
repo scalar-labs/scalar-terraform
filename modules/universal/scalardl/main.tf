@@ -51,7 +51,7 @@ resource "null_resource" "scalardl_waitfor" {
 
   connection {
     bastion_host = var.bastion_host_ip
-    host         = element(var.host_list, count.index)
+    host         = var.host_list[count.index]
     user         = var.user_name
     agent        = true
     private_key  = file(var.private_key_path)
@@ -79,7 +79,7 @@ resource "null_resource" "docker_install" {
   provisioner "remote-exec" {
     inline = [
       "cd ${module.ansible.remote_playbook_path}/playbooks",
-      "ansible-playbook -u ${var.user_name} -i ${element(var.host_list, count.index)}, docker-server.yml --extra-vars='enable_tdagent=${var.enable_tdagent ? 1 : 0}'",
+      "ansible-playbook -u ${var.user_name} -i ${var.host_list[count.index]}, docker-server.yml --extra-vars='enable_tdagent=${var.enable_tdagent ? 1 : 0}'",
     ]
   }
 }
@@ -99,7 +99,7 @@ resource "null_resource" "scalardl_push" {
   }
 
   provisioner "remote-exec" {
-    inline = ["rsync -e 'ssh -o StrictHostKeyChecking=no' -cvv /tmp/${local.image_filename} ${var.user_name}@${element(var.host_list, count.index)}:/tmp/"]
+    inline = ["rsync -e 'ssh -o StrictHostKeyChecking=no' -cvv /tmp/${local.image_filename} ${var.user_name}@${var.host_list[count.index]}:/tmp/"]
   }
 }
 
@@ -112,7 +112,7 @@ resource "null_resource" "scalardl_load" {
 
   connection {
     bastion_host = var.bastion_host_ip
-    host         = element(var.host_list, count.index)
+    host         = var.host_list[count.index]
     user         = var.user_name
     agent        = true
     private_key  = file(var.private_key_path)
@@ -137,7 +137,7 @@ resource "null_resource" "scalardl_schema" {
 
   connection {
     bastion_host = var.bastion_host_ip
-    host         = element(var.host_list, 0)
+    host         = var.host_list[count.index]
     user         = var.user_name
     agent        = true
     private_key  = file(var.private_key_path)
@@ -160,7 +160,7 @@ resource "null_resource" "scalardl_container" {
 
   connection {
     bastion_host = var.bastion_host_ip
-    host         = element(var.host_list, count.index)
+    host         = var.host_list[count.index]
     user         = var.user_name
     agent        = true
     private_key  = file(var.private_key_path)

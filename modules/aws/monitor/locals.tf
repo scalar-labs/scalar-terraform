@@ -7,7 +7,6 @@ locals {
   location         = var.network.location
   subnet_id        = var.network.subnet_id
   image_id         = var.network.image_id
-  triggers         = var.network.triggers
   key_name         = var.network.key_name
   bastion_ip       = var.network.bastion_ip
   private_key_path = var.network.private_key_path
@@ -58,4 +57,7 @@ locals {
     local.monitor_base[var.base],
     var.monitor
   )
+
+  monitor_create_count        = local.monitor.resource_count > 0 ? 1 : 0
+  monitor_volume_create_count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
 }

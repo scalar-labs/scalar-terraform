@@ -29,7 +29,7 @@ module "monitor_cluster" {
 }
 
 resource "aws_ebs_volume" "monitor_log_volume" {
-  count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
+  count = local.monitor_volume_create_count
 
   availability_zone = module.monitor_cluster.availability_zone[count.index]
   size              = local.monitor.log_volume_size
@@ -38,7 +38,7 @@ resource "aws_ebs_volume" "monitor_log_volume" {
 }
 
 resource "aws_volume_attachment" "monitor_log_volume_attachment" {
-  count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
+  count = local.monitor_volume_create_count
 
   device_name = "/dev/xvdh"
   volume_id   = aws_ebs_volume.monitor_log_volume[count.index].id
@@ -48,7 +48,7 @@ resource "aws_volume_attachment" "monitor_log_volume_attachment" {
 }
 
 resource "null_resource" "volume_data" {
-  count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
+  count = local.monitor_volume_create_count
 
   connection {
     bastion_host = local.bastion_ip
@@ -162,6 +162,7 @@ resource "aws_security_group" "monitor" {
 
 resource "aws_route53_record" "monitor-dns" {
   count   = local.monitor.resource_count
+
   zone_id = local.network_dns
   name    = "monitor"
   type    = "A"
@@ -171,6 +172,7 @@ resource "aws_route53_record" "monitor-dns" {
 
 resource "aws_route53_record" "prometheus-dns" {
   count   = local.monitor.resource_count
+
   zone_id = local.network_dns
   name    = "prometheus"
   type    = "A"
@@ -179,7 +181,8 @@ resource "aws_route53_record" "prometheus-dns" {
 }
 
 resource "aws_route53_record" "cadvisor-dns-srv" {
-  count   = local.monitor.resource_count > 0 ? 1 : 0
+  count   = local.monitor_create_count
+
   zone_id = local.network_dns
   name    = "_cadvisor._tcp.monitor"
   type    = "SRV"
@@ -192,7 +195,8 @@ resource "aws_route53_record" "cadvisor-dns-srv" {
 }
 
 resource "aws_route53_record" "node-exporter-dns-srv" {
-  count   = local.monitor.resource_count > 0 ? 1 : 0
+  count   = local.monitor_create_count
+
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.monitor"
   type    = "SRV"

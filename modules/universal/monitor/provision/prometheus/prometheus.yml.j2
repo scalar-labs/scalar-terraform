@@ -1,0 +1,77 @@
+global:
+  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+  evaluation_interval: 15s # By default, scrape targets every 15 seconds.
+  external_labels:
+      environment: "{{ environment_name }}"
+
+rule_files:
+  - recording.rules.yml
+  - general_alert.rules.yml
+  - cassandra_alert.rules.yml
+  - scalardl_alert.rules.yml
+
+# alert
+alerting:
+  alertmanagers:
+  - scheme: http
+    static_configs:
+    - targets:
+      - "{{ alertmanager_url }}"
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+         - targets: ['localhost:9090']
+
+  - job_name: cassandra
+    dns_sd_configs:
+    - names:
+      - _cassandra-exporter._tcp.cassandra.internal.scalar-labs.com
+    relabel_configs:
+    - &relabel_role
+      source_labels: ['__meta_dns_name']
+      regex: '.*\.([^.]+)\.internal\.scalar-labs\.com'
+      replacement: ${1}
+      target_label: role
+
+  - job_name: host
+    dns_sd_configs:
+    - names:
+      - _node-exporter._tcp.scalardl-blue.internal.scalar-labs.com
+      - _node-exporter._tcp.scalardl-green.internal.scalar-labs.com
+      - _node-exporter._tcp.cassandra.internal.scalar-labs.com
+      - _node-exporter._tcp.bastion.internal.scalar-labs.com
+      - _node-exporter._tcp.monitor.internal.scalar-labs.com
+      - _node-exporter._tcp.reaper.internal.scalar-labs.com
+      - _node-exporter._tcp.envoy.internal.scalar-labs.com
+    relabel_configs:
+    - *relabel_role
+
+  - job_name: reaper
+    metrics_path: /prometheusMetrics
+    dns_sd_configs:
+    - names:
+      - _reaper._tcp.reaper.internal.scalar-labs.com
+    relabel_configs:
+    - *relabel_role
+
+  - job_name: envoy
+    metrics_path: /stats/prometheus
+    dns_sd_configs:
+    - names:
+      - _envoy-exporter._tcp.envoy.internal.scalar-labs.com
+    relabel_configs:
+    - *relabel_role
+
+  - job_name: cadvisor
+    scrape_interval: 5s
+    metrics_path: /metrics
+    dns_sd_configs:
+    - names:
+      - _cadvisor._tcp.scalardl-blue.internal.scalar-labs.com
+      - _cadvisor._tcp.scalardl-green.internal.scalar-labs.com
+      - _cadvisor._tcp.monitor.internal.scalar-labs.com
+      - _cadvisor._tcp.reaper.internal.scalar-labs.com
+      - _cadvisor._tcp.envoy.internal.scalar-labs.com
+    relabel_configs:
+    - *relabel_role

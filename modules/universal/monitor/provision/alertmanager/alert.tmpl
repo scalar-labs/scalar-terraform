@@ -1,0 +1,9 @@
+{{ define "slack.scalar.title" }}[{{ .CommonLabels.environment }}][{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .GroupLabels.SortedPairs.Values | join " " }} {{ .CommonLabels.severity }}{{ end }}
+{{ define "slack.scalar.text" }}
+```
+{{- range .Alerts }}
+{{ .Labels.instance }} - {{ .Status  }}{{ if eq .Status "firing" }} - {{ .Annotations.value }}{{ end }}
+{{-  end }}
+```
+{{ end }}
+{{ define "slack.scalar.link"}}https://github.com/scalar-labs/scalardl-orchestration/wiki/{{ .GroupLabels.alertname }}{{ end }}

@@ -29,7 +29,7 @@ module "monitor_cluster" {
 }
 
 resource "aws_ebs_volume" "monitor_log_volume" {
-  count = local.monitor_volume_create_count
+  count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
 
   availability_zone = module.monitor_cluster.availability_zone[count.index]
   size              = local.monitor.log_volume_size
@@ -38,7 +38,7 @@ resource "aws_ebs_volume" "monitor_log_volume" {
 }
 
 resource "aws_volume_attachment" "monitor_log_volume_attachment" {
-  count = local.monitor_volume_create_count
+  count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
 
   device_name = "/dev/xvdh"
   volume_id   = aws_ebs_volume.monitor_log_volume[count.index].id
@@ -48,7 +48,7 @@ resource "aws_volume_attachment" "monitor_log_volume_attachment" {
 }
 
 resource "null_resource" "volume_data" {
-  count = local.monitor_volume_create_count
+  count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
 
   connection {
     bastion_host = local.bastion_ip
@@ -86,7 +86,7 @@ module "monitor_provision" {
 }
 
 resource "aws_security_group" "monitor" {
-  count   = local.monitor_create_count
+  count   = local.monitor.resource_count > 0 ? 1 : 0
 
   name        = "${local.network_name}-monitor-nodes"
   description = "Monitor nodes"
@@ -98,7 +98,7 @@ resource "aws_security_group" "monitor" {
 }
 
 resource "aws_security_group_rule" "monitor_ssh" {
-  count = local.monitor_create_count
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 22
@@ -111,7 +111,7 @@ resource "aws_security_group_rule" "monitor_ssh" {
 }
 
 resource "aws_security_group_rule" "monitor_prometheus" {
-  count = local.monitor_create_count
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 9090
@@ -124,7 +124,7 @@ resource "aws_security_group_rule" "monitor_prometheus" {
 }
 
 resource "aws_security_group_rule" "monitor_alertmanager" {
-  count = local.monitor_create_count
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 9093
@@ -137,7 +137,7 @@ resource "aws_security_group_rule" "monitor_alertmanager" {
 }
 
 resource "aws_security_group_rule" "monitor_grafana" {
-  count = local.monitor_create_count
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 3000
@@ -150,7 +150,7 @@ resource "aws_security_group_rule" "monitor_grafana" {
 }
 
 resource "aws_security_group_rule" "monitor_node_exporter" {
-  count = local.monitor_create_count
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 9100
@@ -163,7 +163,7 @@ resource "aws_security_group_rule" "monitor_node_exporter" {
 }
 
 resource "aws_security_group_rule" "monitor_fluentd_tcp" {
-  count = local.monitor_create_count
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 24224
@@ -176,7 +176,7 @@ resource "aws_security_group_rule" "monitor_fluentd_tcp" {
 }
 
 resource "aws_security_group_rule" "monitor_fluentd_udp" {
-  count = local.monitor_create_count
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 24224
@@ -189,7 +189,7 @@ resource "aws_security_group_rule" "monitor_fluentd_udp" {
 }
 
 resource "aws_security_group_rule" "monitor_nginx" {
-  count = local.monitor_create_count
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 80
@@ -202,7 +202,7 @@ resource "aws_security_group_rule" "monitor_nginx" {
 }
 
 resource "aws_security_group_rule" "monitor_egress" {
-  count = local.monitor_create_count
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   type        = "egress"
   from_port   = 0
@@ -234,7 +234,7 @@ resource "aws_route53_record" "prometheus-dns" {
 }
 
 resource "aws_route53_record" "cadvisor-dns-srv" {
-  count   = local.monitor_create_count
+  count   = local.monitor.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_cadvisor._tcp.monitor"
@@ -248,7 +248,7 @@ resource "aws_route53_record" "cadvisor-dns-srv" {
 }
 
 resource "aws_route53_record" "node-exporter-dns-srv" {
-  count   = local.monitor_create_count
+  count   = local.monitor.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.monitor"

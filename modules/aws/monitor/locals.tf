@@ -57,7 +57,4 @@ locals {
     local.monitor_base[var.base],
     var.monitor
   )
-
-  monitor_create_count        = local.monitor.resource_count > 0 ? 1 : 0
-  monitor_volume_create_count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
 }

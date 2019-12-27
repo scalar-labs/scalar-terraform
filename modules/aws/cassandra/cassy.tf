@@ -40,7 +40,7 @@ module "cassy_provision" {
 }
 
 resource "aws_security_group" "cassy" {
-  count = local.cassy_create_count
+  count = local.cassy.resource_count > 0 ? 1 : 0
 
   name        = "${local.network_name}-cassy-nodes"
   description = "cassy nodes"
@@ -52,7 +52,7 @@ resource "aws_security_group" "cassy" {
 }
 
 resource "aws_security_group_rule" "cassy_ssh" {
-  count = local.cassy_create_count
+  count = local.cassy.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 22
@@ -65,7 +65,7 @@ resource "aws_security_group_rule" "cassy_ssh" {
 }
 
 resource "aws_security_group_rule" "cassy_grpc" {
-  count = local.cassy_create_count
+  count = local.cassy.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 20051
@@ -78,7 +78,7 @@ resource "aws_security_group_rule" "cassy_grpc" {
 }
 
 resource "aws_security_group_rule" "cassy_node_expoter" {
-  count = local.cassy_create_count
+  count = local.cassy.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 9100
@@ -91,7 +91,7 @@ resource "aws_security_group_rule" "cassy_node_expoter" {
 }
 
 resource "aws_security_group_rule" "cassy_cadvisor" {
-  count = local.cassy_create_count
+  count = local.cassy.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 18080
@@ -104,7 +104,7 @@ resource "aws_security_group_rule" "cassy_cadvisor" {
 }
 
 resource "aws_security_group_rule" "cassy_egress" {
-  count = local.cassy_create_count
+  count = local.cassy.resource_count > 0 ? 1 : 0
 
   type        = "egress"
   from_port   = 0
@@ -117,7 +117,7 @@ resource "aws_security_group_rule" "cassy_egress" {
 }
 
 resource "aws_route53_record" "cassy-dns" {
-  count = local.cassy_create_count
+  count = local.cassy.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "cassy"
@@ -127,7 +127,7 @@ resource "aws_route53_record" "cassy-dns" {
 }
 
 resource "aws_route53_record" "cassy-dns-srv" {
-  count = local.cassy_create_count
+  count = local.cassy.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_cassy._tcp.cassy"
@@ -141,7 +141,7 @@ resource "aws_route53_record" "cassy-dns-srv" {
 }
 
 resource "aws_route53_record" "cassy-cadvisor-dns-srv" {
-  count = local.cassy_create_count
+  count = local.cassy.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_cadvisor._tcp.cassy"
@@ -155,7 +155,7 @@ resource "aws_route53_record" "cassy-cadvisor-dns-srv" {
 }
 
 resource "aws_route53_record" "cassy-node-exporter-dns-srv" {
-  count = local.cassy_create_count
+  count = local.cassy.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.cassy"

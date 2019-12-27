@@ -42,7 +42,7 @@ module "reaper_provision" {
 }
 
 resource "aws_security_group" "reaper" {
-  count = local.reaper_create_count
+  count = local.reaper.resource_count > 0 ? 1 : 0
 
   name        = "${local.network_name}-reaper-nodes"
   description = "Reaper nodes"
@@ -54,7 +54,7 @@ resource "aws_security_group" "reaper" {
 }
 
 resource "aws_security_group_rule" "reaper_ssh" {
-  count = local.reaper_create_count
+  count = local.reaper.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 22
@@ -67,7 +67,7 @@ resource "aws_security_group_rule" "reaper_ssh" {
 }
 
 resource "aws_security_group_rule" "reaper_ui" {
-  count = local.reaper_create_count
+  count = local.reaper.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 8080
@@ -80,7 +80,7 @@ resource "aws_security_group_rule" "reaper_ui" {
 }
 
 resource "aws_security_group_rule" "reaper_node_expoter" {
-  count = local.reaper_create_count
+  count = local.reaper.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 9100
@@ -93,7 +93,7 @@ resource "aws_security_group_rule" "reaper_node_expoter" {
 }
 
 resource "aws_security_group_rule" "reaper_cadvisor" {
-  count = local.reaper_create_count
+  count = local.reaper.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 18080
@@ -106,7 +106,7 @@ resource "aws_security_group_rule" "reaper_cadvisor" {
 }
 
 resource "aws_security_group_rule" "reaper_egress" {
-  count = local.reaper_create_count
+  count = local.reaper.resource_count > 0 ? 1 : 0
 
   type        = "egress"
   from_port   = 0
@@ -119,7 +119,7 @@ resource "aws_security_group_rule" "reaper_egress" {
 }
 
 resource "aws_route53_record" "reaper-dns" {
-  count = local.reaper_create_count
+  count = local.reaper.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "reaper"
@@ -129,7 +129,7 @@ resource "aws_route53_record" "reaper-dns" {
 }
 
 resource "aws_route53_record" "reaper-dns-srv" {
-  count = local.reaper_create_count
+  count = local.reaper.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_reaper._tcp.reaper"
@@ -143,7 +143,7 @@ resource "aws_route53_record" "reaper-dns-srv" {
 }
 
 resource "aws_route53_record" "reaper-cadvisor-dns-srv" {
-  count = local.reaper_create_count
+  count = local.reaper.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_cadvisor._tcp.reaper"
@@ -157,7 +157,7 @@ resource "aws_route53_record" "reaper-cadvisor-dns-srv" {
 }
 
 resource "aws_route53_record" "reaper-node-exporter-dns-srv" {
-  count = local.reaper_create_count
+  count = local.reaper.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.reaper"

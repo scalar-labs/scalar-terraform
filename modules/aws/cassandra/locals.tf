@@ -79,8 +79,6 @@ locals {
     local.cassandra_base[var.base],
     var.cassandra
   )
-
-  cassandra_create_count = local.cassandra.resource_count > 0 ? 1 : 0
 }
 
 ### cassy
@@ -110,8 +108,6 @@ locals {
     local.cassy_base[var.base],
     var.cassy
   )
-
-  cassy_create_count = local.cassy.resource_count > 0 ? 1 : 0
 }
 
 ### reaper
@@ -142,6 +138,4 @@ locals {
     local.reaper_base[var.base],
     var.reaper
   )
-
-  reaper_create_count = local.reaper.resource_count > 0 ? 1 : 0
 }

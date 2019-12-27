@@ -29,7 +29,6 @@ locals {
     enable_log_volume         = true
     log_volume_size           = 500
     log_volume_type           = "sc1"
-    #replication_factor        = 3
     enable_tdagent            = true
   }
 }

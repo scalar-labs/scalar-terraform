@@ -48,7 +48,7 @@ module "envoy_provision" {
 }
 
 resource "aws_security_group" "envoy" {
-  count = local.envoy_create_count
+  count = local.envoy.resource_count > 0 ? 1 : 0
 
   name        = "${local.network_name}-envoy-nodes"
   description = "Envoy Security Rules"
@@ -60,7 +60,7 @@ resource "aws_security_group" "envoy" {
 }
 
 resource "aws_security_group_rule" "envoy_ssh" {
-  count = local.envoy_create_count
+  count = local.envoy.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 22
@@ -73,7 +73,7 @@ resource "aws_security_group_rule" "envoy_ssh" {
 }
 
 resource "aws_security_group_rule" "envoy_target_port" {
-  count = local.envoy_create_count
+  count = local.envoy.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = local.envoy.target_port
@@ -86,7 +86,7 @@ resource "aws_security_group_rule" "envoy_target_port" {
 }
 
 resource "aws_security_group_rule" "envoy_node_exporter" {
-  count = local.envoy_create_count
+  count = local.envoy.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 9100
@@ -99,7 +99,7 @@ resource "aws_security_group_rule" "envoy_node_exporter" {
 }
 
 resource "aws_security_group_rule" "envoy_exporter" {
-  count = local.envoy_create_count
+  count = local.envoy.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 9001
@@ -112,7 +112,7 @@ resource "aws_security_group_rule" "envoy_exporter" {
 }
 
 resource "aws_security_group_rule" "envoy_cadvisor" {
-  count = local.envoy_create_count
+  count = local.envoy.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 18080
@@ -125,7 +125,7 @@ resource "aws_security_group_rule" "envoy_cadvisor" {
 }
 
 resource "aws_security_group_rule" "envoy_egress" {
-  count = local.envoy_create_count
+  count = local.envoy.resource_count > 0 ? 1 : 0
 
   type        = "egress"
   from_port   = 0
@@ -138,7 +138,7 @@ resource "aws_security_group_rule" "envoy_egress" {
 }
 
 resource "aws_lb" "envoy-lb" {
-  count = local.envoy_nlb_create_count
+  count = local.envoy.enable_nlb ? 1 : 0
 
   name               = "${local.network_name}-envoy-lb"
   internal           = local.envoy.nlb_internal
@@ -149,7 +149,7 @@ resource "aws_lb" "envoy-lb" {
 }
 
 resource "aws_lb_target_group" "envoy-lb-target-group" {
-  count = local.envoy_nlb_create_count
+  count = local.envoy.enable_nlb ? 1 : 0
 
   name     = "${local.network_name}-envoy-tg"
   port     = local.envoy.target_port
@@ -165,7 +165,7 @@ resource "aws_lb_target_group" "envoy-lb-target-group" {
 }
 
 resource "aws_lb_listener" "envoy-lb-listener" {
-  count = local.envoy_nlb_create_count
+  count = local.envoy.enable_nlb ? 1 : 0
 
   load_balancer_arn = aws_lb.envoy-lb[0].arn
   port              = local.envoy.listen_port
@@ -190,7 +190,7 @@ resource "aws_lb_target_group_attachment" "envoy-target-group-attachments" {
 }
 
 resource "aws_route53_record" "envoy-dns-lb" {
-  count = local.envoy_nlb_create_count
+  count = local.envoy.enable_nlb ? 1 : 0
 
   zone_id = local.network_dns
   name    = "envoy-lb"
@@ -214,7 +214,7 @@ resource "aws_route53_record" "envoy-dns" {
 }
 
 resource "aws_route53_record" "envoy-exporter-dns-srv" {
-  count = local.envoy_create_count
+  count = local.envoy.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_envoy-exporter._tcp.envoy"
@@ -228,7 +228,7 @@ resource "aws_route53_record" "envoy-exporter-dns-srv" {
 }
 
 resource "aws_route53_record" "envoy-node-exporter-dns-srv" {
-  count = local.envoy_create_count
+  count = local.envoy.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.envoy"
@@ -242,7 +242,7 @@ resource "aws_route53_record" "envoy-node-exporter-dns-srv" {
 }
 
 resource "aws_route53_record" "envoy-cadvisor-dns-srv" {
-  count = local.envoy_create_count
+  count = local.envoy.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_cadvisor._tcp.envoy"

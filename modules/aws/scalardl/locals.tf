@@ -63,8 +63,6 @@ locals {
     local.scalardl_base[var.base],
     var.scalardl
   )
-  scalardl_create_count     = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
-  scalardl_nlb_create_count = local.scalardl.enable_nlb ? 1 : 0
 }
 
 ### envoy

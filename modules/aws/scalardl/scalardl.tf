@@ -59,7 +59,7 @@ module "scalardl_green" {
 }
 
 resource "aws_security_group" "scalardl" {
-  count = local.scalardl_create_count
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   name        = "${local.network_name}-scalardl-nodes"
   description = "Scalar DL Security Rules"
@@ -71,7 +71,7 @@ resource "aws_security_group" "scalardl" {
 }
 
 resource "aws_security_group_rule" "scalardl_ssh" {
-  count = local.scalardl_create_count
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 22
@@ -84,7 +84,7 @@ resource "aws_security_group_rule" "scalardl_ssh" {
 }
 
 resource "aws_security_group_rule" "scalardl_target_port" {
-  count = local.scalardl_create_count
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = local.scalardl.target_port
@@ -97,7 +97,7 @@ resource "aws_security_group_rule" "scalardl_target_port" {
 }
 
 resource "aws_security_group_rule" "scalardl_privileged_port" {
-  count = local.scalardl_create_count
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = local.scalardl.privileged_target_port
@@ -110,7 +110,7 @@ resource "aws_security_group_rule" "scalardl_privileged_port" {
 }
 
 resource "aws_security_group_rule" "scalardl_node_exporter" {
-  count = local.scalardl_create_count
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 9100
@@ -123,7 +123,7 @@ resource "aws_security_group_rule" "scalardl_node_exporter" {
 }
 
 resource "aws_security_group_rule" "scalardl_cadvisor" {
-  count = local.scalardl_create_count
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   type        = "ingress"
   from_port   = 18080
@@ -136,7 +136,7 @@ resource "aws_security_group_rule" "scalardl_cadvisor" {
 }
 
 resource "aws_security_group_rule" "scalardl_egress" {
-  count = local.scalardl_create_count
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   type        = "egress"
   from_port   = 0
@@ -149,7 +149,7 @@ resource "aws_security_group_rule" "scalardl_egress" {
 }
 
 resource "aws_lb" "scalardl-lb" {
-  count = local.scalardl_nlb_create_count
+  count = local.scalardl.enable_nlb ? 1 : 0
 
   name               = "${local.network_name}-scalardl-lb"
   internal           = local.scalardl.nlb_internal
@@ -160,7 +160,7 @@ resource "aws_lb" "scalardl-lb" {
 }
 
 resource "aws_lb_target_group" "scalardl-lb-target-group" {
-  count = local.scalardl_nlb_create_count
+  count = local.scalardl.enable_nlb ? 1 : 0
 
   name     = "${local.network_name}-scalardl-tg"
   port     = local.scalardl.target_port
@@ -176,7 +176,7 @@ resource "aws_lb_target_group" "scalardl-lb-target-group" {
 }
 
 resource "aws_lb_target_group" "scalardl-privileged-lb-target-group" {
-  count = local.scalardl_nlb_create_count
+  count = local.scalardl.enable_nlb ? 1 : 0
 
   name     = "${local.network_name}-scalardl-pr-tg"
   port     = local.scalardl.privileged_target_port
@@ -192,7 +192,7 @@ resource "aws_lb_target_group" "scalardl-privileged-lb-target-group" {
 }
 
 resource "aws_lb_listener" "scalardl-lb-listener" {
-  count = local.scalardl_nlb_create_count
+  count = local.scalardl.enable_nlb ? 1 : 0
 
   load_balancer_arn = aws_lb.scalardl-lb[0].arn
   port              = local.scalardl.listen_port
@@ -205,7 +205,7 @@ resource "aws_lb_listener" "scalardl-lb-listener" {
 }
 
 resource "aws_lb_listener" "scalardl-privileged-lb-listener" {
-  count = local.scalardl_nlb_create_count
+  count = local.scalardl.enable_nlb ? 1 : 0
 
   load_balancer_arn = aws_lb.scalardl-lb[0].arn
   port              = local.scalardl.privileged_listen_port
@@ -218,7 +218,7 @@ resource "aws_lb_listener" "scalardl-privileged-lb-listener" {
 }
 
 resource "aws_route53_record" "scalardl-dns-lb" {
-  count = local.scalardl_nlb_create_count
+  count = local.scalardl.enable_nlb ? 1 : 0
 
   zone_id = local.network_dns
   name    = "scalar-lb"
@@ -308,7 +308,7 @@ resource "aws_route53_record" "scalardl-green-node-exporter-dns-srv" {
 }
 
 resource "aws_route53_record" "scalardl-service-dns-srv" {
-  count = local.scalardl_create_count
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_scalardl._tcp.scalardl-service"

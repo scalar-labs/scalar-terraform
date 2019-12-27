@@ -1,0 +1,123 @@
+module "ca_cluster" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> v2.0"
+
+  name           = "${local.network_name} ca Cluster"
+  instance_count = local.ca.resource_count
+
+  ami                         = local.image_id
+  instance_type               = local.ca.resource_type
+  key_name                    = local.key_name
+  monitoring                  = false
+  vpc_security_group_ids      = aws_security_group.ca.*.id
+  subnet_id                   = local.subnet_id
+  associate_public_ip_address = false
+
+  tags = {
+    Terraform = true
+    Network   = local.network_name
+    Role      = "ca"
+  }
+
+  root_block_device = [
+    {
+      volume_size           = local.ca.resource_root_volume_size
+      delete_on_termination = true
+      volume_type           = "gp2"
+    },
+  ]
+}
+
+module "ca_provision" {
+  source           = "../../universal/ca"
+  triggers         = local.triggers
+  bastion_host_ip  = local.bastion_ip
+  host_list        = module.ca_cluster.private_ip
+  user_name        = local.user_name
+  private_key_path = local.private_key_path
+  provision_count  = local.ca.resource_count
+  enable_tdagent   = local.ca.enable_tdagent
+}
+
+resource "aws_security_group" "ca" {
+  name        = "${local.network_name}-ca-nodes"
+  description = "ca nodes"
+  vpc_id      = local.network_id
+
+  tags = {
+    Name = "${local.network_name} ca"
+  }
+}
+
+resource "aws_security_group_rule" "ca_ssh" {
+  count = local.ca.resource_count > 0 ? 1 : 0
+
+  type        = "ingress"
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "CA SSH"
+
+  security_group_id = aws_security_group.ca[count.index].id
+}
+
+resource "aws_security_group_rule" "ca_8888" {
+  count = local.ca.resource_count > 0 ? 1 : 0
+
+  type        = "ingress"
+  from_port   = 8888
+  to_port     = 8889
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "CA 8888"
+
+  security_group_id = aws_security_group.ca[count.index].id
+}
+
+resource "aws_security_group_rule" "ca__node_exporter" {
+  count = local.ca.resource_count > 0 ? 1 : 0
+
+  type        = "ingress"
+  from_port   = 9100
+  to_port     = 9100
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "CA Prometheus Node Exporter"
+
+  security_group_id = aws_security_group.ca[count.index].id
+}
+
+resource "aws_security_group_rule" "ca_18080" {
+  count = local.ca.resource_count > 0 ? 1 : 0
+
+  type        = "ingress"
+  from_port   = 18080
+  to_port     = 18080
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "CA 18080"
+
+  security_group_id = aws_security_group.ca[count.index].id
+}
+
+resource "aws_security_group_rule" "ca_egress" {
+  count = local.ca.resource_count > 0 ? 1 : 0
+
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "all"
+  cidr_blocks = ["0.0.0.0/0"]
+
+  security_group_id = aws_security_group.ca[count.index].id
+}
+
+resource "aws_route53_record" "ca-dns" {
+  count   = local.ca.resource_count
+  zone_id = local.network_dns
+  name    = "ca"
+  type    = "A"
+  ttl     = "300"
+  records = [module.ca_cluster.private_ip[count.index]]
+}

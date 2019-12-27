@@ -1,0 +1,39 @@
+version: "3.7"
+
+volumes:
+  ca_data: {}
+
+services:
+  cfssl-init:
+    # This service should be run separately before two services below
+    # (cfssl-serve and cfssl-ocspserve) with `depends_on` option, because if
+    # they start up at the same time (by commands like `docker-compose up`),
+    # they both attempt to generate the same missing certificate files, which
+    # results in a race condition.
+    image: scalar-cfssl:latest
+    build: ./cfssl
+    volumes:
+      - ca_data:/cfssl/data
+    command: /bin/true
+
+  cfssl-serve:
+    image: scalar-cfssl:latest
+    volumes:
+      - ca_data:/cfssl/data
+    depends_on:
+      - cfssl-init
+    command: serve
+    ports:
+      - "8888:8888"
+    restart: always
+
+  cfssl-ocspserve:
+    image: scalar-cfssl:latest
+    volumes:
+      - ca_data:/cfssl/data
+    depends_on:
+      - cfssl-init
+    command: ocspserve
+    ports:
+      - "8889:8889"
+    restart: always

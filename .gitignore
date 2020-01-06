@@ -7,7 +7,6 @@
 
 # .tfvars files
 *.tfvars
-
 !example.tfvars
 
 # Plan files

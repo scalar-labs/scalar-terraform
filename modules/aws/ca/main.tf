@@ -77,7 +77,7 @@ resource "aws_security_group_rule" "ca_cfssl" {
   security_group_id = aws_security_group.ca[count.index].id
 }
 
-resource "aws_security_group_rule" "ca__node_exporter" {
+resource "aws_security_group_rule" "ca_node_exporter" {
   count = local.ca.resource_count > 0 ? 1 : 0
 
   type        = "ingress"

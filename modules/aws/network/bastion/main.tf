@@ -78,6 +78,7 @@ resource "aws_security_group" "bastion" {
 
 resource "aws_route53_record" "bastion-dns" {
   count   = var.resource_count
+
   zone_id = var.network_dns
   name    = "bastion"
   type    = "A"
@@ -87,6 +88,7 @@ resource "aws_route53_record" "bastion-dns" {
 
 resource "aws_route53_record" "node-exporter-dns-srv" {
   count   = var.resource_count > 0 ? 1 : 0
+
   zone_id = var.network_dns
   name    = "_node-exporter._tcp.bastion"
   type    = "SRV"

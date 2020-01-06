@@ -62,7 +62,7 @@ resource "aws_security_group_rule" "ca_ssh" {
   security_group_id = aws_security_group.ca[count.index].id
 }
 
-resource "aws_security_group_rule" "ca_8888" {
+resource "aws_security_group_rule" "ca_cfssl" {
   count = local.ca.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
@@ -70,7 +70,7 @@ resource "aws_security_group_rule" "ca_8888" {
   to_port     = 8889
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
-  description = "CA 8888"
+  description = "CA cfssl"
 
   security_group_id = aws_security_group.ca[count.index].id
 }
@@ -88,7 +88,7 @@ resource "aws_security_group_rule" "ca__node_exporter" {
   security_group_id = aws_security_group.ca[count.index].id
 }
 
-resource "aws_security_group_rule" "ca_18080" {
+resource "aws_security_group_rule" "ca_cadvisor" {
   count = local.ca.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
@@ -96,7 +96,7 @@ resource "aws_security_group_rule" "ca_18080" {
   to_port     = 18080
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
-  description = "CA 18080"
+  description = "CA cAdvisor"
 
   security_group_id = aws_security_group.ca[count.index].id
 }
@@ -109,12 +109,14 @@ resource "aws_security_group_rule" "ca_egress" {
   to_port     = 0
   protocol    = "all"
   cidr_blocks = ["0.0.0.0/0"]
+  description = "CA Egress"
 
   security_group_id = aws_security_group.ca[count.index].id
 }
 
 resource "aws_route53_record" "ca-dns" {
-  count   = local.ca.resource_count
+  count = local.ca.resource_count
+
   zone_id = local.network_dns
   name    = "ca"
   type    = "A"

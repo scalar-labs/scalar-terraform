@@ -40,6 +40,8 @@ module "ca_provision" {
 }
 
 resource "aws_security_group" "ca" {
+  count = local.ca.resource_count > 0 ? 1 : 0
+
   name        = "${local.network_name}-ca-nodes"
   description = "ca nodes"
   vpc_id      = local.network_id

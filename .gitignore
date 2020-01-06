@@ -6,7 +6,9 @@
 *.tfstate.*
 
 # .tfvars files
-#*.tfvars
+*.tfvars
+
+!example.tfvars
 
 # Plan files
 *.out

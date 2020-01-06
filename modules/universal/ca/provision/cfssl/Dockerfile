@@ -1,4 +1,4 @@
-FROM cloudflare-cfssl:1.4.1
+FROM cloudflare-cfssl:v1.4.1
 
 # Install goose
 RUN go get bitbucket.org/liamstask/goose/cmd/goose

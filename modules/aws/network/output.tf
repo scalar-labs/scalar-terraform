@@ -51,7 +51,7 @@ output "location" {
 }
 
 output "user_name" {
-  value = local.user_name
+  value = local.network.user_name
 }
 
 output "private_key_path" {
@@ -65,7 +65,7 @@ output "internal_root_dns" {
 output "ssh_config" {
   value = <<EOF
 Host *
-User ${local.user_name}
+User ${local.network.user_name}
 UserKnownHostsFile /dev/null
 StrictHostKeyChecking no
 

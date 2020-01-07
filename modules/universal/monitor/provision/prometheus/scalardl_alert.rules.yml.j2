@@ -1,0 +1,18 @@
+groups:
+- name: Scalar DL Alerts
+  rules:
+  - alert: ScalarDLContainerDown
+    expr: count(up{job="cadvisor", instance=~"^scalardl-.*"}) by (instance) unless count(time() - container_last_seen{container_label_com_docker_compose_service="scalar",instance=~"^scalardl-.*"} < 15) by (instance) > 0
+    labels:
+      severity: warning
+    annotations:
+      summary: "Scalar DL container has stopped."
+      description: "The Scalar DL container on {{ '{{' }} $labels.instance {{ '}}' }} has stopped."
+
+  - alert: ScalarDLClusterDown
+    expr: absent(job:active_scalardl_blue_nodes:count) AND absent(job:active_scalardl_green_nodes:count)
+    labels:
+      severity: critical
+    annotations:
+      summary: "Scalar DL cluster is down"
+      description: "The Scalar DL cluster is down!!!"

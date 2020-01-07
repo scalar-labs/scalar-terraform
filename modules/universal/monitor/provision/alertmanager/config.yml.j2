@@ -1,0 +1,20 @@
+route:
+  group_wait: 15s # 30s by default
+  group_interval: 1m
+  repeat_interval: 30m
+  group_by: [cluster, alertname]
+
+  # A default receiver
+  receiver: team-slack
+
+receivers:
+  - name: team-slack
+    slack_configs:
+      - send_resolved: true
+        api_url: '{{ slack_webhook_url }}'
+        title: '{{ '{{' }} template "slack.scalar.title" . {{ '}}' }}'
+        text: '{{ '{{' }} template "slack.scalar.text" . {{ '}}' }}'
+        title_link: '{{ '{{' }} template "slack.scalar.link" . {{ '}}' }}'
+
+templates:
+- '/etc/alertmanager/alert.tmpl'

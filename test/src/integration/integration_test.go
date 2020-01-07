@@ -16,21 +16,31 @@ func TestEndToEnd(t *testing.T) {
 	t.Parallel()
 	logger.Logf(t, "Start End To End Test")
 
-	terraformOptions := &terraform.Options{
-		TerraformDir: *terraformDir,
-		Vars:         map[string]interface{}{},
-		NoColor:      true,
-	}
+	// terraformOptions := &terraform.Options{
+	// 	TerraformDir: *terraformDir,
+	// 	Vars:         map[string]interface{}{},
+	// 	NoColor:      true,
+	// }
 
-	defer test_structure.RunTestStage(t, "teardown", func() {
-		terraform.DestroyE(t, terraformOptions)
-		logger.Logf(t, "Finished End To End Test")
-	})
+	// defer test_structure.RunTestStage(t, "teardown", func() {
+	// 	terraform.DestroyE(t, terraformOptions)
+	// 	logger.Logf(t, "Finished End To End Test")
+	// })
 
-	test_structure.RunTestStage(t, "setup network", func() {
-		terraform.InitAndApply(t, terraformOptions)
+	test_structure.RunTestStage(t, "setup", func() {
+		aaaa := []string{"network", "cassandra"}
+
+		for _, b := range aaaa{
+			terraformOptions := &terraform.Options{
+				TerraformDir: *terraformDir + b,
+				Vars:         map[string]interface{}{},
+				NoColor:      true,
+			}
+			terraform.InitAndApply(t, terraformOptions)
+		}
+
 		logger.Logf(t, "Finished Creating Infrastructure: Tests will continue in 2 minutes")
-		time.Sleep(30 * time.Second)
+		time.Sleep(120 * time.Second)
 	})
 
 	// test_structure.RunTestStage(t, "validate", func() {

@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  scalar:
+    build:
+      context: ./
+    image: ${SCALAR_IMAGE}
+    environment:
+      - SCALAR_CASSANDRA_HOST=cassandra-lb.internal.scalar-labs.com
+      - CASSANDRA_REPLICATION_FACTOR=3
+    ports:
+      - 50051:50051 # TODO: SCALAR_PORT
+      - 50052:50052 # TODO: SCALAR_PRIVILEGED_PORT
+    restart: always

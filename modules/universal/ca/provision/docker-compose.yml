@@ -10,14 +10,13 @@ services:
     # they start up at the same time (by commands like `docker-compose up`),
     # they both attempt to generate the same missing certificate files, which
     # results in a race condition.
-    image: scalar-cfssl:latest
-    build: ./cfssl
+    image: scalarlabs/scalar-cfssl:1.0.0
     volumes:
       - ca_data:/cfssl/data
     command: /bin/true
 
   cfssl-serve:
-    image: scalar-cfssl:latest
+    image: scalarlabs/scalar-cfssl:1.0.0
     volumes:
       - ca_data:/cfssl/data
     depends_on:
@@ -28,7 +27,7 @@ services:
     restart: always
 
   cfssl-ocspserve:
-    image: scalar-cfssl:latest
+    image: scalarlabs/scalar-cfssl:1.0.0
     volumes:
       - ca_data:/cfssl/data
     depends_on:

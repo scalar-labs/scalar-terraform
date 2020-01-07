@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Scalar Dashboard</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  </head>
+  <body>
+    <div id="wrap">
+      <aside id="menu">
+        <header>
+          <img class="logo" alt="Scalar Inc." src="https://scalar-labs.com/wp-content/themes/scalar/assets/img/logo_scalar.svg">
+        </header>
+        <h1>Scalar Dashboard</h1>
+        <nav>
+          <ul>
+            <li><a class="service" name="grafana" target="frame-grafana" href="http://grafana.localhost.scalar-labs.com:{{ dashboard_local_forwarding_port }}/">Grafana</a></li>
+            <li><a class="service" name="prometheus" target="frame-prometheus" href="http://prometheus.localhost.scalar-labs.com:{{ dashboard_local_forwarding_port }}/">Prometheus</a></li>
+            <li><a class="service" name="alertmanager" target="frame-alertmanager" href="http://alertmanager.localhost.scalar-labs.com:{{ dashboard_local_forwarding_port }}/">Alertmanager</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <main id="content">
+        <iframe class="frame" name="frame-grafana"></iframe>
+        <iframe class="frame" name="frame-prometheus"></iframe>
+        <iframe class="frame" name="frame-alertmanager"></iframe>
+      </main>
+    </div>
+    <script src="./dashboard.js"></script>
+  </body>
+</html>

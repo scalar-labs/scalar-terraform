@@ -28,11 +28,11 @@ func TestEndToEnd(t *testing.T) {
 	// })
 
 	test_structure.RunTestStage(t, "setup", func() {
-		aaaa := []string{"network", "cassandra"}
+		scalarModules := []string{"network", "cassandra", "scalardl", "monitor"}
 
-		for _, b := range aaaa{
+		for _, m := range scalarModules {
 			terraformOptions := &terraform.Options{
-				TerraformDir: *terraformDir + b,
+				TerraformDir: *terraformDir + m,
 				Vars:         map[string]interface{}{},
 				NoColor:      true,
 			}

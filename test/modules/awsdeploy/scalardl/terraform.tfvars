@@ -37,5 +37,5 @@ envoy = {
   # image                     = "envoyproxy/envoy"
   # tls                       = false
   # cert_auto_gen             = true
-  # custom_config_path        = ""
+  custom_config_path = "../../envoy_config"
 }

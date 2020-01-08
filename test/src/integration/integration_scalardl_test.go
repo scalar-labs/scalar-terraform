@@ -33,7 +33,7 @@ func TestScalarDLWithJavaClientExpectStatusCodeIsValid(t *testing.T) {
 	propertiesFile := "./resources/test.properties"
 
 	terraformOptions := &terraform.Options{
-		TerraformDir: *terraformDir,
+		TerraformDir: *terraformDir + "scalardl",
 		Vars:         map[string]interface{}{},
 		NoColor:      true,
 	}
@@ -62,7 +62,7 @@ func TestScalarDLWithGrpcWebClientExpectStatusCodeIsValid(t *testing.T) {
 	expectedStatusCode := 200
 
 	terraformOptions := &terraform.Options{
-		TerraformDir: *terraformDir,
+		TerraformDir: *terraformDir + "scalardl",
 		Vars:         map[string]interface{}{},
 		NoColor:      true,
 	}

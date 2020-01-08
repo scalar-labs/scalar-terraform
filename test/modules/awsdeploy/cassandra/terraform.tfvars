@@ -16,13 +16,13 @@ cassandra = {
   #data_remote_volume_type      = "gp2"
   #commitlog_remote_volume_type = "gp2"
   #enable_tdagent               = true
-  #start_on_initial_boot        = false
+  start_on_initial_boot = true
 }
 
 cassy = {
   #resource_type             = "t3.micro"
   #resource_count            = 1
-  #resource_root_volume_size = 64
+  resource_root_volume_size = 16
   #enable_tdagent            = true
 }
 

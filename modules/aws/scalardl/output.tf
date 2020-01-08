@@ -37,3 +37,7 @@ output "scalardl_green_resource_count" {
 output "scalardl_replication_factor" {
   value = local.scalardl.replication_factor
 }
+
+output "envoy_dns" {
+  value = aws_lb.envoy-lb.*.dns_name
+}

@@ -62,6 +62,10 @@ output "scalardl_green_subnet_id" {
   value = module.scalar-network.scalardl_green_subnet_id
 }
 
+output "public_subnet_id" {
+  value = module.scalar-network.public_subnet_id
+}
+
 output "internal_root_dns" {
   value = module.scalar-network.internal_root_dns
 }

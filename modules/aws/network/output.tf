@@ -30,6 +30,10 @@ output "scalardl_green_subnet_id" {
   value = module.vpc.private_subnets[3]
 }
 
+output "public_subnet_id" {
+  value = module.vpc.public_subnets[0]
+}
+
 output "image_id" {
   value = module.image.image_id
 }

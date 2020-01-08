@@ -5,13 +5,11 @@ locals {
   network_dns       = var.network.dns
   network_id        = var.network.id
   location          = var.network.location
-  subnet_id         = var.network.subnet_id
   image_id          = var.network.image_id
   key_name          = var.network.key_name
   bastion_ip        = var.network.bastion_ip
   private_key_path  = var.network.private_key_path
   user_name         = var.network.user_name
-  nlb_subnet_id     = var.network.nlb_subnet_id
   blue_subnet_id    = var.network.blue_subnet_id
   green_subnet_id   = var.network.green_subnet_id
   internal_root_dns = var.network.internal_root_dns
@@ -73,7 +71,8 @@ locals {
     resource_root_volume_size = 64
     target_port               = 50051
     listen_port               = 50051
-    nlb_subnet_id             = ""
+    subnet_id                 = var.netowrk.nlb_subnet_id
+    nlb_subnet_id             = var.netowrk.public_subnet_id
     enable_nlb                = true
     nlb_internal              = false
     enable_tdagent            = true

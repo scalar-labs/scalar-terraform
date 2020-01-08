@@ -50,8 +50,8 @@ output "ssh_config" {
   value = module.scalar-network.ssh_config
 }
 
-output "scalardl_nlb_subnet_id" {
-  value = module.scalar-network.scalardl_nlb_subnet_id
+output "private_subnet_id" {
+  value = module.scalar-network.private_subnet_id
 }
 
 output "scalardl_blue_subnet_id" {
@@ -60,6 +60,10 @@ output "scalardl_blue_subnet_id" {
 
 output "scalardl_green_subnet_id" {
   value = module.scalar-network.scalardl_green_subnet_id
+}
+
+output "public_subnet_id" {
+  value = module.scalar-network.public_subnet_id
 }
 
 output "internal_root_dns" {

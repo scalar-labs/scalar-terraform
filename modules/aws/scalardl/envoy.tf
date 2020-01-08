@@ -10,7 +10,7 @@ module "envoy_cluster" {
   key_name                    = local.key_name
   monitoring                  = false
   vpc_security_group_ids      = aws_security_group.envoy.*.id
-  subnet_id                   = local.subnet_id
+  subnet_id                   = local.envoy.subnet_id
   associate_public_ip_address = false
 
   tags = {
@@ -143,7 +143,7 @@ resource "aws_lb" "envoy-lb" {
   name               = "${local.network_name}-envoy-lb"
   internal           = local.envoy.nlb_internal
   load_balancer_type = "network"
-  subnets            = [local.subnet_id]
+  subnets            = [local.envoy.nlb_subnet_id]
 
   enable_deletion_protection = false
 }

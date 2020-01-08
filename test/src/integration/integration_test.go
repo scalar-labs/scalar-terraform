@@ -16,16 +16,21 @@ func TestEndToEnd(t *testing.T) {
 	t.Parallel()
 	logger.Logf(t, "Start End To End Test")
 
-	// terraformOptions := &terraform.Options{
-	// 	TerraformDir: *terraformDir,
-	// 	Vars:         map[string]interface{}{},
-	// 	NoColor:      true,
-	// }
+	defer test_structure.RunTestStage(t, "teardown", func() {
+		scalarModules := []string{"monitor", "scalardl", "cassandra", "network"}
 
-	// defer test_structure.RunTestStage(t, "teardown", func() {
-	// 	terraform.DestroyE(t, terraformOptions)
-	// 	logger.Logf(t, "Finished End To End Test")
-	// })
+		for _, m := range scalarModules {
+			terraformOptions := &terraform.Options{
+				TerraformDir: *terraformDir + m,
+				Vars:         map[string]interface{}{},
+				NoColor:      true,
+			}
+
+			terraform.DestroyE(t, terraformOptions)
+		}
+
+		logger.Logf(t, "Finished End To End Test")
+	})
 
 	test_structure.RunTestStage(t, "setup", func() {
 		scalarModules := []string{"network", "cassandra", "scalardl", "monitor"}

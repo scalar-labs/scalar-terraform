@@ -35,6 +35,7 @@ locals {
     privileged_listen_port    = 50052
     enable_nlb                = true
     nlb_internal              = true
+    nlb_subnet_id             = var.network.private_subnet_id
     enable_tdagent            = true
   }
 }
@@ -71,8 +72,8 @@ locals {
     resource_root_volume_size = 64
     target_port               = 50051
     listen_port               = 50051
-    subnet_id                 = var.netowrk.private_subnet_id
-    nlb_subnet_id             = var.netowrk.public_subnet_id
+    subnet_id                 = var.network.private_subnet_id
+    nlb_subnet_id             = var.network.public_subnet_id
     enable_nlb                = true
     nlb_internal              = false
     enable_tdagent            = true

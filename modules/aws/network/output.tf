@@ -18,7 +18,7 @@ output "cassandra_subnet_id" {
   value = module.vpc.private_subnets[1]
 }
 
-output "scalardl_nlb_subnet_id" {
+output "private_subnet_id" {
   value = module.vpc.private_subnets[0]
 }
 

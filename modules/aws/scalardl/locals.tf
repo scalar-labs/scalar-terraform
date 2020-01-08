@@ -71,7 +71,7 @@ locals {
     resource_root_volume_size = 64
     target_port               = 50051
     listen_port               = 50051
-    subnet_id                 = var.netowrk.nlb_subnet_id
+    subnet_id                 = var.netowrk.private_subnet_id
     nlb_subnet_id             = var.netowrk.public_subnet_id
     enable_nlb                = true
     nlb_internal              = false

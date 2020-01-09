@@ -55,7 +55,7 @@ output "user_name" {
 }
 
 output "private_key_path" {
-  value = abspath(var.private_key_path)
+  value = abspath(pathexpand(var.private_key_path))
 }
 
 output "internal_root_dns" {

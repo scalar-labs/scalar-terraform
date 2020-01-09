@@ -41,3 +41,7 @@ output "scalardl_replication_factor" {
 output "envoy_dns" {
   value = aws_lb.envoy-lb.*.dns_name
 }
+
+output "envoy_listen_port" {
+  value = local.envoy.listen_port
+}

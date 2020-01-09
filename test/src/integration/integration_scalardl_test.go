@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/logger"
-	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"modules/grpc_helper"
 )
@@ -32,13 +31,7 @@ func TestScalarDLWithJavaClientExpectStatusCodeIsValid(t *testing.T) {
 	assetArgument := fmt.Sprintf(`{"asset_id": "%s", "state": 9001}`, assetID)
 	propertiesFile := "./resources/test.properties"
 
-	terraformOptions := &terraform.Options{
-		TerraformDir: *terraformDir + "scalardl",
-		Vars:         map[string]interface{}{},
-		NoColor:      true,
-	}
-
-	scalarurl := terraform.OutputRequired(t, terraformOptions, "envoy_dns")
+	scalarurl := lookupTargetValue(t, "scalardl", "envoy_dns")
 	logger.Logf(t, "URL: %s", scalarurl)
 	writePropertiesFile(t, scalarurl)
 
@@ -61,13 +54,7 @@ func TestScalarDLWithJavaClientExpectStatusCodeIsValid(t *testing.T) {
 func TestScalarDLWithGrpcWebClientExpectStatusCodeIsValid(t *testing.T) {
 	expectedStatusCode := 200
 
-	terraformOptions := &terraform.Options{
-		TerraformDir: *terraformDir + "scalardl",
-		Vars:         map[string]interface{}{},
-		NoColor:      true,
-	}
-
-	scalarurl := terraform.OutputRequired(t, terraformOptions, "envoy_dns")
+	scalarurl := lookupTargetValue(t, "scalardl", "envoy_dns")
 	logger.Logf(t, "URL: %s", scalarurl)
 
 	//Register Certificate

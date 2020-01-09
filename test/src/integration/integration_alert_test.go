@@ -7,7 +7,6 @@ import (
 
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/ssh"
-	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -30,21 +29,21 @@ func TestPrometheusAlerts(t *testing.T) {
 }
 
 func TestAlertmanagerContainerDownWithPrometheusAPIExpectAlertIsNotFiring(t *testing.T) {
-	host := lookupMonitorHost(t)
+	host := lookupTargetValue(t, "scalardl", "monitor_url")
 	alertname := "AlertmanagerContainerDown"
 
 	verifyAlertNotFiring(t, host, alertname)
 }
 
 func TestReaperContainerDownWithPrometheusAPIExpectAlertIsNotFiring(t *testing.T) {
-	host := lookupMonitorHost(t)
+	host := lookupTargetValue(t, "scalardl", "monitor_url")
 	alertname := "ReaperContainerDown"
 
 	verifyAlertNotFiring(t, host, alertname)
 }
 
 func TestCassandraCountWithPrometheusAPIExpectCountIsValid(t *testing.T) {
-	host := lookupMonitorHost(t)
+	host := lookupTargetValue(t, "scalardl", "monitor_url")
 	servicename := `count(node_systemd_unit_state{role="cassandra", name="cassandra.service", state="active"} == 1)`
 	expectedCount := "3"
 
@@ -52,7 +51,7 @@ func TestCassandraCountWithPrometheusAPIExpectCountIsValid(t *testing.T) {
 }
 
 func TestScalarDLBlueCountWithPrometheusAPIExpectCountIsValid(t *testing.T) {
-	host := lookupMonitorHost(t)
+	host := lookupTargetValue(t, "scalardl", "monitor_url")
 	servicename := "job:active_scalardl_blue_nodes:count"
 	expectedCount := "3"
 
@@ -60,7 +59,7 @@ func TestScalarDLBlueCountWithPrometheusAPIExpectCountIsValid(t *testing.T) {
 }
 
 func TestScalarDLGreenCountWithPrometheusAPIExpectCountIsValid(t *testing.T) {
-	host := lookupMonitorHost(t)
+	host := lookupTargetValue(t, "scalardl", "monitor_url")
 	servicename := "job:active_scalardl_green_nodes:count"
 	expectedCount := "0"
 
@@ -68,17 +67,11 @@ func TestScalarDLGreenCountWithPrometheusAPIExpectCountIsValid(t *testing.T) {
 }
 
 func TestScalarDegradedWithPrometheusAPIExpectAlertAndRecovery(t *testing.T) {
-	host := lookupMonitorHost(t)
+	host := lookupTargetValue(t, "scalardl", "monitor_url")
 	alertname := "ScalarDLContainerDown"
 
-	terraformOptions := &terraform.Options{
-		TerraformDir: *terraformDir,
-		Vars:         map[string]interface{}{},
-		NoColor:      true,
-	}
-
-	bastionIP := terraform.OutputRequired(t, terraformOptions, "bastion_ip")
-	scalardlIP := terraform.OutputRequired(t, terraformOptions, "scalardl_blue_test_ip_0")
+	bastionIP := lookupTargetValue(t, "network", "bastion_ip")
+	scalardlIP := lookupTargetValue(t, "scalardl", "scalardl_blue_test_ip_0")
 
 	publicHost := ssh.Host{
 		Hostname:    bastionIP,
@@ -108,17 +101,11 @@ func TestScalarDegradedWithPrometheusAPIExpectAlertAndRecovery(t *testing.T) {
 func TestCassandraDegradedWithPrometheusAPIExpectAlertAndRecovery(t *testing.T) {
 	t.Parallel()
 
-	host := lookupMonitorHost(t)
+	host := lookupTargetValue(t, "scalardl", "monitor_url")
 	alertname := "CassandraProcessStopped"
 
-	terraformOptions := &terraform.Options{
-		TerraformDir: *terraformDir,
-		Vars:         map[string]interface{}{},
-		NoColor:      true,
-	}
-
-	bastionIP := terraform.OutputRequired(t, terraformOptions, "bastion_ip")
-	cassandraIP := terraform.OutputRequired(t, terraformOptions, "cassandra_test_ip_0")
+	bastionIP := lookupTargetValue(t, "network", "bastion_ip")
+	cassandraIP := lookupTargetValue(t, "cassandra", "cassandra_test_ip_0")
 
 	publicHost := ssh.Host{
 		Hostname:    bastionIP,
@@ -143,23 +130,16 @@ func TestCassandraDegradedWithPrometheusAPIExpectAlertAndRecovery(t *testing.T) 
 	logger.Logf(t, "Starting Cassandra: %s", output)
 
 	verifyAlertNotFiring(t, host, alertname)
-
 }
 
 func TestInstanceHighCPUWithPrometheusAPIExpectAlertIsFiring(t *testing.T) {
 	t.Parallel()
 
-	host := lookupMonitorHost(t)
+	host := lookupTargetValue(t, "scalardl", "monitor_url")
 	alertname := "InstanceHighCPUUtilization"
 
-	terraformOptions := &terraform.Options{
-		TerraformDir: *terraformDir,
-		Vars:         map[string]interface{}{},
-		NoColor:      true,
-	}
-
-	bastionIP := terraform.OutputRequired(t, terraformOptions, "bastion_ip")
-	cassandraIP := terraform.OutputRequired(t, terraformOptions, "cassandra_test_ip_1")
+	bastionIP := lookupTargetValue(t, "network", "bastion_ip")
+	cassandraIP := lookupTargetValue(t, "cassandra", "cassandra_test_ip_1")
 
 	publicHost := ssh.Host{
 		Hostname:    bastionIP,
@@ -183,17 +163,11 @@ func TestInstanceHighCPUWithPrometheusAPIExpectAlertIsFiring(t *testing.T) {
 func TestCassandraDriveSpaceLowWithPrometheusAPIExpectAlertIsFiring(t *testing.T) {
 	t.Parallel()
 
-	host := lookupMonitorHost(t)
+	host := lookupTargetValue(t, "scalardl", "monitor_url")
 	alertname := "CassandraDriveSpaceLow"
 
-	terraformOptions := &terraform.Options{
-		TerraformDir: *terraformDir,
-		Vars:         map[string]interface{}{},
-		NoColor:      true,
-	}
-
-	bastionIP := terraform.OutputRequired(t, terraformOptions, "bastion_ip")
-	cassandraIP := terraform.OutputRequired(t, terraformOptions, "cassandra_test_ip_1")
+	bastionIP := lookupTargetValue(t, "network", "bastion_ip")
+	cassandraIP := lookupTargetValue(t, "cassandra", "cassandra_test_ip_1")
 
 	publicHost := ssh.Host{
 		Hostname:    bastionIP,
@@ -237,14 +211,4 @@ func verifyServiceCount(t *testing.T, host string, servicename string, expected 
 	} else {
 		assert.Equal(t, expected, "0")
 	}
-}
-
-func lookupMonitorHost(t *testing.T) string {
-	terraformOptions := &terraform.Options{
-		TerraformDir: *terraformDir,
-		Vars:         map[string]interface{}{},
-		NoColor:      true,
-	}
-
-	return terraform.OutputRequired(t, terraformOptions, "monitor_url")
 }

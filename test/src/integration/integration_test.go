@@ -26,6 +26,7 @@ func TestEndToEnd(t *testing.T) {
 				NoColor:      true,
 			}
 
+      logger.Logf(t, "Destroying <%s> Infrastructure", m)
 			terraform.DestroyE(t, terraformOptions)
 		}
 
@@ -41,6 +42,8 @@ func TestEndToEnd(t *testing.T) {
 				Vars:         map[string]interface{}{},
 				NoColor:      true,
 			}
+
+			logger.Logf(t, "Creating <%s> Infrastructure", m)
 			terraform.InitAndApply(t, terraformOptions)
 		}
 
@@ -48,8 +51,18 @@ func TestEndToEnd(t *testing.T) {
 		time.Sleep(120 * time.Second)
 	})
 
-	// test_structure.RunTestStage(t, "validate", func() {
-	// 	t.Run("TestScalarDL", TestScalarDL)
-	// 	t.Run("TestPrometheusAlerts", TestPrometheusAlerts)
-	// })
+	test_structure.RunTestStage(t, "validate", func() {
+		t.Run("TestScalarDL", TestScalarDL)
+	  t.Run("TestPrometheusAlerts", TestPrometheusAlerts)
+	})
+}
+
+func lookupTargetValue(t *testing.T, module string, targetValue string) string {
+	terraformOptions := &terraform.Options{
+		TerraformDir: *terraformDir + module,
+		Vars:         map[string]interface{}{},
+		NoColor:      true,
+	}
+
+	return terraform.OutputRequired(t, terraformOptions, targetValue)
 }

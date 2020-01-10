@@ -1,19 +1,15 @@
 # Cassandra AWS Module
 The Cassandra AWS module deploys a Cassandra cluster tuned for a Scalar DL environment.
 
-## Internal URL:
-`cassandra-[1-x].internal.scalar-labs.com`
-e.g., `cassandra-[1-x].internal.scalar-labs.com`
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
-| base | The base of cassandra | `string` | `"default"` | no |
-| cassandra | The cluster settings of cassandra | `map` | `{}` | no |
-| cassy | The cluster settings of cassy | `map` | `{}` | no |
-| network | The network settings of cassandra | `map` | n/a | yes |
-| reaper | The cluster settings of reaper | `map` | `{}` | no |
+| base | The base of cassandra cluster | `string` | `"default"` | no |
+| cassandra | The custom settings of cassandra cluster | `map` | `{}` | no |
+| cassy | The custom settings of cassy resources | `map` | `{}` | no |
+| network | The network settings of cassandra cluster | `map` | n/a | yes |
+| reaper | The custom settings of reaper resources | `map` | `{}` | no |
 
 ## Outputs
 

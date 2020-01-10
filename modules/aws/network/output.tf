@@ -23,7 +23,7 @@ output "cassandra_subnet_id" {
   description = "The subnet ID to launch cassandra cluster."
 }
 
-output "scalardl_nlb_subnet_id" {
+output "private_subnet_id" {
   value       = module.vpc.private_subnets[0]
   description = "The subnet ID to launch scalardl nlb."
 }
@@ -36,6 +36,10 @@ output "scalardl_blue_subnet_id" {
 output "scalardl_green_subnet_id" {
   value       = module.vpc.private_subnets[3]
   description = "The subnet ID to launch scalardl green cluster."
+}
+
+output "public_subnet_id" {
+  value = module.vpc.public_subnets[0]
 }
 
 output "image_id" {

@@ -39,7 +39,8 @@ output "scalardl_green_subnet_id" {
 }
 
 output "public_subnet_id" {
-  value = module.vpc.public_subnets[0]
+  value       = module.vpc.public_subnets[0]
+  description = "The subnet ID to launch envoy nlb."
 }
 
 output "image_id" {

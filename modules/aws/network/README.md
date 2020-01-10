@@ -28,8 +28,9 @@ The Network module creates a virtual network with subnets.
 | network_id | The VPC network ID. |
 | network_name | Short name to identify environment. |
 | private_key_path | The path to the private key for SSH access. |
+| private_subnet_id | The subnet ID to launch scalardl nlb. |
+| public_subnet_id | The subnet ID to launch envoy nlb. |
 | scalardl_blue_subnet_id | The subnet ID to launch scalardl blue cluster. |
 | scalardl_green_subnet_id | The subnet ID to launch scalardl green cluster. |
-| scalardl_nlb_subnet_id | The subnet ID to launch scalardl nlb. |
 | ssh_config | The Configuration file for SSH access. |
 | user_name | The user name of the remote hosts. |

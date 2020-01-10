@@ -1,0 +1,17 @@
+# Monitor AWS Module
+The monitor AWS module deploys a Prometheus monitoring service along with an alertmanager and Grafana.
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:-----:|
+| base | The base of monitor resources | `string` | `"default"` | no |
+| cassandra | The provisioning settings of cassandra cluster | `map` | n/a | yes |
+| monitor | The custom settings of monitor resources | `map` | `{}` | no |
+| network | The network settings of monitor resources | `map` | n/a | yes |
+| scalardl | The provisioning settings of scalardl cluster | `map` | n/a | yes |
+| slack_webhook_url | The Webhook URL of Slack For Alerting | `string` | `""` | no |
+
+## Outputs
+
+No output.

@@ -1,5 +1,5 @@
-# ScalarDL AWS Module
-The ScalarDL AWS module deploys a ScalarDL clusters.
+# Scalar DL AWS Module
+The Scalar DL module deploys a scalar dl resource cluster using blue/green deployment.
 
 ## Inputs
 

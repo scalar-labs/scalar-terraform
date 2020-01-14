@@ -1,7 +1,7 @@
 # AWS Scalar DL Example
-This example will deploy a simple Scalar DL environment in your AWS account inside the Tokyo region. If you wish to use another region you can modify the `backend.tf` and `examples.tfvars` and `remote.tf` files.
+This example will deploy a simple Scalar DL environment in your AWS account inside the Tokyo region. If you wish to use another region or stores the tfstate on S3 you can modify the `backend.tf` and `examples.tfvars` and `remote.tf` files.
 
-* This Document is for internal use of Scalar DL Terraform modules. If you are interested in managed modules please look [here](../../modules)
+* This Document is for internal use of Scalar DL Terraform modules. If you are interested in managed modules please look [here](../../modules/aws)
 
 ### What is required?
 * Terraform >= 0.12.x
@@ -97,38 +97,50 @@ UserKnownHostsFile /dev/null
 StrictHostKeyChecking no
 
 Host bastion
-HostName 13.231.214.169
+HostName 13.231.179.116
 LocalForward 8000 monitor.internal.scalar-labs.com:80
 
 Host *.internal.scalar-labs.com
 ProxyCommand ssh -F ssh.cfg bastion -W %h:%p
 
-bastion_ip = [
-    13.231.214.169
-]
+bastion_ip = 13.231.179.116
+bastion_provision_id = 9139872180792820156
+cassandra_subnet_id = subnet-0fcdd0a1f75e86b1e
+image_id = ami-0d9d854feeddeef21
+internal_root_dns = internal.scalar-labs.com
+key_name = tei-aws-0j5y83k-key
+location = ap-northeast-1a
+network_cidr = 10.42.0.0/16
+network_dns = Z08111302BU37G0O8OMMY
+network_id = vpc-08f36c547a1aca222
+network_name = tei-aws-0j5y83k
+private_key_path = /Users/tei/work/src/scalar-terraform/examples/aws/network/your_private.pem
+scalardl_blue_subnet_id = subnet-04e9f97893fd8e794
+scalardl_green_subnet_id = subnet-015ee9afbcf722ec4
+scalardl_nlb_subnet_id = subnet-0a88b78eaaf74b16b
+user_name = centos
 ```
 
 #### Cassandra
 ```
 Outputs:
 
-cassandra_ip = [
-    10.42.2.94,
-    10.42.2.213,
-    10.42.2.206
+cassandra_provision_ids = [
+  "4019088576544490630",
+  "656319024837932240",
+  "2469094098071954264",
 ]
+cassandra_resource_count = 3
+cassandra_start_on_initial_boot = false
 ```
 
 #### Scalar DL
 ```
 outputs:
 
-scalardl_blue_ip = [
-    10.42.3.222,
-    10.42.3.248,
-    10.42.3.101
-]
-scalardl_green_ip = []
+scalardl_blue_resource_count = 3
+scalardl_green_resource_count = 0
+scalardl_replication_factor = 3
 ```
 
 #### Monitor
@@ -138,7 +150,7 @@ Note: No outputs.
 
 ```Shell
 # SSH with ssh-agent
-$ ssh -A centos@13.231.214.169
+$ ssh -A centos@13.231.179.116
 
 # Generate SSH config to make it easy to access backend resources
 $ terraform output "ssh_config" > ssh.cfg

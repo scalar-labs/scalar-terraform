@@ -1,0 +1,9 @@
+output
+vendor
+*.log
+.vendor-new
+.DS_Store
+pkg
+bin
+.terraform
+ssh.cfg

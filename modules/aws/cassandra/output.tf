@@ -1,6 +1,6 @@
 output "cassandra_provision_ids" {
   value       = module.cassandra_provision.provision_ids
-  description = "The ID of the provisioning step."
+  description = "The IDs of the provisioning step."
 }
 
 output "cassandra_host_ips" {
@@ -15,12 +15,12 @@ output "cassandra_seed_ips" {
 
 output "cassandra_host_ids" {
   value       = module.cassandra_cluster.id
-  description = "A list of host ids for the cassandra cluster."
+  description = "A list of host IDs for the cassandra cluster."
 }
 
 output "cassandra_security_ids" {
   value       = aws_security_group.cassandra.*.id
-  description = "The security group ID of the cassandra cluster."
+  description = "The security group IDs of the cassandra cluster."
 }
 
 output "cassandra_hosts" {
@@ -30,12 +30,12 @@ output "cassandra_hosts" {
 
 output "network_interface_ids" {
   value = module.cassandra_cluster.primary_network_interface_id
-  description = "A list of primary interface id for the cassandra cluster."
+  description = "A list of primary interface ID for the cassandra cluster."
 }
 
 output "cassandra_resource_count" {
   value       = local.cassandra.resource_count
-  description = "The number of cassandra seed resources to create."
+  description = "The number of cassandra nodes to create."
 }
 
 output "cassandra_start_on_initial_boot" {

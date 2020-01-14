@@ -1,6 +1,5 @@
 name: 'Terraform GitHub Actions'
-on:
-  - pull_request
+on: [push, pull_request]
 jobs:
   terraform:
     name: 'Terraform'

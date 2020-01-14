@@ -154,7 +154,7 @@ resource "aws_lb" "scalardl-lb" {
   name               = "${local.network_name}-scalardl-lb"
   internal           = local.scalardl.nlb_internal
   load_balancer_type = "network"
-  subnets            = [local.nlb_subnet_id]
+  subnets            = [local.scalardl.nlb_subnet_id]
 
   enable_deletion_protection = false
 }

@@ -74,7 +74,7 @@ output "user_name" {
 }
 
 output "private_key_path" {
-  value       = abspath(var.private_key_path)
+  value       = abspath(pathexpand(var.private_key_path))
   description = "The path to the private key for SSH access."
 }
 

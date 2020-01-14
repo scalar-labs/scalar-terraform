@@ -307,7 +307,7 @@ resource "aws_route53_record" "cassandra-dns-lb" {
 }
 
 resource "aws_route53_record" "cassandra-dns" {
-  count   = local.cassandra.resource_count
+  count = local.cassandra.resource_count
 
   zone_id = local.network_dns
   name    = "cassandra-${count.index + 1}"

@@ -69,7 +69,7 @@ output "location" {
 }
 
 output "user_name" {
-  value = local.network.user_name
+  value       = local.network.user_name
   description = "The user name of the remote hosts."
 }
 

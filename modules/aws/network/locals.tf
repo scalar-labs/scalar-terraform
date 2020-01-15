@@ -17,7 +17,3 @@ locals {
     var.network
   )
 }
-
-locals {
-  ci_test = true
-}

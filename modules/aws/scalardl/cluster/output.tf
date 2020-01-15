@@ -1,9 +1,9 @@
 output "id" {
   value       = module.scalardl_cluster.id
-  description = "List of IDs of scalardl cluster."
+  description = "A list of IDs of a scalardl cluster."
 }
 
 output "ip" {
   value       = module.scalardl_cluster.private_ip
-  description = "List of private IP addresses assigned to the scalardl cluster instances."
+  description = "A list of private IP addresses assigned to scalardl cluster instances."
 }

@@ -1,5 +1,5 @@
-# Cluster Module of ScalarDL
-The Cluster module deploys a ScalarDL cluster.
+# Cluster Module of Scalar DL
+The Cluster module deploys a Scalar DL cluster.
 
 ## Inputs
 
@@ -34,5 +34,5 @@ The Cluster module deploys a ScalarDL cluster.
 
 | Name | Description |
 |------|-------------|
-| id | List of IDs of scalardl cluster. |
-| ip | List of private IP addresses assigned to the scalardl cluster instances. |
+| id | A list of IDs of a scalardl cluster. |
+| ip | A list of private IP addresses assigned to scalardl cluster instances. |

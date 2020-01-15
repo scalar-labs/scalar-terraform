@@ -8,6 +8,7 @@ on:
       - 'modules/universal/cassandra/**'
       - 'modules/universal/cassy/**'
       - 'modules/universal/reaper/**'
+      - 'test/modules/awsdeploy/cassandra/**'
   push:
     branches:
       - master
@@ -16,6 +17,7 @@ on:
       - 'modules/universal/cassandra/**'
       - 'modules/universal/cassy/**'
       - 'modules/universal/reaper/**'
+      - 'test/modules/awsdeploy/cassandra/**'
 jobs:
   terraform:
     name: 'Terraform'

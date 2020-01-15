@@ -139,7 +139,3 @@ locals {
     var.reaper
   )
 }
-
-locals {
-  ci_test = true
-}

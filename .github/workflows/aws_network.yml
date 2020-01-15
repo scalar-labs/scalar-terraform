@@ -7,6 +7,8 @@ on:
       - 'modules/aws/network/**'
       - 'modules/universal/bastion/**'
       - 'modules/universal/name-generator/**'
+      - 'test/modules/awsdeploy/network/**'
+      - 'provision/**'
   push:
     branches:
       - master
@@ -14,6 +16,8 @@ on:
       - 'modules/aws/network/**'
       - 'modules/universal/bastion/**'
       - 'modules/universal/name-generator/**'
+      - 'test/modules/awsdeploy/network/**'
+      - 'provision/**'
 jobs:
   terraform:
     name: 'Terraform'

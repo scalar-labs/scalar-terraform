@@ -1,16 +1,16 @@
 # AWS Scalar DL Example
-This example will deploy a simple Scalar DL environment in your AWS account inside the Tokyo region. If you wish to use another region or stores the tfstate on S3 you can modify the `backend.tf` and `examples.tfvars` and `remote.tf` files.
+This example will deploy a simple Scalar DL environment in the Tokyo region with your AWS account. If you want to use another region or store the tfstate on S3 you need to update `backend.tf`, `examples.tfvars` and `remote.tf` of each module.
 
-* This Document is for internal use of Scalar DL Terraform modules. If you are interested in managed modules please look [here](../../modules/aws)
+* This document is for internal use of Scalar DL Terraform modules for AWS. If you are interested in the modules please take a look at [here](../../modules/aws)
 
-### What is required?
+## What is required?
 * Terraform >= 0.12.x
 * Ansible 2.8
 * AWS CLI
 * ssh-agent with private key
 
-### What is created?
-* AWS VPC with NAT gateway
+## What is created?
+* An AWS VPC with a NAT gateway
 * DNS Zone for internal host lookup
 * 3 Scalar DL instances with a network load balancer (private)
 * 3 Cassandra instances with a network load balancer (private)
@@ -19,16 +19,16 @@ This example will deploy a simple Scalar DL environment in your AWS account insi
 * 3 Envoy instances with a network load balancer (public)
 * 1 Bastion instance with a public IP
 
-### How to deploy?
+## How to deploy?
 
-#### AWS Credentials
+### Confiture an AWS credential
 
 ```console
-# In this example you will need AWS cli configured with a profile
+# In this example you need AWS cli configured with `scalar` profile
 $ aws configure --profile scalar
 ```
 
-#### Create Network resources
+### Create Network resources
 
 
 ```console
@@ -47,7 +47,7 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
-#### Create Cassandra resources
+### Create Cassandra resources
 
 ```console
 $ cd examples/aws/cassandra
@@ -56,7 +56,7 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
-#### Create ScalarDL resources
+### Create ScalarDL resources
 
 ```console
 $ cd examples/aws/scalardl
@@ -65,7 +65,7 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
-#### Create Monitor resources
+### Create Monitor resources
 
 ```console
 $ cd examples/aws/monitor
@@ -74,20 +74,11 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
-### How to Destroy?
+## Generate outputs
+Terraform can output some useful information about your deployment such as a bastion public, internal ip addresses and ssh config that you can use to access instances. The ssh config assumes that the private key for an environment is added to your ssh agent.
 
-```console
-# After Testing !!Destroy Environment!!
-$ terraform destroy --var-file examples.tfvars
-```
-Note: Don't forget to `terraform destroy` your environment after you are done.
+### Network
 
-Be sure to checkout the [Scalar DL Getting Started](https://scalardl.readthedocs.io/en/latest/getting-started/) to understand how to use your environment.  
-
-### Example Output
-Terraform will output some useful information about your deployment, such as the bastion public and internal ip addresses. If you want to access your resources you can use the private key generated before.
-
-#### Network
 ```
 Outputs:
 
@@ -121,7 +112,7 @@ scalardl_nlb_subnet_id = subnet-0a88b78eaaf74b16b
 user_name = centos
 ```
 
-#### Cassandra
+### Cassandra
 ```
 Outputs:
 
@@ -134,7 +125,7 @@ cassandra_resource_count = 3
 cassandra_start_on_initial_boot = false
 ```
 
-#### Scalar DL
+### Scalar DL
 ```
 outputs:
 
@@ -143,10 +134,10 @@ scalardl_green_resource_count = 0
 scalardl_replication_factor = 3
 ```
 
-#### Monitor
+### Monitor
 Note: No outputs.
 
-### How to access backend resources
+## How to access instances
 
 ```console
 # SSH with ssh-agent
@@ -171,3 +162,13 @@ $ ssh -F ssh.cfg envoy-3.internal.scalar-labs.com
 
 $ ssh -F ssh.cfg monitor.internal.scalar-labs.com
 ```
+
+## How to Destroy?
+
+```console
+# After Testing !!Destroy Environment!!
+$ terraform destroy --var-file examples.tfvars
+```
+Note: Don't forget to `terraform destroy` to the environment you created after used.
+
+Please check out [Scalar DL Getting Started](https://scalardl.readthedocs.io/en/latest/getting-started/) to understand how to interact with the environment.

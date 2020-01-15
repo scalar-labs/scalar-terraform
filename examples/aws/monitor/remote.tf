@@ -1,29 +1,23 @@
 data "terraform_remote_state" "network" {
-  backend = "s3"
+  backend = "local"
 
   config = {
-    bucket = "example-scalar-tfstate"
-    key    = "network/terraform.tfstate"
-    region = "ap-northeast-1"
+    path = "../network/terraform.tfstate"
   }
 }
 
 data "terraform_remote_state" "cassandra" {
-  backend = "s3"
+  backend = "local"
 
   config = {
-    bucket = "example-scalar-tfstate"
-    key    = "cassandra/terraform.tfstate"
-    region = "ap-northeast-1"
+    path = "../cassandra/terraform.tfstate"
   }
 }
 
 data "terraform_remote_state" "scalardl" {
-  backend = "s3"
+  backend = "local"
 
   config = {
-    bucket = "example-scalar-tfstate"
-    key    = "scalardl/terraform.tfstate"
-    region = "ap-northeast-1"
+    path = "../scalardl/terraform.tfstate"
   }
 }

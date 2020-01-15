@@ -15,3 +15,7 @@ variable "network" {
   type    = map
   default = {}
 }
+
+variable "test" {
+  default = true
+}

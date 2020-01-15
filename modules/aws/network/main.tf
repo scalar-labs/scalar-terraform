@@ -16,7 +16,7 @@ module "vpc" {
     cidrsubnet(local.network.cidr, 8, 3),
     cidrsubnet(local.network.cidr, 8, 4)
   ]
-  public_subnets  = [cidrsubnet(local.network.cidr, 8, 0)]
+  public_subnets = [cidrsubnet(local.network.cidr, 8, 0)]
 
   enable_dns_hostnames = true
   enable_dns_support   = true
@@ -35,7 +35,7 @@ module "vpc" {
 }
 
 module "dns" {
-  source            = "./dns"
+  source = "./dns"
 
   network_id        = module.vpc.vpc_id
   network_name      = module.name_generator.name

@@ -37,5 +37,5 @@ locals {
     internal_root_dns = "internal.scalar-labs.com"
   }
 
-  network = unit_test ? unit : integration
+  network = var.unit_test ? local.unit : local.integration
 }

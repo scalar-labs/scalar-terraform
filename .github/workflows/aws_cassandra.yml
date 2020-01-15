@@ -9,6 +9,7 @@ on:
       - 'modules/universal/cassy/**'
       - 'modules/universal/reaper/**'
       - 'test/modules/awsdeploy/cassandra/**'
+      - 'provision/**'
   push:
     branches:
       - master
@@ -18,6 +19,7 @@ on:
       - 'modules/universal/cassy/**'
       - 'modules/universal/reaper/**'
       - 'test/modules/awsdeploy/cassandra/**'
+      - 'provision/**'
 jobs:
   terraform:
     name: 'Terraform'
@@ -30,10 +32,10 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
-      - name: 'Remove remote.tf'
+      - name: 'Remove tf of remote refrence'
         run: rm -f remote.tf locals.tf
         working-directory: './test/modules/awsdeploy/cassandra'
-      - name: 'Rename to using locas.tf.unit'
+      - name: 'Rename to using dummy data'
         run: mv locals.tf.unit locals.tf
         working-directory: './test/modules/awsdeploy/cassandra'
       - name: 'Terraform Format'

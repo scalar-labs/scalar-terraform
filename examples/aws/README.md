@@ -23,7 +23,7 @@ This example will deploy a simple Scalar DL environment in your AWS account insi
 
 #### AWS Credentials
 
-```Shell
+```console
 # In this example you will need AWS cli configured with a profile
 $ aws configure --profile scalar
 ```
@@ -31,7 +31,7 @@ $ aws configure --profile scalar
 #### Create Network resources
 
 
-```shell
+```console
 $ cd examples/aws/network
 
 # Generate a test key-pair
@@ -49,7 +49,7 @@ $ terraform apply -var-file example.tfvars
 
 #### Create Cassandra resources
 
-```shell
+```console
 $ cd examples/aws/cassandra
 
 $ terraform init
@@ -58,7 +58,7 @@ $ terraform apply -var-file example.tfvars
 
 #### Create ScalarDL resources
 
-```shell
+```console
 $ cd examples/aws/scalardl
 
 $ terraform init
@@ -67,7 +67,7 @@ $ terraform apply -var-file example.tfvars
 
 #### Create Monitor resources
 
-```shell
+```console
 $ cd examples/aws/monitor
 
 $ terraform init
@@ -76,7 +76,7 @@ $ terraform apply -var-file example.tfvars
 
 ### How to Destroy?
 
-```shell
+```console
 # After Testing !!Destroy Environment!!
 $ terraform destroy --var-file examples.tfvars
 ```
@@ -148,7 +148,7 @@ Note: No outputs.
 
 ### How to access backend resources
 
-```Shell
+```console
 # SSH with ssh-agent
 $ ssh -A centos@13.231.179.116
 

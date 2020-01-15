@@ -30,6 +30,7 @@ jobs:
         uses: actions/checkout@master
       - name: 'Remove remote.tf'
         run: rm -f remote.tf locals.tf
+        working-directory: './test/modules/awsdeploy/cassandra'
       - name: 'Rename to using locas.tf.unit'
         run: mv locals.tf.unit locals.tf
         working-directory: './test/modules/awsdeploy/cassandra'
@@ -61,4 +62,3 @@ jobs:
           tf_actions_subcommand: 'plan'
           tf_actions_working_dir: './test/modules/awsdeploy/cassandra'
           tf_actions_comment: true
-          args: '-var="unit_test=true"'

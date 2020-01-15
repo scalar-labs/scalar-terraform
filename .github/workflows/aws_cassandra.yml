@@ -28,6 +28,9 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
+      - name: 'Remove remote.tf'
+        run: rm -f remote.tf
+        working-directory: './test/modules/awsdeploy/cassandra'
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@master
         with:

@@ -21,3 +21,7 @@ variable "reaper" {
   type    = map
   default = {}
 }
+
+variable "unit_test" {
+  default = false
+}

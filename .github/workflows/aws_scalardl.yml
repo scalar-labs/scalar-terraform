@@ -1,4 +1,4 @@
-name: 'Terraform test for Network module of AWS'
+name: 'Terraform test for Scalar DL module of AWS'
 on:
   pull_request:
     branches:

@@ -1,5 +1,5 @@
 # Monitor AWS Module
-The monitor AWS module deploys a Prometheus monitoring service along with an Alertmanager and Grafana.
+The monitor AWS module deploys a Prometheus monitoring service along with an Alertmanager and Grafana. This module also deploys td-agent by default to collect logs from other instances and containers in the same network.
 
 ## Inputs
 

@@ -1,5 +1,5 @@
 # Monitor AWS Module
-The monitor AWS module deploys a Prometheus monitoring service along with an alertmanager and Grafana.
+The monitor AWS module deploys a Prometheus monitoring service along with an Alertmanager and Grafana.
 
 ## Inputs
 

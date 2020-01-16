@@ -1,6 +1,6 @@
 module "bastion_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=c35d6e3"
-  #version             = "1.2.1"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=upgrade-base-to-2.0.0"
+
   nb_instances                  = "1"
   admin_username                = var.user_name
   resource_group_name           = var.network_name
@@ -16,7 +16,8 @@ module "bastion_cluster" {
 }
 
 module "bastion_provision" {
-  source           = "../../../universal/bastion"
+  source = "../../../universal/bastion"
+
   triggers         = module.bastion_cluster.vm_ids
   bastion_host_ips = module.bastion_cluster.public_ip_dns_name
   user_name        = var.user_name
@@ -25,7 +26,7 @@ module "bastion_provision" {
   enable_tdagent   = var.enable_tdagent
 }
 
-resource "azurerm_dns_a_record" "bastion_dns_a" {
+resource "azurerm_private_dns_a_record" "bastion_dns_a" {
   name                = "bastion"
   zone_name           = var.network_dns
   resource_group_name = var.network_name
@@ -34,7 +35,7 @@ resource "azurerm_dns_a_record" "bastion_dns_a" {
   records = module.bastion_cluster.network_interface_private_ip
 }
 
-resource "azurerm_dns_srv_record" "bastion_dns_srv" {
+resource "azurerm_private_dns_srv_record" "bastion_dns_srv" {
   name                = "_node-exporter._tcp.bastion"
   zone_name           = var.network_dns
   resource_group_name = var.network_name
@@ -44,6 +45,6 @@ resource "azurerm_dns_srv_record" "bastion_dns_srv" {
     priority = 0
     weight   = 0
     port     = 9100
-    target   = "${azurerm_dns_a_record.bastion_dns_a.name}.internal.scalar-labs.com"
+    target   = "${azurerm_private_dns_a_record.bastion_dns_a.name}.internal.scalar-labs.com"
   }
 }

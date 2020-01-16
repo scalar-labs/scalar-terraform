@@ -1,6 +1,7 @@
 module "name_generator" {
   source = "../../universal/name-generator"
-  name   = var.name
+
+  name = var.name
 }
 
 resource "azurerm_resource_group" "default" {

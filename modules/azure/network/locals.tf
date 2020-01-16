@@ -19,19 +19,11 @@ locals {
 }
 
 locals {
-  subnet_names = [
-    "public",
-    "private",
-    "cassandra",
-    "blue",
-    "green",
-  ]
-
-  subnet_prefixes = [
-    cidrsubnet(local.network.cidr, 8, 0),
-    cidrsubnet(local.network.cidr, 8, 1),
-    cidrsubnet(local.network.cidr, 8, 2),
-    cidrsubnet(local.network.cidr, 8, 3),
-    cidrsubnet(local.network.cidr, 8, 4),
-  ]
+  subnet = {
+    public    = cidrsubnet(local.network.cidr, 8, 0)
+    private   = cidrsubnet(local.network.cidr, 8, 1)
+    cassandra = cidrsubnet(local.network.cidr, 8, 2)
+    blue      = cidrsubnet(local.network.cidr, 8, 3)
+    green     = cidrsubnet(local.network.cidr, 8, 4)
+  }
 }

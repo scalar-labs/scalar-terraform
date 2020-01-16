@@ -11,15 +11,9 @@ output "cidr" {
 }
 
 output "subnet_map" {
-  value = {
-    public    = azurerm_subnet.subnet.*.id[0]
-    private   = azurerm_subnet.subnet.*.id[1]
-    cassandra = azurerm_subnet.subnet.*.id[2]
-    blue      = azurerm_subnet.subnet.*.id[3]
-    green     = azurerm_subnet.subnet.*.id[4]
-  }
+  value = local.subnet
 }
 
 output "dns_zone_id" {
-  value = basename(azurerm_dns_zone.dns.id)
+  value = basename(azurerm_private_dns_zone.dns.id)
 }

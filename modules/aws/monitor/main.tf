@@ -86,7 +86,7 @@ module "monitor_provision" {
 }
 
 resource "aws_security_group" "monitor" {
-  count   = local.monitor.resource_count > 0 ? 1 : 0
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   name        = "${local.network_name}-monitor-nodes"
   description = "Monitor nodes"
@@ -214,7 +214,7 @@ resource "aws_security_group_rule" "monitor_egress" {
 }
 
 resource "aws_route53_record" "monitor-dns" {
-  count   = local.monitor.resource_count
+  count = local.monitor.resource_count
 
   zone_id = local.network_dns
   name    = "monitor"
@@ -224,7 +224,7 @@ resource "aws_route53_record" "monitor-dns" {
 }
 
 resource "aws_route53_record" "prometheus-dns" {
-  count   = local.monitor.resource_count
+  count = local.monitor.resource_count
 
   zone_id = local.network_dns
   name    = "prometheus"
@@ -234,7 +234,7 @@ resource "aws_route53_record" "prometheus-dns" {
 }
 
 resource "aws_route53_record" "cadvisor-dns-srv" {
-  count   = local.monitor.resource_count > 0 ? 1 : 0
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_cadvisor._tcp.monitor"
@@ -248,7 +248,7 @@ resource "aws_route53_record" "cadvisor-dns-srv" {
 }
 
 resource "aws_route53_record" "node-exporter-dns-srv" {
-  count   = local.monitor.resource_count > 0 ? 1 : 0
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "_node-exporter._tcp.monitor"

@@ -32,7 +32,7 @@ jobs:
         id: go
       - name: 'Get dep'
         run: |
-            go get -u github.com/golang/dep/cmd/dep
+            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             which dep
       - name: 'Install terratest modules'
         run: dep ensure

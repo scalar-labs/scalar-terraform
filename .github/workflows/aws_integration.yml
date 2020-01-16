@@ -25,26 +25,21 @@ jobs:
             tar -xvzf v1.3.0.tar.gz
             mv ./scalardl-client-sdk-1.3.0 ./scalardl-client-sdk
         working-directory: './test/src/integration'
-      - name: 'Install terratest modules'
+      - name: 'Setup go'
         uses: actions/setup-go@v1
         with:
           go-version: 1.13.5
+      - name: 'Install terratest modules'
         run: dep ensure
         env:
           GOPATH: './test'
         working-directory: './test/src/integration'
       - name: 'Install helper modules'
-        uses: uses: actions/setup-go@v1
-        with:
-          go-version: 1.13.5
         run: dep ensure
         env:
           GOPATH: './test'
         working-directory: './test/src/modules'
       - name: 'Excute terratest'
-        uses: uses: actions/setup-go@v1
-        with:
-          go-version: 1.13.5
         run: go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
         env:
           GOPATH: './test'

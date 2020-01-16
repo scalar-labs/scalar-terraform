@@ -32,6 +32,8 @@ jobs:
         id: go
       - name: 'Get dep'
         run: go get -u github.com/golang/dep/cmd/dep
+        env:
+          GOPATH: './test'
       - name: 'Install terratest modules'
         run: dep ensure
         env:

@@ -9,9 +9,7 @@ locals {
     user_name                 = "centos"
     cidr                      = "10.42.0.0/16"
   }
-}
 
-locals {
   network = merge(
     local.network_default,
     var.network

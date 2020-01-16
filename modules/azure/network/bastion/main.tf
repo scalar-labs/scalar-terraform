@@ -1,4 +1,5 @@
 module "bastion_cluster" {
+  # TODO: Fix ref=xxxxxx
   source = "github.com/scalar-labs/terraform-azurerm-compute?ref=upgrade-base-to-2.0.0"
 
   nb_instances                  = "1"

@@ -1,0 +1,64 @@
+name: 'Terraform test for Monitor module of AWS'
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'modules/aws/monitor/**'
+      - 'modules/universal/monitor/**'
+      - 'test/modules/awsdeploy/monitor/**'
+      - 'provision/**'
+  push:
+    branches:
+      - master
+    paths:
+      - 'modules/aws/monitor/**'
+      - 'modules/universal/monitor/**'
+      - 'test/modules/awsdeploy/monitor/**'
+      - 'provision/**'
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: 'Remove tf of remote refrence'
+        run: rm -f remote.tf locals.tf
+        working-directory: './test/modules/awsdeploy/monitor'
+      - name: 'Rename to using dummy data'
+        run: mv locals.tf.unit locals.tf
+        working-directory: './test/modules/awsdeploy/monitor'
+      - name: 'Terraform Format'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.19
+          tf_actions_subcommand: 'fmt'
+          tf_actions_working_dir: './modules/aws/monitor'
+          tf_actions_comment: true
+      - name: 'Terraform Init'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.19
+          tf_actions_subcommand: 'init'
+          tf_actions_working_dir: './test/modules/awsdeploy/monitor'
+          tf_actions_comment: true
+      - name: 'Terraform Validate'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.19
+          tf_actions_subcommand: 'validate'
+          tf_actions_working_dir: './test/modules/awsdeploy/monitor'
+          tf_actions_comment: true
+      - name: 'Terraform Plan'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.19
+          tf_actions_subcommand: 'plan'
+          tf_actions_working_dir: './test/modules/awsdeploy/monitor'
+          tf_actions_comment: true

@@ -22,5 +22,5 @@ variable "scalardl" {
 variable "envoy" {
   type        = map
   default     = {}
-  description = "The custom settings of a envoy cluster"
+  description = "The custom settings of an envoy cluster"
 }

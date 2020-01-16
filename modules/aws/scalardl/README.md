@@ -7,7 +7,7 @@ The Scalar DL module deploys a scalardl resource cluster using blue/green deploy
 |------|-------------|------|---------|:-----:|
 | base | The base of a scalardl cluster | `string` | `"default"` | no |
 | cassandra | The provisioning settings of a cassandra cluster | `map` | n/a | yes |
-| envoy | The custom settings of a envoy cluster | `map` | `{}` | no |
+| envoy | The custom settings of an envoy cluster | `map` | `{}` | no |
 | network | The network settings of a scalardl cluster | `map` | n/a | yes |
 | scalardl | The custom settings of a scalardl cluster | `map` | `{}` | no |
 

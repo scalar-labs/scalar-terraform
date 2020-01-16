@@ -18,6 +18,7 @@ This example will deploy a simple Scalar DL environment in the Tokyo region with
 * 1 Reaper instance
 * 3 Envoy instances with a network load balancer (public)
 * 1 Bastion instance with a public IP
+* 1 Monitor instance
 
 ## How to deploy?
 

@@ -6,14 +6,15 @@ on:
   schedule:
     - cron: '0 0 * * *'
 jobs:
-  terraform:
-    name: 'Terraform'
+  terratest:
+    name: 'Terratest'
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      DOCKERHUB_ACCESS_TOKEN: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
@@ -37,7 +38,6 @@ jobs:
             mkdir -p ${GOBIN}
             export PATH=${PATH}:${GOBIN}
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-            which dep
         working-directory: './test'
       - name: 'Install terratest modules'
         run: |
@@ -60,7 +60,6 @@ jobs:
             eval `ssh-agent`
             chmod 600 ./modules/test.pem
             ssh-add ./modules/test.pem
-            cd ./src/integration
-            docker login -u ktei -p 018adf5f-4655-4ef7-bde5-572b48c659a8
-            go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
+            docker login -u scalartest -p ${DOCKERHUB_ACCESS_TOKEN}
+            mkdir -p /var/log/scalar/
         working-directory: './test'

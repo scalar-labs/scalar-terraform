@@ -81,6 +81,9 @@ Terraform can output some useful information about your deployment such as a bas
 ### Network
 
 ```
+$ terraform output
+--- Output is displayed here ---
+
 Outputs:
 
 ssh_config = Host *
@@ -115,6 +118,9 @@ user_name = centos
 
 ### Cassandra
 ```
+$ terraform output
+--- Output is displayed here ---
+
 Outputs:
 
 cassandra_provision_ids = [
@@ -128,6 +134,9 @@ cassandra_start_on_initial_boot = false
 
 ### Scalar DL
 ```
+$ terraform output
+--- Output is displayed here ---
+
 outputs:
 
 scalardl_blue_resource_count = 3
@@ -164,12 +173,11 @@ $ ssh -F ssh.cfg envoy-3.internal.scalar-labs.com
 $ ssh -F ssh.cfg monitor.internal.scalar-labs.com
 ```
 
-## How to Destroy?
+## How to Destroy
 
 ```console
-# After Testing !!Destroy Environment!!
-$ terraform destroy --var-file examples.tfvars
+# Make sure to do this after used !!!
+$ terraform destroy --var-file example.tfvars
 ```
-Note: Don't forget to `terraform destroy` to the environment you created after used.
 
 Please check out [Scalar DL Getting Started](https://scalardl.readthedocs.io/en/latest/getting-started/) to understand how to interact with the environment.

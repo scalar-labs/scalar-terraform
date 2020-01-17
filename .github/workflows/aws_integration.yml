@@ -42,6 +42,8 @@ jobs:
       - name: 'Install terratest modules'
         run: |
             export PATH=${PATH}:$(pwd)/bin
+            echo "$(pwd)/bin"
+            ls ./bin/
             cd src/integration
             dep ensure
         working-directory: './test'

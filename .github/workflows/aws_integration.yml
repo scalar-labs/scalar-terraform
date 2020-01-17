@@ -32,8 +32,8 @@ jobs:
         id: go
       - name: 'Get dep'
         run: |
-            export GOPATH=$(pwd)/test
-            export GOBIN=$(pwd)/test/bin
+            export GOPATH=$(pwd)
+            export GOBIN=${GOPATH}/bin
             mkdir -p ${GOBIN}
             export PATH=${PATH}:${GOBIN}
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh

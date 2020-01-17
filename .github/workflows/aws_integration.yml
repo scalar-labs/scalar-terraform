@@ -32,25 +32,18 @@ jobs:
         id: go
       - name: 'Get dep'
         run: |
+            export GOPATH=$(pwd)/test
             export GOBIN=$(go env GOPATH)/bin
             export PATH=$PATH:$GOBIN
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             which dep
-        env:
-          GOPATH: './test'
         working-directory: './test'
       - name: 'Install terratest modules'
         run: dep ensure
-        env:
-          GOPATH: './test'
         working-directory: './test/src/integration'
       - name: 'Install helper modules'
         run: dep ensure
-        env:
-          GOPATH: './test'
         working-directory: './test/src/modules'
       - name: 'Run terratest'
         run: go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
-        env:
-          GOPATH: './test'
         working-directory: './test/src/integration'

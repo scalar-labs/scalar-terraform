@@ -61,5 +61,5 @@ jobs:
             chmod 600 ./modules/test.pem
             ssh-add ./modules/test.pem
             docker login -u scalartest -p ${DOCKERHUB_ACCESS_TOKEN}
-            mkdir -p /var/log/scalar/
+            go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
         working-directory: './test'

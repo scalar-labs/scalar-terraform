@@ -32,8 +32,13 @@ jobs:
         id: go
       - name: 'Get dep'
         run: |
+            export GOBIN=$(go env GOPATH)/bin
+            export PATH=$PATH:$GOBIN
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             which dep
+        env:
+          GOPATH: './test'
+        working-directory: './test'
       - name: 'Install terratest modules'
         run: dep ensure
         env:

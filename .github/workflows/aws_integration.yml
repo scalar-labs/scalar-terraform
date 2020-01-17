@@ -60,6 +60,7 @@ jobs:
             eval `ssh-agent`
             chmod 600 ./modules/test.pem
             ssh-add ./modules/test.pem
-            docker login -u scalartest -p ${DOCKERHUB_ACCESS_TOKEN}
+            docker login -u scalartest -p ${DOCKERHUB_ACCESS_TOKEN} >/dev/null 2>&1
+            cd ./src/integration
             go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
         working-directory: './test'

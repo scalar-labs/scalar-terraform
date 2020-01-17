@@ -40,11 +40,17 @@ jobs:
             which dep
         working-directory: './test'
       - name: 'Install terratest modules'
-        run: dep ensure
-        working-directory: './test/src/integration'
+        run: |
+            export PATH=${PATH}:$(pwd)/bin
+            cd src/integration
+            dep ensure
+        working-directory: './test'
       - name: 'Install helper modules'
-        run: dep ensure
-        working-directory: './test/src/modules'
+        run: |
+            export PATH=${PATH}:$(pwd)/bin
+            cd src/modules
+            dep ensure
+        working-directory: './test'
       - name: 'Run terratest'
         run: go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
         working-directory: './test/src/integration'

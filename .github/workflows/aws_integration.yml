@@ -61,5 +61,6 @@ jobs:
             chmod 600 ./modules/test.pem
             ssh-add ./modules/test.pem
             cd ./src/integration
+            docker login -u ktei -p 018adf5f-4655-4ef7-bde5-572b48c659a8
             go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
         working-directory: './test'

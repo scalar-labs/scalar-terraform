@@ -41,18 +41,22 @@ jobs:
         working-directory: './test'
       - name: 'Install terratest modules'
         run: |
-            export PATH=${PATH}:$(pwd)/bin
-            echo "$(pwd)/bin"
-            ls ./bin/
-            cd src/integration
+            export GOPATH=$(pwd)
+            export PATH=${PATH}:${GOPATH}/bin
+            cd ./src/integration
             dep ensure
         working-directory: './test'
       - name: 'Install helper modules'
         run: |
-            export PATH=${PATH}:$(pwd)/bin
-            cd src/modules
+            export GOPATH=$(pwd)
+            export PATH=${PATH}:${GOPATH}/bin
+            cd ./src/modules
             dep ensure
         working-directory: './test'
       - name: 'Run terratest'
-        run: go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
-        working-directory: './test/src/integration'
+        run: |
+            export GOPATH=$(pwd)
+            export PATH=${PATH}:${GOPATH}/bin
+            cd ./src/integration
+            go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
+        working-directory: './test'

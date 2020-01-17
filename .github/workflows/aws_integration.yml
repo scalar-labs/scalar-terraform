@@ -57,6 +57,7 @@ jobs:
         run: |
             export GOPATH=$(pwd)
             export PATH=${PATH}:${GOPATH}/bin
+            eval `ssh-agent`
             ssh-add ./modules/test.pem
             cd ./src/integration
             go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"

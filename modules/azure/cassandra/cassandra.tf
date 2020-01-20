@@ -35,7 +35,7 @@ resource "azurerm_managed_disk" "cassandra_data_volume" {
 resource "azurerm_virtual_machine_data_disk_attachment" "cassandra_data_volume_attachment" {
   count = local.cassandra.enable_data_volume && ! local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
-  managed_disk_id    = azurerm_managed_disk.cassandra_data_volume.*.id[count.index]
+  managed_disk_id    = azurerm_managed_disk.cassandra_data_volume[count.index].id
   virtual_machine_id = module.cassandra_cluster.vm_ids[count.index]
   lun                = "5"
   caching            = "None"
@@ -45,12 +45,12 @@ resource "null_resource" "volume_data_remote" {
   count = local.cassandra.enable_data_volume && ! local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
   triggers = {
-    triggers = element(azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment.*.id, count.index)
+    triggers = azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[count.index].id
   }
 
   connection {
     bastion_host = local.bastion_ip
-    host         = element(module.cassandra_cluster.network_interface_private_ip, count.index)
+    host         = module.cassandra_cluster.network_interface_private_ip[count.index]
     user         = local.user_name
     agent        = local.cassandra.use_agent
     private_key  = file(local.private_key_path)
@@ -67,12 +67,12 @@ resource "null_resource" "volume_data_local" {
   count = local.cassandra.enable_data_volume && local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
   triggers = {
-    triggers = element(module.cassandra_cluster.vm_ids, count.index)
+    triggers = module.cassandra_cluster.vm_ids[count.index]
   }
 
   connection {
     bastion_host = local.bastion_ip
-    host         = element(module.cassandra_cluster.network_interface_private_ip, count.index)
+    host         = module.cassandra_cluster.network_interface_private_ip[count.index]
     user         = local.user_name
     agent        = local.cassandra.use_agent
     private_key  = file(local.private_key_path)
@@ -100,7 +100,7 @@ resource "azurerm_managed_disk" "cassandra_commitlog_volume" {
 resource "azurerm_virtual_machine_data_disk_attachment" "cassandra_commitlog_volume_attachment" {
   count = local.cassandra.enable_commitlog_volume && ! local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
 
-  managed_disk_id    = azurerm_managed_disk.cassandra_commitlog_volume.*.id[count.index]
+  managed_disk_id    = azurerm_managed_disk.cassandra_commitlog_volume[count.index].id
   virtual_machine_id = module.cassandra_cluster.vm_ids[count.index]
   lun                = "6"
   caching            = "None"
@@ -110,12 +110,12 @@ resource "null_resource" "volume_commitlog" {
   count = local.cassandra.enable_commitlog_volume && ! local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
 
   triggers = {
-    triggers = element(azurerm_virtual_machine_data_disk_attachment.cassandra_commitlog_volume_attachment.*.id, count.index)
+    triggers = azurerm_virtual_machine_data_disk_attachment.cassandra_commitlog_volume_attachment[count.index].id
   }
 
   connection {
     bastion_host = local.bastion_ip
-    host         = element(module.cassandra_cluster.network_interface_private_ip, count.index)
+    host         = module.cassandra_cluster.network_interface_private_ip[count.index]
     user         = local.user_name
     agent        = local.cassandra.use_agent
     private_key  = file(local.private_key_path)
@@ -132,12 +132,12 @@ resource "null_resource" "volume_commitlog_local" {
   count = local.cassandra.enable_commitlog_volume && local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
 
   triggers = {
-    triggers = element(module.cassandra_cluster.vm_ids, count.index)
+    triggers = module.cassandra_cluster.vm_ids[count.index]
   }
 
   connection {
     bastion_host = local.bastion_ip
-    host         = element(module.cassandra_cluster.network_interface_private_ip, count.index)
+    host         = module.cassandra_cluster.network_interface_private_ip[count.index]
     user         = local.user_name
     agent        = local.cassandra.use_agent
     private_key  = file(local.private_key_path)
@@ -179,7 +179,8 @@ resource "azurerm_dns_a_record" "cassandra-dns" {
 }
 
 resource "azurerm_dns_a_record" "cassandra-dns-lb" {
-  count               = local.cassandra.resource_count > 0 ? 1 : 0
+  count = local.cassandra.resource_count > 0 ? 1 : 0
+
   name                = "cassandra-lb"
   zone_name           = local.network_dns
   resource_group_name = local.network_name
@@ -189,7 +190,8 @@ resource "azurerm_dns_a_record" "cassandra-dns-lb" {
 }
 
 resource "azurerm_dns_srv_record" "node-exporter-dns-srv" {
-  count               = local.cassandra.resource_count > 0 ? 1 : 0
+  count = local.cassandra.resource_count > 0 ? 1 : 0
+
   name                = "_node-exporter._tcp.cassandra"
   zone_name           = local.network_dns
   resource_group_name = local.network_name
@@ -202,13 +204,14 @@ resource "azurerm_dns_srv_record" "node-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9100
-      target   = "${record.value}.internal.scalar-labs.com"
+      target   = "${record.value}.${local.internal_root_dns}"
     }
   }
 }
 
 resource "azurerm_dns_srv_record" "cassanda-exporter-dns-srv" {
-  count               = local.cassandra.resource_count > 0 ? 1 : 0
+  count = local.cassandra.resource_count > 0 ? 1 : 0
+
   name                = "_cassandra-exporter._tcp.cassandra"
   zone_name           = local.network_dns
   resource_group_name = local.network_name
@@ -221,7 +224,7 @@ resource "azurerm_dns_srv_record" "cassanda-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 7070
-      target   = "${record.value}.internal.scalar-labs.com"
+      target   = "${record.value}.${local.internal_root_dns}"
     }
   }
 }

@@ -51,7 +51,7 @@ resource "azurerm_dns_srv_record" "cassy-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9100
-      target   = "${record.value}.internal.scalar-labs.com"
+      target   = "${record.value}.${local.internal_root_dns}"
     }
   }
 }
@@ -71,7 +71,7 @@ resource "azurerm_dns_srv_record" "cassy-dns-srv" {
       priority = 0
       weight   = 0
       port     = 8081
-      target   = "${record.value}.internal.scalar-labs.com"
+      target   = "${record.value}.${local.internal_root_dns}"
     }
   }
 }
@@ -91,7 +91,7 @@ resource "azurerm_dns_srv_record" "cassy-cadvisor-dns-srv" {
       priority = 0
       weight   = 0
       port     = 18080
-      target   = "${record.value}.internal.scalar-labs.com"
+      target   = "${record.value}..${local.internal_root_dns}"
     }
   }
 }

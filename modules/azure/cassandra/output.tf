@@ -14,14 +14,6 @@ output "cassandra_host_ids" {
   value = module.cassandra_cluster.vm_ids
 }
 
-output "cassandra_security_ids" {
-  value = aws_security_group.cassandra.*.id
-}
-
-output "cassandra_hosts" {
-  value = aws_route53_record.cassandra-dns.*.name
-}
-
 output "network_interface_ids" {
   value = module.cassandra_cluster.network_interface_ids
 }

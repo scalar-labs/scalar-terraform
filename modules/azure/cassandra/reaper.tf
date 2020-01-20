@@ -15,7 +15,8 @@ module "reaper_cluster" {
 }
 
 module "reaper_provision" {
-  source             = "../../universal/reaper"
+  source = "../../universal/reaper"
+
   triggers           = local.triggers
   bastion_host_ip    = local.bastion_ip
   host_list          = module.reaper_cluster.network_interface_private_ip
@@ -39,7 +40,8 @@ resource "azurerm_dns_a_record" "reaper-dns" {
 }
 
 resource "azurerm_dns_srv_record" "reaper-exporter-dns-srv" {
-  count               = local.reaper.resource_count > 0 ? 1 : 0
+  count = local.reaper.resource_count > 0 ? 1 : 0
+
   name                = "_node-exporter._tcp.reaper"
   zone_name           = local.network_dns
   resource_group_name = local.network_name
@@ -52,13 +54,14 @@ resource "azurerm_dns_srv_record" "reaper-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9100
-      target   = "${record.value}.internal.scalar-labs.com"
+      target   = "${record.value}.${local.internal_root_dns}"
     }
   }
 }
 
 resource "azurerm_dns_srv_record" "reaper-dns-srv" {
-  count               = local.reaper.resource_count > 0 ? 1 : 0
+  count = local.reaper.resource_count > 0 ? 1 : 0
+
   name                = "_reaper._tcp.reaper"
   zone_name           = local.network_dns
   resource_group_name = local.network_name
@@ -71,13 +74,14 @@ resource "azurerm_dns_srv_record" "reaper-dns-srv" {
       priority = 0
       weight   = 0
       port     = 8081
-      target   = "${record.value}.internal.scalar-labs.com"
+      target   = "${record.value}.${local.internal_root_dns}"
     }
   }
 }
 
 resource "azurerm_dns_srv_record" "reaper-cadvisor-dns-srv" {
-  count               = local.reaper.resource_count > 0 ? 1 : 0
+  count = local.reaper.resource_count > 0 ? 1 : 0
+
   name                = "_cadvisor._tcp.reaper"
   zone_name           = local.network_dns
   resource_group_name = local.network_name
@@ -90,7 +94,7 @@ resource "azurerm_dns_srv_record" "reaper-cadvisor-dns-srv" {
       priority = 0
       weight   = 0
       port     = 18080
-      target   = "${record.value}.internal.scalar-labs.com"
+      target   = "${record.value}.${local.internal_root_dns}"
     }
   }
 }

@@ -172,7 +172,7 @@ $ ssh -F ssh.cfg envoy-3.internal.scalar-labs.com
 $ ssh -F ssh.cfg monitor.internal.scalar-labs.com
 ```
 
-## How to Destroy
+## How to destroy
 
 ```console
 # Make sure to do this after used !!!

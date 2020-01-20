@@ -7,7 +7,6 @@ locals {
   location          = var.network.location
   subnet_id         = var.network.subnet_id
   image_id          = var.network.image_id
-  key_name          = var.network.key_name
   bastion_ip        = var.network.bastion_ip
   private_key_path  = var.network.private_key_path
   public_key_path   = var.network.public_key_path
@@ -20,7 +19,7 @@ locals {
 ### cassandra
 locals {
   cassandra_default = {
-    resource_type                = "t3.large"
+    resource_type                = "Standard_DS11_v2"
     resource_count               = 3
     resource_root_volume_size    = 64
     enable_data_volume           = false
@@ -30,8 +29,8 @@ locals {
     commitlog_use_local_volume   = false
     commitlog_remote_volume_size = ""
     memtable_threshold           = "0.33"
-    data_remote_volume_type      = "gp2"
-    commitlog_remote_volume_type = "gp2"
+    data_remote_volume_type      = "Premium_LRS"
+    commitlog_remote_volume_type = "Premium_LRS"
     enable_tdagent               = true
     start_on_initial_boot        = false
   }
@@ -43,7 +42,7 @@ locals {
 
     bai = merge(local.cassandra_default,
       {
-        resource_type              = "r5d.large"
+        resource_type              = "Standard_E2s_v3"
         enable_data_volume         = true
         data_remote_volume_size    = 1024
         enable_commitlog_volume    = true
@@ -53,7 +52,7 @@ locals {
 
     chiku = merge(local.cassandra_default,
       {
-        resource_type              = "r5d.xlarge"
+        resource_type              = "Standard_E4s_v3"
         enable_data_volume         = true
         data_remote_volume_size    = 1024
         enable_commitlog_volume    = true
@@ -63,7 +62,7 @@ locals {
 
     sho = merge(local.cassandra_default,
       {
-        resource_type              = "i3.2xlarge"
+        resource_type              = "Standard_L8s"
         enable_data_volume         = true
         data_use_local_volume      = true
         data_remote_volume_size    = ""
@@ -85,7 +84,7 @@ locals {
 ### cassy
 locals {
   cassy_default = {
-    resource_type             = "t3.micro"
+    resource_type             = "Standard_D2s_v3"
     resource_count            = 1
     resource_root_volume_size = 64
     enable_tdagent            = true
@@ -114,9 +113,9 @@ locals {
 ### reaper
 locals {
   reaper_default = {
-    resource_type             = "t3.medium"
+    resource_type             = "Standard_B2s"
     resource_root_volume_size = "64"
-    repliation_factor         = 3
+    replication_factor        = 3
     resource_count            = 1
     enable_tdagent            = true
   }

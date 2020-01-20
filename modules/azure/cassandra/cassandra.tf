@@ -11,7 +11,7 @@ module "cassandra_cluster" {
   admin_username                = local.user_name
   resource_group_name           = local.network_name
   location                      = local.location
-  vm_hostname                   = local.cassandra.vm_hostname
+  vm_hostname                   = "cassandra"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id
   vnet_subnet_id                = local.subnet_id
@@ -24,7 +24,7 @@ resource "azurerm_managed_disk" "cassandra_data_volume" {
   count      = local.cassandra.enable_data_volume && ! local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
   depends_on = [null_resource.wait_for]
 
-  name                 = "data-disk-${local.cassandra.vm_hostname}${count.index}"
+  name                 = "data-disk-cassandra${count.index}"
   location             = local.location
   resource_group_name  = local.network_name
   storage_account_type = local.cassandra.data_remote_volume_type
@@ -89,7 +89,7 @@ resource "azurerm_managed_disk" "cassandra_commitlog_volume" {
   count      = local.cassandra.enable_commitlog_volume && ! local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
   depends_on = [null_resource.wait_for]
 
-  name                 = "commitlog-${local.cassandra.vm_hostname}${count.index}"
+  name                 = "commitlog-cassandra${count.index}"
   location             = local.location
   resource_group_name  = local.network_name
   storage_account_type = local.cassandra.commitlog_remote_volume_type
@@ -158,7 +158,6 @@ module "cassandra_provision" {
   host_list             = module.cassandra_cluster.network_interface_private_ip
   host_seed_list        = local.cassandra.resource_count > 0 ? slice(module.cassandra_cluster.network_interface_private_ip, 0, min(local.cassandra.resource_count, 3)) : []
   user_name             = local.user_name
-  use_agent             = local.cassandra.use_agent
   private_key_path      = local.private_key_path
   provision_count       = local.cassandra.resource_count
   enable_tdagent        = local.cassandra.enable_tdagent

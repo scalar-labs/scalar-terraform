@@ -25,7 +25,7 @@ module "cassy_provision" {
   enable_tdagent   = local.cassy.enable_tdagent
 }
 
-resource "azurerm_dns_a_record" "cassy-dns" {
+resource "azurerm_private_dns_a_record" "cassy-dns" {
   count = local.cassy.resource_count
 
   name                = "cassy-${count.index + 1}"
@@ -36,7 +36,7 @@ resource "azurerm_dns_a_record" "cassy-dns" {
   records = [module.cassy_cluster.network_interface_private_ip[count.index]]
 }
 
-resource "azurerm_dns_srv_record" "cassy-exporter-dns-srv" {
+resource "azurerm_private_dns_srv_record" "cassy-exporter-dns-srv" {
   count = local.cassy.resource_count > 0 ? 1 : 0
 
   name                = "_node-exporter._tcp.cassy"
@@ -45,7 +45,7 @@ resource "azurerm_dns_srv_record" "cassy-exporter-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_dns_a_record.cassy-dns.*.name
+    for_each = azurerm_private_dns_a_record.cassy-dns.*.name
 
     content {
       priority = 0
@@ -56,7 +56,7 @@ resource "azurerm_dns_srv_record" "cassy-exporter-dns-srv" {
   }
 }
 
-resource "azurerm_dns_srv_record" "cassy-dns-srv" {
+resource "azurerm_private_dns_srv_record" "cassy-dns-srv" {
   count = local.cassy.resource_count > 0 ? 1 : 0
 
   name                = "_cassy._tcp.cassy"
@@ -65,7 +65,7 @@ resource "azurerm_dns_srv_record" "cassy-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_dns_a_record.cassy-dns.*.name
+    for_each = azurerm_private_dns_a_record.cassy-dns.*.name
 
     content {
       priority = 0
@@ -76,7 +76,7 @@ resource "azurerm_dns_srv_record" "cassy-dns-srv" {
   }
 }
 
-resource "azurerm_dns_srv_record" "cassy-cadvisor-dns-srv" {
+resource "azurerm_private_dns_srv_record" "cassy-cadvisor-dns-srv" {
   count = local.cassy.resource_count > 0 ? 1 : 0
 
   name                = "_cadvisor._tcp.cassy"
@@ -85,13 +85,13 @@ resource "azurerm_dns_srv_record" "cassy-cadvisor-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_dns_a_record.cassy-dns.*.name
+    for_each = azurerm_private_dns_a_record.cassy-dns.*.name
 
     content {
       priority = 0
       weight   = 0
       port     = 18080
-      target   = "${record.value}..${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_root_dns}"
     }
   }
 }

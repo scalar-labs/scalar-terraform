@@ -4,17 +4,17 @@ module "name_generator" {
   name = var.name
 }
 
-resource "azurerm_resource_group" "default" {
+resource "azurerm_resource_group" "resource_group" {
   name     = module.name_generator.name
   location = var.location
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  depends_on          = [azurerm_resource_group.default]
+  depends_on          = [azurerm_resource_group.resource_group]
   name                = module.name_generator.name
   location            = var.location
   address_space       = [local.network.cidr]
-  resource_group_name = azurerm_resource_group.default.name
+  resource_group_name = azurerm_resource_group.resource_group.name
   dns_servers         = []
 
   tags = {
@@ -28,7 +28,7 @@ resource "azurerm_subnet" "subnet" {
 
   name                 = each.key
   virtual_network_name = azurerm_virtual_network.vnet.name
-  resource_group_name  = azurerm_resource_group.default.name
+  resource_group_name  = azurerm_resource_group.resource_group.name
   address_prefix       = each.value
 
   lifecycle {
@@ -38,7 +38,14 @@ resource "azurerm_subnet" "subnet" {
 
 resource "azurerm_private_dns_zone" "dns" {
   name                = var.internal_root_dns
-  resource_group_name = azurerm_resource_group.default.name
+  resource_group_name = azurerm_resource_group.resource_group.name
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "dns_vnet_link" {
+  name                  = var.internal_root_dns
+  resource_group_name   = azurerm_resource_group.resource_group.name
+  private_dns_zone_name = azurerm_private_dns_zone.dns.name
+  virtual_network_id    = azurerm_virtual_network.vnet.id
 }
 
 module "bastion" {

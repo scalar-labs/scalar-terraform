@@ -9,7 +9,7 @@ output "bastion_host_ips" {
 }
 
 output "bastion_security_group_id" {
-  value = module.bastion_cluster.network_security_group_id
+  value       = module.bastion_cluster.network_security_group_id
   description = "The security group ID of the bastion resource."
 }
 

@@ -6,7 +6,6 @@ The Cassandra Azure module deploys a Cassandra cluster tuned for a Scalar DL env
 | Name | Version |
 |------|---------|
 | azurerm | =1.38.0 |
-| null | n/a |
 
 ## Inputs
 

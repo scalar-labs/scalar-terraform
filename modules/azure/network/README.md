@@ -24,14 +24,15 @@ The Network module creates a virtual network with subnets.
 |------|-------------|
 | bastion_ip | Public IP address to bastion host |
 | bastion_provision_id | The provision id of bastion. |
-| dns_zone_id | The virtual Network DNS ID. |
+| dns_zone_id | The virtual network DNS ID. |
+| image_id | The image id to initiate. |
 | internal_root_dns | The internal root dns for setting srv record. |
 | location | The AWS availability zone to deploy environment. |
-| network_cidr | The Virtual Network CIDR address space. |
-| network_id | The Virtual network ID. |
+| network_cidr | The virtual network CIDR address space. |
+| network_id | The virtual network ID. |
 | network_name | Short name to identify environment. |
 | private_key_path | The path to the private key for SSH access. |
 | public_key_path | The path to the public key for SSH access. |
-| ssh_config | The Configuration file for SSH access. |
-| subnet_map | The subnet map of virtual Network. |
+| ssh_config | The configuration file for SSH access. |
+| subnet_map | The subnet map of virtual network. |
 | user_name | The user name of the remote hosts. |

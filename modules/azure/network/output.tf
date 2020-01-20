@@ -1,6 +1,6 @@
 output "network_id" {
   value       = azurerm_virtual_network.vnet.id
-  description = "The Virtual network ID."
+  description = "The virtual network ID."
 }
 
 output "network_name" {
@@ -10,7 +10,7 @@ output "network_name" {
 
 output "network_cidr" {
   value       = azurerm_virtual_network.vnet.address_space[0]
-  description = "The Virtual Network CIDR address space."
+  description = "The virtual network CIDR address space."
 }
 
 output "subnet_map" {
@@ -21,7 +21,7 @@ output "subnet_map" {
     blue      = azurerm_subnet.subnet["blue"].id
     green     = azurerm_subnet.subnet["green"].id
   }
-  description = "The subnet map of virtual Network."
+  description = "The subnet map of virtual network."
 }
 
 output "image_id" {
@@ -31,7 +31,7 @@ output "image_id" {
 
 output "dns_zone_id" {
   value       = basename(azurerm_private_dns_zone.dns.id)
-  description = "The virtual Network DNS ID."
+  description = "The virtual network DNS ID."
 }
 
 output "bastion_provision_id" {
@@ -84,5 +84,5 @@ Host *.${var.internal_root_dns}
 ProxyCommand ssh -F ssh.cfg bastion -W %h:%p
 EOF
 
-  description = "The Configuration file for SSH access."
+  description = "The configuration file for SSH access."
 }

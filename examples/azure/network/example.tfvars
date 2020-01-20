@@ -2,9 +2,9 @@ name = "example-azure"
 
 location = "japaneast"
 
-public_key_path = "./your_pub.pem"
+public_key_path = "./example_key.pub"
 
-private_key_path = "./your_private.pem"
+private_key_path = "./example_key"
 
 internal_root_dns = "internal.scalar-labs.com"
 

@@ -58,8 +58,9 @@ jobs:
             export GOPATH=$(pwd)
             export PATH=${PATH}:${GOPATH}/bin
             eval `ssh-agent`
-            chmod 600 ./modules/test.pem
-            ssh-add ./modules/test.pem
+            ssh-keygen -N "" -t rsa -f ./modules/terratest_key
+            chmod 600 ./modules/terratest_key
+            ssh-add ./modules/terratest_key
             docker login -u scalartest -p ${DOCKERHUB_ACCESS_TOKEN} >/dev/null 2>&1
             cd ./src/integration
             go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"

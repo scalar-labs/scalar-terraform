@@ -18,6 +18,11 @@ output "subnet_map" {
   description = "The subnet map of virtual Network."
 }
 
+output "image_id" {
+  value       = local.network.image_id
+  description = "The image id to initiate."
+}
+
 output "dns_zone_id" {
   value = basename(azurerm_private_dns_zone.dns.id)
   description = "The virtual Network DNS ID."

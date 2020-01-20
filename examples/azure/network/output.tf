@@ -22,6 +22,10 @@ output "subnet_map" {
   value = module.scalar-network.subnet_map
 }
 
+output "image_id" {
+  value = module.scalar-network.image_id
+}
+
 output "bastion_provision_id" {
   value = module.scalar-network.bastion_provision_id
 }

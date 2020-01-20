@@ -8,6 +8,7 @@ locals {
     bastion_enable_tdagent    = true
     user_name                 = "centos"
     cidr                      = "10.42.0.0/16"
+    image_id                  = "CentOS"
   }
 
   network = merge(

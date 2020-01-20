@@ -3,13 +3,13 @@ This example will deploy a simple Scalar DL environment in the Tokyo region with
 
 * This document is for internal use of Scalar DL Terraform modules for AWS. If you are interested in the modules please take a look at [here](../../modules/aws)
 
-## What is required?
+## Prerequisites
 * Terraform >= 0.12.x
 * Ansible 2.8
 * AWS CLI
 * ssh-agent with private key
 
-## What is created?
+## What is created
 * An AWS VPC with a NAT gateway
 * DNS Zone for internal host lookup
 * 3 Scalar DL instances with a network load balancer (private)
@@ -20,17 +20,16 @@ This example will deploy a simple Scalar DL environment in the Tokyo region with
 * 1 Bastion instance with a public IP
 * 1 Monitor instance
 
-## How to deploy?
+## How to deploy
 
-### Confiture an AWS credential
+### Configure an AWS credential
 
 ```console
 # In this example you need AWS cli configured with `scalar` profile
 $ aws configure --profile scalar
 ```
 
-### Create Network resources
-
+### Create network resources
 
 ```console
 $ cd examples/aws/network
@@ -43,7 +42,7 @@ $ chmod 400 example_key
 # If needed start ssh-agent using: eval $(ssh-agent -s)
 $ ssh-add example_key
 
-# Start Environment
+# Create an environment
 $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
@@ -57,7 +56,7 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
-### Create ScalarDL resources
+### Create Scalar DL resources
 
 ```console
 $ cd examples/aws/scalardl
@@ -179,5 +178,7 @@ $ ssh -F ssh.cfg monitor.internal.scalar-labs.com
 # Make sure to do this after used !!!
 $ terraform destroy --var-file example.tfvars
 ```
+
+Note: Don't forget to `terraform destroy` to the environment you created after used.
 
 Please check out [Scalar DL Getting Started](https://scalardl.readthedocs.io/en/latest/getting-started/) to understand how to interact with the environment.

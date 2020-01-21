@@ -31,7 +31,7 @@ jobs:
       - name: 'Set up to using dummy local variables'
         run: |
             rm -f remote.tf locals.tf
-            mv locals.tf.unit locals.tf
+            mv locals.tf.dummy locals.tf
         working-directory: './test/modules/awsdeploy/monitor'
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@master

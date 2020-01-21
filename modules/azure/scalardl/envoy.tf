@@ -131,7 +131,7 @@ resource "azurerm_private_dns_srv_record" "envoy-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9100
-      target   = "${record.value}.internal.scalar-labs.com"
+      target   = "${record.value}.${local.internal_root_dns}"
     }
   }
 }
@@ -151,7 +151,7 @@ resource "azurerm_private_dns_srv_record" "envoy-node-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9001
-      target   = "${record.value}.internal.scalar-labs.com"
+      target   = "${record.value}.${local.internal_root_dns}"
     }
   }
 }
@@ -171,7 +171,7 @@ resource "azurerm_private_dns_srv_record" "envoy-cadvisor-dns-srv" {
       priority = 0
       weight   = 0
       port     = 18080
-      target   = "${record.value}.internal.scalar-labs.com"
+      target   = "${record.value}.${local.internal_root_dns}"
     }
   }
 }

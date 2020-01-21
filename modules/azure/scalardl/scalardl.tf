@@ -70,7 +70,7 @@ resource "azurerm_availability_set" "scalar_availability_set" {
 }
 
 resource "azurerm_lb" "scalardl-lb" {
-  count               = local.scalardl.enable_nlb ? 1 : 0
+  count = local.scalardl.enable_nlb ? 1 : 0
 
   name                = "ScalardlLoadBalancer"
   location            = local.location

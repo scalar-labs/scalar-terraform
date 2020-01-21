@@ -6,7 +6,7 @@ locals {
     id       = data.terraform_remote_state.network.outputs.network_id
     location = data.terraform_remote_state.network.outputs.location
 
-    image_id  = data.terraform_remote_state.network.outputs.image_id
+    image_id = data.terraform_remote_state.network.outputs.image_id
 
     bastion_ip           = data.terraform_remote_state.network.outputs.bastion_ip
     bastion_provision_id = data.terraform_remote_state.network.outputs.bastion_provision_id

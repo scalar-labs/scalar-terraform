@@ -100,12 +100,12 @@ resource "azurerm_lb_probe" "envoy-lb-probe" {
 resource "azurerm_network_interface_backend_address_pool_association" "envoy-lb-association" {
   count = local.envoy.resource_count
 
-  network_interface_id    = element(module.envoy_cluster.network_interface_ids, count.index)
+  network_interface_id    = module.envoy_cluster.network_interface_ids[count.index]
   ip_configuration_name   = "ipconfig${count.index}"
   backend_address_pool_id = azurerm_lb_backend_address_pool.envoy-lb-pool.*.id[0]
 }
 
-resource "azurerm_dns_a_record" "envoy-dns" {
+resource "azurerm_private_dns_a_record" "envoy-dns" {
   count = local.envoy.resource_count
 
   name                = "envoy-${count.index + 1}"
@@ -116,7 +116,7 @@ resource "azurerm_dns_a_record" "envoy-dns" {
   records = [module.envoy_cluster.network_interface_private_ip[count.index]]
 }
 
-resource "azurerm_dns_srv_record" "envoy-exporter-dns-srv" {
+resource "azurerm_private_dns_srv_record" "envoy-exporter-dns-srv" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   name                = "_node-exporter._tcp.envoy"
@@ -125,7 +125,7 @@ resource "azurerm_dns_srv_record" "envoy-exporter-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_dns_a_record.envoy-dns.*.name
+    for_each = azurerm_private_dns_a_record.envoy-dns.*.name
 
     content {
       priority = 0
@@ -136,7 +136,7 @@ resource "azurerm_dns_srv_record" "envoy-exporter-dns-srv" {
   }
 }
 
-resource "azurerm_dns_srv_record" "envoy-node-exporter-dns-srv" {
+resource "azurerm_private_dns_srv_record" "envoy-node-exporter-dns-srv" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   name                = "_envoy-exporter._tcp.envoy"
@@ -145,7 +145,7 @@ resource "azurerm_dns_srv_record" "envoy-node-exporter-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_dns_a_record.envoy-dns.*.name
+    for_each = azurerm_private_dns_a_record.envoy-dns.*.name
 
     content {
       priority = 0
@@ -156,7 +156,7 @@ resource "azurerm_dns_srv_record" "envoy-node-exporter-dns-srv" {
   }
 }
 
-resource "azurerm_dns_srv_record" "envoy-cadvisor-dns-srv" {
+resource "azurerm_private_dns_srv_record" "envoy-cadvisor-dns-srv" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   name                = "_cadvisor._tcp.envoy"
@@ -165,7 +165,7 @@ resource "azurerm_dns_srv_record" "envoy-cadvisor-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_dns_a_record.envoy-dns.*.name
+    for_each = azurerm_private_dns_a_record.envoy-dns.*.name
 
     content {
       priority = 0

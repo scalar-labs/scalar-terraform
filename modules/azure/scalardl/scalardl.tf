@@ -86,7 +86,7 @@ resource "azurerm_lb_backend_address_pool" "scalardl-lb-backend-pool" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
   resource_group_name = local.network_name
-  loadbalancer_id     = azurerm_lb.scalardl-lb.*.id[count.index]
+  loadbalancer_id     = azurerm_lb.scalardl-lb[count.index].id
   name                = "ScalardlAddressPool"
 }
 
@@ -94,35 +94,35 @@ resource "azurerm_lb_rule" "scalardl-lb-rule" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
   resource_group_name            = local.network_name
-  loadbalancer_id                = azurerm_lb.scalardl-lb.*.id[count.index]
+  loadbalancer_id                = azurerm_lb.scalardl-lb[count.index].id
   name                           = "ScalardlLBRule"
   protocol                       = "Tcp"
   frontend_port                  = local.scalardl.listen_port
   backend_port                   = local.scalardl.target_port
   frontend_ip_configuration_name = "ScalardlLBAddress"
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.scalardl-lb-backend-pool.*.id[count.index]
-  probe_id                       = azurerm_lb_probe.scalardl-lb-probe.*.id[count.index]
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.scalardl-lb-backend-pool[count.index].id
+  probe_id                       = azurerm_lb_probe.scalardl-lb-probe[count.index].id
 }
 
 resource "azurerm_lb_rule" "scalardl-privileged-lb-rule" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
   resource_group_name            = local.network_name
-  loadbalancer_id                = azurerm_lb.scalardl-lb.*.id[count.index]
+  loadbalancer_id                = azurerm_lb.scalardl-lb[count.index].id
   name                           = "ScalardlPrivilegedLBRule"
   protocol                       = "Tcp"
   frontend_port                  = local.scalardl.privileged_listen_port
   backend_port                   = local.scalardl.privileged_target_port
   frontend_ip_configuration_name = "ScalardlLBAddress"
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.scalardl-lb-backend-pool.*.id[count.index]
-  probe_id                       = azurerm_lb_probe.scalardl-privileged-lb-probe.*.id[count.index]
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.scalardl-lb-backend-pool[count.index].id
+  probe_id                       = azurerm_lb_probe.scalardl-privileged-lb-probe[count.index].id
 }
 
 resource "azurerm_lb_probe" "scalardl-lb-probe" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
   resource_group_name = local.network_name
-  loadbalancer_id     = azurerm_lb.scalardl-lb.*.id[count.index]
+  loadbalancer_id     = azurerm_lb.scalardl-lb[count.index].id
   name                = "scalardl-running-probe"
   port                = local.scalardl.target_port
 }
@@ -131,7 +131,7 @@ resource "azurerm_lb_probe" "scalardl-privileged-lb-probe" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
   resource_group_name = local.network_name
-  loadbalancer_id     = azurerm_lb.scalardl-lb.*.id[count.index]
+  loadbalancer_id     = azurerm_lb.scalardl-lb[count.index].id
   name                = "scalardl-privleged-running-probe"
   port                = local.scalardl.privileged_target_port
 }
@@ -139,17 +139,17 @@ resource "azurerm_lb_probe" "scalardl-privileged-lb-probe" {
 resource "azurerm_network_interface_backend_address_pool_association" "scalardl-lb-blue-association" {
   count = local.scalardl.enable_nlb ? local.scalardl.blue_resource_count : 0
 
-  network_interface_id    = element(module.scalardl_blue.network_interface_ids, count.index)
+  network_interface_id    = module.scalardl_blue.network_interface_ids[count.index]
   ip_configuration_name   = "ipconfig${count.index}"
-  backend_address_pool_id = element(azurerm_lb_backend_address_pool.scalardl-lb-backend-pool.*.id, 0)
+  backend_address_pool_id = azurerm_lb_backend_address_pool.scalardl-lb-backend-pool[0].id
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "scalardl-lb-green-association" {
   count = local.scalardl.enable_nlb ? local.scalardl.green_resource_count : 0
 
-  network_interface_id    = element(module.scalardl_green.network_interface_ids, count.index)
+  network_interface_id    = module.scalardl_green.network_interface_ids[count.index]
   ip_configuration_name   = "ipconfig${count.index}"
-  backend_address_pool_id = element(azurerm_lb_backend_address_pool.scalardl-lb-backend-pool.*.id, 0)
+  backend_address_pool_id = azurerm_lb_backend_address_pool.scalardl-lb-backend-pool[0].id
 }
 
 resource "azurerm_private_dns_a_record" "scalar-blue-dns" {
@@ -160,7 +160,7 @@ resource "azurerm_private_dns_a_record" "scalar-blue-dns" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  records = [element(module.scalardl_blue.network_interface_private_ip, count.index)]
+  records = [module.scalardl_blue.network_interface_private_ip[count.index]]
 }
 
 resource "azurerm_private_dns_a_record" "scalar-green-dns" {
@@ -171,7 +171,7 @@ resource "azurerm_private_dns_a_record" "scalar-green-dns" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  records = [element(module.scalardl_green.network_interface_private_ip, count.index)]
+  records = [module.scalardl_green.network_interface_private_ip[count.index]]
 }
 
 resource "azurerm_private_dns_a_record" "scalardl-blue-dns" {
@@ -182,7 +182,7 @@ resource "azurerm_private_dns_a_record" "scalardl-blue-dns" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  records = [element(module.scalardl_blue.network_interface_private_ip, count.index)]
+  records = [module.scalardl_blue.network_interface_private_ip[count.index]]
 }
 
 resource "azurerm_private_dns_a_record" "scalardl-green-dns" {
@@ -193,7 +193,7 @@ resource "azurerm_private_dns_a_record" "scalardl-green-dns" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  records = [element(module.scalardl_green.network_interface_private_ip, count.index)]
+  records = [module.scalardl_green.network_interface_private_ip[count.index]]
 }
 
 resource "azurerm_private_dns_a_record" "scalar-dns-lb" {
@@ -204,7 +204,7 @@ resource "azurerm_private_dns_a_record" "scalar-dns-lb" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  records = azurerm_lb.scalardl-lb.*.private_ip_addresses[count.index]
+  records = azurerm_lb.scalardl-lb[count.index].private_ip_addresses
 }
 
 resource "azurerm_private_dns_srv_record" "node-exporter-blue-dns-srv" {

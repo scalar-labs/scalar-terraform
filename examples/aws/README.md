@@ -81,10 +81,6 @@ Terraform can output some useful information about your deployment such as a bas
 
 ```
 $ terraform output
---- Output is displayed here ---
-
-Outputs:
-
 ssh_config = Host *
 User centos
 UserKnownHostsFile /dev/null
@@ -116,12 +112,9 @@ user_name = centos
 ```
 
 ### Cassandra
+
 ```
 $ terraform output
---- Output is displayed here ---
-
-Outputs:
-
 cassandra_provision_ids = [
   "4019088576544490630",
   "656319024837932240",
@@ -132,12 +125,9 @@ cassandra_start_on_initial_boot = false
 ```
 
 ### Scalar DL
+
 ```
 $ terraform output
---- Output is displayed here ---
-
-outputs:
-
 scalardl_blue_resource_count = 3
 scalardl_green_resource_count = 0
 scalardl_replication_factor = 3

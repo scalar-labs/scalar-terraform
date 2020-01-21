@@ -44,9 +44,11 @@ output "scalardl_replication_factor" {
 }
 
 output "envoy_dns" {
-  value = aws_lb.envoy-lb.*.dns_name
+  value       = aws_lb.envoy-lb.*.dns_name
+  description = "A list of dns URLs to access a envoy cluster."
 }
 
 output "envoy_listen_port" {
-  value = local.envoy.listen_port
+  value       = local.envoy.listen_port
+  description = "A listen port of envoy cluster."
 }

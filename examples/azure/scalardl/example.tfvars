@@ -1,7 +1,7 @@
 base = "default" # bai, chiku, sho
 
 scalardl = {
-  # resource_type             = "t3.medium"
+  # resource_type             = "Standard_B2s"
   # resource_root_volume_size = 64
   # blue_resource_count       = 3
   # blue_image_tag            = "1.3.1"
@@ -20,12 +20,11 @@ scalardl = {
 }
 
 envoy = {
-  # resource_type             = "t3.medium"
+  # resource_type             = "Standard_B2s"
   # resource_count            = 3
   # resource_root_volume_size = 64
   # target_port               = 50051
   # listen_port               = 50051
-  # nlb_subnet_id             = ""
   # enable_nlb                = true
   # nlb_internal              = false
   # enable_tdagent            = true

@@ -94,8 +94,8 @@ module "monitor_provision" {
   internal_root_dns             = local.internal_root_dns
 }
 
-resource "azurerm_dns_a_record" "monitor-dns" {
-  count = local.monitor.resource_count
+resource "azurerm_private_dns_a_record" "monitor-dns" {
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   name                = "monitor"
   zone_name           = local.network_dns
@@ -105,8 +105,8 @@ resource "azurerm_dns_a_record" "monitor-dns" {
   records = module.monitor_cluster.network_interface_private_ip
 }
 
-resource "azurerm_dns_a_record" "prometheus-dns" {
-  count = local.monitor.resource_count
+resource "azurerm_private_dns_a_record" "prometheus-dns" {
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   name                = "prometheus"
   zone_name           = local.network_dns
@@ -116,7 +116,7 @@ resource "azurerm_dns_a_record" "prometheus-dns" {
   records = module.monitor_cluster.network_interface_private_ip
 }
 
-resource "azurerm_dns_srv_record" "monitor-exporter-dns-srv" {
+resource "azurerm_private_dns_srv_record" "monitor-exporter-dns-srv" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 
   name                = "_node-exporter._tcp.monitor"
@@ -125,7 +125,7 @@ resource "azurerm_dns_srv_record" "monitor-exporter-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_dns_a_record.monitor-dns.*.name
+    for_each = azurerm_private_dns_a_record.monitor-dns.*.name
 
     content {
       priority = 0
@@ -136,7 +136,7 @@ resource "azurerm_dns_srv_record" "monitor-exporter-dns-srv" {
   }
 }
 
-resource "azurerm_dns_srv_record" "monitor-cadvisor-dns-srv" {
+resource "azurerm_private_dns_srv_record" "monitor-cadvisor-dns-srv" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 
   name                = "_cadvisor._tcp.monitor"
@@ -145,7 +145,7 @@ resource "azurerm_dns_srv_record" "monitor-cadvisor-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_dns_a_record.monitor-dns.*.name
+    for_each = azurerm_private_dns_a_record.monitor-dns.*.name
 
     content {
       priority = 0

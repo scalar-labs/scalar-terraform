@@ -14,9 +14,9 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-      GOPATH: ${GITHUB_WORKSPACE}/test
-      GOBIN: ${GOPATH}/bin
-      PATH: ${PATH}:${GOBIN}
+      # GOPATH: ${GITHUB_WORKSPACE}/test
+      # GOBIN: ${GOPATH}/bin
+      # PATH: ${PATH}:${GOBIN}
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -43,6 +43,9 @@ jobs:
         run: |
             mkdir -p ${GOBIN}
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+        env:
+          GOPATH: ${GITHUB_WORKSPACE}/test
+          GOBIN: ${GOPATH}/bin
         working-directory: ./test
       - name: Install terratest modules
         run: |

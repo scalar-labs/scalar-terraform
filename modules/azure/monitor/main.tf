@@ -1,7 +1,3 @@
-locals {
-  nb_public_ip = local.monitor.set_public_access ? 1 : 0
-}
-
 resource "null_resource" "wait_for" {
   triggers = {
     network_id = local.network_id
@@ -16,7 +12,7 @@ module "monitor_cluster" {
   resource_group_name           = local.network_name
   location                      = local.location
   vm_hostname                   = "monitor"
-  nb_public_ip                  = local.nb_public_ip
+  nb_public_ip                  = local.monitor.set_public_access ? 1 : 0
   public_ip_dns                 = ["monitor-${local.network_name}"]
   vm_os_simple                  = local.image_id
   vnet_subnet_id                = local.subnet_id

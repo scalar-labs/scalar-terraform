@@ -42,7 +42,7 @@ jobs:
       - name: Create ssh key
         run: |
             eval `ssh-agent`
-            ssh-keygen -N "" -t rsa -f ./modules/test_key
+            ssh-keygen -N "" -t rsa -f ./modules/test_key <<<y
             chmod 600 ./modules/test_key
             ssh-add ./modules/test_key
         working-directory: ./test

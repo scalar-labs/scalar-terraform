@@ -1,4 +1,4 @@
-name: 'Integration test with terratest for AWS'
+name: Integration test with terratest for AWS
 on:
   pull_request:
     branches:
@@ -7,61 +7,59 @@ on:
     - cron: '0 0 * * *'
 jobs:
   terratest:
-    name: 'Terratest'
+    name: Terratest
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-      DOCKERHUB_ACCESS_TOKEN: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+      GOPATH: ${GITHUB_WORKSPACE}/test
+      GOBIN: ${GOPATH}/bin
+      PATH: ${PATH}:${GOBIN}
     steps:
-      - name: 'Checkout'
+      - name: Checkout
         uses: actions/checkout@master
         # with:
         #   ref: master
-      - name: 'Download scalardl client sdk'
+      - name: Docker login
+        run: echo $DOCKER_PASSWORD | docker login -u scalartest --password-stdin docker.io
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+      - name: Download scalardl client sdk
         run: |
-            curl -LO https://github.com/scalar-labs/scalardl-client-sdk/archive/v1.3.0.tar.gz
-            tar -xvzf v1.3.0.tar.gz
-            mv ./scalardl-client-sdk-1.3.0 ./scalardl-client-sdk
-        working-directory: './test/src/integration'
-      - name: 'Set up Go'
+            curl -LO https://github.com/scalar-labs/scalardl-client-sdk/archive/v${SCALARDL_SDK_VERSION}.tar.gz
+            tar -xvzf v${SCALARDL_SDK_VERSION}.tar.gz
+            mv ./scalardl-client-sdk-${SCALARDL_SDK_VERSION} ./scalardl-client-sdk
+        env:
+          SCALARDL_SDK_VERSION: 1.3.0
+        working-directory: ./test/src/integration
+      - name: Set up GO
         uses: actions/setup-go@v1
         with:
           go-version: 1.13.5
         id: go
-      - name: 'Get dep'
+      - name: Get dep
         run: |
-            export GOPATH=$(pwd)
-            export GOBIN=${GOPATH}/bin
             mkdir -p ${GOBIN}
-            export PATH=${PATH}:${GOBIN}
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-        working-directory: './test'
-      - name: 'Install terratest modules'
+        working-directory: ./test
+      - name: Install terratest modules
         run: |
-            export GOPATH=$(pwd)
-            export PATH=${PATH}:${GOPATH}/bin
-            cd ./src/integration
             dep ensure
-        working-directory: './test'
-      - name: 'Install helper modules'
+        working-directory: ./test/src/integration
+      - name: Install helper modules
         run: |
-            export GOPATH=$(pwd)
-            export PATH=${PATH}:${GOPATH}/bin
-            cd ./src/modules
             dep ensure
-        working-directory: './test'
-      - name: 'Run terratest'
+        working-directory: ./test/src/modules
+      - name: Create ssh key
         run: |
-            export GOPATH=$(pwd)
-            export PATH=${PATH}:${GOPATH}/bin
             eval `ssh-agent`
-            ssh-keygen -N "" -t rsa -f ./modules/terratest_key
-            chmod 600 ./modules/terratest_key
-            ssh-add ./modules/terratest_key
-            docker login -u scalartest -p ${DOCKERHUB_ACCESS_TOKEN} >/dev/null 2>&1
-            cd ./src/integration
+            ssh-keygen -N "" -t rsa -f terratest_key
+            chmod 600 terratest_key
+            ssh-add terratest_key
+        working-directory: ./test/modules
+      - name: Run terratest
+        run: |
             go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
-        working-directory: './test'
+        working-directory: ./test/src/integration

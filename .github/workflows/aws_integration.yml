@@ -39,22 +39,6 @@ jobs:
         with:
           go-version: 1.13.5
         id: go
-      - name: Get dep
-        run: |
-            mkdir -p ${GOBIN}
-            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-        env:
-          GOPATH: ${GITHUB_WORKSPACE}/test
-          GOBIN: ${GOPATH}/bin
-        working-directory: ./test
-      - name: Install terratest modules
-        run: |
-            dep ensure
-        working-directory: ./test/src/integration
-      - name: Install helper modules
-        run: |
-            dep ensure
-        working-directory: ./test/src/modules
       - name: Create ssh key
         run: |
             eval `ssh-agent`
@@ -62,6 +46,16 @@ jobs:
             chmod 600 terratest_key
             ssh-add terratest_key
         working-directory: ./test/modules
+      - name: Install terratest modules with dep
+        run: |
+            export GOPATH=$(pwd)
+            export GOBIN=${GOPATH}/bin
+            export PATH=${PATH}:${GOBIN}
+            mkdir -p ${GOBIN}
+            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+            cd ${GITHUB_WORKSPACE}/test/src/integration && dep ensure
+            cd ${GITHUB_WORKSPACE}/test/src/modules && dep ensure
+        working-directory: ./test
       - name: Run terratest
         run: |
             go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"

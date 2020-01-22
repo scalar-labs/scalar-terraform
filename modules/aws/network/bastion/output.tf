@@ -1,11 +1,11 @@
 output "bastion_host_ids" {
   value       = module.bastion_cluster.id
-  description = "A list of bastion hosts IDs."
+  description = "A list of bastion hosts' IDs."
 }
 
 output "bastion_host_ips" {
   value       = module.bastion_cluster.public_ip
-  description = "A list of bastion hosts IP addresses."
+  description = "A list of bastion hosts' IP addresses."
 }
 
 output "bastion_security_group_id" {

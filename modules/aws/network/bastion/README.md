@@ -26,8 +26,8 @@ The bastion module deploys a network bastion host used to access and configure t
 
 | Name | Description |
 |------|-------------|
-| bastion_host_ids | A list of bastion hosts IDs. |
-| bastion_host_ips | A list of bastion hosts IP addresses. |
+| bastion_host_ids | A list of bastion hosts' IDs. |
+| bastion_host_ips | A list of bastion hosts' IP addresses. |
 | bastion_provision_id | The provision id of bastion. |
 | bastion_security_group_id | The security group ID of the bastion resource. |
 | key_name | The key-name of the AWS managed ssh key_pair. |

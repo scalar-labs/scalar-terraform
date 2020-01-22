@@ -41,20 +41,20 @@ jobs:
         id: go
       - name: Create ssh key
         run: |
-            eval `ssh-agent`
-            ssh-keygen -N "" -t rsa -f ./modules/test_key <<<y
-            chmod 600 ./modules/test_key
-            ssh-add ./modules/test_key
-        working-directory: ./test
+            ssh-keygen -N "" -t rsa -f test_key <<<y
+            chmod 600 test_key
+        working-directory: ./test/modules
       - name: Install terratest modules and run terratest
         run: |
             export GOPATH=${GITHUB_WORKSPACE}/test
             export GOBIN=${GOPATH}/bin
             export PATH=${PATH}:${GOBIN}
+            eval `ssh-agent`
+            ssh-add ./modules/test_key
             mkdir -p ${GOBIN}
             ssh-add -l
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             cd ${GITHUB_WORKSPACE}/test/src/modules && dep ensure
             cd ${GITHUB_WORKSPACE}/test/src/integration && dep ensure
             go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
-        working-directory: ./test/src/integration
+        working-directory: ./test

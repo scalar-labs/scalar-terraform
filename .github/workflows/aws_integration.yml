@@ -48,12 +48,13 @@ jobs:
         working-directory: ./test
       - name: Install terratest modules and run terratest
         run: |
-            export GOPATH=$(pwd)
+            export GOPATH=${GITHUB_WORKSPACE}/test
             export GOBIN=${GOPATH}/bin
             export PATH=${PATH}:${GOBIN}
             mkdir -p ${GOBIN}
+            ssh-add -l
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             cd ${GITHUB_WORKSPACE}/test/src/modules && dep ensure
             cd ${GITHUB_WORKSPACE}/test/src/integration && dep ensure
             go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
-        working-directory: ./test
+        working-directory: ./test/src/integration

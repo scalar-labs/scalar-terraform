@@ -30,7 +30,7 @@ jobs:
         run: |
             curl -LO https://github.com/scalar-labs/scalardl-client-sdk/archive/v${SCALARDL_SDK_VERSION}.tar.gz
             tar -xvzf v${SCALARDL_SDK_VERSION}.tar.gz
-            mv ./scalardl-client-sdk-${SCALARDL_SDK_VERSION} ./scalardl-client-sdk
+            mv ./scalardl-java-client-sdk-${SCALARDL_SDK_VERSION} ./scalardl-client-sdk
         env:
           SCALARDL_SDK_VERSION: 1.3.0
         working-directory: ./test/src/integration

@@ -2,11 +2,11 @@ locals {
   network = {
     cidr     = "10.42.0.0/16"
     name     = "example-azure"
-    dns      = "Z1234567890ABCDEFGHIJ"
-    id       = "vpc-1234567890abcdefg"
+    dns      = "internal.scalar-labs.com"
+    id       = "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/example-azure-6qkpmqe/providers/Microsoft.Network/virtualNetworks/example-azure-6qkpmqe"
     location = "japaneast"
 
-    subnet_id = "subnet-1234567890abcdefg"
+    subnet_id = "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/example-azure-6qkpmqe/providers/Microsoft.Network/virtualNetworks/example-azure-6qkpmqe/subnets/cassandra"
     image_id  = "CentOS"
 
     bastion_ip           = "111.112.113.114"

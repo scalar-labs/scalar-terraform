@@ -40,6 +40,6 @@ The Cluster module deploys a Scalar DL cluster on Azure.
 
 | Name | Description |
 |------|-------------|
-| network_interface_ids | A list of IDs of the vm nics provisoned. |
+| network_interface_ids | A list of network interface IDs associated with the VM. |
 | network_interface_private_ip | A list of private IP addresses assigned to scalardl cluster instances. |
-| vm_ids | A list of IDs of a scalardl cluster. |
+| vm_ids | A list of VM IDs of a scalardl cluster. |

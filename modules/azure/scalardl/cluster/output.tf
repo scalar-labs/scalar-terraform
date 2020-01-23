@@ -5,10 +5,10 @@ output "network_interface_private_ip" {
 
 output "network_interface_ids" {
   value       = module.cluster.network_interface_ids
-  description = "A list of IDs of the vm nics provisoned."
+  description = "A list of network interface IDs associated with the VM."
 }
 
 output "vm_ids" {
   value       = module.cluster.vm_ids
-  description = "A list of IDs of a scalardl cluster."
+  description = "A list of VM IDs of a scalardl cluster."
 }

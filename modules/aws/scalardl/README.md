@@ -17,6 +17,8 @@ The Scalar DL module deploys a scalardl resource cluster using blue/green deploy
 |------|-------------|
 | blue_scalardl_ids | A list of host IDs for blue cluster. |
 | blue_scalardl_ips | A list of host IP addresess for blue cluster. |
+| envoy_dns | A list of DNS URLs to access an envoy cluster. |
+| envoy_listen_port | A listen port of an envoy cluster. |
 | green_scalardl_ids | A list of host IDs for green cluster. |
 | green_scalardl_ips | A list of host IP addresess for green cluster. |
 | scalardl_blue_resource_count | The number of resources to create for blue cluster. |

@@ -19,7 +19,7 @@ locals {
 ### cassandra
 locals {
   cassandra_default = {
-    resource_type                = "Standard_DS11_v2"
+    resource_type                = "Standard_B2ms"
     resource_count               = 3
     resource_root_volume_size    = 64
     enable_data_volume           = false

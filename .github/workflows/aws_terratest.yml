@@ -1,7 +1,7 @@
 name: Integration test with terratest for AWS
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '30 1 * * *'
 jobs:
   terratest:
     name: Terratest
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
         with:
-          ref: master
+          ref: add-github-actions-yml-for-terratest
       - name: Docker login
         run: echo $DOCKER_PASSWORD | docker login -u scalartest --password-stdin docker.io
         env:

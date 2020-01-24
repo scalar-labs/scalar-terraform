@@ -29,7 +29,7 @@ output "cassandra_hosts" {
 }
 
 output "network_interface_ids" {
-  value = module.cassandra_cluster.primary_network_interface_id
+  value       = module.cassandra_cluster.primary_network_interface_id
   description = "A list of primary interface ID for the cassandra cluster."
 }
 

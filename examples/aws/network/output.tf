@@ -18,8 +18,8 @@ output "network_id" {
   value = module.scalar-network.network_id
 }
 
-output "cassandra_subnet_id" {
-  value = module.scalar-network.cassandra_subnet_id
+output "subnet_map" {
+  value = module.scalar-network.subnet_map
 }
 
 output "image_id" {
@@ -48,22 +48,6 @@ output "private_key_path" {
 
 output "ssh_config" {
   value = module.scalar-network.ssh_config
-}
-
-output "private_subnet_id" {
-  value = module.scalar-network.private_subnet_id
-}
-
-output "scalardl_blue_subnet_id" {
-  value = module.scalar-network.scalardl_blue_subnet_id
-}
-
-output "scalardl_green_subnet_id" {
-  value = module.scalar-network.scalardl_green_subnet_id
-}
-
-output "public_subnet_id" {
-  value = module.scalar-network.public_subnet_id
 }
 
 output "internal_root_dns" {

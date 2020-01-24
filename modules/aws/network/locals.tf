@@ -17,3 +17,13 @@ locals {
     var.network
   )
 }
+
+locals {
+  subnet_map = {
+    public    = cidrsubnet(local.network.cidr, 8, 0)
+    private   = cidrsubnet(local.network.cidr, 8, 1)
+    cassandra = cidrsubnet(local.network.cidr, 8, 2)
+    blue      = cidrsubnet(local.network.cidr, 8, 3)
+    green     = cidrsubnet(local.network.cidr, 8, 4)
+  }
+}

@@ -11,12 +11,12 @@ module "vpc" {
   azs  = [var.location]
 
   private_subnets = [
-    cidrsubnet(local.network.cidr, 8, 1),
-    cidrsubnet(local.network.cidr, 8, 2),
-    cidrsubnet(local.network.cidr, 8, 3),
-    cidrsubnet(local.network.cidr, 8, 4)
+    local.subnet_map.private,
+    local.subnet_map.cassandra,
+    local.subnet_map.blue,
+    local.subnet_map.green
   ]
-  public_subnets = [cidrsubnet(local.network.cidr, 8, 0)]
+  public_subnets = [local.subnet_map.public]
 
   enable_dns_hostnames = true
   enable_dns_support   = true

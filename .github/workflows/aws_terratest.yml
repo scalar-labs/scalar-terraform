@@ -1,7 +1,7 @@
 name: Integration test with terratest for AWS
 on:
   schedule:
-    - cron: '30 1 * * *'
+    - cron: '20 2 * * *'
 jobs:
   terratest:
     name: Terratest
@@ -26,7 +26,7 @@ jobs:
             tar -xvzf v${SCALARDL_SDK_VERSION}.tar.gz
             mv ./scalardl-java-client-sdk-${SCALARDL_SDK_VERSION} ./scalardl-client-sdk
         env:
-          SCALARDL_SDK_VERSION: 1.3.0
+          SCALARDL_SDK_VERSION: 2.0.1
         working-directory: ./test/src/integration
       - name: Set up GO
         uses: actions/setup-go@v1

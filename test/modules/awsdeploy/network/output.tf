@@ -1,5 +1,6 @@
 output "bastion_ip" {
-  value = module.scalar-network.bastion_ip
+  value       = module.scalar-network.bastion_ip
+  description = "test"
 }
 
 output "network_cidr" {

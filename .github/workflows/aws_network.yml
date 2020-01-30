@@ -34,7 +34,7 @@ jobs:
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: ${{ TF_VERSION }}
+          tf_actions_version: ${{ env.TF_VERSION }}
           tf_actions_subcommand: 'fmt'
           tf_actions_working_dir: './modules/aws/network'
           tf_actions_comment: true

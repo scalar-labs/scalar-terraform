@@ -27,13 +27,14 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      TF_VERSION: ${{ '0.12.19' }}
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: 0.12.19
+          tf_actions_version: ${{ TF_VERSION }}
           tf_actions_subcommand: 'fmt'
           tf_actions_working_dir: './modules/aws/network'
           tf_actions_comment: true

@@ -1,30 +1,30 @@
 output "blue_scalardl_ids" {
-  value       = module.scalardl_blue.id
+  value       = module.scalardl_blue.vm_ids
   description = "A list of host IDs for blue cluster."
 }
 
 output "green_scalardl_ids" {
-  value       = module.scalardl_green.id
+  value       = module.scalardl_green.vm_ids
   description = "A list of host IDs for green cluster."
 }
 
 output "blue_scalardl_ips" {
-  value       = module.scalardl_blue.ip
+  value       = module.scalardl_blue.network_interface_private_ip
   description = "A list of host IP addresess for blue cluster."
 }
 
 output "green_scalardl_ips" {
-  value       = module.scalardl_green.ip
+  value       = module.scalardl_green.network_interface_private_ip
   description = "A list of host IP addresess for green cluster."
 }
 
-output "scalardl_security_id" {
-  value       = aws_security_group.scalardl.*.id
-  description = "The security group ID of a scalardl cluster."
+output "availability_set_id" {
+  value       = azurerm_availability_set.scalar_availability_set.id
+  description = "The virtual Availability Set ID."
 }
 
 output "scalardl_lb_dns" {
-  value       = aws_lb.scalardl-lb.*.dns_name
+  value       = azurerm_private_dns_a_record.scalar-dns-lb.*.name
   description = "A list of dns URLs to access a scalardl cluster."
 }
 
@@ -44,11 +44,11 @@ output "scalardl_replication_factor" {
 }
 
 output "envoy_dns" {
-  value       = aws_lb.envoy-lb.*.dns_name
-  description = "A list of DNS URLs to access an envoy cluster."
+  value       = local.envoy.resource_count > 0 ? azurerm_public_ip.envoy-public-ip.*.fqdn : []
+  description = "A list of dns URLs to access a envoy cluster."
 }
 
 output "envoy_listen_port" {
   value       = local.envoy.listen_port
-  description = "A listen port of an envoy cluster."
+  description = "A listen port of envoy cluster."
 }

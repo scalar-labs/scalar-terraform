@@ -102,6 +102,7 @@ resource "azurerm_lb_rule" "scalardl-lb-rule" {
   frontend_ip_configuration_name = "ScalardlLBAddress"
   backend_address_pool_id        = azurerm_lb_backend_address_pool.scalardl-lb-backend-pool[count.index].id
   probe_id                       = azurerm_lb_probe.scalardl-lb-probe[count.index].id
+  idle_timeout_in_minutes        = 6
 }
 
 resource "azurerm_lb_rule" "scalardl-privileged-lb-rule" {
@@ -116,6 +117,7 @@ resource "azurerm_lb_rule" "scalardl-privileged-lb-rule" {
   frontend_ip_configuration_name = "ScalardlLBAddress"
   backend_address_pool_id        = azurerm_lb_backend_address_pool.scalardl-lb-backend-pool[count.index].id
   probe_id                       = azurerm_lb_probe.scalardl-privileged-lb-probe[count.index].id
+  idle_timeout_in_minutes        = 6
 }
 
 resource "azurerm_lb_probe" "scalardl-lb-probe" {

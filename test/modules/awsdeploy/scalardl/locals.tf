@@ -18,8 +18,8 @@ locals {
 
     public_subnet_id  = data.terraform_remote_state.network.outputs.subnet_map["public"]
     private_subnet_id = data.terraform_remote_state.network.outputs.subnet_map["private"]
-    blue_subnet_id    = data.terraform_remote_state.network.outputs.subnet_map["blue"]
-    green_subnet_id   = data.terraform_remote_state.network.outputs.subnet_map["green"]
+    blue_subnet_id    = data.terraform_remote_state.network.outputs.subnet_map["scalardl_blue"]
+    green_subnet_id   = data.terraform_remote_state.network.outputs.subnet_map["scalardl_green"]
   }
 
   cassandra = {

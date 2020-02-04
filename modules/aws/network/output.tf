@@ -20,11 +20,11 @@ output "network_id" {
 
 output "subnet_map" {
   value = {
-    public    = module.vpc.public_subnets[0]
-    private   = module.vpc.private_subnets[0]
-    cassandra = module.vpc.private_subnets[1]
-    blue      = module.vpc.private_subnets[2]
-    green     = module.vpc.private_subnets[3]
+    public         = module.vpc.public_subnets[0]
+    private        = module.vpc.private_subnets[0]
+    cassandra      = module.vpc.private_subnets[1]
+    scalardl_blue  = module.vpc.private_subnets[2]
+    scalardl_green = module.vpc.private_subnets[3]
   }
   description = "The subnet map of VPC network."
 }

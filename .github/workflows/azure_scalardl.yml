@@ -1,24 +1,22 @@
-name: 'Terraform test for Cassandra module of AWS'
+name: 'Terraform test for Scalar DL module of Azure'
 on:
   pull_request:
     branches:
       - master
     paths:
-      - 'modules/aws/cassandra/**'
-      - 'modules/universal/cassandra/**'
-      - 'modules/universal/cassy/**'
-      - 'modules/universal/reaper/**'
-      - 'test/modules/awsdeploy/cassandra/**'
+      - 'modules/azure/scalardl/**'
+      - 'modules/universal/scalardl/**'
+      - 'modules/universal/envoy/**'
+      - 'test/modules/azuredeploy/scalardl/**'
       - 'provision/**'
   push:
     branches:
       - master
     paths:
-      - 'modules/aws/cassandra/**'
-      - 'modules/universal/cassandra/**'
-      - 'modules/universal/cassy/**'
-      - 'modules/universal/reaper/**'
-      - 'test/modules/awsdeploy/cassandra/**'
+      - 'modules/azure/scalardl/**'
+      - 'modules/universal/scalardl/**'
+      - 'modules/universal/envoy/**'
+      - 'test/modules/azuredeploy/scalardl/**'
       - 'provision/**'
 jobs:
   terraform:
@@ -26,12 +24,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       TF_VERSION: 0.12.19
       TF_ACTIONS_COMMENT: true
-      TF_TEST_WORKING_DIR: ./test/modules/awsdeploy/cassandra
+      TF_TEST_WORKING_DIR: ./test/modules/azuredeploy/scalardl
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
@@ -44,7 +43,7 @@ jobs:
         uses: hashicorp/terraform-github-actions@master
         with:
           tf_actions_subcommand: 'fmt'
-          tf_actions_working_dir: './modules/aws/cassandra'
+          tf_actions_working_dir: './modules/azure/scalardl'
           tf_actions_version: ${{ env.TF_VERSION }}
           tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
       - name: 'Terraform Init'

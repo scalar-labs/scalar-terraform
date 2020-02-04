@@ -18,11 +18,11 @@ func TestScalarDL(t *testing.T) {
 }
 
 func TestScalarDLWithJavaClientExpectStatusCodeIsValid(t *testing.T) {
-	expectedRegisterCertStatusCode := []int{200, 405}
-	expectedRegisterContractStatusCode := []int{200, 406}
-	expectedExecuteContractStatusCode := 200
-	expectedValidateLedgerStatusCode := 200
-	expectedListContractsStatusCode := 200
+	expectedRegisterCertStatusCode := []string{"OK", "CERTIFICATE_ALREADY_REGISTERED"}
+	expectedRegisterContractStatusCode := []string{"OK", "CONTRACT_ALREADY_REGISTERED"}
+	expectedExecuteContractStatusCode := "OK"
+	expectedValidateLedgerStatusCode := "OK"
+	expectedListContractsStatusCode := "OK"
 
 	contractID := "test-contract1"
 	contractBinaryName := "com.org1.contract.StateUpdater"

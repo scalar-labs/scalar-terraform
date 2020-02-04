@@ -29,7 +29,7 @@ jobs:
             tar -xvzf v${SCALARDL_SDK_VERSION}.tar.gz
             mv ./scalardl-java-client-sdk-${SCALARDL_SDK_VERSION} ./scalardl-client-sdk
         env:
-          SCALARDL_SDK_VERSION: 2.0.1
+          SCALARDL_SDK_VERSION: 2.0.3
         working-directory: ./test/src/integration
       - name: Set up GO
         uses: actions/setup-go@v1

@@ -13,7 +13,7 @@ import (
 var terraformDir = flag.String("directory", "", "Directory path of the terraform module to test")
 
 func TestEndToEnd(t *testing.T) {
-	// t.Parallel()
+	t.Parallel()
 	logger.Logf(t, "Start End To End Test")
 
 	defer test_structure.RunTestStage(t, "teardown", func() {

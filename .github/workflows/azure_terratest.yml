@@ -1,5 +1,8 @@
-name: Integration test with terratest for AWS
+name: Integration test with terratest for Azure
 on:
+  pull_request:
+    branches:
+      - master
   schedule:
     - cron: '0 0 * * *'
 jobs:
@@ -8,9 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -49,5 +53,5 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             cd ${GITHUB_WORKSPACE}/test/src/modules && dep ensure
             cd ${GITHUB_WORKSPACE}/test/src/integration && dep ensure
-            go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
+            go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/azuredeploy/"
         working-directory: ./test

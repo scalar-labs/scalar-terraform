@@ -13,7 +13,9 @@
 *.out
 *.tfplan
 
+# key files
 *.pem
+example_key*
 
 .DS_Store
 *.tar.gz

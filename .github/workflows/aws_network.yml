@@ -27,34 +27,37 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      TF_VERSION: 0.12.19
+      TF_ACTIONS_COMMENT: true
+      TF_TEST_WORKING_DIR: ./test/modules/awsdeploy/network
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: 0.12.19
           tf_actions_subcommand: 'fmt'
           tf_actions_working_dir: './modules/aws/network'
-          tf_actions_comment: true
+          tf_actions_version: ${{ env.TF_VERSION }}
+          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: 0.12.19
           tf_actions_subcommand: 'init'
-          tf_actions_working_dir: './test/modules/awsdeploy/network'
-          tf_actions_comment: true
+          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
+          tf_actions_version: ${{ env.TF_VERSION }}
+          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
       - name: 'Terraform Validate'
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: 0.12.19
           tf_actions_subcommand: 'validate'
-          tf_actions_working_dir: './test/modules/awsdeploy/network'
-          tf_actions_comment: true
+          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
+          tf_actions_version: ${{ env.TF_VERSION }}
+          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
       - name: 'Terraform Plan'
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: 0.12.19
           tf_actions_subcommand: 'plan'
-          tf_actions_working_dir: './test/modules/awsdeploy/network'
-          tf_actions_comment: true
+          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
+          tf_actions_version: ${{ env.TF_VERSION }}
+          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}

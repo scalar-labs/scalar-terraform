@@ -30,9 +30,9 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-      TF_VERSION: ${{ '0.12.19' }}
-      TF_ACTIONS_COMMENT: ${{ 'true' }}
-      TF_TEST_WORKING_DIR: ${{ './test/modules/azuredeploy/cassandra' }}
+      TF_VERSION: 0.12.19
+      TF_ACTIONS_COMMENT: true
+      TF_TEST_WORKING_DIR: ./test/modules/azuredeploy/cassandra
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master

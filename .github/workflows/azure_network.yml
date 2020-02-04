@@ -1,21 +1,23 @@
-name: 'Terraform test for CA module of Azure'
+name: 'Terraform test for Network module of Azure'
 on:
   pull_request:
     branches:
       - master
     paths:
-      - 'modules/azure/ca/**'
-      - 'modules/universal/ca/**'
-      - 'test/modules/azuredeploy/ca/**'
-      - 'provision/ansible/**'
+      - 'modules/azure/network/**'
+      - 'modules/universal/bastion/**'
+      - 'modules/universal/name-generator/**'
+      - 'test/modules/azuredeploy/network/**'
+      - 'provision/**'
   push:
     branches:
       - master
     paths:
-      - 'modules/azure/ca/**'
-      - 'modules/universal/ca/**'
-      - 'test/modules/azuredeploy/ca/**'
-      - 'provision/ansible/**'
+      - 'modules/azure/network/**'
+      - 'modules/universal/bastion/**'
+      - 'modules/universal/name-generator/**'
+      - 'test/modules/azuredeploy/network/**'
+      - 'provision/**'
 jobs:
   terraform:
     name: 'Terraform'
@@ -28,20 +30,15 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       TF_VERSION: 0.12.19
       TF_ACTIONS_COMMENT: true
-      TF_TEST_WORKING_DIR: ./test/modules/azuredeploy/ca
+      TF_TEST_WORKING_DIR: ./test/modules/azuredeploy/network
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
-      - name: 'Set up to using dummy local variables'
-        run: |
-            rm -f remote.tf locals.tf
-            mv locals.tf.dummy locals.tf
-        working-directory: ${{ env.TF_TEST_WORKING_DIR }}
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@master
         with:
           tf_actions_subcommand: 'fmt'
-          tf_actions_working_dir: './modules/azure/ca'
+          tf_actions_working_dir: './modules/azure/network'
           tf_actions_version: ${{ env.TF_VERSION }}
           tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
       - name: 'Terraform Init'

@@ -1,21 +1,25 @@
-name: 'Terraform test for CA module of Azure'
+name: 'Terraform test for Cassandra module of Azure'
 on:
   pull_request:
     branches:
       - master
     paths:
-      - 'modules/azure/ca/**'
-      - 'modules/universal/ca/**'
-      - 'test/modules/azuredeploy/ca/**'
-      - 'provision/ansible/**'
+      - 'modules/azure/cassandra/**'
+      - 'modules/universal/cassandra/**'
+      - 'modules/universal/cassy/**'
+      - 'modules/universal/reaper/**'
+      - 'test/modules/azuredeploy/cassandra/**'
+      - 'provision/**'
   push:
     branches:
       - master
     paths:
-      - 'modules/azure/ca/**'
-      - 'modules/universal/ca/**'
-      - 'test/modules/azuredeploy/ca/**'
-      - 'provision/ansible/**'
+      - 'modules/azure/cassandra/**'
+      - 'modules/universal/cassandra/**'
+      - 'modules/universal/cassy/**'
+      - 'modules/universal/reaper/**'
+      - 'test/modules/azuredeploy/cassandra/**'
+      - 'provision/**'
 jobs:
   terraform:
     name: 'Terraform'
@@ -28,7 +32,7 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       TF_VERSION: 0.12.19
       TF_ACTIONS_COMMENT: true
-      TF_TEST_WORKING_DIR: ./test/modules/azuredeploy/ca
+      TF_TEST_WORKING_DIR: ./test/modules/azuredeploy/cassandra
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
@@ -41,7 +45,7 @@ jobs:
         uses: hashicorp/terraform-github-actions@master
         with:
           tf_actions_subcommand: 'fmt'
-          tf_actions_working_dir: './modules/azure/ca'
+          tf_actions_working_dir: './modules/azure/cassandra'
           tf_actions_version: ${{ env.TF_VERSION }}
           tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
       - name: 'Terraform Init'

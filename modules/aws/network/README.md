@@ -18,7 +18,6 @@ The Network module creates a virtual network with subnets.
 |------|-------------|
 | bastion_ip | Public IP address to bastion host |
 | bastion_provision_id | The provision id of bastion. |
-| cassandra_subnet_id | The subnet ID to launch cassandra cluster. |
 | image_id | The image id to initiate. |
 | internal_root_dns | The internal root dns for setting srv record |
 | key_name | The key-name of the AWS managed ssh key_pair. |
@@ -28,9 +27,6 @@ The Network module creates a virtual network with subnets.
 | network_id | The VPC network ID. |
 | network_name | Short name to identify environment. |
 | private_key_path | The path to the private key for SSH access. |
-| private_subnet_id | The subnet ID to launch scalardl nlb. |
-| public_subnet_id | The subnet ID to launch envoy nlb. |
-| scalardl_blue_subnet_id | The subnet ID to launch scalardl blue cluster. |
-| scalardl_green_subnet_id | The subnet ID to launch scalardl green cluster. |
 | ssh_config | The Configuration file for SSH access. |
+| subnet_map | The subnet map of VPC network. |
 | user_name | The user name of the remote hosts. |

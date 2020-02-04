@@ -15,11 +15,11 @@ output "network_cidr" {
 
 output "subnet_map" {
   value = {
-    public    = azurerm_subnet.subnet["public"].id
-    private   = azurerm_subnet.subnet["private"].id
-    cassandra = azurerm_subnet.subnet["cassandra"].id
-    blue      = azurerm_subnet.subnet["blue"].id
-    green     = azurerm_subnet.subnet["green"].id
+    public         = azurerm_subnet.subnet["public"].id
+    private        = azurerm_subnet.subnet["private"].id
+    cassandra      = azurerm_subnet.subnet["cassandra"].id
+    scalardl_blue  = azurerm_subnet.subnet["scalardl_blue"].id
+    scalardl_green = azurerm_subnet.subnet["scalardl_green"].id
   }
   description = "The subnet map of virtual network."
 }

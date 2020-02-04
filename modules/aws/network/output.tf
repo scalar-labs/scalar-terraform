@@ -18,29 +18,15 @@ output "network_id" {
   description = "The VPC network ID."
 }
 
-output "cassandra_subnet_id" {
-  value       = module.vpc.private_subnets[1]
-  description = "The subnet ID to launch cassandra cluster."
-}
-
-output "private_subnet_id" {
-  value       = module.vpc.private_subnets[0]
-  description = "The subnet ID to launch scalardl nlb."
-}
-
-output "scalardl_blue_subnet_id" {
-  value       = module.vpc.private_subnets[2]
-  description = "The subnet ID to launch scalardl blue cluster."
-}
-
-output "scalardl_green_subnet_id" {
-  value       = module.vpc.private_subnets[3]
-  description = "The subnet ID to launch scalardl green cluster."
-}
-
-output "public_subnet_id" {
-  value       = module.vpc.public_subnets[0]
-  description = "The subnet ID to launch envoy nlb."
+output "subnet_map" {
+  value = {
+    public         = module.vpc.public_subnets[0]
+    private        = module.vpc.private_subnets[0]
+    cassandra      = module.vpc.private_subnets[1]
+    scalardl_blue  = module.vpc.private_subnets[2]
+    scalardl_green = module.vpc.private_subnets[3]
+  }
+  description = "The subnet map of VPC network."
 }
 
 output "image_id" {

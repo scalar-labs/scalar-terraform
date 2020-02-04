@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
         with:
-          ref: add-github-actions-yml-for-terratest
+          ref: terratest-for-azure
       - name: Docker login
         run: echo $DOCKER_PASSWORD | docker login -u scalartest --password-stdin docker.io
         env:

@@ -53,5 +53,7 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             cd ${GITHUB_WORKSPACE}/test/src/modules && dep ensure
             cd ${GITHUB_WORKSPACE}/test/src/integration && dep ensure
+            pwd
+            ls ../../modules/azuredeploy
             go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/azuredeploy/"
         working-directory: ./test

@@ -1,0 +1,69 @@
+name: 'Terraform test for Scalar DL module of Azure'
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'modules/azure/scalardl/**'
+      - 'modules/universal/scalardl/**'
+      - 'modules/universal/envoy/**'
+      - 'test/modules/azuredeploy/scalardl/**'
+      - 'provision/**'
+  push:
+    branches:
+      - master
+    paths:
+      - 'modules/azure/scalardl/**'
+      - 'modules/universal/scalardl/**'
+      - 'modules/universal/envoy/**'
+      - 'test/modules/azuredeploy/scalardl/**'
+      - 'provision/**'
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      TF_VERSION: 0.12.19
+      TF_ACTIONS_COMMENT: true
+      TF_TEST_WORKING_DIR: ./test/modules/azuredeploy/scalardl
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: 'Set up to using dummy local variables'
+        run: |
+            rm -f remote.tf locals.tf
+            mv locals.tf.dummy locals.tf
+        working-directory: ${{ env.TF_TEST_WORKING_DIR }}
+      - name: 'Terraform Format'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_subcommand: 'fmt'
+          tf_actions_working_dir: './modules/azure/scalardl'
+          tf_actions_version: ${{ env.TF_VERSION }}
+          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
+      - name: 'Terraform Init'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_subcommand: 'init'
+          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
+          tf_actions_version: ${{ env.TF_VERSION }}
+          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
+      - name: 'Terraform Validate'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_subcommand: 'validate'
+          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
+          tf_actions_version: ${{ env.TF_VERSION }}
+          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
+      - name: 'Terraform Plan'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_subcommand: 'plan'
+          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
+          tf_actions_version: ${{ env.TF_VERSION }}
+          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}

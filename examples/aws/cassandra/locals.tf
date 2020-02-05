@@ -6,7 +6,7 @@ locals {
     id       = data.terraform_remote_state.network.outputs.network_id
     location = data.terraform_remote_state.network.outputs.location
 
-    subnet_id = data.terraform_remote_state.network.outputs.cassandra_subnet_id
+    subnet_id = data.terraform_remote_state.network.outputs.subnet_map["cassandra"]
     image_id  = data.terraform_remote_state.network.outputs.image_id
     key_name  = data.terraform_remote_state.network.outputs.key_name
 

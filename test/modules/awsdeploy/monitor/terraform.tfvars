@@ -11,5 +11,3 @@ monitor = {
   # log_volume_type           = "sc1"
   # enable_tdagent            = true
 }
-
-slack_webhook_url = "https://hooks.slack.com/services/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"

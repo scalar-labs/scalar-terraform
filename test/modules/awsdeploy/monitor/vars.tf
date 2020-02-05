@@ -13,4 +13,6 @@ variable "monitor" {
 }
 
 # For Alerting Add Slack Webhook
-variable "slack_webhook_url" {}
+variable "slack_webhook_url" {
+  default = ""
+}

@@ -27,13 +27,13 @@ func TestEndToEnd(t *testing.T) {
         NoColor:      true,
       }
 
-      logger.Logf(t, "Destroying <%s> Infrastructure", m)
-      terraform.DestroyE(t, terraformOptions)
-
-      // [azure only] All resources in the resource group are deleted by first destroy, So skip next destory.
-      if strings.Contains(*terraformDir, "azuredeploy") {
-        break
+      // [azure only] All resources in the resource group are deleted by first destroy.
+      if strings.Contains(terraformOptions.TerraformDir, "azuredeploy") && m != "network" {
+        continue
       }
+
+			logger.Logf(t, "Destroying <%s> Infrastructure", m)
+      terraform.DestroyE(t, terraformOptions)
     }
 
     logger.Logf(t, "Finished End To End Test")

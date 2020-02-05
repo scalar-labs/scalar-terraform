@@ -1,8 +1,5 @@
 name: Integration test with terratest for Azure
 on:
-  pull_request:
-    branches:
-      - master
   schedule:
     - cron: '0 0 * * *'
 jobs:
@@ -10,7 +7,6 @@ jobs:
     name: Terratest
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
@@ -19,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
         with:
-          ref: terratest-for-azure
+          ref: master
       - name: Docker login
         run: echo $DOCKER_PASSWORD | docker login -u scalartest --password-stdin docker.io
         env:

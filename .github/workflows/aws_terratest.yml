@@ -1,8 +1,5 @@
 name: Integration test with terratest for AWS
 on:
-  pull_request:
-    branches:
-      - master
   schedule:
     - cron: '0 0 * * *'
 jobs:
@@ -10,7 +7,6 @@ jobs:
     name: Terratest
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
@@ -18,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
         with:
-          ref: add-github-actions-yml-for-terratest
+          ref: master
       - name: Docker login
         run: echo $DOCKER_PASSWORD | docker login -u scalartest --password-stdin docker.io
         env:

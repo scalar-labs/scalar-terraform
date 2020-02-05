@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 	"flag"
+	"strings"
 
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/terraform"
@@ -28,6 +29,12 @@ func TestEndToEnd(t *testing.T) {
 
       logger.Logf(t, "Destroying <%s> Infrastructure", m)
 			terraform.DestroyE(t, terraformOptions)
+
+			// [azure only] All resources in the resource group are deleted by first destroy, So skip next destory.
+			if strings.Contains(*terraformDir, "azuredeploy") {
+				logger.Logf(t, "break")
+				break
+			}
 		}
 
 		logger.Logf(t, "Finished End To End Test")

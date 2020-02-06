@@ -1,22 +1,22 @@
-name: 'Terraform test for Network module of AWS Example'
+name: 'Terraform test for Network module of Azure Example'
 on:
   pull_request:
     branches:
       - master
     paths:
-      - 'modules/aws/network/**'
+      - 'modules/azure/network/**'
       - 'modules/universal/bastion/**'
       - 'modules/universal/name-generator/**'
-      - 'examples/aws/network/**'
+      - 'examples/azure/network/**'
       - 'provision/**'
   push:
     branches:
       - master
     paths:
-      - 'modules/aws/network/**'
+      - 'modules/azure/network/**'
       - 'modules/universal/bastion/**'
       - 'modules/universal/name-generator/**'
-      - 'examples/aws/network/**'
+      - 'examples/azure/network/**'
       - 'provision/**'
 jobs:
   terraform:
@@ -24,12 +24,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       TF_VERSION: 0.12.19
       TF_ACTIONS_COMMENT: true
-      TF_TEST_WORKING_DIR: ./examples/aws/network
+      TF_TEST_WORKING_DIR: ./examples/azure/network
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master

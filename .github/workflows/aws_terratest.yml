@@ -16,16 +16,16 @@ jobs:
         with:
           ref: master
       - name: Docker login
-        run: echo $DOCKER_PASSWORD | docker login -u scalartest --password-stdin docker.io
+        run: echo ${DOCKER_PASSWORD} | docker login -u scalartest --password-stdin docker.io
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
       - name: Download scalardl client sdk
         run: |
-            curl -LO https://github.com/scalar-labs/scalardl-client-sdk/archive/v${SCALARDL_SDK_VERSION}.tar.gz
-            tar -xvzf v${SCALARDL_SDK_VERSION}.tar.gz
-            mv ./scalardl-java-client-sdk-${SCALARDL_SDK_VERSION} ./scalardl-client-sdk
+            curl -LO scalardl-java-client-sdk.tar.gz https://github.com/scalar-labs/scalardl-java-client-sdk/archive/v${SCALARDL_JAVA_CLIENT_SDK_VERSION}.tar.gz
+            tar -xvzf v${SCALARDL_JAVA_CLIENT_SDK_VERSION}.tar.gz
+            mv ./scalardl-java-client-sdk-${SCALARDL_JAVA_CLIENT_SDK_VERSION} ./scalardl-java-client-sdk
         env:
-          SCALARDL_SDK_VERSION: 2.0.3
+          SCALARDL_JAVA_CLIENT_SDK_VERSION: 2.0.3
         working-directory: ./test/src/integration
       - name: Set up GO
         uses: actions/setup-go@v1

@@ -59,6 +59,7 @@ function terraformFmt {
     exit ${fmtExitCode}
   fi
 
+  echo "fmt success"
   exit ${fmtExitCode}
 }
 
@@ -75,7 +76,7 @@ function terraformInit {
     echo
     exit ${initExitCode}
   fi
-
+  echo "init success"
   exit ${fmtExitCode}
 }
 
@@ -83,9 +84,12 @@ function main {
   scriptDir=$(dirname ${0})
 
   parseInputs
+
+  cd ${GITHUB_WORKSPACE}/${tfWorkingDir}
+
   installTerraform
-  terraformFmt
-  terraformInit
+  terraformFmt ${*}
+  terraformInit ${*}
 }
 
 main "${*}"

@@ -13,11 +13,6 @@ import (
 	"github.com/gruntwork-io/terratest/modules/logger"
 )
 
-type ResponseStatus struct {
-	Code         string `json:"status_code"`
-	ErrorMessage string `json:"error_message"`
-}
-
 func GrpcJavaListContracts(t *testing.T, propertiesFile string) (string, string) {
 	action := "list-contracts"
 
@@ -84,7 +79,11 @@ func GrpcJavaTest(t *testing.T, action string, options ...string) (string, strin
 		// It continues the test since it checks error cases as well
 	}
 
-	var response_status ResponseStatus
+	response_status := &struct {
+		Code         string `json:"status_code"`
+		ErrorMessage string `json:"error_message"`
+	}{}
+
 	if err := json.Unmarshal(byteOutput, &response_status); err != nil {
 		t.Fatal(err)
 	}

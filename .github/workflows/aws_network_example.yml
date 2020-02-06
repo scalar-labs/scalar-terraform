@@ -7,7 +7,7 @@ on:
       - 'modules/aws/network/**'
       - 'modules/universal/bastion/**'
       - 'modules/universal/name-generator/**'
-      - 'example/aws/network/**'
+      - 'examples/aws/network/**'
       - 'provision/**'
   push:
     branches:

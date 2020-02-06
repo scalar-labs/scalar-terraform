@@ -2,7 +2,6 @@ package test
 
 import (
 	"flag"
-	"strings"
 	"testing"
 	"time"
 

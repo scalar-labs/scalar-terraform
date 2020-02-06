@@ -14,8 +14,7 @@ import (
 )
 
 type ResponseStatus struct {
-	Code string `json:"status_code"`
-	// Output string `json:"output"`
+	Code         string `json:"status_code"`
 	ErrorMessage string `json:"error_message"`
 }
 
@@ -82,10 +81,11 @@ func GrpcJavaTest(t *testing.T, action string, options ...string) (string, strin
 
 	byteOutput, err := cmd.CombinedOutput()
 	if err != nil {
+		// Commented out because code `XXX_ALREADY_REGISTERED` will be an error
 		// t.Fatal(err)
 	}
 
-	var response_status = new(ResponseStatus)
+	response_status := &ResponseStatus{}
 	if err := json.Unmarshal(byteOutput, &response_status); err != nil {
 		t.Fatal(err)
 	}

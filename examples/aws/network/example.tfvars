@@ -1,6 +1,6 @@
 region = "ap-northeast-1"
 
-name = "example-aws"
+name = "example-aws-test"
 
 location = "ap-northeast-1a"
 

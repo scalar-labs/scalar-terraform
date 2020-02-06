@@ -27,12 +27,7 @@ func TestEndToEnd(t *testing.T) {
         NoColor:      true,
       }
 
-      // [azure only] All resources in the resource group are deleted by first destroy.
-      if strings.Contains(terraformOptions.TerraformDir, "azuredeploy") && m != "network" {
-        continue
-      }
-
-			logger.Logf(t, "Destroying <%s> Infrastructure", m)
+      logger.Logf(t, "Destroying <%s> Infrastructure", m)
       terraform.DestroyE(t, terraformOptions)
     }
 

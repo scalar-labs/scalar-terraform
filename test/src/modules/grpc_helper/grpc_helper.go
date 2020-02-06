@@ -77,7 +77,7 @@ func GrpcJavaRegisterCert(t *testing.T, propertiesFile string) (string, string) 
 
 func GrpcJavaTest(t *testing.T, action string, options ...string) (string, string) {
   logger.Logf(t, "Starting Java %s %v", action, options)
-  command := fmt.Sprintf(`scalardl-client-sdk/client/bin/%s`, action)
+  command := fmt.Sprintf(`scalardl-java-client-sdk/client/bin/%s`, action)
   cmd := exec.Command(command, options...)
 
   byteOutput, err := cmd.CombinedOutput()

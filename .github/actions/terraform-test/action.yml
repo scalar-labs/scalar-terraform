@@ -1,0 +1,22 @@
+name: 'Scalar Terraform GitHub Actions'
+description: 'Run terraform [fmt|init|validate|plan] via GitHub Actions.'
+branding:
+  icon: 'terminal'
+  color: 'purple'
+inputs:
+  tf_actions_version:
+    description: 'Terraform version to install.'
+    required: true
+  tf_actions_working_dir:
+    description: 'Terraform working directory.'
+    default: '.'
+outputs:
+  tf_actions_output:
+    description: 'The Terraform outputs in JSON format.'
+  tf_actions_plan_has_changes:
+    description: 'Whether or not the Terraform plan contained changes.'
+  tf_actions_plan_output:
+    description: 'The Terraform plan output.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

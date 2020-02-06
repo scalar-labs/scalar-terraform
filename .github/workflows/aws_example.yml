@@ -1,0 +1,38 @@
+name: 'Terraform test for AWS example'
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'modules/aws/**'
+      - 'modules/universal/**'
+      - 'examples/aws/**'
+      - 'provision/**'
+  push:
+    branches:
+      - master
+    paths:
+      - 'modules/aws/**'
+      - 'modules/universal/**'
+      - 'test/modules/awsdeploy/**'
+      - 'provision/**'
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      TF_VERSION: 0.12.19
+      TF_BASE_WORKING_DIR: ./examples/aws
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+        working-directory: ${{ env.TF_TEST_WORKING_DIR }}
+      - name: 'Terraform test'
+        uses: './.github/actions/terraform-test'
+        with:
+          tf_actions_working_dir: ${{ env.TF_BASE_WORKING_DIR }}/network
+          tf_actions_version: ${{ env.TF_VERSION }}

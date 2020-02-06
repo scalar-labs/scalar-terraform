@@ -30,7 +30,6 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
-        working-directory: ${{ env.TF_TEST_WORKING_DIR }}
       - name: 'Terraform test'
         uses: './.github/actions/terraform-test'
         with:

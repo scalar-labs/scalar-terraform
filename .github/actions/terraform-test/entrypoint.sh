@@ -60,7 +60,6 @@ function terraformFmt {
   fi
 
   echo "fmt success"
-  exit ${fmtExitCode}
 }
 
 function terraformInit {
@@ -77,7 +76,6 @@ function terraformInit {
     exit ${initExitCode}
   fi
   echo "init success"
-  exit ${fmtExitCode}
 }
 
 function main {

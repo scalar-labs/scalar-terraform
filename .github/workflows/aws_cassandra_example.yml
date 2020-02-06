@@ -1,10 +1,13 @@
-name: 'Terraform test for Cassandra module of AWS example'
+name: 'Terraform test for Cassandra module of AWS Example'
 on:
   pull_request:
     branches:
       - master
     paths:
       - 'modules/aws/cassandra/**'
+      - 'modules/universal/cassandra/**'
+      - 'modules/universal/cassy/**'
+      - 'modules/universal/reaper/**'
       - 'examples/aws/cassandra/**'
       - 'provision/**'
   push:
@@ -12,7 +15,10 @@ on:
       - master
     paths:
       - 'modules/aws/cassandra/**'
-      - 'aws/cassandra/**'
+      - 'modules/universal/cassandra/**'
+      - 'modules/universal/cassy/**'
+      - 'modules/universal/reaper/**'
+      - 'examples/aws/cassandra/**'
       - 'provision/**'
 jobs:
   terraform:

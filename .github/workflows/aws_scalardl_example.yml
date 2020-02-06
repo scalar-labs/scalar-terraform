@@ -1,22 +1,22 @@
-name: 'Terraform test for Network module of AWS Example'
+name: 'Terraform test for Scalar DL module of AWS Example'
 on:
   pull_request:
     branches:
       - master
     paths:
-      - 'modules/aws/network/**'
-      - 'modules/universal/bastion/**'
-      - 'modules/universal/name-generator/**'
-      - 'examples/aws/network/**'
+      - 'modules/aws/scalardl/**'
+      - 'modules/universal/scalardl/**'
+      - 'modules/universal/envoy/**'
+      - 'examples/aws/scalardl/**'
       - 'provision/**'
   push:
     branches:
       - master
     paths:
-      - 'modules/aws/network/**'
-      - 'modules/universal/bastion/**'
-      - 'modules/universal/name-generator/**'
-      - 'test/modules/awsdeploy/network/**'
+      - 'modules/aws/scalardl/**'
+      - 'modules/universal/scalardl/**'
+      - 'modules/universal/envoy/**'
+      - 'examples/aws/scalardl/**'
       - 'provision/**'
 jobs:
   terraform:
@@ -29,7 +29,7 @@ jobs:
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
       TF_VERSION: 0.12.19
       TF_ACTIONS_COMMENT: true
-      TF_TEST_WORKING_DIR: ./examples/aws/network
+      TF_TEST_WORKING_DIR: ./examples/aws/scalardl
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master

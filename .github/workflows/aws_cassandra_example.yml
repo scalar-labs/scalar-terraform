@@ -25,7 +25,7 @@ jobs:
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
       TF_VERSION: 0.12.19
       TF_ACTIONS_COMMENT: true
-      TF_TEST_WORKING_DIR: ./example/aws/cassandra
+      TF_TEST_WORKING_DIR: ./examples/aws/cassandra
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master

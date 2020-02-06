@@ -81,11 +81,10 @@ func GrpcJavaTest(t *testing.T, action string, options ...string) (string, strin
 
 	byteOutput, err := cmd.CombinedOutput()
 	if err != nil {
-		// Commented out because code `XXX_ALREADY_REGISTERED` will be an error
-		// t.Fatal(err)
+		// It continues the test since it checks error cases as well
 	}
 
-	response_status := &ResponseStatus{}
+	var response_status ResponseStatus
 	if err := json.Unmarshal(byteOutput, &response_status); err != nil {
 		t.Fatal(err)
 	}

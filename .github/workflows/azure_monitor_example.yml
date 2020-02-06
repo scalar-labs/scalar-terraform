@@ -7,7 +7,7 @@ on:
       - 'modules/azure/monitor/**'
       - 'modules/universal/monitor/**'
       - 'examples/azure/monitor/**'
-      - 'provision/**'
+      - 'provision/ansible/**'
   push:
     branches:
       - master
@@ -15,7 +15,7 @@ on:
       - 'modules/azure/monitor/**'
       - 'modules/universal/monitor/**'
       - 'examples/azure/monitor/**'
-      - 'provision/**'
+      - 'provision/ansible/**'
 jobs:
   terraform:
     name: 'Terraform'

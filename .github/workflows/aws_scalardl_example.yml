@@ -8,7 +8,7 @@ on:
       - 'modules/universal/scalardl/**'
       - 'modules/universal/envoy/**'
       - 'examples/aws/scalardl/**'
-      - 'provision/**'
+      - 'provision/ansible/**'
   push:
     branches:
       - master
@@ -17,7 +17,7 @@ on:
       - 'modules/universal/scalardl/**'
       - 'modules/universal/envoy/**'
       - 'examples/aws/scalardl/**'
-      - 'provision/**'
+      - 'provision/ansible/**'
 jobs:
   terraform:
     name: 'Terraform'

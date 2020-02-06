@@ -9,7 +9,7 @@ on:
       - 'modules/universal/cassy/**'
       - 'modules/universal/reaper/**'
       - 'examples/aws/cassandra/**'
-      - 'provision/**'
+      - 'provision/ansible/**'
   push:
     branches:
       - master
@@ -19,7 +19,7 @@ on:
       - 'modules/universal/cassy/**'
       - 'modules/universal/reaper/**'
       - 'examples/aws/cassandra/**'
-      - 'provision/**'
+      - 'provision/ansible/**'
 jobs:
   terraform:
     name: 'Terraform'

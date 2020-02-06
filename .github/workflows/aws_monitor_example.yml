@@ -7,7 +7,7 @@ on:
       - 'modules/aws/monitor/**'
       - 'modules/universal/monitor/**'
       - 'examples/aws/monitor/**'
-      - 'provision/**'
+      - 'provision/ansible/**'
   push:
     branches:
       - master
@@ -15,7 +15,7 @@ on:
       - 'modules/aws/monitor/**'
       - 'modules/universal/monitor/**'
       - 'examples/aws/monitor/**'
-      - 'provision/**'
+      - 'provision/ansible/**'
 jobs:
   terraform:
     name: 'Terraform'

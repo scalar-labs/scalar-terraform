@@ -21,8 +21,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
       - name: Download scalardl client sdk
         run: |
-            curl -LO scalardl-java-client-sdk.tar.gz https://github.com/scalar-labs/scalardl-java-client-sdk/archive/v${SCALARDL_JAVA_CLIENT_SDK_VERSION}.tar.gz
-            tar -xvzf v${SCALARDL_JAVA_CLIENT_SDK_VERSION}.tar.gz
+            curl -L https://github.com/scalar-labs/scalardl-java-client-sdk/archive/v${SCALARDL_JAVA_CLIENT_SDK_VERSION}.tar.gz | tar xvzf -
             mv ./scalardl-java-client-sdk-${SCALARDL_JAVA_CLIENT_SDK_VERSION} ./scalardl-java-client-sdk
         env:
           SCALARDL_JAVA_CLIENT_SDK_VERSION: 2.0.3

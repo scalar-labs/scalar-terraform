@@ -15,6 +15,10 @@ static_resources:
         - filters:
           - name:                  envoy.http_connection_manager
             config:
+              access_log:
+                - name:            envoy.file_access_log
+                  config:
+                    path:          "/dev/stdout"
               http_filters:
                 - name:            envoy.grpc_web
                 - name:            envoy.cors

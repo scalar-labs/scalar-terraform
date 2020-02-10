@@ -39,7 +39,7 @@ docker ps
 
 ## Access Reaper
 ```
-ssh -F ssh.cfg -L 8080:localhost:8080 reapter.internal.scalar-labs.com
+ssh -F ssh.cfg -L 8080:localhost:8080 reaper.internal.scalar-labs.com
 ```
 
 http://localhost:8080/webui/index.html

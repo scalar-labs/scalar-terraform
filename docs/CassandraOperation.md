@@ -2,7 +2,15 @@
 The Cassandra cluster can be expanded using terraform but due to the sensitive nature of Cassandra it requires additional steps.
 
 ### Scale up the Cassandra cluster
-By setting the `cassandra_resource_count` variable you can control the number of Cassandra nodes to create. All Cassandra nodes will be created in a stopped state and will need an operator to manually start the service.
+By setting the `cassandra.resource_count` variable you can control the number of Cassandra nodes to create. All Cassandra nodes will be created in a stopped state and will need an operator to manually start the service.
+```
+cassandra = {
+  resource_type                = "t3.large"
+  resource_count               = 3
+  resource_root_volume_size    = 64
+  data_remote_volume_size      = 64
+}
+```
 
 * If you lower the *resource_count* terraform will destroy the newest node first. It is best to avoid lowering the Cassandra count if possible.
 * The first 3 Cassandra nodes will be setup as seed nodes.
@@ -20,29 +28,31 @@ The following section is useful when you need to replace a Cassandra node.
 #### Azure Output
 ```
 terraform show | grep module.cassandra
-# module.bai.module.scalar.module.cassandra.azurerm_managed_disk.cassandra_data_volume[1]:
-# module.bai.module.scalar.module.cassandra.azurerm_managed_disk.cassandra_data_volume[2]:
-# module.bai.module.scalar.module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]:
-# module.bai.module.scalar.module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[0]:
-# module.bai.module.scalar.module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[1]:
-# module.bai.module.scalar.module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[2]:
-# module.bai.module.scalar.module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[1]:
-# module.bai.module.scalar.module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[2]:
-# module.bai.module.scalar.module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]:
+# module.cassandra.azurerm_private_dns_a_record.cassandra-dns[2]:
+# module.cassandra.azurerm_private_dns_a_record.cassandra-dns[0]:
+# module.cassandra.azurerm_private_dns_a_record.cassandra-dns[1]:
+# module.cassandra.azurerm_private_dns_a_record.cassandra-dns-lb[0]:
+# module.cassandra.azurerm_private_dns_a_record.cassy-dns[0]:
+# module.cassandra.azurerm_private_dns_a_record.reaper-dns[0]:
+# module.cassandra.azurerm_private_dns_srv_record.cassanda-exporter-dns-srv[0]:
+# module.cassandra.azurerm_private_dns_srv_record.cassy-cadvisor-dns-srv[0]:
+# module.cassandra.azurerm_private_dns_srv_record.cassy-dns-srv[0]:
+# module.cassandra.azurerm_private_dns_srv_record.cassy-exporter-dns-srv[0]:
 ```
 
 #### AWS Output
 ```
 terraform show | grep module.cassandra
-# module.bai.module.scalar.module.cassandra.module.cassandra_cluster.aws_instance.this[0]:
-# module.bai.module.scalar.module.cassandra.module.cassandra_cluster.aws_instance.this[1]:
-# module.bai.module.scalar.module.cassandra.module.cassandra_cluster.aws_instance.this[2]:
-# module.bai.module.scalar.module.cassandra.aws_ebs_volume.cassandra_data_volume[0]:
-# module.bai.module.scalar.module.cassandra.aws_ebs_volume.cassandra_data_volume[1]:
-# module.bai.module.scalar.module.cassandra.aws_ebs_volume.cassandra_data_volume[2]:
-# module.bai.module.scalar.module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[0]:
-# module.bai.module.scalar.module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[1]:
-# module.bai.module.scalar.module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[2]:
+# module.cassandra.module.cassy_cluster.aws_instance.this[0]:
+# module.cassandra.module.cassandra_cluster.aws_instance.this[0]:
+# module.cassandra.module.cassandra_cluster.aws_instance.this[1]:
+# module.cassandra.module.cassandra_cluster.aws_instance.this[2]:
+# module.cassandra.module.cassandra_provision.null_resource.cassandra[0]:
+# module.cassandra.module.cassandra_provision.null_resource.cassandra[1]:
+# module.cassandra.module.cassandra_provision.null_resource.cassandra[2]:
+# module.cassandra.module.cassandra_provision.null_resource.cassandra_waitfor[2]:
+# module.cassandra.module.cassandra_provision.null_resource.cassandra_waitfor[0]:
+# module.cassandra.module.cassandra_provision.null_resource.cassandra_waitfor[1]:
 ```
 
 * Find the `instance` or `vm` you wish to replace and copy the line.
@@ -52,8 +62,8 @@ terraform show | grep module.cassandra
 When you taint the volume attachment terraform will try to attach the same data or commit log volume to the new instance. This is the ideal situation as it is the quickest way to replace a node.
 
 ```
-terraform taint "module.bai.module.scalar.module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
-terraform taint "module.bai.module.scalar.module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[0]"
+terraform taint "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
+terraform taint "module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[0]"
 
 terraform apply
 ```
@@ -62,8 +72,8 @@ terraform apply
 The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume. Be sure you can recover the data from a backup first.
 
 ```
-terraform taint "module.bai.module.scalar.module.cassandra.module.cassandra_cluster.aws_instance.this[0]"
-terraform taint "module.bai.module.scalar.module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
+terraform taint "module.cassandra.module.cassandra_cluster.aws_instance.this[0]"
+terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
 
 terraform apply
 ```

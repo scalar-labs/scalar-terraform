@@ -62,11 +62,11 @@ az login
 
 ### AWS
 
-Note: [AWS Scalar DL Example](../examples/aws/README.md)
+See: [AWS Scalar DL Example](../examples/aws/README.md)
 
 ### Azure
 
-Note: [Azure Scalar DL Example](../examples/azure/README.md)
+See: [Azure Scalar DL Example](../examples/azure/README.md)
 
 
 ## Next Steps

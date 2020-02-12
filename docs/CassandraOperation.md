@@ -3,12 +3,15 @@ The Cassandra cluster can be expanded using terraform but due to the sensitive n
 
 ### Scale up the Cassandra cluster
 By setting the `cassandra.resource_count` variable you can control the number of Cassandra nodes to create. All Cassandra nodes will be created in a stopped state and will need an operator to manually start the service.
+
+[Azure example.tfvars](../examples/azure/cassandra/example.tfvars)
+[AWS example.tfvars](../examples/aws/cassandra/example.tfvars)
 ```
 cassandra = {
-  resource_type                = "t3.large"
-  resource_count               = 3
-  resource_root_volume_size    = 64
-  data_remote_volume_size      = 64
+  resource_type             = "t3.large"
+  resource_count            = 3
+  resource_root_volume_size = 64
+  data_remote_volume_size   = 64
 }
 ```
 

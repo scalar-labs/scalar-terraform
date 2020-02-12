@@ -1,5 +1,8 @@
 name: Integration test with terratest for AWS
 on:
+  pull_request:
+    branches:
+      - master
   schedule:
     - cron: '0 0 * * *'
 jobs:

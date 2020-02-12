@@ -4,7 +4,7 @@ output "network_id" {
 }
 
 output "network_name" {
-  value       = module.name_generator.name
+  value       = azurerm_resource_group.resource_group.name
   description = "Short name to identify environment."
 }
 

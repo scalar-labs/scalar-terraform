@@ -60,14 +60,9 @@ az login
 
 ## Setting up workspace
 
-### AWS
+### [AWS Scalar DL Example](../examples/aws/README.md)
 
-See: [AWS Scalar DL Example](../examples/aws/README.md)
-
-### Azure
-
-See: [Azure Scalar DL Example](../examples/azure/README.md)
-
+### [Azure Scalar DL Example](../examples/azure/README.md)
 
 ## Next Steps
 

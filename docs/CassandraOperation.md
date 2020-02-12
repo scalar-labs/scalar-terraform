@@ -4,8 +4,8 @@ The Cassandra cluster can be expanded using terraform but due to the sensitive n
 ### Scale up the Cassandra cluster
 By setting the `cassandra.resource_count` variable you can control the number of Cassandra nodes to create. All Cassandra nodes will be created in a stopped state and will need an operator to manually start the service.
 
-[Azure example.tfvars](../examples/azure/cassandra/example.tfvars)
-[AWS example.tfvars](../examples/aws/cassandra/example.tfvars)
+[ [Azure example.tfvars](../examples/azure/cassandra/example.tfvars) ]
+[ [AWS example.tfvars](../examples/aws/cassandra/example.tfvars) ]
 ```
 cassandra = {
   resource_type             = "t3.large"
@@ -31,31 +31,31 @@ The following section is useful when you need to replace a Cassandra node.
 #### Azure Output
 ```
 terraform show | grep module.cassandra
-# module.cassandra.azurerm_private_dns_a_record.cassandra-dns[2]:
-# module.cassandra.azurerm_private_dns_a_record.cassandra-dns[0]:
-# module.cassandra.azurerm_private_dns_a_record.cassandra-dns[1]:
-# module.cassandra.azurerm_private_dns_a_record.cassandra-dns-lb[0]:
-# module.cassandra.azurerm_private_dns_a_record.cassy-dns[0]:
-# module.cassandra.azurerm_private_dns_a_record.reaper-dns[0]:
-# module.cassandra.azurerm_private_dns_srv_record.cassanda-exporter-dns-srv[0]:
-# module.cassandra.azurerm_private_dns_srv_record.cassy-cadvisor-dns-srv[0]:
-# module.cassandra.azurerm_private_dns_srv_record.cassy-dns-srv[0]:
-# module.cassandra.azurerm_private_dns_srv_record.cassy-exporter-dns-srv[0]:
+# module.cassandra.module.reaper_cluster.azurerm_virtual_machine.vm-linux[0]:
+# module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[2]:
+# module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]:
+# module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[1]:
+# module.cassandra.module.cassy_cluster.azurerm_virtual_machine.vm-linux[0]:
+# module.cassandra.null_resource.volume_commitlog_local[0]:
+# module.cassandra.null_resource.volume_commitlog_local[1]:
+# module.cassandra.null_resource.volume_commitlog_local[2]:
+# module.cassandra.null_resource.volume_data_local[2]:
+# module.cassandra.null_resource.volume_data_local[0]:
+# module.cassandra.null_resource.volume_data_local[1]:
 ```
 
 #### AWS Output
 ```
 terraform show | grep module.cassandra
-# module.cassandra.module.cassy_cluster.aws_instance.this[0]:
 # module.cassandra.module.cassandra_cluster.aws_instance.this[0]:
 # module.cassandra.module.cassandra_cluster.aws_instance.this[1]:
 # module.cassandra.module.cassandra_cluster.aws_instance.this[2]:
-# module.cassandra.module.cassandra_provision.null_resource.cassandra[0]:
-# module.cassandra.module.cassandra_provision.null_resource.cassandra[1]:
-# module.cassandra.module.cassandra_provision.null_resource.cassandra[2]:
-# module.cassandra.module.cassandra_provision.null_resource.cassandra_waitfor[2]:
-# module.cassandra.module.cassandra_provision.null_resource.cassandra_waitfor[0]:
-# module.cassandra.module.cassandra_provision.null_resource.cassandra_waitfor[1]:
+# module.cassandra.aws_ebs_volume.cassandra_data_volume[0]:
+# module.cassandra.aws_ebs_volume.cassandra_data_volume[1]:
+# module.cassandra.aws_ebs_volume.cassandra_data_volume[2]:
+# module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[0]:
+# module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[1]:
+# module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[2]:
 ```
 
 * Find the `instance` or `vm` you wish to replace and copy the line.

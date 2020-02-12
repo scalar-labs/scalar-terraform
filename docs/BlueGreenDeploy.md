@@ -11,8 +11,8 @@ This module manages two Scalar DL clusters, blue and green. At any given time on
 * Make a new terraform plan and apply it to the environment
 
 ## Example Config
-Azure: `../examples/azure/scalardl/example.tfvars`
-AWS: `../examples/aws/scalardl/example.tfvars`
+[ [Azure example.tfvars](../examples/azure/scalardl/example.tfvars) ]
+[ [AWS example.tfvars](../examples/aws/scalardl/example.tfvars) ]
 
 * Green Cluster Active (Initial State)
 ```

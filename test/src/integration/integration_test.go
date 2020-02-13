@@ -48,7 +48,7 @@ func TestEndToEnd(t *testing.T) {
 		}
 
 		logger.Logf(t, "Finished Creating Infrastructure: Tests will continue in 2 minutes")
-		time.Sleep(120 * time.Second)
+		time.Sleep(180 * time.Second)
 	})
 
 	test_structure.RunTestStage(t, "validate", func() {

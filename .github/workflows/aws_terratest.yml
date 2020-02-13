@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
-        with:
-          ref: master
       - name: Docker login
         run: echo ${DOCKER_PASSWORD} | docker login -u scalartest --password-stdin docker.io
         env:

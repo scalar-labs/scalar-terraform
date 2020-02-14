@@ -11,6 +11,7 @@ cassandra = {
   resource_type             = "t3.large"
   resource_count            = 3
   resource_root_volume_size = 64
+  enable_data_volume        = true
   data_remote_volume_size   = 64
 }
 ```
@@ -35,13 +36,13 @@ terraform show | grep module.cassandra
 # module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[2]:
 # module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]:
 # module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[1]:
-# module.cassandra.module.cassy_cluster.azurerm_virtual_machine.vm-linux[0]:
-# module.cassandra.null_resource.volume_commitlog_local[0]:
-# module.cassandra.null_resource.volume_commitlog_local[1]:
-# module.cassandra.null_resource.volume_commitlog_local[2]:
-# module.cassandra.null_resource.volume_data_local[2]:
+# module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]:
+# module.cassandra.azurerm_managed_disk.cassandra_data_volume[1]:
+# module.cassandra.azurerm_managed_disk.cassandra_data_volume[2]:
+# module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[0]:
+# module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[1]:
+# module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[2]:
 # module.cassandra.null_resource.volume_data_local[0]:
-# module.cassandra.null_resource.volume_data_local[1]:
 ```
 
 #### AWS Output
@@ -64,9 +65,17 @@ terraform show | grep module.cassandra
 #### Taint volume attachment
 When you taint the volume attachment terraform will try to attach the same data or commit log volume to the new instance. This is the ideal situation as it is the quickest way to replace a node.
 
+##### Azure
 ```console
 terraform taint "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
 terraform taint "module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[0]"
+
+terraform apply
+```
+##### AWS
+```console
+terraform taint "module.cassandra.module.cassandra_cluster.aws_instance.this[0]"
+terraform taint "module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[0]"
 
 terraform apply
 ```
@@ -74,6 +83,15 @@ terraform apply
 #### Taint Volume
 The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume. Be sure you can recover the data from a backup first.
 
+##### Azure
+```console
+terraform taint "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
+terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
+
+terraform apply
+```
+
+##### AWS
 ```console
 terraform taint "module.cassandra.module.cassandra_cluster.aws_instance.this[0]"
 terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"

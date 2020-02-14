@@ -29,7 +29,7 @@ The following section is useful when you need to replace a Cassandra node.
 * You may want to add `-A 10` to the grep command to help find the correct node.
 
 #### Azure Output
-```
+```console
 terraform show | grep module.cassandra
 # module.cassandra.module.reaper_cluster.azurerm_virtual_machine.vm-linux[0]:
 # module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[2]:
@@ -45,7 +45,7 @@ terraform show | grep module.cassandra
 ```
 
 #### AWS Output
-```
+```console
 terraform show | grep module.cassandra
 # module.cassandra.module.cassandra_cluster.aws_instance.this[0]:
 # module.cassandra.module.cassandra_cluster.aws_instance.this[1]:
@@ -64,7 +64,7 @@ terraform show | grep module.cassandra
 #### Taint volume attachment
 When you taint the volume attachment terraform will try to attach the same data or commit log volume to the new instance. This is the ideal situation as it is the quickest way to replace a node.
 
-```
+```console
 terraform taint "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
 terraform taint "module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[0]"
 
@@ -74,7 +74,7 @@ terraform apply
 #### Taint Volume
 The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume. Be sure you can recover the data from a backup first.
 
-```
+```console
 terraform taint "module.cassandra.module.cassandra_cluster.aws_instance.this[0]"
 terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
 
@@ -89,7 +89,7 @@ If you attached the same volume to the new instance, you need to follow the thes
 
 * Find the UUID of the `data` or `commitlog` volume and add it to `fstab`.
 
-```
+```console
 ssh -F ssh.cfg cassandra-[].internal.scalar-labs.com
 lsblk -p -P -d -o name,serial,UUID,SIZE
 NAME="/dev/nvme2n1" SERIAL="vol018d1871d19da76f1" UUID="af767839-b23d-4d1f-8a19-debbcfd6413c" HCTL="" SIZE="1T"
@@ -112,7 +112,7 @@ JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead_node_ip>"
 
 * Finally you can start the Cassandra service.
 
-```
+```console
 sudo systemctl start cassandra
 ```
 

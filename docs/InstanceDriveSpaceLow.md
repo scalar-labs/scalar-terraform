@@ -17,7 +17,7 @@ scalar-blue-2.internal.scalar-labs.com:9100 - resolved
 
 ### Action Needed
 * Connect to the reported instance and local large directories. Clear space as needed.
-```
+```console
 du --max-depth=1 /path | sort -r -k1,1n
 ```
 * If for some reason the docker container size is growing, in most cases it is safe to remove and restart the container.

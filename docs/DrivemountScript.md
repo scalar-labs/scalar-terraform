@@ -5,7 +5,7 @@ The drive mount script will format and mount the Data and Commitlog volumes on t
 * AWS EBS volumes are not always attached to an instance in the same order which makes it difficult to assign the EBS volume.
 
 ### Lookup Command
-```
+```console
 lsblk -p -P -d -o name,serial,UUID,HCTL
 ```
 
@@ -38,7 +38,7 @@ In the case of AWS the local NVME drive needs to be formatted and mounted. The d
 ### Mount Points
 The following mount points are used for Data and Commitlogs. Each directory is `chown` to the `cassandra` user and group.
 
-```
+```console
 # For Root Volume or EBS Volume
 /data
 /commitlog

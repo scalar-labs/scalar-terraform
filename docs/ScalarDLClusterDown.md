@@ -18,7 +18,7 @@ This alert indicates that all Scalar DL containers are down and no requests can 
 ### Action Needed
 * Check log server to pinpoint root cause of failure.
 * Restart the container with docker-compose.
-```
+```console
 cd provision
 docker-compose up -d
 ```

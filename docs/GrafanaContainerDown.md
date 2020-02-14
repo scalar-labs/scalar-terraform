@@ -18,7 +18,7 @@ reaper-1.internal.scalar-labs.com:18080 - resolved
 ### Action Needed
 * In many cases no action is needed as the container will auto restart. However, you should check logs to see if anything was reported.
 * Restart the container with docker-compose.
-```
+```console
 cd provision
 docker-compose up -d
 ```

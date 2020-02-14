@@ -18,7 +18,7 @@ cassandra-1.internal.scalar-labs.com:9100 - resolved
 ### Action Needed
 * It is best to check Cassandra logs first to see if anything was reported.
 * A service restart command can be issued on the instance.
-```
+```console
 sudo systemctl restart cassandra
 ```
 

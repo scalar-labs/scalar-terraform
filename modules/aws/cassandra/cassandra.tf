@@ -29,7 +29,7 @@ module "cassandra_cluster" {
 }
 
 resource "aws_ebs_volume" "cassandra_data_volume" {
-  count = local.cassandra.enable_data_volume && false == local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
+  count = local.cassandra.enable_data_volume && !local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
   availability_zone = local.location
   size              = local.cassandra.data_remote_volume_size
@@ -37,7 +37,7 @@ resource "aws_ebs_volume" "cassandra_data_volume" {
 }
 
 resource "aws_volume_attachment" "cassandra_data_volume_attachment" {
-  count = local.cassandra.enable_data_volume && false == local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
+  count = local.cassandra.enable_data_volume && !local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
   device_name = "/dev/xvdh"
   volume_id   = aws_ebs_volume.cassandra_data_volume[count.index].id
@@ -47,7 +47,7 @@ resource "aws_volume_attachment" "cassandra_data_volume_attachment" {
 }
 
 resource "null_resource" "volume_data" {
-  count = local.cassandra.enable_data_volume && false == local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
+  count = local.cassandra.enable_data_volume && !local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
   triggers = {
     triggers = module.cassandra_cluster.id[count.index]
@@ -91,7 +91,7 @@ resource "null_resource" "volume_data_local" {
 }
 
 resource "aws_ebs_volume" "cassandra_commitlog_volume" {
-  count = local.cassandra.enable_commitlog_volume && false == local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
+  count = local.cassandra.enable_commitlog_volume && !local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
 
   availability_zone = local.location
   size              = local.cassandra.commitlog_remote_volume_size
@@ -99,7 +99,7 @@ resource "aws_ebs_volume" "cassandra_commitlog_volume" {
 }
 
 resource "aws_volume_attachment" "cassandra_commitlog_volume_attachment" {
-  count = local.cassandra.enable_commitlog_volume && false == local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
+  count = local.cassandra.enable_commitlog_volume && !local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
 
   device_name = "/dev/xvdi"
   volume_id   = aws_ebs_volume.cassandra_commitlog_volume[count.index].id
@@ -109,7 +109,7 @@ resource "aws_volume_attachment" "cassandra_commitlog_volume_attachment" {
 }
 
 resource "null_resource" "volume_commitlog" {
-  count = local.cassandra.enable_commitlog_volume && false == local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
+  count = local.cassandra.enable_commitlog_volume && !local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
 
   triggers = {
     triggers = module.cassandra_cluster.id[count.index]

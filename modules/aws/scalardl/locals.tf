@@ -14,7 +14,7 @@ locals {
   green_subnet_id   = var.network.green_subnet_id
   internal_root_dns = var.network.internal_root_dns
 
-  triggers = [var.cassandra.start_on_initial_boot == true ? var.cassandra.provision_ids : var.network.bastion_provision_id]
+  triggers = [var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id]
 }
 
 ### default

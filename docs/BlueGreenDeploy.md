@@ -16,37 +16,37 @@ This module manages two Scalar DL clusters, blue and green. At any given time on
 
 * Green Cluster Active (Initial State)
 ```
-#### Blue Cluster (inactive), Green Cluster (active)
+#### Blue Cluster (active), Green Cluster (inactive)
+scalardl = {
+  blue_resource_count  = 3
+  blue_image_tag       = "2.0.1"
+  blue_image_name      = "scalarlabs/scalar-ledger"
+  green_resource_count = 0
+  green_image_tag      = "2.0.1"
+  green_image_name     = "scalarlabs/scalar-ledger"
+}
+```
+
+* Deploy Green Cluster version 2.1.0 (Step 1)
+```
+scalardl = {
+  blue_resource_count  = 3
+  blue_image_tag       = "2.0.1"
+  blue_image_name      = "scalarlabs/scalar-ledger"
+  green_resource_count = 3
+  green_image_tag      = "2.1.0"
+  green_image_name     = "scalarlabs/scalar-ledger"
+}
+```
+
+* Remove Blue Cluster (Step 2)
+```
 scalardl = {
   blue_resource_count  = 0
   blue_image_tag       = "2.0.1"
   blue_image_name      = "scalarlabs/scalar-ledger"
   green_resource_count = 3
-  green_image_tag      = "2.0.1"
-  green_image_name     = "scalarlabs/scalar-ledger"
-}
-```
-
-* Deploy Blue Cluster version 2.1.0 (Step 1)
-```
-scalardl = {
-  blue_resource_count  = 3
-  blue_image_tag       = "2.1.0"
-  blue_image_name      = "scalarlabs/scalar-ledger"
-  green_resource_count = 3
-  green_image_tag      = "2.0.1"
-  green_image_name     = "scalarlabs/scalar-ledger"
-}
-```
-
-* Remove Green Cluster (Step 2)
-```
-scalardl = {
-  blue_resource_count  = 3
-  blue_image_tag       = "2.1.0"
-  blue_image_name      = "scalarlabs/scalar-ledger"
-  green_resource_count = 0
-  green_image_tag      = "2.0.1"
+  green_image_tag      = "2.1.0"
   green_image_name     = "scalarlabs/scalar-ledger"
 }
 ```

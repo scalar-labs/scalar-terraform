@@ -1,4 +1,4 @@
-# scalar-terraform
+# Terraform modules for Scalar DL orchestration
 This repo is a set of terraform modules that can be used to build a Scalar DL environment.
 
 ## Requirements
@@ -19,4 +19,4 @@ The repo is divided into two sections, modules, provision.
 The modules directory is where the terraform modules are located. The provider section is broken down into cloud specific directories, such as, `aws` or `azure`. There is also one `universal` directory for modules that work across all providers.
 
 #### [Provision](provision)
-The provisioner directory is where Ansible Playbooks are located. Ansible is used for provisioning the host resource with the required software. The Ansible Playbooks are designed to run on the most common Linux distributions.
+The provision directory is where Ansible Playbooks are located. Ansible is used for provisioning the host resource with the required software. The Ansible Playbooks are designed to run on the most common Linux distributions.

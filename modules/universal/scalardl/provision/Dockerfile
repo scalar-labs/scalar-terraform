@@ -1,14 +1,15 @@
-ARG FROM_SCALAR_TAG=2.0.1
+ARG FROM_SCALAR_TAG=1.3.1
 ARG FROM_SCALAR_IMAGE=scalarlabs/scalar-ledger
 FROM ${FROM_SCALAR_IMAGE}:${FROM_SCALAR_TAG}
 
 
 #Install cqlsh tool
-RUN apt-get update && apt-get install -y curl gnupg \
-        && echo "deb http://www.apache.org/dist/cassandra/debian 311x main" > /etc/apt/sources.list.d/cassandra.sources.list \
-        && curl https://www.apache.org/dist/cassandra/KEYS | apt-key add - \
-        && apt-get update && apt-get install -y cassandra-tools \
-        && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y curl gnupg apt-transport-https \
+&& curl -O -fsSL http://www.apache.org/dist/cassandra/KEYS && apt-key add KEYS
+RUN echo "deb http://www.apache.org/dist/cassandra/debian 311x main" > /etc/apt/sources.list.d/cassandra.sources.list \
+&& apt-get update && apt-get install -y cassandra-tools \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
 
 #Copy templates from build step
 COPY ./startup.sh ./

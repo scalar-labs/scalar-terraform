@@ -49,7 +49,7 @@ resource "null_resource" "docker_install" {
 }
 
 resource "null_resource" "envoy_tls" {
-  count = var.envoy_tls && false == var.envoy_cert_auto_gen ? 1 : 0
+  count = var.envoy_tls && ! var.envoy_cert_auto_gen ? 1 : 0
 
   provisioner "local-exec" {
     command = "cp ${var.key} ${path.module}/provision/key.pem"

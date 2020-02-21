@@ -14,5 +14,5 @@ variable "monitor" {
 
 # For Alerting Add Slack Webhook
 variable "slack_webhook_url" {
-  default = ""
+  default = "https://hooks.slack.com/services/XXXXXX"
 }

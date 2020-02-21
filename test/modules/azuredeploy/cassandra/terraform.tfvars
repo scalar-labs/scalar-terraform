@@ -1,5 +1,3 @@
-region = "us-east-1"
-
 cassandra = {
   start_on_initial_boot = true
 }

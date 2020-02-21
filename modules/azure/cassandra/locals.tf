@@ -33,6 +33,7 @@ locals {
     commitlog_remote_volume_type = "Premium_LRS"
     enable_tdagent               = true
     start_on_initial_boot        = false
+    use_agent                    = true
   }
 }
 

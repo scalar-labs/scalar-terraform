@@ -1,9 +1,9 @@
 package test
 
 import (
+	"flag"
 	"testing"
 	"time"
-	"flag"
 
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/terraform"
@@ -26,7 +26,7 @@ func TestEndToEnd(t *testing.T) {
 				NoColor:      true,
 			}
 
-      logger.Logf(t, "Destroying <%s> Infrastructure", m)
+			logger.Logf(t, "Destroying <%s> Infrastructure", m)
 			terraform.DestroyE(t, terraformOptions)
 		}
 
@@ -53,7 +53,7 @@ func TestEndToEnd(t *testing.T) {
 
 	test_structure.RunTestStage(t, "validate", func() {
 		t.Run("TestScalarDL", TestScalarDL)
-	  t.Run("TestPrometheusAlerts", TestPrometheusAlerts)
+		t.Run("TestPrometheusAlerts", TestPrometheusAlerts)
 	})
 }
 

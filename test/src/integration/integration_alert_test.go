@@ -85,7 +85,7 @@ func TestScalarDegradedWithPrometheusAPIExpectAlertAndRecovery(t *testing.T) {
 	}
 
 	commandStop := "docker stop $(docker ps -aq); sleep 120"
-	commandStart := "docker start $(docker ps -aq); sleep 60"
+	commandStart := "docker start $(docker ps -aq); sleep 90"
 
 	output, _ := ssh.CheckPrivateSshConnectionE(t, publicHost, privateHost, commandStop)
 	logger.Logf(t, "Stopping Container: %s", output)

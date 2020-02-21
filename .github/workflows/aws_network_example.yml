@@ -1,0 +1,56 @@
+name: 'Terraform test for Network module of AWS Example'
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'modules/aws/network/**'
+      - 'modules/universal/bastion/**'
+      - 'modules/universal/name-generator/**'
+      - 'examples/aws/network/**'
+      - 'provision/ansible/**'
+  push:
+    branches:
+      - master
+    paths:
+      - 'modules/aws/network/**'
+      - 'modules/universal/bastion/**'
+      - 'modules/universal/name-generator/**'
+      - 'examples/aws/network/**'
+      - 'provision/ansible/**'
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      TF_VERSION: 0.12.19
+      TF_ACTIONS_COMMENT: true
+      TF_TEST_WORKING_DIR: ./examples/aws/network
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: 'Terraform Format'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_subcommand: 'fmt'
+          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
+          tf_actions_version: ${{ env.TF_VERSION }}
+          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
+      - name: 'Terraform Init'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_subcommand: 'init'
+          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
+          tf_actions_version: ${{ env.TF_VERSION }}
+          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
+      - name: 'Terraform Validate'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_subcommand: 'validate'
+          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
+          tf_actions_version: ${{ env.TF_VERSION }}
+          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}

@@ -55,13 +55,13 @@
 
 - name: Add Cassandra Repo Debian
   lineinfile:
-    line: "deb http://www.apache.org/dist/cassandra/debian 311x main"
+    line: "deb https://downloads.apache.org/cassandra/debian 311x main"
     path: /etc/apt/sources.list.d/cassandra.sources.list
     create: yes
   when: ansible_facts['os_family'] == "Debian"
 
 - name: Add Keys
-  shell: curl https://www.apache.org/dist/cassandra/KEYS | apt-key add -
+  shell: curl https://downloads.apache.org/cassandra/KEYS | apt-key add -
   when: ansible_facts['os_family'] == "Debian"
 
 - name: Apt Update

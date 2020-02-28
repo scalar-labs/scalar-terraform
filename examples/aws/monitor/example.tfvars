@@ -12,4 +12,4 @@ monitor = {
   # enable_tdagent            = true
 }
 
-#slack_webhook_url = "https://hooks.slack.com/services/xxxxxxxxxxxxxxxx"
+#slack_webhook_url = ""

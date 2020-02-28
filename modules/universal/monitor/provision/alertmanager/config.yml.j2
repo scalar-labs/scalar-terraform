@@ -9,6 +9,7 @@ route:
 
 receivers:
   - name: team-slack
+{% if slack_webhook_url is defined and slack_webhook_url|length %}
     slack_configs:
       - send_resolved: true
         api_url: '{{ slack_webhook_url }}'
@@ -18,3 +19,5 @@ receivers:
 
 templates:
 - '/etc/alertmanager/alert.tmpl'
+
+{% endif %}

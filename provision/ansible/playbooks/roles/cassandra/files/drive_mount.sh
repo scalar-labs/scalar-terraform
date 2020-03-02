@@ -101,7 +101,7 @@ if [[ $COMMIT_STORE == "local" ]] && [[ -d /mnt/resource ]]; then
   # Link /commitlog directory to local volume /mnt/resource/commitlog
   mkdir -p /mnt/resource/commitlog
   chown -R cassandra:cassandra /mnt/resource/commitlog
-  ln -sf /mnt/resource/commitlog /commitlog
+  ln -snf /mnt/resource/commitlog /commitlog
 elif [[ -z "$COMMIT_STORE" ]]; then
   # Setup /commitlog directory on root volume
   echo "COMMIT_STORE is not set: Using Root Volume"

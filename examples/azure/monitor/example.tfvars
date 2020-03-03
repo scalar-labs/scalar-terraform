@@ -12,4 +12,4 @@ monitor = {
   # remote_port               = 9090
 }
 
-#slack_webhook_url = "https://hooks.slack.com/services/xxxxxxxxxxxxxxxx"
+#slack_webhook_url = ""

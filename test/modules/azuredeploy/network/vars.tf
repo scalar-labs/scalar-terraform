@@ -4,7 +4,7 @@ variable "name" {
 }
 
 variable "location" {
-  default = "japaneast"
+  default = "West US 2"
 }
 
 variable "public_key_path" {

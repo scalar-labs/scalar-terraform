@@ -21,11 +21,11 @@ locals {
     resource_type             = "Standard_B2s"
     resource_root_volume_size = 64
     blue_resource_count       = 3
-    blue_image_tag            = "1.3.1"
+    blue_image_tag            = "2.0.2"
     blue_image_name           = "scalarlabs/scalar-ledger"
     blue_subnet_id            = var.network.blue_subnet_id
     green_resource_count      = 0
-    green_image_tag           = "1.3.1"
+    green_image_tag           = "2.0.2"
     replication_factor        = 3
     green_image_name          = "scalarlabs/scalar-ledger"
     green_subnet_id           = var.network.green_subnet_id

@@ -145,8 +145,7 @@ resource "null_resource" "scalardl_schema" {
 
   provisioner "remote-exec" {
     inline = [
-      "cd $HOME/provision && SCALAR_IMAGE=${local.provision_image} docker-compose run -e CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} scalar dockerize -template create_schema.cql.tmpl:create_schema.cql -wait tcp://cassandra-lb.${var.internal_root_dns}:9042 -timeout 30s ./create_schema.sh",
-      "docker rm -f $(docker ps -aq)",
+      "cd $HOME/provision && SCALAR_IMAGE=${local.provision_image} docker-compose run --rm -e CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} scalar dockerize -template create_schema.cql.tmpl:create_schema.cql -wait tcp://cassandra-lb.${var.internal_root_dns}:9042 -timeout 30s ./create_schema.sh",
     ]
   }
 }

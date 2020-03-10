@@ -4,9 +4,9 @@ name = "example-aws"
 
 location = "ap-northeast-1a"
 
-public_key_path = "./example_key"
+public_key_path = "./example_key.pub"
 
-private_key_path = "./example_key.pub"
+private_key_path = "./example_key"
 
 internal_root_dns = "internal.scalar-labs.com"
 

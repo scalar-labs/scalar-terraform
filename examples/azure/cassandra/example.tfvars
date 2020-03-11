@@ -18,7 +18,7 @@ cassandra = {
 }
 
 cassy = {
-  # resource_type             = "Standard_D2s_v3"
+  # resource_type             = "Standard_B2s"
   # resource_count            = 1
   # resource_root_volume_size = 64
   # enable_tdagent            = true

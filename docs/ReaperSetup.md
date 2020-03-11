@@ -1,4 +1,4 @@
-# A Guilde on How to Set up Reaper
+# A Guide on How to Set up Reaper
 
 This guide explains how to set up Reaper.
 It assumes that you have already created Reaper instance with `scalar-terraform` properly and you have `ssh.cfg` at hand. Regarding how Reaper work, please take a look at [Reaper site](http://cassandra-reaper.io/).

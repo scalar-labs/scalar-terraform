@@ -10,12 +10,12 @@ output "scalardl_replication_factor" {
   value = module.scalardl.scalardl_replication_factor
 }
 
-output "envoy_dns" {
-  value = module.scalardl.envoy_dns[0]
+output "scalar_dns" {
+  value = module.scalardl.scalardl_lb_dns[0]
 }
 
 output "monitor_url" {
-  value = "http://${module.scalardl.envoy_dns[0]}:${module.scalardl.envoy_listen_port}"
+  value = "http://${module.scalardl.scalardl_lb_dns[0]}:${module.scalardl.scalardl_lb_listen_port}"
 }
 
 output "scalardl_blue_test_ip_0" {

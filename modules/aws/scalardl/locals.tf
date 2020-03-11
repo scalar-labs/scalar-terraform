@@ -34,8 +34,8 @@ locals {
     listen_port               = 50051
     privileged_listen_port    = 50052
     enable_nlb                = true
-    nlb_internal              = true
-    nlb_subnet_id             = var.network.private_subnet_id
+    nlb_internal              = false
+    nlb_subnet_id             = var.network.public_subnet_id
     enable_tdagent            = true
   }
 }
@@ -68,7 +68,7 @@ locals {
 locals {
   envoy_default = {
     resource_type             = "t3.medium"
-    resource_count            = 3
+    resource_count            = 0
     resource_root_volume_size = 64
     target_port               = 50051
     listen_port               = 50051

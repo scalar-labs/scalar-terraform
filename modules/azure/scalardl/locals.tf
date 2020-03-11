@@ -34,8 +34,8 @@ locals {
     listen_port               = 50051
     privileged_listen_port    = 50052
     enable_nlb                = true
-    nlb_internal              = true
-    nlb_subnet_id             = var.network.private_subnet_id
+    nlb_internal              = false
+    nlb_subnet_id             = var.network.public_subnet_id
     enable_tdagent            = true
   }
 }

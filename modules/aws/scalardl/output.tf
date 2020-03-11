@@ -28,6 +28,11 @@ output "scalardl_lb_dns" {
   description = "A list of dns URLs to access a scalardl cluster."
 }
 
+output "scalardl_lb_listen_port" {
+  value       = local.scalardl.listen_port
+  description = "A listen port of an scalardl cluster."
+}
+
 output "scalardl_blue_resource_count" {
   value       = local.scalardl.blue_resource_count
   description = "The number of resources to create for blue cluster."

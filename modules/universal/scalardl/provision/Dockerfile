@@ -26,4 +26,4 @@ ENV CASSANDRA_REPLICATION_FACTOR '3'
 
 CMD ["sh", "-c", "dockerize  -template ledger.properties.tmpl:ledger.properties -wait tcp://$SCALAR_CASSANDRA_HOST:$SCALAR_CASSANDRA_PORT -timeout 30s ./startup.sh"]
 
-EXPOSE 50051 50052
+EXPOSE 50051 50052 50053

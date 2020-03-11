@@ -109,6 +109,19 @@ resource "aws_security_group_rule" "scalardl_privileged_port" {
   security_group_id = aws_security_group.scalardl[count.index].id
 }
 
+resource "aws_security_group_rule" "scalardl_admin_port" {
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
+
+  type        = "ingress"
+  from_port   = 50053
+  to_port     = 50053
+  protocol    = "tcp"
+  cidr_blocks = [local.scalardl.nlb_internal ? local.network_cidr : "0.0.0.0/0"]
+  description = "Scalar DL Admin Port"
+
+  security_group_id = aws_security_group.scalardl[count.index].id
+}
+
 resource "aws_security_group_rule" "scalardl_node_exporter" {
   count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 

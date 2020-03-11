@@ -109,6 +109,19 @@ resource "aws_security_group_rule" "scalardl_privileged_port" {
   security_group_id = aws_security_group.scalardl[count.index].id
 }
 
+resource "aws_security_group_rule" "scalardl_admin_port" {
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
+
+  type        = "ingress"
+  from_port   = 50053
+  to_port     = 50053
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Scalar DL Admin Port"
+
+  security_group_id = aws_security_group.scalardl[count.index].id
+}
+
 resource "aws_security_group_rule" "scalardl_node_exporter" {
   count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
@@ -315,8 +328,7 @@ resource "aws_route53_record" "scalardl-service-dns-srv" {
   type    = "SRV"
   ttl     = "300"
   records = formatlist(
-    "0 0 %s %s.%s",
-    local.scalardl.target_port,
+    "0 0 50053 %s.%s",
     concat(aws_route53_record.scalardl-blue-dns.*.name, aws_route53_record.scalardl-green-dns.*.name),
     "${local.internal_root_dns}."
   )

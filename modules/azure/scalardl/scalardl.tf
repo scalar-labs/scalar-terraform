@@ -303,7 +303,7 @@ resource "azurerm_private_dns_srv_record" "scalardl-dns-srv" {
     content {
       priority = 0
       weight   = 0
-      port     = local.scalardl.target_port
+      port     = 50053
       target   = "${record.value}.${local.internal_root_dns}"
     }
   }

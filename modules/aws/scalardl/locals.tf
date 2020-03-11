@@ -34,8 +34,8 @@ locals {
     listen_port               = 50051
     privileged_listen_port    = 50052
     enable_nlb                = true
-    nlb_internal              = false
-    nlb_subnet_id             = var.network.public_subnet_id
+    nlb_internal              = true
+    nlb_subnet_id             = var.network.private_subnet_id
     enable_tdagent            = true
   }
 }
@@ -62,6 +62,8 @@ locals {
     local.scalardl_base[var.base],
     var.scalardl
   )
+
+  local.scalardl.nlb_subnet_id = local.scalardl.nlb_internal ? var.network.private_subnet_id : var.network.public_subnet_id
 }
 
 ### envoy
@@ -105,6 +107,7 @@ locals {
     var.envoy
   )
 
-  envoy_create_count     = local.envoy.resource_count > 0 ? 1 : 0
-  envoy_nlb_create_count = local.envoy.enable_nlb ? 1 : 0
+  envoy_create_count        = local.envoy.resource_count > 0 ? 1 : 0
+  envoy_nlb_create_count    = local.envoy.enable_nlb ? 1 : 0
+  local.envoy.nlb_subnet_id = local.envoy.nlb_internal ? var.network.private_subnet_id : var.network.public_subnet_id
 }

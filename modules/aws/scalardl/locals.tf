@@ -74,7 +74,7 @@ locals {
     listen_port               = 50051
     subnet_id                 = var.network.private_subnet_id
     nlb_subnet_id             = var.network.public_subnet_id
-    enable_nlb                = true
+    enable_nlb                = false
     nlb_internal              = false
     enable_tdagent            = true
     key                       = ""

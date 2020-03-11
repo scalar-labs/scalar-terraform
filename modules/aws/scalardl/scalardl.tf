@@ -116,7 +116,7 @@ resource "aws_security_group_rule" "scalardl_admin_port" {
   from_port   = 50053
   to_port     = 50053
   protocol    = "tcp"
-  cidr_blocks = [local.scalardl.nlb_internal ? local.network_cidr : "0.0.0.0/0"]
+  cidr_blocks = [local.network_cidr]
   description = "Scalar DL Admin Port"
 
   security_group_id = aws_security_group.scalardl[count.index].id

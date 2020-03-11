@@ -56,6 +56,8 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
+Please make sure to start all the Cassandra nodes since Cassandra doesn't start on the initial boot by default.
+
 ### Create Scalar DL resources
 
 ```console

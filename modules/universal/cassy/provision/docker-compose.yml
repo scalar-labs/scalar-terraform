@@ -7,5 +7,6 @@ services:
       - "20051:20051"
     volumes:
       - ./conf:/cassy/conf
+      - ./data:/cassy/data
       - ~/.ssh/cassy.pem:/opt/cassy/cassy.pem
     restart: always

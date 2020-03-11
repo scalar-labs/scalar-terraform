@@ -11,4 +11,5 @@ services:
     ports:
       - 50051:50051 # TODO: SCALAR_PORT
       - 50052:50052 # TODO: SCALAR_PRIVILEGED_PORT
+      - 50053:50053
     restart: always

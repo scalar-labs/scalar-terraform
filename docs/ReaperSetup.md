@@ -32,10 +32,10 @@ It assumes that you have already created Reaper instance with `scalar-terraform`
 
 1. Repair `scalar` keyspace
     1. Go to `Repairs`
-    2. Press `Start a new repair`
-    3. Put `scalar` in Keyspace
-    4. Press `Repair`
-    5. Activate the repair
+    1. Press `Start a new repair`
+    1. Put `scalar` in Keyspace
+    1. Press `Repair`
+    1. Activate the repair
 
 1. Repair `coordinator` keyspace
     1. Do the same process for `coordinator` keyspace

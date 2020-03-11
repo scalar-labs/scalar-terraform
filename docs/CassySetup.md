@@ -1,4 +1,4 @@
-# A Guilde on How to Set up Cassy
+# A Guide on How to Set up Cassy
 
 This guide explains how to set up Cassy.
 It assumes that you have already created Cassy instance with `scalar-terraform` properly and you have `ssh.cfg` at hand. Regarding how Cassy work, please take a look at [Cassy site](https://github.com/scalar-labs/cassy).

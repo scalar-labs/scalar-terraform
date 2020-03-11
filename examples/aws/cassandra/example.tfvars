@@ -20,7 +20,7 @@ cassandra = {
 }
 
 cassy = {
-  #resource_type             = "t3.micro"
+  #resource_type             = "t3.medium"
   #resource_count            = 1
   #resource_root_volume_size = 64
   #enable_tdagent            = true

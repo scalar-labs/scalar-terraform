@@ -60,7 +60,9 @@ locals {
     local.scalardl_base[var.base],
     var.scalardl
   )
+}
 
+locals {
   local.scalardl.nlb_subnet_id = local.scalardl.nlb_internal ? var.network.private_subnet_id : var.network.public_subnet_id
 }
 
@@ -104,6 +106,8 @@ locals {
     local.envoy_base[var.base],
     var.envoy
   )
+}
 
+locals {
   local.envoy.nlb_subnet_id = local.envoy.nlb_internal ? var.network.private_subnet_id : var.network.public_subnet_id
 }

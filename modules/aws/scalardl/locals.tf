@@ -62,7 +62,9 @@ locals {
     local.scalardl_base[var.base],
     var.scalardl
   )
+}
 
+locals {
   local.scalardl.nlb_subnet_id = local.scalardl.nlb_internal ? var.network.private_subnet_id : var.network.public_subnet_id
 }
 
@@ -107,7 +109,10 @@ locals {
     var.envoy
   )
 
-  envoy_create_count        = local.envoy.resource_count > 0 ? 1 : 0
-  envoy_nlb_create_count    = local.envoy.enable_nlb ? 1 : 0
+  envoy_create_count     = local.envoy.resource_count > 0 ? 1 : 0
+  envoy_nlb_create_count = local.envoy.enable_nlb ? 1 : 0
+}
+
+locals {
   local.envoy.nlb_subnet_id = local.envoy.nlb_internal ? var.network.private_subnet_id : var.network.public_subnet_id
 }

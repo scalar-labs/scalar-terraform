@@ -6,9 +6,4 @@ data "aws_ami" "image" {
     name   = "name"
     values = [var.name]
   }
-
-  filter {
-    name   = "tag:Env"
-    values = ["production"]
-  }
 }

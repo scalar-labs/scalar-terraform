@@ -30,7 +30,7 @@ output "scalardl_lb_dns" {
 
 output "scalardl_lb_listen_port" {
   value       = local.scalardl.listen_port
-  description = "A listen port of scalardl cluster."
+  description = "A listen port of a scalardl cluster."
 }
 
 output "scalardl_blue_resource_count" {

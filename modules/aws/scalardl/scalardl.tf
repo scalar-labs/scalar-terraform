@@ -315,8 +315,7 @@ resource "aws_route53_record" "scalardl-service-dns-srv" {
   type    = "SRV"
   ttl     = "300"
   records = formatlist(
-    "0 0 %s %s.%s",
-    local.scalardl.target_port,
+    "0 0 50053 %s.%s",
     concat(aws_route53_record.scalardl-blue-dns.*.name, aws_route53_record.scalardl-green-dns.*.name),
     "${local.internal_root_dns}."
   )

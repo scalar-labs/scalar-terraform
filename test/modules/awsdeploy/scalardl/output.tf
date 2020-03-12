@@ -10,7 +10,7 @@ output "scalardl_replication_factor" {
   value = module.scalardl.scalardl_replication_factor
 }
 
-output "envoy_dns" {
+output "scalar_dns" {
   value = module.scalardl.envoy_dns[0]
 }
 

@@ -31,7 +31,7 @@ func TestScalarDLWithJavaClientExpectStatusCodeIsValid(t *testing.T) {
 	assetArgument := fmt.Sprintf(`{"asset_id": "%s", "state": 9001}`, assetID)
 	propertiesFile := "./resources/test.properties"
 
-	scalarurl := lookupTargetValue(t, "scalardl", "envoy_dns")
+	scalarurl := lookupTargetValue(t, "scalardl", "scalar_dns")
 	logger.Logf(t, "URL: %s", scalarurl)
 	writePropertiesFile(t, scalarurl)
 

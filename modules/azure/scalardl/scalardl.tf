@@ -78,7 +78,7 @@ resource "azurerm_lb" "scalardl-lb" {
 
   frontend_ip_configuration {
     name      = "ScalardlLBAddress"
-    subnet_id = local.envoy.nlb_subnet_id
+    subnet_id = local.scalardl_nlb_subnet_id
   }
 }
 

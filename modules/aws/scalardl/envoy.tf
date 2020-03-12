@@ -143,7 +143,7 @@ resource "aws_lb" "envoy-lb" {
   name               = "${local.network_name}-envoy-lb"
   internal           = local.envoy.nlb_internal
   load_balancer_type = "network"
-  subnets            = [local.envoy.nlb_subnet_id]
+  subnets            = [local.envoy_nlb_subnet_id]
 
   enable_deletion_protection = false
 }

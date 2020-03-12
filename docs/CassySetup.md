@@ -49,7 +49,7 @@ Cassy master tells each Cassandra node to upload backup files to Cloud Storages 
     ```
     * Alternatively, you can add the following line under `Host bastion` section of `ssh.cfg`, and do `ssh -F ssh.cfg bastion`.
     ```
-    LocalForward 20051 reaper.internal.scalar-labs.com:20051
+    LocalForward 20051 cassy.internal.scalar-labs.com:20051
     ```
 
 1. Interact with Cassy

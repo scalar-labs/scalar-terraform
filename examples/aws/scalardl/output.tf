@@ -10,16 +10,16 @@ output "scalardl_replication_factor" {
   value = module.scalardl.scalardl_replication_factor
 }
 
-# output "envoy_dns" {
-#   value = module.scalardl.envoy_dns[0]
-# }
-#
-# output "envoy_listen_port" {
-#   value = module.scalardl.envoy_listen_port
-# }
+output "envoy_dns" {
+  value = length(module.scalardl.envoy_dns) > 0 ? module.scalardl.envoy_dns[0] : ""
+}
+
+output "envoy_listen_port" {
+  value = module.scalardl.envoy_listen_port
+}
 
 output "scalardl_dns" {
-  value = module.scalardl.scalardl_lb_dns[0]
+  value = length(module.scalardl.scalardl_lb_dns) > 0 ? module.scalardl.scalardl_lb_dns[0] : ""
 }
 
 output "scalardl_listen_port" {

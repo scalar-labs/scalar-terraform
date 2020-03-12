@@ -54,7 +54,7 @@ func TestScalarDLWithJavaClientExpectStatusCodeIsValid(t *testing.T) {
 func TestScalarDLWithGrpcWebClientExpectStatusCodeIsValid(t *testing.T) {
 	expectedStatusCode := 200
 
-	scalarurl := lookupTargetValue(t, "scalardl", "envoy_dns")
+	scalarurl := lookupTargetValue(t, "scalardl", "scalar_dns")
 	logger.Logf(t, "URL: %s", scalarurl)
 
 	//Register Certificate

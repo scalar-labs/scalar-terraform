@@ -13,7 +13,7 @@ import (
 func TestScalarDL(t *testing.T) {
 	t.Run("scalardl", func(t *testing.T) {
 		t.Run("ScalarDLWithJavaClient", TestScalarDLWithJavaClientExpectStatusCodeIsValid)
-		t.Run("ScalarDLWithGrpcWebClient", TestScalarDLWithGrpcWebClientExpectStatusCodeIsValid)
+		// t.Run("ScalarDLWithGrpcWebClient", TestScalarDLWithGrpcWebClientExpectStatusCodeIsValid)
 	})
 }
 

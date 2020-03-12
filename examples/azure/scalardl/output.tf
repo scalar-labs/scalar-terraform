@@ -15,7 +15,7 @@ output "scalardl_replication_factor" {
 # }
 #
 # output "envoy_listen_port" {
-#   value = module.scalardl.envoy_listen_port[0]
+#   value = module.scalardl.envoy_listen_port
 # }
 
 output "scalardl_dns" {
@@ -23,5 +23,5 @@ output "scalardl_dns" {
 }
 
 output "scalardl_listen_port" {
-  value = module.scalardl.scalardl_lb_listen_port[0]
+  value = module.scalardl.scalardl_lb_listen_port
 }

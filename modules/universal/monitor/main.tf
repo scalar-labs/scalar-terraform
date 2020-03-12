@@ -81,11 +81,13 @@ resource "null_resource" "monitor_container" {
       "export cassandra_resource_count=${var.cassandra_resource_count}",
       "export cassandra_replication_factor=${var.replication_factor}",
       "export dashboard_local_forwarding_port=8000",
+      "export grafana_datasource_url=prometheus.${var.internal_root_dns}:9090",
       "j2 ./prometheus/prometheus.yml.j2 > ./prometheus/prometheus.yml",
       "j2 ./prometheus/scalardl_alert.rules.yml.j2 > ./prometheus/scalardl_alert.rules.yml",
       "j2 ./prometheus/cassandra_alert.rules.yml.j2 > ./prometheus/cassandra_alert.rules.yml",
       "j2 ./alertmanager/config.yml.j2 > ./alertmanager/config.yml",
       "j2 ./nginx/html_templates/index.html.j2 > ./nginx/html/index.html",
+      "j2 ./grafana/provisioning/datasources/datasource.yml.j2 > ./grafana/provisioning/datasources/datasource.yml",
       "docker-compose down",
       "docker-compose up -d",
     ]

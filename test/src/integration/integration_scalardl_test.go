@@ -13,7 +13,7 @@ import (
 func TestScalarDL(t *testing.T) {
 	t.Run("scalardl", func(t *testing.T) {
 		t.Run("ScalarDLWithJavaClient", TestScalarDLWithJavaClientExpectStatusCodeIsValid)
-		// t.Run("ScalarDLWithGrpcWebClient", TestScalarDLWithGrpcWebClientExpectStatusCodeIsValid)
+		t.Run("ScalarDLWithGrpcWebClient", TestScalarDLWithGrpcWebClientExpectStatusCodeIsValid)
 	})
 }
 
@@ -70,7 +70,7 @@ func writePropertiesFile(t *testing.T, host string) {
 	properties := []byte(fmt.Sprintf(`
   scalar.dl.client.server.host=%s
   scalar.dl.client.server.port=50051
-  scalar.dl.client.server.privileged_port=50052
+  scalar.dl.client.server.privileged_port=50051
   scalar.dl.client.cert_holder_id=test
   scalar.dl.client.cert_version=1
   scalar.dl.client.cert_path=./resources/Test.pem

@@ -3,6 +3,10 @@
 This guide explains how to set up Cassy.
 It assumes that you have already created Cassy instance with `scalar-terraform` properly and you have `ssh.cfg` at hand. Regarding how Cassy work, please take a look at [Cassy site](https://github.com/scalar-labs/cassy).
 
+## Configure Cassandra nodes to make them able to interact with a Cloud Storage
+
+Cassy master tells each Cassandra node to upload backup files to Cloud Storages such as AWS S3 and Azure Blob Storage, each Cassandra node needs to have required configurations, for example config and credentials in AWS, for `cassandra` user.
+
 ## Configure Cassy to work with your environment
 
 1. Connect to a Cassy node

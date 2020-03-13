@@ -1,5 +1,5 @@
 variable "remote_playbook_path" {
-  default = "/tmp/"
+  default = "~"
 }
 
 variable "local_playbook_path" {

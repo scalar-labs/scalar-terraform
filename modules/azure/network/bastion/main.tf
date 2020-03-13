@@ -46,6 +46,6 @@ resource "azurerm_private_dns_srv_record" "bastion_dns_srv" {
     priority = 0
     weight   = 0
     port     = 9100
-    target   = "${azurerm_private_dns_a_record.bastion_dns_a.name}.internal.scalar-labs.com"
+    target   = "${azurerm_private_dns_a_record.bastion_dns_a.name}.${var.network_dns}"
   }
 }

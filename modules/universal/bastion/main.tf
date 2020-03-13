@@ -2,7 +2,7 @@ module "ansible" {
   source = "../../../provision/ansible"
 }
 
-resource "null_resource" "copy" {
+resource "null_resource" "ansible_playbooks_copy" {
   count = var.provision_count
 
   triggers = {
@@ -22,7 +22,7 @@ resource "null_resource" "copy" {
 }
 
 resource "null_resource" "ansible" {
-  depends_on = [null_resource.copy]
+  depends_on = [null_resource.ansible_playbooks_copy]
 
   triggers = {
     triggers = join(",", var.triggers)

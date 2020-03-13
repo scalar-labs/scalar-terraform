@@ -1,7 +1,9 @@
 locals {
-  provision_image_name = "${basename(var.scalardl_image_name)}-provision"
-  provision_image      = "${local.provision_image_name}:${var.scalardl_image_tag}"
-  image_filename       = "${local.provision_image_name}-${var.scalardl_image_tag}.tar.gz"
+  provision_image_name  = "${basename(var.scalardl_image_name)}-provision"
+  provision_image       = "${local.provision_image_name}:${var.scalardl_image_tag}"
+  image_filename        = "${local.provision_image_name}-${var.scalardl_image_tag}.tar.gz"
+  from_scalar_image     = "${var.scalardl_image_name}:${var.scalardl_image_tag}"
+  scalar_cassandra_host = "cassandra-lb.${var.internal_root_dns}"
 }
 
 module "ansible" {
@@ -16,7 +18,17 @@ resource "null_resource" "scalardl_image" {
   }
 
   provisioner "local-exec" {
-    command = "bash -c 'cd ${path.module}/provision && SCALAR_IMAGE=${local.provision_image} docker-compose build --build-arg FROM_SCALAR_IMAGE=${var.scalardl_image_name} --build-arg FROM_SCALAR_TAG=${var.scalardl_image_tag} && docker save ${local.provision_image} | gzip -1 > ../${local.image_filename}'"
+    command = "docker-compose build && docker save ${local.provision_image} | gzip -1 > ../${local.image_filename}'"
+
+    working_dir = "${path.module}/provision"
+    interpreter = ["/bin/bash", "-c"]
+
+    environment = {
+      SCALAR_IMAGE                 = local.provision_image
+      FROM_SCALAR_IMAGE            = local.from_scalar_image
+      SCALAR_CASSANDRA_HOST        = local.scalar_cassandra_host
+      CASSANDRA_REPLICATION_FACTOR = var.replication_factor
+    }
   }
 }
 
@@ -145,7 +157,8 @@ resource "null_resource" "scalardl_schema" {
 
   provisioner "remote-exec" {
     inline = [
-      "cd $HOME/provision && SCALAR_IMAGE=${local.provision_image} docker-compose run --rm -e CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} scalar dockerize -template create_schema.cql.tmpl:create_schema.cql -wait tcp://cassandra-lb.${var.internal_root_dns}:9042 -timeout 30s ./create_schema.sh",
+      "cd $HOME/provision",
+      "SCALAR_IMAGE=${local.provision_image} SCALAR_CASSANDRA_HOST=${local.scalar_cassandra_host} CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} docker-compose run --rm scalar dockerize -template create_schema.cql.tmpl:create_schema.cql -wait tcp://${local.scalar_cassandra_host}:9042 -timeout 30s ./create_schema.sh",
     ]
   }
 }
@@ -169,6 +182,9 @@ resource "null_resource" "scalardl_container" {
     inline = [
       "cd $HOME/provision",
       "echo export SCALAR_IMAGE=${local.provision_image} > env",
+      "echo export FROM_SCALAR_IMAGE=${local.from_scalar_image} >> env",
+      "echo export SCALAR_CASSANDRA_HOST=${local.scalar_cassandra_host} >> env",
+      "echo export CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} >> env",
       "source ./env",
       "docker-compose up -d",
     ]

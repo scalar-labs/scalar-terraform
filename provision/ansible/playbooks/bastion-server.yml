@@ -7,6 +7,6 @@
     - role: td-agent
       when: enable_tdagent is undefined or enable_tdagent == '1'
   vars:
-    tdagent_conf_copy: files/cassandra-server/td-agent.conf
+    tdagent_conf_copy: files/cassandra-server/td-agent.conf.j2
   gather_facts: no
   become: yes

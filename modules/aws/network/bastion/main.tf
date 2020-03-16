@@ -4,7 +4,7 @@ resource "aws_key_pair" "deploy_key" {
 }
 
 module "bastion_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=a8163df"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=e1be8b0"
 
   name           = "${var.network_name} Bastion"
   instance_count = var.resource_count

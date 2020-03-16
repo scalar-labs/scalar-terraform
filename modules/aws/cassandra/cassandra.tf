@@ -1,5 +1,5 @@
 module "cassandra_cluster" {
-  source  = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=1f21a9c"
+  source  = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=a8163df"
   version = "~> 2.0"
 
   name           = "${local.network_name} Cassandra Cluster"

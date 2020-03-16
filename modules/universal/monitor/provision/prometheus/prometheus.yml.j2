@@ -64,7 +64,7 @@ scrape_configs:
     metrics_path: /metrics
     dns_sd_configs:
     - names:
-    {% for s in ['scalardl-blue','scalardl-green','reaper','envoy']|list %}
+    {% for s in ['scalardl-blue','scalardl-green','monitor','reaper','envoy']|list %}
       - _cadvisor._tcp.{{ s }}.{{ internal_root_dns }}
     {% endfor %}
     relabel_configs:

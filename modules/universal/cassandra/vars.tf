@@ -55,3 +55,8 @@ variable "enable_tdagent" {
 variable "start_on_initial_boot" {
   default = false
 }
+
+variable "internal_root_dns" {
+  default     = "internal.scalar-labs.com"
+  description = "The internal root dns"
+}

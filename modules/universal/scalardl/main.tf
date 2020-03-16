@@ -18,7 +18,7 @@ resource "null_resource" "scalardl_image" {
   }
 
   provisioner "local-exec" {
-    command = "docker-compose build && docker save ${local.provision_image} | gzip -1 > ../${local.image_filename}'"
+    command = "docker-compose build && docker save ${local.provision_image} | gzip -1 > ../${local.image_filename}"
 
     working_dir = "${path.module}/provision"
     interpreter = ["/bin/bash", "-c"]

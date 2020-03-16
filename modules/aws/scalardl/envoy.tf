@@ -1,6 +1,5 @@
 module "envoy_cluster" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "~> v2.0"
+  source = "git@github.com:scalar-labs/terraform-aws-ec2-instance.git?ref=1f21a9c"
 
   name           = "${local.network_name} Envoy Cluster"
   instance_count = local.envoy.resource_count

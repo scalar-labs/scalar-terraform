@@ -23,12 +23,11 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
       TF_VERSION: 0.12.19
-      TF_ACTIONS_COMMENT: true
+      TF_ACTIONS_COMMENT: false
       TF_TEST_WORKING_DIR: ./examples/aws/scalardl
     steps:
       - name: 'Checkout'

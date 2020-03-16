@@ -30,20 +30,16 @@ scrape_configs:
     relabel_configs:
     - &relabel_role
       source_labels: ['__meta_dns_name']
-      regex: '.*\.([^.]+)\.internal\.scalar-labs\.com'
+      regex: '.*\.([^.]+){{ internal_root_dns | regex_replace('.', '\\.') }}'
       replacement: ${1}
       target_label: role
 
   - job_name: host
     dns_sd_configs:
     - names:
-      - _node-exporter._tcp.scalardl-blue.{{ internal_root_dns }}
-      - _node-exporter._tcp.scalardl-green.{{ internal_root_dns }}
-      - _node-exporter._tcp.cassandra.{{ internal_root_dns }}
-      - _node-exporter._tcp.bastion.{{ internal_root_dns }}
-      - _node-exporter._tcp.monitor.{{ internal_root_dns }}
-      - _node-exporter._tcp.reaper.{{ internal_root_dns }}
-      - _node-exporter._tcp.envoy.{{ internal_root_dns }}
+    {% for s in ['scalardl-blue','scalardl-green','cassandra','bastion','monitor','reaper','envoy']|list %}
+      - _node-exporter._tcp.{{ s }}.{{ internal_root_dns }}
+    {% endfor %}
     relabel_configs:
     - *relabel_role
 
@@ -68,10 +64,8 @@ scrape_configs:
     metrics_path: /metrics
     dns_sd_configs:
     - names:
-      - _cadvisor._tcp.scalardl-blue.{{ internal_root_dns }}
-      - _cadvisor._tcp.scalardl-green.{{ internal_root_dns }}
-      - _cadvisor._tcp.monitor.{{ internal_root_dns }}
-      - _cadvisor._tcp.reaper.{{ internal_root_dns }}
-      - _cadvisor._tcp.envoy.{{ internal_root_dns }}
+    {% for s in ['scalardl-blue','scalardl-green','reaper','envoy']|list %}
+      - _cadvisor._tcp.{{ s }}.{{ internal_root_dns }}
+    {% endfor %}
     relabel_configs:
     - *relabel_role

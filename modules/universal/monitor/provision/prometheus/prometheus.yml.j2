@@ -30,7 +30,7 @@ scrape_configs:
     relabel_configs:
     - &relabel_role
       source_labels: ['__meta_dns_name']
-      regex: '.*\.([^.]+){{ internal_root_dns | regex_replace('.', '\\.') }}'
+      regex: '.*\.([^.]+)\.{{ internal_root_dns | replace('.', '\\.') }}'
       replacement: ${1}
       target_label: role
 

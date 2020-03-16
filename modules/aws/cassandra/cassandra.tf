@@ -1,5 +1,5 @@
 module "cassandra_cluster" {
-  source  = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=6f401cf"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=6f401cf"
 
   name           = "${local.network_name} Cassandra Cluster"
   instance_count = local.cassandra.resource_count

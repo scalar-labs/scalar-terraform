@@ -1,5 +1,5 @@
 module "reaper_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=e1be8b0"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=6f401cf"
 
   name           = "${local.network_name} Reaper Cluster"
   instance_count = local.reaper.resource_count

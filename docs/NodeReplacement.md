@@ -14,11 +14,10 @@ There are not many things to talk about the second step, so this guide will focu
 
 In AWS
 ```
-module.scalar-network.module.bastion.module.bastion_provision.null_resource.copy[0]
+module.scalar-network.module.bastion.module.bastion_provision.null_resource.ansible_playbooks_copy[0]
 module.cassandra.module.cassy_provision.null_resource.cassy_waitfor[0]
 module.cassandra.module.cassy_provision.null_resource.docker_install[0]
 module.cassandra.module.cassy_cluster.aws_instance.this[0]
 ```
-
 
 

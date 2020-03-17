@@ -1,5 +1,4 @@
 module "scalardl" {
-  #source = "git@github.com:scalar-labs/scalar-terraform.git//modules/aws/scalardl?ref=master"
   source = "../../../../modules/aws/scalardl"
 
   # Required Variables (Use remote state)

@@ -1,6 +1,6 @@
 module "bastion_cluster" {
   # TODO: Fix ref=xxxxxx
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=1a3c2a1"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=3b7e371"
 
   nb_instances                  = "1"
   admin_username                = var.user_name

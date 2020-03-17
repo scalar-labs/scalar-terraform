@@ -164,6 +164,7 @@ module "cassandra_provision" {
   memtable_threshold    = local.cassandra.memtable_threshold
   cassy_public_key      = module.cassy_provision.public_key
   start_on_initial_boot = local.cassandra.start_on_initial_boot
+  internal_root_dns     = local.internal_root_dns
 }
 
 resource "azurerm_private_dns_a_record" "cassandra-dns" {

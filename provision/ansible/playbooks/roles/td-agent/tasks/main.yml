@@ -51,7 +51,7 @@
     - reload td-agent
 
 - name: copy new "td-agent.conf" verbatim from main playbook's
-  template:
+  copy:
     src:  "{{ playbook_dir }}/{{ tdagent_conf_copy }}"
     dest: /etc/td-agent/td-agent.conf
     owner: td-agent

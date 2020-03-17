@@ -4,7 +4,7 @@ resource "aws_key_pair" "deploy_key" {
 }
 
 module "bastion_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=6f401cf"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=b9a9da7"
 
   name           = "${var.network_name} Bastion"
   instance_count = var.resource_count
@@ -16,6 +16,7 @@ module "bastion_cluster" {
   vpc_security_group_ids      = [aws_security_group.bastion.id]
   subnet_id                   = var.subnet_id
   associate_public_ip_address = true
+  hostname_prefix             = "bastion"
 
   tags = {
     Terraform = true

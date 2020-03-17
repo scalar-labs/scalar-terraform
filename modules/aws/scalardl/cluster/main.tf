@@ -1,5 +1,5 @@
 module "scalardl_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=6f401cf"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=b9a9da7"
 
   name           = "${var.network_name} ScalarDL ${var.scalardl_image_tag} ${var.resource_cluster_name}"
   instance_count = var.resource_count
@@ -11,6 +11,7 @@ module "scalardl_cluster" {
   vpc_security_group_ids      = var.security_group_ids
   subnet_id                   = var.subnet_id
   associate_public_ip_address = false
+  hostname_prefix             = "scalar"
 
   tags = {
     Terraform = true

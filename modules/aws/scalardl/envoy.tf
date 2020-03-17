@@ -1,5 +1,5 @@
 module "envoy_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=6f401cf"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=b9a9da7"
 
   name           = "${local.network_name} Envoy Cluster"
   instance_count = local.envoy.resource_count
@@ -11,6 +11,7 @@ module "envoy_cluster" {
   vpc_security_group_ids      = aws_security_group.envoy.*.id
   subnet_id                   = local.envoy.subnet_id
   associate_public_ip_address = false
+  hostname_prefix             = "envoy"
 
   tags = {
     Terraform = true

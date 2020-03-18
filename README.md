@@ -1,5 +1,5 @@
-[![AWS-Terratest](https://github.com/scalar-labs/scalar-terraform/workflows/Integration-test-with-terratest-for-AWS/badge.svg?branch=master)](https://github.com/scalar-labs/scalar-terraform/actions)
-[![Azure-Terratest](https://github.com/scalar-labs/scalar-terraform/workflows/Integration-test-with-terratest-for-Azure/badge.svg?branch=master)](https://github.com/scalar-labs/scalar-terraform/actions)
+[![AWS-Terratest](https://github.com/scalar-labs/scalar-terraform/workflows/Integration%20test%20with%20terratest%20for%20AWS/badge.svg?branch=master)](https://github.com/scalar-labs/scalar-terraform/actions)
+[![Azure-Terratest](https://github.com/scalar-labs/scalar-terraform/workflows/Integration%20test%20with%20terratest%20for%20Azure/badge.svg?branch=master)](https://github.com/scalar-labs/scalar-terraform/actions)
 
 # Terraform modules for Scalar DL orchestration
 This repo is a set of terraform modules that can be used to build a Scalar DL environment.

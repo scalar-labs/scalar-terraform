@@ -9,6 +9,4 @@ module "monitor" {
   # Optional Variables
   base    = var.base
   monitor = var.monitor
-
-  slack_webhook_url = var.slack_webhook_url
 }

@@ -24,7 +24,7 @@ output "availability_set_id" {
 }
 
 output "scalardl_lb_dns" {
-  value       = azurerm_private_dns_a_record.scalar-dns-lb.*.name
+  value       = azurerm_private_dns_a_record.scalardl-dns-lb.*.name
   description = "A list of dns URLs to access a scalardl cluster."
 }
 

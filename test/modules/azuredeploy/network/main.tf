@@ -1,5 +1,4 @@
-module "scalar-network" {
-  #source = "git@github.com:scalar-labs/scalar-terraform.git//modules/azure/network?ref=master"
+module "network" {
   source = "../../../../modules/azure/network"
 
   # Required Variables

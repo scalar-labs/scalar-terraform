@@ -176,28 +176,6 @@ resource "azurerm_private_dns_a_record" "scalardl-green-dns" {
   records = [module.scalardl_green.network_interface_private_ip[count.index]]
 }
 
-resource "azurerm_private_dns_a_record" "scalardl-blue-dns" {
-  count = local.scalardl.blue_resource_count
-
-  name                = "scalardl-blue-${count.index + 1}"
-  zone_name           = local.network_dns
-  resource_group_name = local.network_name
-  ttl                 = 300
-
-  records = [module.scalardl_blue.network_interface_private_ip[count.index]]
-}
-
-resource "azurerm_private_dns_a_record" "scalardl-green-dns" {
-  count = local.scalardl.green_resource_count
-
-  name                = "scalardl-green-${count.index + 1}"
-  zone_name           = local.network_dns
-  resource_group_name = local.network_name
-  ttl                 = 300
-
-  records = [module.scalardl_green.network_interface_private_ip[count.index]]
-}
-
 resource "azurerm_private_dns_a_record" "scalardl-dns-lb" {
   count = local.scalardl.enable_nlb ? 1 : 0
 

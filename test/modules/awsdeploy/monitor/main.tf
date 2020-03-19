@@ -1,5 +1,4 @@
 module "monitor" {
-  #source = "git@github.com:scalar-labs/scalar-terraform.git//modules/aws/monitor?ref=master"
   source = "../../../../modules/aws/monitor"
 
   # Required Variables (Use remote state)

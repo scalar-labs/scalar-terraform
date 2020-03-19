@@ -19,12 +19,13 @@ module "bastion_cluster" {
 module "bastion_provision" {
   source = "../../../universal/bastion"
 
-  triggers         = module.bastion_cluster.vm_ids
-  bastion_host_ips = module.bastion_cluster.public_ip_dns_name
-  user_name        = var.user_name
-  private_key_path = var.private_key_path
-  provision_count  = "1"
-  enable_tdagent   = var.enable_tdagent
+  triggers          = module.bastion_cluster.vm_ids
+  bastion_host_ips  = module.bastion_cluster.public_ip_dns_name
+  user_name         = var.user_name
+  private_key_path  = var.private_key_path
+  provision_count   = "1"
+  enable_tdagent    = var.enable_tdagent
+  internal_root_dns = var.network_dns
 }
 
 resource "azurerm_private_dns_a_record" "bastion_dns_a" {
@@ -46,6 +47,6 @@ resource "azurerm_private_dns_srv_record" "bastion_dns_srv" {
     priority = 0
     weight   = 0
     port     = 9100
-    target   = "${azurerm_private_dns_a_record.bastion_dns_a.name}.internal.scalar-labs.com"
+    target   = "${azurerm_private_dns_a_record.bastion_dns_a.name}.${var.network_dns}"
   }
 }

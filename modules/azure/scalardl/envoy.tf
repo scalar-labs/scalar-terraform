@@ -40,6 +40,7 @@ module "envoy_provision" {
   envoy_port          = local.envoy.target_port
   enable_tdagent      = local.envoy.enable_tdagent
   custom_config_path  = local.envoy.custom_config_path
+  internal_root_dns   = local.internal_root_dns
 }
 
 resource "azurerm_public_ip" "envoy-public-ip" {

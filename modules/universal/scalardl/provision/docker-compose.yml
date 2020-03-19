@@ -4,10 +4,12 @@ services:
   scalar:
     build:
       context: ./
+      args:
+        - FROM_SCALAR_IMAGE=${FROM_SCALAR_IMAGE}
     image: ${SCALAR_IMAGE}
     environment:
-      - SCALAR_CASSANDRA_HOST=cassandra-lb.internal.scalar-labs.com
-      - CASSANDRA_REPLICATION_FACTOR=3
+      - SCALAR_CASSANDRA_HOST=${SCALAR_CASSANDRA_HOST}
+      - CASSANDRA_REPLICATION_FACTOR=${CASSANDRA_REPLICATION_FACTOR}
     ports:
       - 50051:50051 # TODO: SCALAR_PORT
       - 50052:50052 # TODO: SCALAR_PRIVILEGED_PORT

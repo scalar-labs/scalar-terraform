@@ -1,4 +1,4 @@
-name: Integration test with terratest for Azure
+name: Integration-test-with-terratest-for-Azure
 on:
   schedule:
     - cron: '0 0 * * *'

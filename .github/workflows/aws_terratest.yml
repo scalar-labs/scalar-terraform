@@ -1,4 +1,4 @@
-name: Integration test with terratest for AWS
+name: Integration-test-with-terratest-for-AWS
 on:
   schedule:
     - cron: '0 0 * * *'

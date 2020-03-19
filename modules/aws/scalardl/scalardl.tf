@@ -164,7 +164,7 @@ resource "aws_security_group_rule" "scalardl_egress" {
 resource "aws_lb" "scalardl-lb" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
-  name               = "${local.network_name}-scalardl-lb"
+  name               = "${local.network_name}-sdl-lb"
   internal           = local.scalardl.nlb_internal
   load_balancer_type = "network"
   subnets            = [local.scalardl_nlb_subnet_id]
@@ -175,7 +175,7 @@ resource "aws_lb" "scalardl-lb" {
 resource "aws_lb_target_group" "scalardl-lb-target-group" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
-  name     = "${local.network_name}-scalardl-tg"
+  name     = "${local.network_name}-sdl-tg"
   port     = local.scalardl.target_port
   protocol = "TCP"
   vpc_id   = local.network_id
@@ -191,7 +191,7 @@ resource "aws_lb_target_group" "scalardl-lb-target-group" {
 resource "aws_lb_target_group" "scalardl-privileged-lb-target-group" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
-  name     = "${local.network_name}-scalardl-pr-tg"
+  name     = "${local.network_name}-sdl-pr-tg"
   port     = local.scalardl.privileged_target_port
   protocol = "TCP"
   vpc_id   = local.network_id

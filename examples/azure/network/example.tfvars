@@ -1,4 +1,4 @@
-name = "example-azure"
+name = "example-azure" # maximum of 82 characters
 
 location = "japaneast"
 

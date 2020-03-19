@@ -1,6 +1,6 @@
 region = "ap-northeast-1"
 
-name = "example-aws"
+name = "example-aws" # maximum of 13 characters
 
 location = "ap-northeast-1a"
 

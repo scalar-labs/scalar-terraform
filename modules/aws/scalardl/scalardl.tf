@@ -22,9 +22,9 @@ module "scalardl_blue" {
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_root_dns         = local.internal_root_dns
 
-  target_group_arn                = aws_lb_target_group.scalardl-lb-target-group[0].arn
+  target_group_arn                = aws_lb_target_group.scalardl-lb-target-group.*.arn
   scalardl_target_port            = local.scalardl.target_port
-  privileged_target_group_arn     = aws_lb_target_group.scalardl-privileged-lb-target-group[0].arn
+  privileged_target_group_arn     = aws_lb_target_group.scalardl-privileged-lb-target-group.*.arn
   scalardl_privileged_target_port = local.scalardl.privileged_target_port
 }
 
@@ -52,9 +52,9 @@ module "scalardl_green" {
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_root_dns         = local.internal_root_dns
 
-  target_group_arn                = aws_lb_target_group.scalardl-lb-target-group[0].arn
+  target_group_arn                = aws_lb_target_group.scalardl-lb-target-group.*.arn
   scalardl_target_port            = local.scalardl.target_port
-  privileged_target_group_arn     = aws_lb_target_group.scalardl-privileged-lb-target-group[0].arn
+  privileged_target_group_arn     = aws_lb_target_group.scalardl-privileged-lb-target-group.*.arn
   scalardl_privileged_target_port = local.scalardl.privileged_target_port
 }
 

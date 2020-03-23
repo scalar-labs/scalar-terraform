@@ -15,12 +15,12 @@ variable "resource_count" {
 }
 
 variable "target_group_arn" {
-  default     = ""
+  default     = []
   description = "The target group ID to attach resources to. If NLB is enabled this field is required"
 }
 
 variable "privileged_target_group_arn" {
-  default     = ""
+  default     = []
   description = "The target group ID to attach resources to for the Scalar DL privileged access. If NLB is enabled this field is required"
 }
 

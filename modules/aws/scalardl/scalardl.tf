@@ -192,8 +192,6 @@ resource "aws_lb_target_group" "scalardl-privileged-lb-target-group" {
   }
 }
 
-############ Add start
-
 resource "aws_lb_target_group_attachment" "scalardl-blue" {
   count = local.scalardl.enable_nlb && local.scalardl.blue_resource_count > 0 ? local.scalardl.blue_resource_count : 0
 
@@ -242,31 +240,29 @@ resource "aws_lb_target_group_attachment" "scalardl-green-privileged" {
   }
 }
 
-############ Add end
-
 resource "aws_lb_listener" "scalardl-lb-listener" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
-  load_balancer_arn = aws_lb.scalardl-lb[0].arn
+  load_balancer_arn = aws_lb.scalardl-lb[count.index].arn
   port              = local.scalardl.listen_port
   protocol          = "TCP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.scalardl-lb-target-group[0].arn
+    target_group_arn = aws_lb_target_group.scalardl-lb-target-group[count.index].arn
   }
 }
 
 resource "aws_lb_listener" "scalardl-privileged-lb-listener" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
-  load_balancer_arn = aws_lb.scalardl-lb[0].arn
+  load_balancer_arn = aws_lb.scalardl-lb[count.index].arn
   port              = local.scalardl.privileged_listen_port
   protocol          = "TCP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.scalardl-privileged-lb-target-group[0].arn
+    target_group_arn = aws_lb_target_group.scalardl-privileged-lb-target-group[count.index].arn
   }
 }
 
@@ -278,8 +274,8 @@ resource "aws_route53_record" "scalardl-dns-lb" {
   type    = "A"
 
   alias {
-    name                   = aws_lb.scalardl-lb[0].dns_name
-    zone_id                = aws_lb.scalardl-lb[0].zone_id
+    name                   = aws_lb.scalardl-lb[count.index].dns_name
+    zone_id                = aws_lb.scalardl-lb[count.index].zone_id
     evaluate_target_health = true
   }
 }

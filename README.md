@@ -23,3 +23,7 @@ The modules directory is where the terraform modules are located. The provider s
 
 #### [Provision](provision)
 The provision directory is where Ansible Playbooks are located. Ansible is used for provisioning the host resource with the required software. The Ansible Playbooks are designed to run on the most common Linux distributions.
+
+## License
+
+ A set of modules and scripts in this repository are dual-licensed under both the Apache 2.0 License (found in the LICENSE file in the root directory) and a commercial license. You may select, at your option, one of the above-listed licenses. Regarding the commercial license, please [contact us](https://scalar-labs.com/contact_us/) for more information.

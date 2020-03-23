@@ -17,15 +17,9 @@ module "scalardl_blue" {
   network_dns               = local.network_dns
   scalardl_image_name       = local.scalardl.blue_image_name
   scalardl_image_tag        = local.scalardl.blue_image_tag
-  enable_nlb                = local.scalardl.enable_nlb
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_root_dns         = local.internal_root_dns
-
-  target_group_arn                = aws_lb_target_group.scalardl-lb-target-group.*.arn
-  scalardl_target_port            = local.scalardl.target_port
-  privileged_target_group_arn     = aws_lb_target_group.scalardl-privileged-lb-target-group.*.arn
-  scalardl_privileged_target_port = local.scalardl.privileged_target_port
 }
 
 module "scalardl_green" {
@@ -47,15 +41,9 @@ module "scalardl_green" {
   network_dns               = local.network_dns
   scalardl_image_name       = local.scalardl.green_image_name
   scalardl_image_tag        = local.scalardl.green_image_tag
-  enable_nlb                = local.scalardl.enable_nlb
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_root_dns         = local.internal_root_dns
-
-  target_group_arn                = aws_lb_target_group.scalardl-lb-target-group.*.arn
-  scalardl_target_port            = local.scalardl.target_port
-  privileged_target_group_arn     = aws_lb_target_group.scalardl-privileged-lb-target-group.*.arn
-  scalardl_privileged_target_port = local.scalardl.privileged_target_port
 }
 
 resource "aws_security_group" "scalardl" {
@@ -203,6 +191,58 @@ resource "aws_lb_target_group" "scalardl-privileged-lb-target-group" {
     interval            = 10
   }
 }
+
+############ Add start
+
+resource "aws_lb_target_group_attachment" "scalardl-blue" {
+  count = local.scalardl.enable_nlb && local.scalardl.blue_resource_count > 0 ? local.scalardl.blue_resource_count : 0
+
+  target_group_arn = aws_lb_target_group.scalardl-lb-target-group[0].id
+  target_id        = module.scalardl_blue.id[count.index]
+  port             = local.scalardl.target_port
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
+resource "aws_lb_target_group_attachment" "scalardl-green" {
+  count = local.scalardl.enable_nlb && local.scalardl.green_resource_count > 0 ? local.scalardl.green_resource_count : 0
+
+  target_group_arn = aws_lb_target_group.scalardl-lb-target-group[0].id
+  target_id        = module.scalardl_green.id[count.index]
+  port             = local.scalardl.target_port
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
+resource "aws_lb_target_group_attachment" "scalardl-blue-privileged" {
+  count = local.scalardl.enable_nlb && local.scalardl.blue_resource_count > 0 ? local.scalardl.blue_resource_count : 0
+
+  target_group_arn = aws_lb_target_group.scalardl-privileged-lb-target-group[0].id
+  target_id        = module.scalardl_blue.id[count.index]
+  port             = local.scalardl.privileged_target_port
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
+resource "aws_lb_target_group_attachment" "scalardl-green-privileged" {
+  count = local.scalardl.enable_nlb && local.scalardl.green_resource_count > 0 ? local.scalardl.green_resource_count : 0
+
+  target_group_arn = aws_lb_target_group.scalardl-privileged-lb-target-group[0].id
+  target_id        = module.scalardl_green.id[count.index]
+  port             = local.scalardl.privileged_target_port
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
+############ Add end
 
 resource "aws_lb_listener" "scalardl-lb-listener" {
   count = local.scalardl.enable_nlb ? 1 : 0

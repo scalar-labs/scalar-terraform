@@ -66,5 +66,5 @@ static_resources:
           - endpoint:
              address:
               socket_address:
-                address:           scalar-lb.internal.scalar-labs.com
+                address:           scalardl-lb.internal.scalar-labs.com
                 port_value:        50051

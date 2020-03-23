@@ -270,7 +270,7 @@ resource "aws_route53_record" "scalardl-dns-lb" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
   zone_id = local.network_dns
-  name    = "scalar-lb"
+  name    = "scalardl-lb"
   type    = "A"
 
   alias {

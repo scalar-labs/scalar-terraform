@@ -18,10 +18,10 @@ This module manages two Scalar DL clusters, blue and green. At any given time on
 ```
 #### Blue Cluster (active), Green Cluster (inactive)
 scalardl = {
-  blue_resource_count  = 3
+  blue_resource_count  = "3"
   blue_image_tag       = "2.0.1"
   blue_image_name      = "scalarlabs/scalar-ledger"
-  green_resource_count = 0
+  green_resource_count = "0"
   green_image_tag      = "2.0.1"
   green_image_name     = "scalarlabs/scalar-ledger"
 }
@@ -30,10 +30,10 @@ scalardl = {
 * Deploy Green Cluster version 2.1.0 (Step 1)
 ```
 scalardl = {
-  blue_resource_count  = 3
+  blue_resource_count  = "3"
   blue_image_tag       = "2.0.1"
   blue_image_name      = "scalarlabs/scalar-ledger"
-  green_resource_count = 3
+  green_resource_count = "3"
   green_image_tag      = "2.1.0"
   green_image_name     = "scalarlabs/scalar-ledger"
 }
@@ -42,10 +42,10 @@ scalardl = {
 * Remove Blue Cluster (Step 2)
 ```
 scalardl = {
-  blue_resource_count  = 0
+  blue_resource_count  = "0"
   blue_image_tag       = "2.0.1"
   blue_image_name      = "scalarlabs/scalar-ledger"
-  green_resource_count = 3
+  green_resource_count = "3"
   green_image_tag      = "2.1.0"
   green_image_name     = "scalarlabs/scalar-ledger"
 }

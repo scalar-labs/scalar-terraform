@@ -5,7 +5,7 @@ module "cluster" {
   admin_username                = var.user_name
   resource_group_name           = var.network_name
   location                      = var.location
-  vm_hostname                   = "scalar-${var.resource_cluster_name}"
+  vm_hostname                   = "scalardl-${var.resource_cluster_name}"
   nb_public_ip                  = "0"
   vm_os_simple                  = var.image_id
   vnet_subnet_id                = var.subnet_id

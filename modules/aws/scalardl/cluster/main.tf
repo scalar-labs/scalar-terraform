@@ -11,12 +11,12 @@ module "scalardl_cluster" {
   vpc_security_group_ids      = var.security_group_ids
   subnet_id                   = var.subnet_id
   associate_public_ip_address = false
-  hostname_prefix             = "scalar-${var.resource_cluster_name}"
+  hostname_prefix             = "scalardl-${var.resource_cluster_name}"
 
   tags = {
     Terraform = true
     Network   = var.network_name
-    Role      = "scalar"
+    Role      = "scalardl"
     Image     = var.scalardl_image_name
     Tag       = var.scalardl_image_tag
   }
@@ -45,37 +45,3 @@ module "scalardl_provision" {
   replication_factor  = var.replication_factor
   internal_root_dns   = var.internal_root_dns
 }
-# 
-# resource "aws_lb_target_group_attachment" "scalardl-target-group-attachments" {
-#   count = var.enable_nlb ? var.resource_count : 0
-#
-#   target_group_arn = var.target_group_arn[0]
-#   target_id        = module.scalardl_cluster.id[count.index]
-#   port             = var.scalardl_target_port
-#
-#   lifecycle {
-#     ignore_changes = all
-#   }
-# }
-#
-# resource "aws_lb_target_group_attachment" "scalardl-privileged-target-group-attachments" {
-#   count = var.enable_nlb ? var.resource_count : 0
-#
-#   target_group_arn = var.privileged_target_group_arn[0]
-#   target_id        = module.scalardl_cluster.id[count.index]
-#   port             = var.scalardl_privileged_target_port
-#
-#   lifecycle {
-#     ignore_changes = all
-#   }
-# }
-#
-# resource "aws_route53_record" "scalardl-dns" {
-#   count = var.resource_count
-#
-#   zone_id = var.network_dns
-#   name    = "scalar-${var.resource_cluster_name}-${count.index + 1}"
-#   type    = "A"
-#   ttl     = "300"
-#   records = [module.scalardl_cluster.private_ip[count.index]]
-# }

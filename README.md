@@ -23,3 +23,7 @@ The modules directory is where the terraform modules are located. The provider s
 
 #### [Provision](provision)
 The provision directory is where Ansible Playbooks are located. Ansible is used for provisioning the host resource with the required software. The Ansible Playbooks are designed to run on the most common Linux distributions.
+
+## License
+
+Apache 2 Licensed. See LICENSE for full details.

@@ -26,4 +26,4 @@ The provision directory is where Ansible Playbooks are located. Ansible is used 
 
 ## License
 
- Scalar DL orchestration tool is dual-licensed under both the Apache 2.0 License (found in the LICENSE file in the root directory) and a commercial license. You may select, at your option, one of the above-listed licenses. Regarding the commercial license, please contact us for more information.
+ A set of modules and scripts in this repository are dual-licensed under both the Apache 2.0 License (found in the LICENSE file in the root directory) and a commercial license. You may select, at your option, one of the above-listed licenses. Regarding the commercial license, please [contact us](https://scalar-labs.com/contact_us/) for more information.

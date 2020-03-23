@@ -18,16 +18,6 @@ variable "resource_count" {
   description = "The number of resources to create"
 }
 
-variable "resource_target_group" {
-  default     = ""
-  description = "The target group ID to attach resources to. If NLB is enabled this field is required"
-}
-
-variable "security_group_ids" {
-  default     = []
-  description = "A list of security groups to attach to resources"
-}
-
 variable "resource_cluster_name" {
   description = "The name to assign the resource cluster"
 }
@@ -71,15 +61,6 @@ variable "scalardl_image_name" {
 
 variable "scalardl_image_tag" {
   description = "The docker image tag for Scalar DL"
-}
-
-variable "enable_nlb" {
-  description = "A flag to enable network load balancer attachment"
-}
-
-variable "scalardl_target_port" {
-  default     = 50051
-  description = "The port that the backend scalar service is listening on"
 }
 
 variable "replication_factor" {

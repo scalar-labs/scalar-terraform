@@ -13,7 +13,6 @@ The Cluster module deploys a Scalar DL cluster on Azure.
 |------|-------------|------|---------|:-----:|
 | availability_set_id | n/a | `string` | `""` | no |
 | bastion_ip | The IP to bastion host used for provisioning | `any` | n/a | yes |
-| enable_nlb | A flag to enable network load balancer attachment | `any` | n/a | yes |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `bool` | `true` | no |
 | image_id | The image id to initiate | `any` | n/a | yes |
 | internal_root_dns | Internal root dns | `any` | n/a | yes |
@@ -26,12 +25,9 @@ The Cluster module deploys a Scalar DL cluster on Azure.
 | resource_cluster_name | The name to assign the resource cluster | `any` | n/a | yes |
 | resource_count | The number of resources to create | `any` | n/a | yes |
 | resource_root_volume_size | The size of resource root volume size | `any` | n/a | yes |
-| resource_target_group | The target group ID to attach resources to. If NLB is enabled this field is required | `string` | `""` | no |
 | resource_type | The resource type of the bastion instance | `any` | n/a | yes |
 | scalardl_image_name | The docker image for Scalar DL | `any` | n/a | yes |
 | scalardl_image_tag | The docker image tag for Scalar DL | `any` | n/a | yes |
-| scalardl_target_port | The port that the backend scalar service is listening on | `number` | `50051` | no |
-| security_group_ids | A list of security groups to attach to resources | `list` | `[]` | no |
 | subnet_id | The subnet ID to launch scalardl hosts | `any` | n/a | yes |
 | triggers | A trigger key that will initiate provisioning of scalardl resource | `list` | `[]` | no |
 | user_name | The user name of the remote hosts | `any` | n/a | yes |

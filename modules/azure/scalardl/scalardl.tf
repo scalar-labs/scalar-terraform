@@ -154,28 +154,6 @@ resource "azurerm_network_interface_backend_address_pool_association" "scalardl-
   backend_address_pool_id = azurerm_lb_backend_address_pool.scalardl-lb-backend-pool[0].id
 }
 
-resource "azurerm_private_dns_a_record" "scalar-blue-dns" {
-  count = local.scalardl.blue_resource_count
-
-  name                = "scalar-blue-${count.index + 1}"
-  zone_name           = local.network_dns
-  resource_group_name = local.network_name
-  ttl                 = 300
-
-  records = [module.scalardl_blue.network_interface_private_ip[count.index]]
-}
-
-resource "azurerm_private_dns_a_record" "scalar-green-dns" {
-  count = local.scalardl.green_resource_count
-
-  name                = "scalar-green-${count.index + 1}"
-  zone_name           = local.network_dns
-  resource_group_name = local.network_name
-  ttl                 = 300
-
-  records = [module.scalardl_green.network_interface_private_ip[count.index]]
-}
-
 resource "azurerm_private_dns_a_record" "scalardl-blue-dns" {
   count = local.scalardl.blue_resource_count
 
@@ -198,10 +176,10 @@ resource "azurerm_private_dns_a_record" "scalardl-green-dns" {
   records = [module.scalardl_green.network_interface_private_ip[count.index]]
 }
 
-resource "azurerm_private_dns_a_record" "scalar-dns-lb" {
+resource "azurerm_private_dns_a_record" "scalardl-dns-lb" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
-  name                = "scalar-lb"
+  name                = "scalardl-lb"
   zone_name           = local.network_dns
   resource_group_name = local.network_name
   ttl                 = 300
@@ -298,7 +276,7 @@ resource "azurerm_private_dns_srv_record" "scalardl-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = concat(azurerm_private_dns_a_record.scalar-blue-dns.*.name, azurerm_private_dns_a_record.scalar-green-dns.*.name)
+    for_each = concat(azurerm_private_dns_a_record.scalardl-blue-dns.*.name, azurerm_private_dns_a_record.scalardl-green-dns.*.name)
 
     content {
       priority = 0

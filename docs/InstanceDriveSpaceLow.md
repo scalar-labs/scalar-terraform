@@ -6,13 +6,13 @@ This alert indicates that one or more instances have a low drive space for the o
 #### Firing
 ```
 [prodtest-f4vofpw][FIRING:1] InstanceDriveSpaceLow warning
-scalar-blue-2.internal.scalar-labs.com:9100 - firing - /dev/nvme0n1p1 drive has 3.68% free space
+scalardl-blue-2.internal.scalar-labs.com:9100 - firing - /dev/nvme0n1p1 drive has 3.68% free space
 ```
 
 #### Resolved
 ```
 [prodtest-f4vofpw][RESOLVED] InstanceDriveSpaceLow warning
-scalar-blue-2.internal.scalar-labs.com:9100 - resolved
+scalardl-blue-2.internal.scalar-labs.com:9100 - resolved
 ```
 
 ### Action Needed

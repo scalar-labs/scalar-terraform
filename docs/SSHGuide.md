@@ -24,8 +24,8 @@ cqlsh cassandra-1.internal.scalar-labs.com
 
 ## Access Scalar DL
 ```console
-ssh -F ssh.cfg scalar-blue-1.internal.scalar-labs.com
-ssh -F ssh.cfg scalar-green-1.internal.scalar-labs.com
+ssh -F ssh.cfg scalardl-blue-1.internal.scalar-labs.com
+ssh -F ssh.cfg scalardl-green-1.internal.scalar-labs.com
 
 docker ps
 ```

@@ -11,12 +11,12 @@ module "scalardl_cluster" {
   vpc_security_group_ids      = var.security_group_ids
   subnet_id                   = var.subnet_id
   associate_public_ip_address = false
-  hostname_prefix             = "scalar-${var.resource_cluster_name}"
+  hostname_prefix             = "scalardl-${var.resource_cluster_name}"
 
   tags = {
     Terraform = true
     Network   = var.network_name
-    Role      = "scalar"
+    Role      = "scalardl"
     Image     = var.scalardl_image_name
     Tag       = var.scalardl_image_tag
   }
@@ -74,7 +74,7 @@ resource "aws_route53_record" "scalardl-dns" {
   count = var.resource_count
 
   zone_id = var.network_dns
-  name    = "scalar-${var.resource_cluster_name}-${count.index + 1}"
+  name    = "scalardl-${var.resource_cluster_name}-${count.index + 1}"
   type    = "A"
   ttl     = "300"
   records = [module.scalardl_cluster.private_ip[count.index]]

@@ -5,7 +5,7 @@ The Network module creates a virtual network with subnets.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
-| internal_domain | An internal DNS domain name to use for mapping IP addresses | `any` | n/a | yes |
+| internal_domain | An internal domain to use for mapping IP addresses | `any` | n/a | yes |
 | location | The AWS availability zone to deploy environment `ap-northeast-1a` | `any` | n/a | yes |
 | name | A short name to attach to resources | `any` | n/a | yes |
 | network | Custom definition for network and bastion | `map` | `{}` | no |

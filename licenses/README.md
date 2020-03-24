@@ -13,7 +13,7 @@ This product uses the following open source software.
 |Prometheus| [Apache License 2.0](APL-2.0.txt) | © Prometheus Authors 2014-2020 | https://github.com/prometheus/prometheus |
 |Alertmanager| [Apache License 2.0](APL-2.0.txt) | © Prometheus Authors 2014-2020 | https://github.com/prometheus/alertmanager |
 |Grafana| [Apache License 2.0](APL-2.0.txt) | Copyright 2020 © Grafana Labs | https://github.com/grafana/grafana |
-|Nginx| [Nginx License](http://nginx.org/LICENSE) | Copyright (C) 2011-2020 Nginx, Inc | https://github.com/nginx/nginx |
+|Nginx| [BSD like](http://nginx.org/LICENSE) | Copyright (C) 2011-2020 Nginx, Inc | https://github.com/nginx/nginx |
 |td-agent| [Apache License 2.0](APL-2.0.txt) | Copyright 1995-2020 Arm Limited | https://github.com/treasure-data/omnibus-td-agent |
 |cAdvisor| [Apache License 2.0](APL-2.0.txt) | Google LLC | https://github.com/google/cadvisor |
 |Envoy|[Apache License 2.0](APL-2.0.txt) | 2020 © Envoy Project Authors | https://github.com/envoyproxy/envoy |

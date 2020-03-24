@@ -35,6 +35,14 @@ jobs:
             ssh-keygen -N "" -t rsa -f test_key <<<y
             chmod 600 test_key
         working-directory: ./test/modules
+      - name: Create Test key pair
+        run: |
+            echo ${TERRATEST_CERT} > Test.pem
+            echo ${TERRATEST_PRIVATE_KEY} > Test-key.pem
+        env:
+          TERRATEST_CERT: ${{ secrets.TERRATEST_CERT }}
+          TERRATEST_PRIVATE_KEY: ${{ secrets.TERRATEST_PRIVATE_KEY }}
+        working-directory: ./test/src/integration/resources
       - name: Install terratest modules and run terratest
         run: |
             export GOPATH=$(pwd)

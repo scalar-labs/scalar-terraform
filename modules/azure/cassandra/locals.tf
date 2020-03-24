@@ -11,7 +11,7 @@ locals {
   private_key_path  = var.network.private_key_path
   public_key_path   = var.network.public_key_path
   user_name         = var.network.user_name
-  internal_root_dns = var.network.internal_root_dns
+  internal_domain = var.network.internal_domain
 
   triggers = [var.network.bastion_provision_id]
 }

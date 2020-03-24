@@ -25,7 +25,7 @@ module "reaper_provision" {
   provision_count    = local.reaper.resource_count
   replication_factor = local.reaper.replication_factor
   enable_tdagent     = local.reaper.enable_tdagent
-  internal_root_dns  = local.internal_root_dns
+  internal_domain  = local.internal_domain
 }
 
 resource "azurerm_private_dns_a_record" "reaper-dns" {
@@ -54,7 +54,7 @@ resource "azurerm_private_dns_srv_record" "reaper-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9100
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -74,7 +74,7 @@ resource "azurerm_private_dns_srv_record" "reaper-dns-srv" {
       priority = 0
       weight   = 0
       port     = 8081
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -94,7 +94,7 @@ resource "azurerm_private_dns_srv_record" "reaper-cadvisor-dns-srv" {
       priority = 0
       weight   = 0
       port     = 18080
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }

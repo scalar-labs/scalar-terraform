@@ -15,7 +15,7 @@ locals {
 
     private_key_path  = "../../test.pem"
     user_name         = "centos"
-    internal_root_dns = "internal.scalar-labs.com"
+    internal_domain = "internal.scalar-labs.com"
   }
 
   cassandra = {

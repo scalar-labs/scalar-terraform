@@ -8,7 +8,7 @@ The bastion module deploys a network bastion host used to access and configure t
 | bastion_access_cidr | You can limit access to the bastion node to a specified IP cidr range | `any` | n/a | yes |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `any` | n/a | yes |
 | image_id | The image id to initiate | `any` | n/a | yes |
-| internal_root_dns | The internal root dns for setting srv record | `any` | n/a | yes |
+| internal_domain | The internal domain for setting srv record | `any` | n/a | yes |
 | network_cidr | The network cidr address space | `any` | n/a | yes |
 | network_dns | The ID for the internal DNS zone | `any` | n/a | yes |
 | network_id | The id of the cloud provider network ID resource | `any` | n/a | yes |

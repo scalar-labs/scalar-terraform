@@ -12,7 +12,7 @@ locals {
   user_name         = var.network.user_name
   blue_subnet_id    = var.network.blue_subnet_id
   green_subnet_id   = var.network.green_subnet_id
-  internal_root_dns = var.network.internal_root_dns
+  internal_domain = var.network.internal_domain
 
   triggers = [var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id]
 }

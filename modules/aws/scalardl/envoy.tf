@@ -45,7 +45,7 @@ module "envoy_provision" {
   envoy_port          = local.envoy.target_port
   enable_tdagent      = local.envoy.enable_tdagent
   custom_config_path  = local.envoy.custom_config_path
-  internal_root_dns   = local.internal_root_dns
+  internal_domain   = local.internal_domain
 }
 
 resource "aws_security_group" "envoy" {
@@ -224,7 +224,7 @@ resource "aws_route53_record" "envoy-exporter-dns-srv" {
   records = formatlist(
     "0 0 9001 %s.%s",
     aws_route53_record.envoy-dns.*.name,
-    "${local.internal_root_dns}.",
+    "${local.internal_domain}.",
   )
 }
 
@@ -238,7 +238,7 @@ resource "aws_route53_record" "envoy-node-exporter-dns-srv" {
   records = formatlist(
     "0 0 9100 %s.%s",
     aws_route53_record.envoy-dns.*.name,
-    "${local.internal_root_dns}.",
+    "${local.internal_domain}.",
   )
 }
 
@@ -252,6 +252,6 @@ resource "aws_route53_record" "envoy-cadvisor-dns-srv" {
   records = formatlist(
     "0 0 18080 %s.%s",
     aws_route53_record.envoy-dns.*.name,
-    "${local.internal_root_dns}.",
+    "${local.internal_domain}.",
   )
 }

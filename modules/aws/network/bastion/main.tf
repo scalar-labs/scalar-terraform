@@ -42,7 +42,7 @@ module "bastion_provision" {
   private_key_path  = var.private_key_path
   provision_count   = var.resource_count
   enable_tdagent    = var.enable_tdagent
-  internal_root_dns = var.internal_root_dns
+  internal_domain = var.internal_domain
 }
 
 resource "aws_security_group" "bastion" {
@@ -97,6 +97,6 @@ resource "aws_route53_record" "node-exporter-dns-srv" {
   records = formatlist(
     "0 0 9100 %s.%s",
     aws_route53_record.bastion-dns.*.name,
-    "${var.internal_root_dns}.",
+    "${var.internal_domain}.",
   )
 }

@@ -28,7 +28,7 @@ module "scalardl_blue" {
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   availability_set_id       = azurerm_availability_set.scalar_availability_set.id
-  internal_root_dns         = local.internal_root_dns
+  internal_domain         = local.internal_domain
 }
 
 module "scalardl_green" {
@@ -55,7 +55,7 @@ module "scalardl_green" {
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   availability_set_id       = azurerm_availability_set.scalar_availability_set.id
-  internal_root_dns         = local.internal_root_dns
+  internal_domain         = local.internal_domain
 }
 
 resource "azurerm_availability_set" "scalar_availability_set" {
@@ -202,7 +202,7 @@ resource "azurerm_private_dns_srv_record" "node-exporter-blue-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9100
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -222,7 +222,7 @@ resource "azurerm_private_dns_srv_record" "node-exporter-green-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9100
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -242,7 +242,7 @@ resource "azurerm_private_dns_srv_record" "cadvisor-blue-dns-srv" {
       priority = 0
       weight   = 0
       port     = 18080
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -262,7 +262,7 @@ resource "azurerm_private_dns_srv_record" "cadvisor-green-dns-srv" {
       priority = 0
       weight   = 0
       port     = 18080
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -282,7 +282,7 @@ resource "azurerm_private_dns_srv_record" "scalardl-dns-srv" {
       priority = 0
       weight   = 0
       port     = 50053
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }

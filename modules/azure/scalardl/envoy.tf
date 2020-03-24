@@ -40,7 +40,7 @@ module "envoy_provision" {
   envoy_port          = local.envoy.target_port
   enable_tdagent      = local.envoy.enable_tdagent
   custom_config_path  = local.envoy.custom_config_path
-  internal_root_dns   = local.internal_root_dns
+  internal_domain   = local.internal_domain
 }
 
 resource "azurerm_public_ip" "envoy-public-ip" {
@@ -132,7 +132,7 @@ resource "azurerm_private_dns_srv_record" "envoy-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9100
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -152,7 +152,7 @@ resource "azurerm_private_dns_srv_record" "envoy-node-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9001
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -172,7 +172,7 @@ resource "azurerm_private_dns_srv_record" "envoy-cadvisor-dns-srv" {
       priority = 0
       weight   = 0
       port     = 18080
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }

@@ -26,7 +26,7 @@ module "scalardl_provision" {
   private_key_path  = var.private_key_path
   provision_count   = var.resource_count
   enable_tdagent    = var.enable_tdagent
-  internal_root_dns = var.internal_root_dns
+  internal_domain = var.internal_domain
 
   scalardl_image_name = var.scalardl_image_name
   scalardl_image_tag  = var.scalardl_image_tag

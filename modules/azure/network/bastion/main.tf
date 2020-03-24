@@ -25,7 +25,7 @@ module "bastion_provision" {
   private_key_path  = var.private_key_path
   provision_count   = "1"
   enable_tdagent    = var.enable_tdagent
-  internal_root_dns = var.network_dns
+  internal_domain = var.network_dns
 }
 
 resource "azurerm_private_dns_a_record" "bastion_dns_a" {

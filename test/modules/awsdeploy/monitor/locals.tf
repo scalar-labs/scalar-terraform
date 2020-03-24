@@ -15,7 +15,7 @@ locals {
 
     private_key_path  = data.terraform_remote_state.network.outputs.private_key_path
     user_name         = data.terraform_remote_state.network.outputs.user_name
-    internal_root_dns = data.terraform_remote_state.network.outputs.internal_root_dns
+    internal_domain = data.terraform_remote_state.network.outputs.internal_domain
   }
 
   cassandra = {

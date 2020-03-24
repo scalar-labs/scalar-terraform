@@ -26,11 +26,11 @@ scrape_configs:
   - job_name: cassandra
     dns_sd_configs:
     - names:
-      - _cassandra-exporter._tcp.cassandra.{{ internal_root_dns }}
+      - _cassandra-exporter._tcp.cassandra.{{ internal_domain }}
     relabel_configs:
     - &relabel_role
       source_labels: ['__meta_dns_name']
-      regex: '.*\.([^.]+)\.{{ internal_root_dns | replace('.', '\\.') }}'
+      regex: '.*\.([^.]+)\.{{ internal_domain | replace('.', '\\.') }}'
       replacement: ${1}
       target_label: role
 
@@ -38,7 +38,7 @@ scrape_configs:
     dns_sd_configs:
     - names:
     {% for s in ['scalardl-blue','scalardl-green','cassandra','bastion','monitor','reaper','envoy']|list %}
-      - _node-exporter._tcp.{{ s }}.{{ internal_root_dns }}
+      - _node-exporter._tcp.{{ s }}.{{ internal_domain }}
     {% endfor %}
     relabel_configs:
     - *relabel_role
@@ -47,7 +47,7 @@ scrape_configs:
     metrics_path: /prometheusMetrics
     dns_sd_configs:
     - names:
-      - _reaper._tcp.reaper.{{ internal_root_dns }}
+      - _reaper._tcp.reaper.{{ internal_domain }}
     relabel_configs:
     - *relabel_role
 
@@ -55,7 +55,7 @@ scrape_configs:
     metrics_path: /stats/prometheus
     dns_sd_configs:
     - names:
-      - _envoy-exporter._tcp.envoy.{{ internal_root_dns }}
+      - _envoy-exporter._tcp.envoy.{{ internal_domain }}
     relabel_configs:
     - *relabel_role
 
@@ -65,7 +65,7 @@ scrape_configs:
     dns_sd_configs:
     - names:
     {% for s in ['scalardl-blue','scalardl-green','monitor','reaper','envoy']|list %}
-      - _cadvisor._tcp.{{ s }}.{{ internal_root_dns }}
+      - _cadvisor._tcp.{{ s }}.{{ internal_domain }}
     {% endfor %}
     relabel_configs:
     - *relabel_role

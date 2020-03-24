@@ -50,6 +50,6 @@ output "ssh_config" {
   value = module.network.ssh_config
 }
 
-output "internal_root_dns" {
-  value = module.network.internal_root_dns
+output "internal_domain" {
+  value = module.network.internal_domain
 }

@@ -56,7 +56,7 @@ variable "start_on_initial_boot" {
   default = false
 }
 
-variable "internal_root_dns" {
+variable "internal_domain" {
   default     = "internal.scalar-labs.com"
-  description = "The internal root dns"
+  description = "The internal domain"
 }

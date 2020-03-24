@@ -39,7 +39,7 @@ module "dns" {
 
   network_id        = module.vpc.vpc_id
   network_name      = module.name_generator.name
-  internal_root_dns = var.internal_root_dns
+  internal_domain = var.internal_domain
 }
 
 module "image" {
@@ -68,5 +68,5 @@ module "bastion" {
   resource_root_volume_size = local.network.resource_root_volume_size
   bastion_access_cidr       = local.network.bastion_access_cidr
   enable_tdagent            = local.network.bastion_enable_tdagent
-  internal_root_dns         = var.internal_root_dns
+  internal_domain         = var.internal_domain
 }

@@ -15,7 +15,7 @@ locals {
     public_key_path  = "../../test_key.pub"
     private_key_path  = "../../test_key"
     user_name         = "centos"
-    internal_root_dns = "internal.scalar-labs.com"
+    internal_domain = "internal.scalar-labs.com"
 
     public_subnet_id = "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/example-azure-6qkpmqe/providers/Microsoft.Network/virtualNetworks/example-azure-6qkpmqe/subnets/public"
     private_subnet_id = "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/example-azure-6qkpmqe/providers/Microsoft.Network/virtualNetworks/example-azure-6qkpmqe/subnets/private"

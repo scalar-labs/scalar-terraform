@@ -164,7 +164,7 @@ module "cassandra_provision" {
   memtable_threshold    = local.cassandra.memtable_threshold
   cassy_public_key      = module.cassy_provision.public_key
   start_on_initial_boot = local.cassandra.start_on_initial_boot
-  internal_root_dns     = local.internal_root_dns
+  internal_domain     = local.internal_domain
 }
 
 resource "azurerm_private_dns_a_record" "cassandra-dns" {
@@ -204,7 +204,7 @@ resource "azurerm_private_dns_srv_record" "node-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9100
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -224,7 +224,7 @@ resource "azurerm_private_dns_srv_record" "cassanda-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 7070
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }

@@ -8,4 +8,4 @@ public_key_path = "../../test_key.pub"
 
 private_key_path = "../../test_key"
 
-internal_root_dns = "internal.scalar-labs.com"
+internal_domain = "internal.scalar-labs.com"

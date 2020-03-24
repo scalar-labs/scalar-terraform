@@ -28,7 +28,7 @@ module "scalardl_blue" {
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   availability_set_id       = azurerm_availability_set.scalar_availability_set.id
-  internal_domain         = local.internal_domain
+  internal_domain           = local.internal_domain
 }
 
 module "scalardl_green" {
@@ -55,7 +55,7 @@ module "scalardl_green" {
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   availability_set_id       = azurerm_availability_set.scalar_availability_set.id
-  internal_domain         = local.internal_domain
+  internal_domain           = local.internal_domain
 }
 
 resource "azurerm_availability_set" "scalar_availability_set" {

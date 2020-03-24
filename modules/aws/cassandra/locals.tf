@@ -1,17 +1,17 @@
 ### General
 locals {
-  network_cidr      = var.network.cidr
-  network_name      = var.network.name
-  network_dns       = var.network.dns
-  network_id        = var.network.id
-  location          = var.network.location
-  subnet_id         = var.network.subnet_id
-  image_id          = var.network.image_id
-  key_name          = var.network.key_name
-  bastion_ip        = var.network.bastion_ip
-  private_key_path  = var.network.private_key_path
-  user_name         = var.network.user_name
-  internal_domain = var.network.internal_domain
+  network_cidr     = var.network.cidr
+  network_name     = var.network.name
+  network_dns      = var.network.dns
+  network_id       = var.network.id
+  location         = var.network.location
+  subnet_id        = var.network.subnet_id
+  image_id         = var.network.image_id
+  key_name         = var.network.key_name
+  bastion_ip       = var.network.bastion_ip
+  private_key_path = var.network.private_key_path
+  user_name        = var.network.user_name
+  internal_domain  = var.network.internal_domain
 
   triggers = [var.network.bastion_provision_id]
 }

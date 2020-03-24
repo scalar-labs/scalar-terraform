@@ -82,7 +82,7 @@ module "monitor_provision" {
   replication_factor            = local.scalardl_replication_factor
   network_name                  = local.network_name
   enable_tdagent                = local.monitor.enable_tdagent
-  internal_domain             = local.internal_domain
+  internal_domain               = local.internal_domain
 }
 
 resource "aws_security_group" "monitor" {

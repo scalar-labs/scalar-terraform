@@ -6,15 +6,15 @@ locals {
     id       = data.terraform_remote_state.network.outputs.network_id
     location = data.terraform_remote_state.network.outputs.location
 
-    image_id  = data.terraform_remote_state.network.outputs.image_id
-    key_name  = data.terraform_remote_state.network.outputs.key_name
+    image_id = data.terraform_remote_state.network.outputs.image_id
+    key_name = data.terraform_remote_state.network.outputs.key_name
 
     bastion_ip           = data.terraform_remote_state.network.outputs.bastion_ip
     bastion_provision_id = data.terraform_remote_state.network.outputs.bastion_provision_id
 
-    private_key_path  = data.terraform_remote_state.network.outputs.private_key_path
-    user_name         = data.terraform_remote_state.network.outputs.user_name
-    internal_domain = data.terraform_remote_state.network.outputs.internal_domain
+    private_key_path = data.terraform_remote_state.network.outputs.private_key_path
+    user_name        = data.terraform_remote_state.network.outputs.user_name
+    internal_domain  = data.terraform_remote_state.network.outputs.internal_domain
 
     public_subnet_id  = data.terraform_remote_state.network.outputs.subnet_map["public"]
     private_subnet_id = data.terraform_remote_state.network.outputs.subnet_map["private"]

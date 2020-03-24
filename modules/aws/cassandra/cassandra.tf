@@ -166,7 +166,7 @@ module "cassandra_provision" {
   memtable_threshold    = local.cassandra.memtable_threshold
   cassy_public_key      = module.cassy_provision.public_key
   start_on_initial_boot = local.cassandra.start_on_initial_boot
-  internal_domain     = local.internal_domain
+  internal_domain       = local.internal_domain
 }
 
 resource "aws_security_group" "cassandra" {

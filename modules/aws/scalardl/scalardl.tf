@@ -20,7 +20,7 @@ module "scalardl_blue" {
   enable_nlb                = local.scalardl.enable_nlb
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
-  internal_domain         = local.internal_domain
+  internal_domain           = local.internal_domain
 
   target_group_arn                = aws_lb_target_group.scalardl-lb-target-group[0].arn
   scalardl_target_port            = local.scalardl.target_port
@@ -50,7 +50,7 @@ module "scalardl_green" {
   enable_nlb                = local.scalardl.enable_nlb
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
-  internal_domain         = local.internal_domain
+  internal_domain           = local.internal_domain
 
   target_group_arn                = aws_lb_target_group.scalardl-lb-target-group[0].arn
   scalardl_target_port            = local.scalardl.target_port

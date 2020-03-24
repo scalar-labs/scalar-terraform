@@ -43,7 +43,7 @@ module "scalardl_provision" {
   scalardl_image_name = var.scalardl_image_name
   scalardl_image_tag  = var.scalardl_image_tag
   replication_factor  = var.replication_factor
-  internal_domain   = var.internal_domain
+  internal_domain     = var.internal_domain
 }
 
 resource "aws_lb_target_group_attachment" "scalardl-target-group-attachments" {

@@ -37,8 +37,8 @@ module "vpc" {
 module "dns" {
   source = "./dns"
 
-  network_id        = module.vpc.vpc_id
-  network_name      = module.name_generator.name
+  network_id      = module.vpc.vpc_id
+  network_name    = module.name_generator.name
   internal_domain = var.internal_domain
 }
 
@@ -68,5 +68,5 @@ module "bastion" {
   resource_root_volume_size = local.network.resource_root_volume_size
   bastion_access_cidr       = local.network.bastion_access_cidr
   enable_tdagent            = local.network.bastion_enable_tdagent
-  internal_domain         = var.internal_domain
+  internal_domain           = var.internal_domain
 }

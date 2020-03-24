@@ -19,14 +19,14 @@ module "cluster" {
 module "scalardl_provision" {
   source = "../../../universal/scalardl"
 
-  triggers          = var.triggers
-  bastion_host_ip   = var.bastion_ip
-  host_list         = module.cluster.network_interface_private_ip
-  user_name         = var.user_name
-  private_key_path  = var.private_key_path
-  provision_count   = var.resource_count
-  enable_tdagent    = var.enable_tdagent
-  internal_domain = var.internal_domain
+  triggers         = var.triggers
+  bastion_host_ip  = var.bastion_ip
+  host_list        = module.cluster.network_interface_private_ip
+  user_name        = var.user_name
+  private_key_path = var.private_key_path
+  provision_count  = var.resource_count
+  enable_tdagent   = var.enable_tdagent
+  internal_domain  = var.internal_domain
 
   scalardl_image_name = var.scalardl_image_name
   scalardl_image_tag  = var.scalardl_image_tag

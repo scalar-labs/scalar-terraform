@@ -38,7 +38,7 @@ module "reaper_provision" {
   provision_count    = local.reaper.resource_count
   replication_factor = local.reaper.repliation_factor
   enable_tdagent     = local.reaper.enable_tdagent
-  internal_domain  = local.internal_domain
+  internal_domain    = local.internal_domain
 }
 
 resource "aws_security_group" "reaper" {

@@ -25,7 +25,7 @@ module "reaper_provision" {
   provision_count    = local.reaper.resource_count
   replication_factor = local.reaper.replication_factor
   enable_tdagent     = local.reaper.enable_tdagent
-  internal_domain  = local.internal_domain
+  internal_domain    = local.internal_domain
 }
 
 resource "azurerm_private_dns_a_record" "reaper-dns" {

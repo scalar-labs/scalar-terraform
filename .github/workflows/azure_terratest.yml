@@ -2,6 +2,7 @@ name: Integration-test-with-terratest-for-Azure
 on:
   schedule:
     - cron: '0 0 * * *'
+  push:
 jobs:
   terratest:
     name: Terratest

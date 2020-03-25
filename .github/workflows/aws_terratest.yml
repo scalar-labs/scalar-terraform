@@ -47,3 +47,13 @@ jobs:
             cd ${GITHUB_WORKSPACE}/test/src/integration && dep ensure
             go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/awsdeploy/"
         working-directory: ./test
+      - name: Slack Notification
+        if: failure()
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: eng-notification
+          SLACK_COLOR: danger
+          SLACK_MESSAGE: ${{ job.status }}
+          SLACK_TITLE: Integration test for AWS
+          SLACK_USERNAME: github-actions[bot]
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}

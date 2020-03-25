@@ -64,9 +64,9 @@ output "private_key_path" {
   description = "The path to the private key for SSH access."
 }
 
-output "internal_root_dns" {
-  value       = var.internal_root_dns
-  description = "The internal root dns for setting srv record"
+output "internal_domain" {
+  value       = var.internal_domain
+  description = "The internal domain for setting srv record"
 }
 
 output "ssh_config" {
@@ -78,9 +78,9 @@ StrictHostKeyChecking no
 
 Host bastion
 HostName ${module.bastion.bastion_host_ips[0]}
-LocalForward 8000 monitor.${var.internal_root_dns}:80
+LocalForward 8000 monitor.${var.internal_domain}:80
 
-Host *.${var.internal_root_dns}
+Host *.${var.internal_domain}
 ProxyCommand ssh -F ssh.cfg bastion -W %h:%p
 EOF
 

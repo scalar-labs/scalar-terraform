@@ -1,5 +1,5 @@
 module "scalardl_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=b9a9da7"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=7200e68"
 
   name           = "${var.network_name} ScalarDL ${var.scalardl_image_tag} ${var.resource_cluster_name}"
   instance_count = var.resource_count
@@ -43,5 +43,5 @@ module "scalardl_provision" {
   scalardl_image_name = var.scalardl_image_name
   scalardl_image_tag  = var.scalardl_image_tag
   replication_factor  = var.replication_factor
-  internal_root_dns   = var.internal_root_dns
+  internal_domain     = var.internal_domain
 }

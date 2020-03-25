@@ -1,5 +1,5 @@
 module "cassy_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=b9a9da7"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=7200e68"
 
   name           = "${local.network_name} Cassy Cluster"
   instance_count = local.cassy.resource_count
@@ -29,15 +29,15 @@ module "cassy_cluster" {
 }
 
 module "cassy_provision" {
-  source            = "../../universal/cassy"
-  triggers          = local.triggers
-  bastion_host_ip   = local.bastion_ip
-  host_list         = module.cassy_cluster.private_ip
-  user_name         = local.user_name
-  private_key_path  = local.private_key_path
-  provision_count   = local.cassy.resource_count
-  enable_tdagent    = local.cassy.enable_tdagent
-  internal_root_dns = local.internal_root_dns
+  source           = "../../universal/cassy"
+  triggers         = local.triggers
+  bastion_host_ip  = local.bastion_ip
+  host_list        = module.cassy_cluster.private_ip
+  user_name        = local.user_name
+  private_key_path = local.private_key_path
+  provision_count  = local.cassy.resource_count
+  enable_tdagent   = local.cassy.enable_tdagent
+  internal_domain  = local.internal_domain
 }
 
 resource "aws_security_group" "cassy" {
@@ -137,7 +137,7 @@ resource "aws_route53_record" "cassy-dns-srv" {
   records = formatlist(
     "0 0 8081 %s.%s",
     aws_route53_record.cassy-dns.*.name,
-    "${local.internal_root_dns}.",
+    "${local.internal_domain}.",
   )
 }
 
@@ -151,7 +151,7 @@ resource "aws_route53_record" "cassy-cadvisor-dns-srv" {
   records = formatlist(
     "0 0 18080 %s.%s",
     aws_route53_record.cassy-dns.*.name,
-    "${local.internal_root_dns}.",
+    "${local.internal_domain}.",
   )
 }
 
@@ -165,6 +165,6 @@ resource "aws_route53_record" "cassy-node-exporter-dns-srv" {
   records = formatlist(
     "0 0 9100 %s.%s",
     aws_route53_record.cassy-dns.*.name,
-    "${local.internal_root_dns}.",
+    "${local.internal_domain}.",
   )
 }

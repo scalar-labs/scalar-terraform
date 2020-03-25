@@ -1,5 +1,5 @@
 module "cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=1a3c2a1"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=ca8c721"
 
   nb_instances                  = var.resource_count
   admin_username                = var.user_name
@@ -19,14 +19,14 @@ module "cluster" {
 module "scalardl_provision" {
   source = "../../../universal/scalardl"
 
-  triggers          = var.triggers
-  bastion_host_ip   = var.bastion_ip
-  host_list         = module.cluster.network_interface_private_ip
-  user_name         = var.user_name
-  private_key_path  = var.private_key_path
-  provision_count   = var.resource_count
-  enable_tdagent    = var.enable_tdagent
-  internal_root_dns = var.internal_root_dns
+  triggers         = var.triggers
+  bastion_host_ip  = var.bastion_ip
+  host_list        = module.cluster.network_interface_private_ip
+  user_name        = var.user_name
+  private_key_path = var.private_key_path
+  provision_count  = var.resource_count
+  enable_tdagent   = var.enable_tdagent
+  internal_domain  = var.internal_domain
 
   scalardl_image_name = var.scalardl_image_name
   scalardl_image_tag  = var.scalardl_image_tag

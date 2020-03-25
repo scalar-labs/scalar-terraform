@@ -42,6 +42,6 @@ variable "enable_tdagent" {
   description = "A flag to install td-agent that forwards logs to the monitor host"
 }
 
-variable "internal_root_dns" {
-  description = "Internal root dns"
+variable "internal_domain" {
+  description = "Internal domain"
 }

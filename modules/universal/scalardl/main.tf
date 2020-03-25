@@ -3,7 +3,7 @@ locals {
   provision_image       = "${local.provision_image_name}:${var.scalardl_image_tag}"
   image_filename        = "${local.provision_image_name}-${var.scalardl_image_tag}.tar.gz"
   from_scalar_image     = "${var.scalardl_image_name}:${var.scalardl_image_tag}"
-  scalar_cassandra_host = "cassandra-lb.${var.internal_root_dns}"
+  scalar_cassandra_host = "cassandra-lb.${var.internal_domain}"
 }
 
 module "ansible" {
@@ -91,7 +91,7 @@ resource "null_resource" "docker_install" {
   provisioner "remote-exec" {
     inline = [
       "cd ${module.ansible.remote_playbook_path}",
-      "ansible-playbook -u ${var.user_name} -i ${var.host_list[count.index]}, docker-server.yml -e enable_tdagent=${var.enable_tdagent ? 1 : 0} -e monitor_host=monitor.${var.internal_root_dns}",
+      "ansible-playbook -u ${var.user_name} -i ${var.host_list[count.index]}, docker-server.yml -e enable_tdagent=${var.enable_tdagent ? 1 : 0} -e monitor_host=monitor.${var.internal_domain}",
     ]
   }
 }

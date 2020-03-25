@@ -69,7 +69,7 @@ variable "custom_config_path" {
   description = "Add a custom path to an envoy config directory"
 }
 
-variable "internal_root_dns" {
+variable "internal_domain" {
   default     = "internal.scalar-labs.com"
-  description = "The internal root dns"
+  description = "The internal domain"
 }

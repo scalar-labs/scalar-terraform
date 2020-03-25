@@ -29,7 +29,7 @@ resource "null_resource" "ansible" {
   }
 
   provisioner "local-exec" {
-    command     = "ansible-playbook -u ${var.user_name} -i ${join(",", var.bastion_host_ips)}, bastion-server.yml -e enable_tdagent=${var.enable_tdagent ? 1 : 0} -e monitor_host=monitor.${var.internal_root_dns}"
+    command     = "ansible-playbook -u ${var.user_name} -i ${join(",", var.bastion_host_ips)}, bastion-server.yml -e enable_tdagent=${var.enable_tdagent ? 1 : 0} -e monitor_host=monitor.${var.internal_domain}"
     working_dir = module.ansible.local_playbook_path
   }
 }

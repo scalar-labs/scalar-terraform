@@ -1,5 +1,5 @@
 module "monitor_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=b9a9da7"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=7200e68"
 
   name           = "${local.network_name} Monitor Cluster"
   instance_count = local.monitor.resource_count
@@ -82,7 +82,7 @@ module "monitor_provision" {
   replication_factor            = local.scalardl_replication_factor
   network_name                  = local.network_name
   enable_tdagent                = local.monitor.enable_tdagent
-  internal_root_dns             = local.internal_root_dns
+  internal_domain               = local.internal_domain
 }
 
 resource "aws_security_group" "monitor" {
@@ -243,7 +243,7 @@ resource "aws_route53_record" "cadvisor-dns-srv" {
   records = formatlist(
     "0 0 18080 %s.%s",
     aws_route53_record.monitor-dns.*.name,
-    "${local.internal_root_dns}.",
+    "${local.internal_domain}.",
   )
 }
 
@@ -257,6 +257,6 @@ resource "aws_route53_record" "node-exporter-dns-srv" {
   records = formatlist(
     "0 0 9100 %s.%s",
     aws_route53_record.monitor-dns.*.name,
-    "${local.internal_root_dns}.",
+    "${local.internal_domain}.",
   )
 }

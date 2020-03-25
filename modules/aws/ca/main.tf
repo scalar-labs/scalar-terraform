@@ -37,6 +37,7 @@ module "ca_provision" {
   private_key_path = local.private_key_path
   provision_count  = local.ca.resource_count
   enable_tdagent   = local.ca.enable_tdagent
+  internal_domain  = local.internal_domain
 }
 
 resource "aws_security_group" "ca" {

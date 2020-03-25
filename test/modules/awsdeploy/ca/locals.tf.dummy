@@ -14,5 +14,6 @@ locals {
 
     private_key_path  = "../../test_key"
     user_name         = "centos"
+    internal_domain   = "internal.scalar-labs.com"
   }
 }

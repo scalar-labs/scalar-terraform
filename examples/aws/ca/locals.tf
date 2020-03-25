@@ -5,7 +5,7 @@ locals {
     dns  = data.terraform_remote_state.network.outputs.network_dns
     id   = data.terraform_remote_state.network.outputs.network_id
 
-    subnet_id = data.terraform_remote_state.network.outputs.cassandra_subnet_id
+    subnet_id = data.terraform_remote_state.network.outputs.subnet_map["private"]
     image_id  = data.terraform_remote_state.network.outputs.image_id
     key_name  = data.terraform_remote_state.network.outputs.key_name
 
@@ -14,5 +14,6 @@ locals {
 
     private_key_path = data.terraform_remote_state.network.outputs.private_key_path
     user_name        = data.terraform_remote_state.network.outputs.user_name
+    internal_domain  = data.terraform_remote_state.network.outputs.internal_domain
   }
 }

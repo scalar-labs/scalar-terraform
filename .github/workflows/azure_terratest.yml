@@ -12,6 +12,8 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      TERRATEST_CERT: ${{ secrets.TERRATEST_CERT }}
+      TERRATEST_PRIVATE_KEY: ${{ secrets.TERRATEST_PRIVATE_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -36,14 +38,6 @@ jobs:
             ssh-keygen -N "" -t rsa -f test_key <<<y
             chmod 600 test_key
         working-directory: ./test/modules
-      - name: Create Test key pair
-        run: |
-            echo ${TERRATEST_CERT} > Test.pem
-            echo ${TERRATEST_PRIVATE_KEY} > Test-key.pem
-        env:
-          TERRATEST_CERT: ${{ secrets.TERRATEST_CERT }}
-          TERRATEST_PRIVATE_KEY: ${{ secrets.TERRATEST_PRIVATE_KEY }}
-        working-directory: ./test/src/integration/resources
       - name: Install terratest modules and run terratest
         run: |
             export GOPATH=$(pwd)
@@ -55,5 +49,7 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             cd ${GITHUB_WORKSPACE}/test/src/modules && dep ensure
             cd ${GITHUB_WORKSPACE}/test/src/integration && dep ensure
+            echo ${TERRATEST_CERT} > ${GITHUB_WORKSPACE}/test/src/integration/resources/Test.pem
+            echo ${TERRATEST_PRIVATE_KEY} > ${GITHUB_WORKSPACE}/test/src/integration/resources/Test-key.pem
             go test -run TestEndToEnd -timeout 120m -args -directory="../../modules/azuredeploy/"
         working-directory: ./test

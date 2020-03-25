@@ -15,7 +15,7 @@ variable "private_key_path" {
   default = "../../test_key"
 }
 
-variable "internal_root_dns" {
+variable "internal_domain" {
   default = "internal.scalar-labs.com"
 }
 

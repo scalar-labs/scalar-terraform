@@ -15,15 +15,15 @@ module "cassy_cluster" {
 }
 
 module "cassy_provision" {
-  source            = "../../universal/cassy"
-  triggers          = local.triggers
-  bastion_host_ip   = local.bastion_ip
-  host_list         = module.cassy_cluster.network_interface_private_ip
-  user_name         = local.user_name
-  private_key_path  = local.private_key_path
-  provision_count   = local.cassy.resource_count
-  enable_tdagent    = local.cassy.enable_tdagent
-  internal_root_dns = local.internal_root_dns
+  source           = "../../universal/cassy"
+  triggers         = local.triggers
+  bastion_host_ip  = local.bastion_ip
+  host_list        = module.cassy_cluster.network_interface_private_ip
+  user_name        = local.user_name
+  private_key_path = local.private_key_path
+  provision_count  = local.cassy.resource_count
+  enable_tdagent   = local.cassy.enable_tdagent
+  internal_domain  = local.internal_domain
 }
 
 resource "azurerm_private_dns_a_record" "cassy-dns" {
@@ -52,7 +52,7 @@ resource "azurerm_private_dns_srv_record" "cassy-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9100
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -72,7 +72,7 @@ resource "azurerm_private_dns_srv_record" "cassy-dns-srv" {
       priority = 0
       weight   = 0
       port     = 8081
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -92,7 +92,7 @@ resource "azurerm_private_dns_srv_record" "cassy-cadvisor-dns-srv" {
       priority = 0
       weight   = 0
       port     = 18080
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }

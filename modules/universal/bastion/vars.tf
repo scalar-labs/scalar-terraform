@@ -25,7 +25,7 @@ variable "enable_tdagent" {
   description = "A flag to install td-agent that forwards logs to the monitor host"
 }
 
-variable "internal_root_dns" {
+variable "internal_domain" {
   default     = "internal.scalar-labs.com"
-  description = "The internal root dns"
+  description = "The internal domain"
 }

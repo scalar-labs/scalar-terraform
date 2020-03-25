@@ -35,14 +35,14 @@ module "bastion_cluster" {
 }
 
 module "bastion_provision" {
-  source            = "../../../universal/bastion"
-  triggers          = module.bastion_cluster.id
-  bastion_host_ips  = module.bastion_cluster.public_ip
-  user_name         = var.user_name
-  private_key_path  = var.private_key_path
-  provision_count   = var.resource_count
-  enable_tdagent    = var.enable_tdagent
-  internal_root_dns = var.internal_root_dns
+  source           = "../../../universal/bastion"
+  triggers         = module.bastion_cluster.id
+  bastion_host_ips = module.bastion_cluster.public_ip
+  user_name        = var.user_name
+  private_key_path = var.private_key_path
+  provision_count  = var.resource_count
+  enable_tdagent   = var.enable_tdagent
+  internal_domain  = var.internal_domain
 }
 
 resource "aws_security_group" "bastion" {
@@ -97,6 +97,6 @@ resource "aws_route53_record" "node-exporter-dns-srv" {
   records = formatlist(
     "0 0 9100 %s.%s",
     aws_route53_record.bastion-dns.*.name,
-    "${var.internal_root_dns}.",
+    "${var.internal_domain}.",
   )
 }

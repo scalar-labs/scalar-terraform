@@ -59,6 +59,6 @@ variable "enable_tdagent" {
   description = "A flag to install td-agent that forwards logs to the monitor host"
 }
 
-variable "internal_root_dns" {
-  description = "The internal root dns for setting srv record"
+variable "internal_domain" {
+  description = "The internal domain for setting srv record"
 }

@@ -87,7 +87,7 @@ module "monitor_provision" {
   replication_factor            = local.scalardl_replication_factor
   network_name                  = local.network_name
   enable_tdagent                = local.monitor.enable_tdagent
-  internal_root_dns             = local.internal_root_dns
+  internal_domain               = local.internal_domain
 }
 
 resource "azurerm_private_dns_a_record" "monitor-dns" {
@@ -127,7 +127,7 @@ resource "azurerm_private_dns_srv_record" "monitor-exporter-dns-srv" {
       priority = 0
       weight   = 0
       port     = 9100
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }
@@ -147,7 +147,7 @@ resource "azurerm_private_dns_srv_record" "monitor-cadvisor-dns-srv" {
       priority = 0
       weight   = 0
       port     = 18080
-      target   = "${record.value}.${local.internal_root_dns}"
+      target   = "${record.value}.${local.internal_domain}"
     }
   }
 }

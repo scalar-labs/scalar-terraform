@@ -1,5 +1,5 @@
 module "cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=1a3c2a1"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=ca8c721"
 
   nb_instances                  = var.resource_count
   admin_username                = var.user_name

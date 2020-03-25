@@ -52,7 +52,6 @@ jobs:
         uses: rtCamp/action-slack-notify@master
         env:
           SLACK_CHANNEL: eng-notification
-          SLACK_ICON: ':robot_face:'
           SLACK_COLOR: danger
           SLACK_MESSAGE: ${{ job.status }}
           SLACK_TITLE: Integration test for AWS

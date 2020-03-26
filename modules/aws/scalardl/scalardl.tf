@@ -1,9 +1,9 @@
 module "scalardl_blue" {
-  source             = "./cluster"
-  security_group_ids = aws_security_group.scalardl.*.id
-  bastion_ip         = local.bastion_ip
-  network_name       = local.network_name
+  source = "./cluster"
 
+  security_group_ids        = aws_security_group.scalardl.*.id
+  bastion_ip                = local.bastion_ip
+  network_name              = local.network_name
   resource_type             = local.scalardl.resource_type
   resource_count            = local.scalardl.blue_resource_count
   resource_cluster_name     = "blue"
@@ -17,23 +17,17 @@ module "scalardl_blue" {
   network_dns               = local.network_dns
   scalardl_image_name       = local.scalardl.blue_image_name
   scalardl_image_tag        = local.scalardl.blue_image_tag
-  enable_nlb                = local.scalardl.enable_nlb
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_domain           = local.internal_domain
-
-  target_group_arn                = aws_lb_target_group.scalardl-lb-target-group[0].arn
-  scalardl_target_port            = local.scalardl.target_port
-  privileged_target_group_arn     = aws_lb_target_group.scalardl-privileged-lb-target-group[0].arn
-  scalardl_privileged_target_port = local.scalardl.privileged_target_port
 }
 
 module "scalardl_green" {
-  source             = "./cluster"
-  security_group_ids = aws_security_group.scalardl.*.id
-  bastion_ip         = local.bastion_ip
-  network_name       = local.network_name
+  source = "./cluster"
 
+  security_group_ids        = aws_security_group.scalardl.*.id
+  bastion_ip                = local.bastion_ip
+  network_name              = local.network_name
   resource_type             = local.scalardl.resource_type
   resource_count            = local.scalardl.green_resource_count
   resource_cluster_name     = "green"
@@ -47,15 +41,9 @@ module "scalardl_green" {
   network_dns               = local.network_dns
   scalardl_image_name       = local.scalardl.green_image_name
   scalardl_image_tag        = local.scalardl.green_image_tag
-  enable_nlb                = local.scalardl.enable_nlb
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_domain           = local.internal_domain
-
-  target_group_arn                = aws_lb_target_group.scalardl-lb-target-group[0].arn
-  scalardl_target_port            = local.scalardl.target_port
-  privileged_target_group_arn     = aws_lb_target_group.scalardl-privileged-lb-target-group[0].arn
-  scalardl_privileged_target_port = local.scalardl.privileged_target_port
 }
 
 resource "aws_security_group" "scalardl" {
@@ -204,29 +192,77 @@ resource "aws_lb_target_group" "scalardl-privileged-lb-target-group" {
   }
 }
 
+resource "aws_lb_target_group_attachment" "scalardl-blue" {
+  count = local.scalardl.enable_nlb && local.scalardl.blue_resource_count > 0 ? local.scalardl.blue_resource_count : 0
+
+  target_group_arn = aws_lb_target_group.scalardl-lb-target-group[0].id
+  target_id        = module.scalardl_blue.id[count.index]
+  port             = local.scalardl.target_port
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
+resource "aws_lb_target_group_attachment" "scalardl-green" {
+  count = local.scalardl.enable_nlb && local.scalardl.green_resource_count > 0 ? local.scalardl.green_resource_count : 0
+
+  target_group_arn = aws_lb_target_group.scalardl-lb-target-group[0].id
+  target_id        = module.scalardl_green.id[count.index]
+  port             = local.scalardl.target_port
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
+resource "aws_lb_target_group_attachment" "scalardl-blue-privileged" {
+  count = local.scalardl.enable_nlb && local.scalardl.blue_resource_count > 0 ? local.scalardl.blue_resource_count : 0
+
+  target_group_arn = aws_lb_target_group.scalardl-privileged-lb-target-group[0].id
+  target_id        = module.scalardl_blue.id[count.index]
+  port             = local.scalardl.privileged_target_port
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
+resource "aws_lb_target_group_attachment" "scalardl-green-privileged" {
+  count = local.scalardl.enable_nlb && local.scalardl.green_resource_count > 0 ? local.scalardl.green_resource_count : 0
+
+  target_group_arn = aws_lb_target_group.scalardl-privileged-lb-target-group[0].id
+  target_id        = module.scalardl_green.id[count.index]
+  port             = local.scalardl.privileged_target_port
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
 resource "aws_lb_listener" "scalardl-lb-listener" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
-  load_balancer_arn = aws_lb.scalardl-lb[0].arn
+  load_balancer_arn = aws_lb.scalardl-lb[count.index].arn
   port              = local.scalardl.listen_port
   protocol          = "TCP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.scalardl-lb-target-group[0].arn
+    target_group_arn = aws_lb_target_group.scalardl-lb-target-group[count.index].arn
   }
 }
 
 resource "aws_lb_listener" "scalardl-privileged-lb-listener" {
   count = local.scalardl.enable_nlb ? 1 : 0
 
-  load_balancer_arn = aws_lb.scalardl-lb[0].arn
+  load_balancer_arn = aws_lb.scalardl-lb[count.index].arn
   port              = local.scalardl.privileged_listen_port
   protocol          = "TCP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.scalardl-privileged-lb-target-group[0].arn
+    target_group_arn = aws_lb_target_group.scalardl-privileged-lb-target-group[count.index].arn
   }
 }
 
@@ -238,8 +274,8 @@ resource "aws_route53_record" "scalardl-dns-lb" {
   type    = "A"
 
   alias {
-    name                   = aws_lb.scalardl-lb[0].dns_name
-    zone_id                = aws_lb.scalardl-lb[0].zone_id
+    name                   = aws_lb.scalardl-lb[count.index].dns_name
+    zone_id                = aws_lb.scalardl-lb[count.index].zone_id
     evaluate_target_health = true
   }
 }

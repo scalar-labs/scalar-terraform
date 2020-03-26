@@ -33,7 +33,7 @@ This repo is mainly maintained by the Scalar Engineering Team, but of course we 
 
 ## Future Work
 * Support Multi-AZ deployment
-* Support multi-network deployment
+* Support multi-cluster deployment
 * Support other cloud providers
 
 ## License

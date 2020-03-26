@@ -1,4 +1,5 @@
 [![AWS Integration Test](https://github.com/scalar-labs/scalar-terraform/workflows/Integration-test-with-terratest-for-AWS/badge.svg?branch=master)](https://github.com/scalar-labs/scalar-terraform/actions)
+
 [![Azure Integration Test](https://github.com/scalar-labs/scalar-terraform/workflows/Integration-test-with-terratest-for-Azure/badge.svg?branch=master)](https://github.com/scalar-labs/scalar-terraform/actions)
 
 # Scalar Terraform: Terraform modules for Scalar DLT orchestration

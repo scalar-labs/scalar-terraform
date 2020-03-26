@@ -2,7 +2,7 @@
 [![Azure Integration Test](https://github.com/scalar-labs/scalar-terraform/workflows/Integration-test-with-terratest-for-Azure/badge.svg?branch=master)](https://github.com/scalar-labs/scalar-terraform/actions)
 
 # Scalar Terraform: Terraform modules for Scalar DLT orchestration
-Scalar Terraform is a set of terraform modules and provisioing scritps that can be used to orchestrate a Scalar DLT network in a cloud. Cloud providers that it currently supports are AWS and Azure. Note that the current version only supports deployment of single Scalar DLT network, that is, it does not support multi-network Scalar DLT deployment where multiple ledgers are managed independently through Scalar DM.
+Scalar Terraform is a set of terraform modules and provisioing scritps that can be used to orchestrate a Scalar DLT network in a cloud. Cloud providers that it currently supports are AWS and Azure. Note that the current version only supports deployment of single Scalar DLT cluster, that is, it does not support multi-cluster Scalar DLT deployment where multiple ledgers are managed independently through Scalar DM.
 
 ## Requirements
 

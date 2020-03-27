@@ -77,7 +77,7 @@ locals {
     enable_tdagent            = true
     key                       = ""
     cert                      = ""
-    tag                       = "v1.10.0"
+    tag                       = "v1.12.3"
     image                     = "envoyproxy/envoy"
     tls                       = false
     cert_auto_gen             = true

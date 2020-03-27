@@ -66,6 +66,16 @@ static_resources:
         tcp_keepalive:
           keepalive_time: 300
       lb_policy: round_robin
+      health_checks:
+        timeout: 1s
+        interval: 5s
+        interval_jitter: 1s
+        unhealthy_threshold: 3
+        healthy_threshold: 3
+        grpc_health_check: {
+          service_name: check
+        }
+      drain_connections_on_host_removal: true
       load_assignment:
         cluster_name: scalar
         endpoints:
@@ -73,7 +83,7 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: scalardl-lb.internal.scalar-labs.com
+                      address: scalardl.internal.scalar-labs.com
                       port_value: 50051
     - name: scalar-privileged
       connect_timeout: 0.25s
@@ -83,6 +93,16 @@ static_resources:
         tcp_keepalive:
           keepalive_time: 300
       lb_policy: round_robin
+      health_checks:
+        timeout: 1s
+        interval: 5s
+        interval_jitter: 1s
+        unhealthy_threshold: 3
+        healthy_threshold: 3
+        grpc_health_check: {
+          service_name: check
+        }
+      drain_connections_on_host_removal: true
       load_assignment:
         cluster_name: scalar-privileged
         endpoints:
@@ -90,7 +110,7 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: scalardl-lb.internal.scalar-labs.com
+                      address: scalardl.internal.scalar-labs.com
                       port_value: 50052
     - name: monitor
       connect_timeout: 0.25s

@@ -78,7 +78,7 @@ resource "aws_security_group_rule" "scalardl_target_port" {
   from_port   = local.scalardl.target_port
   to_port     = local.scalardl.target_port
   protocol    = "tcp"
-  cidr_blocks = [ocal.network_cidr]
+  cidr_blocks = [local.network_cidr]
   description = "Scalar DL Target Port"
 
   security_group_id = aws_security_group.scalardl[count.index].id

@@ -150,6 +150,8 @@ resource "aws_security_group_rule" "scalardl_egress" {
 }
 
 resource "aws_route53_record" "scalardl-dns" {
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
+
   zone_id = local.network_dns
   name    = "scalardl"
   type    = "A"

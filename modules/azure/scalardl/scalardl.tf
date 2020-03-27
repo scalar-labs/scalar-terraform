@@ -90,7 +90,7 @@ resource "azurerm_private_dns_a_record" "scalardl-green-dns" {
 }
 
 resource "azurerm_private_dns_a_record" "scalardl-dns" {
-  count =
+  count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   name                = "scalardl"
   zone_name           = local.network_dns

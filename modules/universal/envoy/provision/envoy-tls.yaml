@@ -68,14 +68,12 @@ static_resources:
           keepalive_time:          300
       lb_policy:                   round_robin
       health_checks:
-        timeout:                   1s
-        interval:                  5s
-        interval_jitter:           1s
-        unhealthy_threshold:       3
-        healthy_threshold:         3
-        grpc_health_check: {
-          service_name:            check
-        }
+        - timeout:                 1s
+          interval:                5s
+          interval_jitter:         1s
+          unhealthy_threshold:     3
+          healthy_threshold:       3
+          grpc_health_check:       {}
       drain_connections_on_host_removal: true
       load_assignment:
         cluster_name:              scalar-service

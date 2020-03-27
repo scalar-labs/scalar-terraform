@@ -78,7 +78,7 @@ resource "aws_security_group_rule" "scalardl_target_port" {
   from_port   = local.scalardl.target_port
   to_port     = local.scalardl.target_port
   protocol    = "tcp"
-  cidr_blocks = [local.scalardl.nlb_internal ? local.network_cidr : "0.0.0.0/0"]
+  cidr_blocks = [ocal.network_cidr]
   description = "Scalar DL Target Port"
 
   security_group_id = aws_security_group.scalardl[count.index].id
@@ -91,7 +91,7 @@ resource "aws_security_group_rule" "scalardl_privileged_port" {
   from_port   = local.scalardl.privileged_target_port
   to_port     = local.scalardl.privileged_target_port
   protocol    = "tcp"
-  cidr_blocks = [local.scalardl.nlb_internal ? local.network_cidr : "0.0.0.0/0"]
+  cidr_blocks = [local.network_cidr]
   description = "Scalar DL Privileged Port"
 
   security_group_id = aws_security_group.scalardl[count.index].id
@@ -149,135 +149,12 @@ resource "aws_security_group_rule" "scalardl_egress" {
   security_group_id = aws_security_group.scalardl[count.index].id
 }
 
-resource "aws_lb" "scalardl-lb" {
-  count = local.scalardl.enable_nlb ? 1 : 0
-
-  name               = "${local.network_name}-sdl-lb"
-  internal           = local.scalardl.nlb_internal
-  load_balancer_type = "network"
-  subnets            = [local.scalardl_nlb_subnet_id]
-
-  enable_deletion_protection = false
-}
-
-resource "aws_lb_target_group" "scalardl-lb-target-group" {
-  count = local.scalardl.enable_nlb ? 1 : 0
-
-  name     = "${local.network_name}-sdl-tg"
-  port     = local.scalardl.target_port
-  protocol = "TCP"
-  vpc_id   = local.network_id
-
-  health_check {
-    protocol            = "TCP"
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    interval            = 10
-  }
-}
-
-resource "aws_lb_target_group" "scalardl-privileged-lb-target-group" {
-  count = local.scalardl.enable_nlb ? 1 : 0
-
-  name     = "${local.network_name}-sdl-pr-tg"
-  port     = local.scalardl.privileged_target_port
-  protocol = "TCP"
-  vpc_id   = local.network_id
-
-  health_check {
-    protocol            = "TCP"
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    interval            = 10
-  }
-}
-
-resource "aws_lb_target_group_attachment" "scalardl-blue" {
-  count = local.scalardl.enable_nlb && local.scalardl.blue_resource_count > 0 ? local.scalardl.blue_resource_count : 0
-
-  target_group_arn = aws_lb_target_group.scalardl-lb-target-group[0].id
-  target_id        = module.scalardl_blue.id[count.index]
-  port             = local.scalardl.target_port
-
-  lifecycle {
-    ignore_changes = all
-  }
-}
-
-resource "aws_lb_target_group_attachment" "scalardl-green" {
-  count = local.scalardl.enable_nlb && local.scalardl.green_resource_count > 0 ? local.scalardl.green_resource_count : 0
-
-  target_group_arn = aws_lb_target_group.scalardl-lb-target-group[0].id
-  target_id        = module.scalardl_green.id[count.index]
-  port             = local.scalardl.target_port
-
-  lifecycle {
-    ignore_changes = all
-  }
-}
-
-resource "aws_lb_target_group_attachment" "scalardl-blue-privileged" {
-  count = local.scalardl.enable_nlb && local.scalardl.blue_resource_count > 0 ? local.scalardl.blue_resource_count : 0
-
-  target_group_arn = aws_lb_target_group.scalardl-privileged-lb-target-group[0].id
-  target_id        = module.scalardl_blue.id[count.index]
-  port             = local.scalardl.privileged_target_port
-
-  lifecycle {
-    ignore_changes = all
-  }
-}
-
-resource "aws_lb_target_group_attachment" "scalardl-green-privileged" {
-  count = local.scalardl.enable_nlb && local.scalardl.green_resource_count > 0 ? local.scalardl.green_resource_count : 0
-
-  target_group_arn = aws_lb_target_group.scalardl-privileged-lb-target-group[0].id
-  target_id        = module.scalardl_green.id[count.index]
-  port             = local.scalardl.privileged_target_port
-
-  lifecycle {
-    ignore_changes = all
-  }
-}
-
-resource "aws_lb_listener" "scalardl-lb-listener" {
-  count = local.scalardl.enable_nlb ? 1 : 0
-
-  load_balancer_arn = aws_lb.scalardl-lb[count.index].arn
-  port              = local.scalardl.listen_port
-  protocol          = "TCP"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.scalardl-lb-target-group[count.index].arn
-  }
-}
-
-resource "aws_lb_listener" "scalardl-privileged-lb-listener" {
-  count = local.scalardl.enable_nlb ? 1 : 0
-
-  load_balancer_arn = aws_lb.scalardl-lb[count.index].arn
-  port              = local.scalardl.privileged_listen_port
-  protocol          = "TCP"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.scalardl-privileged-lb-target-group[count.index].arn
-  }
-}
-
-resource "aws_route53_record" "scalardl-dns-lb" {
-  count = local.scalardl.enable_nlb ? 1 : 0
-
+resource "aws_route53_record" "scalardl-dns" {
   zone_id = local.network_dns
-  name    = "scalardl-lb"
+  name    = "scalardl"
   type    = "A"
-
-  alias {
-    name                   = aws_lb.scalardl-lb[count.index].dns_name
-    zone_id                = aws_lb.scalardl-lb[count.index].zone_id
-    evaluate_target_health = true
-  }
+  ttl     = "300"
+  records = concat(module.scalardl_blue.ip, module.scalardl_green.ip)
 }
 
 resource "aws_route53_record" "scalardl-blue-dns" {

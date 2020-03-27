@@ -33,8 +33,6 @@ locals {
     privileged_target_port    = 50052
     listen_port               = 50051
     privileged_listen_port    = 50052
-    enable_nlb                = true
-    nlb_internal              = true
     enable_tdagent            = true
   }
 }
@@ -61,8 +59,6 @@ locals {
     local.scalardl_base[var.base],
     var.scalardl
   )
-
-  scalardl_nlb_subnet_id = local.scalardl.nlb_internal ? var.network.private_subnet_id : var.network.public_subnet_id
 }
 
 ### envoy

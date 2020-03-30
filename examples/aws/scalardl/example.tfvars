@@ -17,12 +17,12 @@ scalardl = {
 
 envoy = {
   # resource_type             = "t3.medium"
-  # resource_count            = "0"
+  # resource_count            = "3"
   # resource_root_volume_size = "64"
   # target_port               = "50051"
   # listen_port               = "50051"
   # nlb_subnet_id             = "
-  # enable_nlb                = "false"
+  # enable_nlb                = "true"
   # nlb_internal              = "false"
   # enable_tdagent            = "true"
   # key                       = ""

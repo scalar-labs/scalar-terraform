@@ -25,3 +25,9 @@ variable "network" {
   default     = {}
   description = "Custom definition for network and bastion"
 }
+
+variable "custom_tags" {
+  type        = map
+  default     = {}
+  description = "The map of custom tags"
+}

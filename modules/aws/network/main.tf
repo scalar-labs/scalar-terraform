@@ -40,6 +40,7 @@ module "dns" {
   network_id      = module.vpc.vpc_id
   network_name    = module.name_generator.name
   internal_domain = var.internal_domain
+  custom_tags     = var.custom_tags
 }
 
 module "image" {
@@ -69,4 +70,5 @@ module "bastion" {
   bastion_access_cidr       = local.network.bastion_access_cidr
   enable_tdagent            = local.network.bastion_enable_tdagent
   internal_domain           = var.internal_domain
+  custom_tags               = var.custom_tags
 }

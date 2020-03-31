@@ -5,8 +5,7 @@ resource "aws_route53_zone" "private" {
     vpc_id = var.network_id
   }
 
-  tags = {
+  tags = merge({
     Name = "${var.network_name} DNS Zone"
-  }
+  }, var.custom_tags)
 }
-

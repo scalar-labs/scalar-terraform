@@ -11,4 +11,6 @@ module "network" {
 
   # Optional Variables
   network = var.network
+
+  custom_tags = var.custom_tags
 }

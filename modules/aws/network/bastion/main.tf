@@ -18,12 +18,12 @@ module "bastion_cluster" {
   associate_public_ip_address = true
   hostname_prefix             = "bastion"
 
-  tags = {
+  tags = merge({
     Terraform = true
     Trigger   = var.trigger
     Network   = var.network_name
     Role      = "bastion"
-  }
+  }, var.custom_tags)
 
   root_block_device = [
     {
@@ -50,9 +50,9 @@ resource "aws_security_group" "bastion" {
   description = "${var.network_name} bastion security group for provisioning"
   vpc_id      = var.network_id
 
-  tags = {
+  tags = merge({
     Name = "${var.network_name} Bastion"
-  }
+  }, var.custom_tags)
 
   ingress {
     from_port   = 22

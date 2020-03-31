@@ -25,10 +25,12 @@ locals {
     blue_resource_count       = 3
     blue_image_tag            = "2.0.2"
     blue_image_name           = "scalarlabs/scalar-ledger"
+    blue_enable_dns           = true
     green_resource_count      = 0
     green_image_tag           = "2.0.2"
     replication_factor        = 3
     green_image_name          = "scalarlabs/scalar-ledger"
+    green_enable_dns          = false
     target_port               = 50051
     privileged_target_port    = 50052
     listen_port               = 50051

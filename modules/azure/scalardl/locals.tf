@@ -24,11 +24,13 @@ locals {
     blue_image_tag            = "2.0.2"
     blue_image_name           = "scalarlabs/scalar-ledger"
     blue_subnet_id            = var.network.blue_subnet_id
+    blue_enable_dns           = true
     green_resource_count      = 0
     green_image_tag           = "2.0.2"
     replication_factor        = 3
     green_image_name          = "scalarlabs/scalar-ledger"
     green_subnet_id           = var.network.green_subnet_id
+    green_enable_dns          = false
     enable_tdagent            = true
   }
 }

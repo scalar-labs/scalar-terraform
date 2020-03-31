@@ -97,7 +97,10 @@ resource "azurerm_private_dns_a_record" "scalardl-dns" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  records = concat(module.scalardl_blue.network_interface_private_ip, module.scalardl_green.network_interface_private_ip)
+  records = concat(
+    local.scalardl.blue_enable_dns ? module.scalardl_blue.network_interface_private_ip : [],
+    local.scalardl.green_enable_dns ? module.scalardl_green.network_interface_private_ip : []
+  )
 }
 
 resource "azurerm_private_dns_srv_record" "node-exporter-blue-dns-srv" {

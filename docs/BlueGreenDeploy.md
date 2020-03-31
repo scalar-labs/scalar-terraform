@@ -14,16 +14,18 @@ This module manages two Scalar DL clusters, blue and green. At any given time on
 [ [Azure example.tfvars](../examples/azure/scalardl/example.tfvars) ]
 [ [AWS example.tfvars](../examples/aws/scalardl/example.tfvars) ]
 
-* Green Cluster Active (Initial State)
+* Blue Cluster Active (Initial State)
 ```
 #### Blue Cluster (active), Green Cluster (inactive)
 scalardl = {
   blue_resource_count  = "3"
   blue_image_tag       = "2.0.1"
   blue_image_name      = "scalarlabs/scalar-ledger"
+  blue_enable_dns      = "true"
   green_resource_count = "0"
   green_image_tag      = "2.0.1"
   green_image_name     = "scalarlabs/scalar-ledger"
+  green_enable_dns     = "false"
 }
 ```
 
@@ -33,20 +35,38 @@ scalardl = {
   blue_resource_count  = "3"
   blue_image_tag       = "2.0.1"
   blue_image_name      = "scalarlabs/scalar-ledger"
+  blue_enable_dns      = "true"
   green_resource_count = "3"
   green_image_tag      = "2.1.0"
   green_image_name     = "scalarlabs/scalar-ledger"
+  green_enable_dns     = "true"
 }
 ```
 
-* Remove Blue Cluster (Step 2)
+* Disable Blue Cluster DNS (Step 2)
+```
+scalardl = {
+  blue_resource_count  = "3"
+  blue_image_tag       = "2.0.1"
+  blue_image_name      = "scalarlabs/scalar-ledger"
+  blue_enable_dns      = "false"
+  green_resource_count = "3"
+  green_image_tag      = "2.1.0"
+  green_image_name     = "scalarlabs/scalar-ledger"
+  green_enable_dns     = "true"
+}
+```
+
+* Remove Blue Cluster (Step 3)
 ```
 scalardl = {
   blue_resource_count  = "0"
   blue_image_tag       = "2.0.1"
   blue_image_name      = "scalarlabs/scalar-ledger"
+  blue_enable_dns      = "false"
   green_resource_count = "3"
   green_image_tag      = "2.1.0"
   green_image_name     = "scalarlabs/scalar-ledger"
+  green_enable_dns     = "true"
 }
 ```

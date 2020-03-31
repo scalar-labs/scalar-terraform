@@ -12,8 +12,8 @@ This example will deploy a simple Scalar DL environment in the Japaneast region 
 ## What is created
 * An Azure VPC with Resource Group
 * DNS Zone for internal host lookup
-* 3 Scalar DL instances with a load balancer (private)
-* 3 Cassandra instances with a load balancer (private)
+* 3 Scalar DL instances
+* 3 Cassandra instances
 * 1 Cassy instance
 * 1 Reaper instance
 * 3 Envoy instances with a network load balancer (public)
@@ -86,27 +86,30 @@ UserKnownHostsFile /dev/null
 StrictHostKeyChecking no
 
 Host bastion
-HostName 13.231.179.116
+HostName bastion-tei-azure-1rpvoeq.westus.cloudapp.azure.com
 LocalForward 8000 monitor.internal.scalar-labs.com:80
 
 Host *.internal.scalar-labs.com
 ProxyCommand ssh -F ssh.cfg bastion -W %h:%p
 
-bastion_ip = 13.231.179.116
-bastion_provision_id = 9139872180792820156
-cassandra_subnet_id = subnet-0fcdd0a1f75e86b1e
-image_id = ami-0d9d854feeddeef21
+bastion_ip = bastion-tei-azure-1rpvoeq.westus.cloudapp.azure.com
+bastion_provision_id = 4163659894346351826
+dns_zone_id = internal.scalar-labs.com
+image_id = CentOS
 internal_domain = internal.scalar-labs.com
-key_name = tei-aws-0j5y83k-key
-location = ap-northeast-1a
+location = West US
 network_cidr = 10.42.0.0/16
-network_dns = Z08111302BU37G0O8OMMY
-network_id = vpc-08f36c547a1aca222
-network_name = tei-aws-0j5y83k
-private_key_path = /Users/tei/work/src/scalar-terraform/examples/aws/network/your_private.pem
-scalardl_blue_subnet_id = subnet-04e9f97893fd8e794
-scalardl_green_subnet_id = subnet-015ee9afbcf722ec4
-scalardl_nlb_subnet_id = subnet-0a88b78eaaf74b16b
+network_id = /subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/tei-azure-1rpvoeq/providers/Microsoft.Network/virtualNetworks/tei-azure-1rpvoeq
+network_name = tei-azure-1rpvoeq
+private_key_path = /Users/tei/work/src/scalar/scalar-terraform-release/examples/azure/network/example_key
+public_key_path = /Users/tei/work/src/scalar/scalar-terraform-release/examples/azure/network/example_key.pub
+subnet_map = {
+  "cassandra" = "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/tei-azure-1rpvoeq/providers/Microsoft.Network/virtualNetworks/tei-azure-1rpvoeq/subnets/cassandra"
+  "private" = "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/tei-azure-1rpvoeq/providers/Microsoft.Network/virtualNetworks/tei-azure-1rpvoeq/subnets/private"
+  "public" = "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/tei-azure-1rpvoeq/providers/Microsoft.Network/virtualNetworks/tei-azure-1rpvoeq/subnets/public"
+  "scalardl_blue" = "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/tei-azure-1rpvoeq/providers/Microsoft.Network/virtualNetworks/tei-azure-1rpvoeq/subnets/scalardl_blue"
+  "scalardl_green" = "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/tei-azure-1rpvoeq/providers/Microsoft.Network/virtualNetworks/tei-azure-1rpvoeq/subnets/scalardl_green"
+}
 user_name = centos
 ```
 

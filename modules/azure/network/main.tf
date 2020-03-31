@@ -61,6 +61,7 @@ module "bastion" {
   resource_root_volume_size = local.network.resource_root_volume_size
   public_key_path           = var.public_key_path
   private_key_path          = var.private_key_path
+  multiple_public_key_folder_path = var.multiple_public_key_folder_path
   user_name                 = local.network.user_name
   subnet_id                 = azurerm_subnet.subnet["public"].id
   image_id                  = local.network.image_id

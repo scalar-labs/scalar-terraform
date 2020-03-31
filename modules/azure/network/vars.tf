@@ -15,6 +15,10 @@ variable "private_key_path" {
   description = "The path to a private key file ~/.ssh/key.pem"
 }
 
+variable "multiple_public_key_folder_path" {
+  description = "The path to the multiple public key folder for SSH access."
+}
+
 variable "internal_domain" {
   description = "An internal DNS domain name to use for mapping IP addresses"
 }

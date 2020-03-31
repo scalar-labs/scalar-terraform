@@ -22,3 +22,15 @@
     - "docker"
   gather_facts: yes
   become: no
+
+- name: Set up multiple authorized keys
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: add key
+      authorized_key:
+        user: centos
+        state: present
+        key: "{% for key in lookup('fileglob', 'files/ssh_public/*.pub').split(',') %}{{ lookup('file', key) ~ '\n'}}{% endfor %}"
+  tags:
+  - ssh

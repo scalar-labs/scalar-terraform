@@ -14,7 +14,7 @@ This module manages two Scalar DL clusters, blue and green. At any given time on
 [ [Azure example.tfvars](../examples/azure/scalardl/example.tfvars) ]
 [ [AWS example.tfvars](../examples/aws/scalardl/example.tfvars) ]
 
-* Blue Cluster Active (Initial State)
+* Blue cluster is in an active state (initial state)
 ```
 #### Blue Cluster (active), Green Cluster (inactive)
 scalardl = {
@@ -29,7 +29,7 @@ scalardl = {
 }
 ```
 
-* Deploy Green Cluster version 2.1.0 (Step 1)
+* Deploy green cluster version 2.1.0 (Step 1)
 ```
 scalardl = {
   blue_resource_count         = "3"
@@ -43,13 +43,14 @@ scalardl = {
 }
 ```
 
-* Disable Blue Cluster DNS (Step 2)
+* Make blue cluster not discoverable by Envoy (Step 2)
+This makes all the requests from Envoy will go to green eventually.
 ```
 scalardl = {
   blue_resource_count         = "3"
   blue_image_tag              = "2.0.1"
   blue_image_name             = "scalarlabs/scalar-ledger"
-  blue_discoverable_by_envoy  = "false"
+  blue_discoverable_by_envoy  = "false" # <- this is set to `false`
   green_resource_count        = "3"
   green_image_tag             = "2.1.0"
   green_image_name            = "scalarlabs/scalar-ledger"
@@ -57,7 +58,8 @@ scalardl = {
 }
 ```
 
-* Remove Blue Cluster (Step 3)
+* Remove blue cluster (Step 3)
+It should be done after making sure that requests from Envoy are not going to blue any more.
 ```
 scalardl = {
   blue_resource_count         = "0"

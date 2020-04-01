@@ -18,55 +18,55 @@ This module manages two Scalar DL clusters, blue and green. At any given time on
 ```
 #### Blue Cluster (active), Green Cluster (inactive)
 scalardl = {
-  blue_resource_count  = "3"
-  blue_image_tag       = "2.0.1"
-  blue_image_name      = "scalarlabs/scalar-ledger"
-  blue_enable_dns      = "true"
-  green_resource_count = "0"
-  green_image_tag      = "2.0.1"
-  green_image_name     = "scalarlabs/scalar-ledger"
-  green_enable_dns     = "false"
+  blue_resource_count         = "3"
+  blue_image_tag              = "2.0.1"
+  blue_image_name             = "scalarlabs/scalar-ledger"
+  blue_discoverable_by_envoy  = "true"
+  green_resource_count        = "0"
+  green_image_tag             = "2.0.1"
+  green_image_name            = "scalarlabs/scalar-ledger"
+  green_discoverable_by_envoy = "false"
 }
 ```
 
 * Deploy Green Cluster version 2.1.0 (Step 1)
 ```
 scalardl = {
-  blue_resource_count  = "3"
-  blue_image_tag       = "2.0.1"
-  blue_image_name      = "scalarlabs/scalar-ledger"
-  blue_enable_dns      = "true"
-  green_resource_count = "3"
-  green_image_tag      = "2.1.0"
-  green_image_name     = "scalarlabs/scalar-ledger"
-  green_enable_dns     = "true"
+  blue_resource_count         = "3"
+  blue_image_tag              = "2.0.1"
+  blue_image_name             = "scalarlabs/scalar-ledger"
+  blue_discoverable_by_envoy  = "true"
+  green_resource_count        = "3"
+  green_image_tag             = "2.1.0"
+  green_image_name            = "scalarlabs/scalar-ledger"
+  green_discoverable_by_envoy = "true"
 }
 ```
 
 * Disable Blue Cluster DNS (Step 2)
 ```
 scalardl = {
-  blue_resource_count  = "3"
-  blue_image_tag       = "2.0.1"
-  blue_image_name      = "scalarlabs/scalar-ledger"
-  blue_enable_dns      = "false"
-  green_resource_count = "3"
-  green_image_tag      = "2.1.0"
-  green_image_name     = "scalarlabs/scalar-ledger"
-  green_enable_dns     = "true"
+  blue_resource_count         = "3"
+  blue_image_tag              = "2.0.1"
+  blue_image_name             = "scalarlabs/scalar-ledger"
+  blue_discoverable_by_envoy  = "false"
+  green_resource_count        = "3"
+  green_image_tag             = "2.1.0"
+  green_image_name            = "scalarlabs/scalar-ledger"
+  green_discoverable_by_envoy = "true"
 }
 ```
 
 * Remove Blue Cluster (Step 3)
 ```
 scalardl = {
-  blue_resource_count  = "0"
-  blue_image_tag       = "2.0.1"
-  blue_image_name      = "scalarlabs/scalar-ledger"
-  blue_enable_dns      = "false"
-  green_resource_count = "3"
-  green_image_tag      = "2.1.0"
-  green_image_name     = "scalarlabs/scalar-ledger"
-  green_enable_dns     = "true"
+  blue_resource_count         = "0"
+  blue_image_tag              = "2.0.1"
+  blue_image_name             = "scalarlabs/scalar-ledger"
+  blue_discoverable_by_envoy  = "false"
+  green_resource_count        = "3"
+  green_image_tag             = "2.1.0"
+  green_image_name            = "scalarlabs/scalar-ledger"
+  green_discoverable_by_envoy = "true"
 }
 ```

@@ -157,8 +157,8 @@ resource "aws_route53_record" "scalardl-dns" {
   type    = "A"
   ttl     = "300"
   records = concat(
-    local.scalardl.blue_enable_dns ? module.scalardl_blue.ip : [],
-    local.scalardl.green_enable_dns ? module.scalardl_green.ip : []
+    local.scalardl.blue_discoverable_by_envoy ? module.scalardl_blue.ip : [],
+    local.scalardl.green_discoverable_by_envoy ? module.scalardl_green.ip : []
   )
 }
 

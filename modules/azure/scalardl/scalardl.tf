@@ -98,8 +98,8 @@ resource "azurerm_private_dns_a_record" "scalardl-dns" {
   ttl                 = 300
 
   records = concat(
-    local.scalardl.blue_enable_dns ? module.scalardl_blue.network_interface_private_ip : [],
-    local.scalardl.green_enable_dns ? module.scalardl_green.network_interface_private_ip : []
+    local.scalardl.blue_discoverable_by_envoy ? module.scalardl_blue.network_interface_private_ip : [],
+    local.scalardl.green_discoverable_by_envoy ? module.scalardl_green.network_interface_private_ip : []
   )
 }
 

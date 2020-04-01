@@ -16,7 +16,7 @@ resource "null_resource" "ansible_playbooks_copy" {
   }
 
   provisioner "local-exec" {
-    command = "cp ${var.multiple_public_key_folder_path}/* ../../../provision/ansible/playbooks/files/ssh_public/"
+    command = "for i in ${var.multiple_public_key_folder_path}/*.pub; do if [[ -e $i ]]; then mkdir -p ../../../provision/ansible/playbooks/files/ssh_public; cp ${var.multiple_public_key_folder_path}/$i ../../../provision/ansible/playbooks/files/ssh_public/; fi; done"
   }
 
   provisioner "file" {

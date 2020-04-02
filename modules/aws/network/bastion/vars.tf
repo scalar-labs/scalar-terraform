@@ -64,7 +64,7 @@ variable "internal_domain" {
 }
 
 variable "custom_tags" {
-  type        = map
+  type        = map(string)
   default     = {}
   description = "The map of custom tags"
 }

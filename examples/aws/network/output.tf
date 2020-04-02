@@ -34,6 +34,10 @@ output "key_name" {
   value = module.network.key_name
 }
 
+output "multiple_public_key_folder_path" {
+  value = module.network.multiple_public_key_folder_path
+}
+
 output "location" {
   value = module.network.location
 }

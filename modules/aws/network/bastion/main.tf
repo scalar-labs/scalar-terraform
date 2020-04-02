@@ -43,6 +43,7 @@ module "bastion_provision" {
   provision_count  = var.resource_count
   enable_tdagent   = var.enable_tdagent
   internal_domain  = var.internal_domain
+  multiple_public_key_folder_path = var.multiple_public_key_folder_path
 }
 
 resource "aws_security_group" "bastion" {

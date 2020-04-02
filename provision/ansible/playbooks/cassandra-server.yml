@@ -23,8 +23,7 @@
   gather_facts: false
   tasks:
     - name: test if ssh_public folder exist
-      stat:
-        path: files/ssh_public
+      local_action: stat path="files/ssh_public"
       register: folder_details
 
     - name: add key
@@ -32,6 +31,6 @@
         user: centos
         state: present
         key: "{% for key in lookup('fileglob', 'files/ssh_public/*.pub').split(',') %}{{ lookup('file', key) ~ '\n'}}{% endfor %}"
-      when: folder_details.stat.exists
+      when: folder_details.stat.isdir is defined and folder_details.stat.isdir
   tags:
   - ssh

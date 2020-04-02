@@ -39,7 +39,7 @@ scalardl = {
   green_resource_count        = "3"
   green_image_tag             = "2.1.0"
   green_image_name            = "scalarlabs/scalar-ledger"
-  green_discoverable_by_envoy = "true"
+  green_discoverable_by_envoy = "true" # <- this is set to `true`
 }
 ```
 
@@ -62,7 +62,7 @@ scalardl = {
 It should be done after making sure that requests from Envoy are not going to blue any more.
 ```
 scalardl = {
-  blue_resource_count         = "0"
+  blue_resource_count         = "0" # <- this is set to 0
   blue_image_tag              = "2.0.1"
   blue_image_name             = "scalarlabs/scalar-ledger"
   blue_discoverable_by_envoy  = "false"

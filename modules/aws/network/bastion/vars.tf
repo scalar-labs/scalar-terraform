@@ -22,7 +22,7 @@ variable "user_name" {
   description = "The user name of the remote hosts"
 }
 
-variable "subnet_id" {
+variable "subnet_ids" {
   description = "The subnet ID to launch bastion host. Should be a public subnet"
 }
 

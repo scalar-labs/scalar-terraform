@@ -20,10 +20,10 @@ locals {
 
 locals {
   subnet_map = {
-    public         = cidrsubnet(local.network.cidr, 8, 0)
-    private        = cidrsubnet(local.network.cidr, 8, 1)
-    cassandra      = cidrsubnet(local.network.cidr, 8, 2)
-    scalardl_blue  = cidrsubnet(local.network.cidr, 8, 3)
-    scalardl_green = cidrsubnet(local.network.cidr, 8, 4)
+    public         = cidrsubnets(cidrsubnet(local.network.cidr, 8, 0), 2, 2, 2)
+    private        = cidrsubnets(cidrsubnet(local.network.cidr, 8, 1), 2, 2, 2)
+    cassandra      = cidrsubnets(cidrsubnet(local.network.cidr, 8, 2), 2, 2, 2)
+    scalardl_blue  = cidrsubnets(cidrsubnet(local.network.cidr, 8, 3), 2, 2, 2)
+    scalardl_green = cidrsubnets(cidrsubnet(local.network.cidr, 8, 4), 2, 2, 2)
   }
 }

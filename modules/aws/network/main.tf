@@ -8,15 +8,15 @@ module "vpc" {
   version = "~> v2.0"
 
   cidr = local.network.cidr
-  azs  = [var.location]
+  azs  = var.azs
 
-  private_subnets = [
+  private_subnets = concat(
     local.subnet_map.private,
     local.subnet_map.cassandra,
     local.subnet_map.scalardl_blue,
     local.subnet_map.scalardl_green
-  ]
-  public_subnets = [local.subnet_map.public]
+  )
+  public_subnets = local.subnet_map.public
 
   enable_dns_hostnames = true
   enable_dns_support   = true
@@ -54,9 +54,9 @@ module "bastion" {
   network_cidr = module.vpc.vpc_cidr_block
   network_dns  = module.dns.dns_zone_id
 
-  subnet_id = module.vpc.public_subnets[0]
-  image_id  = module.image.image_id
-  user_name = local.network.user_name
+  subnet_ids = module.vpc.public_subnets
+  image_id   = module.image.image_id
+  user_name  = local.network.user_name
 
   trigger = module.vpc.natgw_ids[0]
 

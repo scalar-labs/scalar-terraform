@@ -20,11 +20,11 @@ output "network_id" {
 
 output "subnet_map" {
   value = {
-    public         = module.vpc.public_subnets[0]
-    private        = module.vpc.private_subnets[0]
-    cassandra      = module.vpc.private_subnets[1]
-    scalardl_blue  = module.vpc.private_subnets[2]
-    scalardl_green = module.vpc.private_subnets[3]
+    public         = list(module.vpc.public_subnets[0], module.vpc.public_subnets[1], module.vpc.public_subnets[2])
+    private        = list(module.vpc.private_subnets[0], module.vpc.private_subnets[1], module.vpc.private_subnets[2])
+    cassandra      = list(module.vpc.private_subnets[3], module.vpc.private_subnets[4], module.vpc.private_subnets[5])
+    scalardl_blue  = list(module.vpc.private_subnets[6], module.vpc.private_subnets[7], module.vpc.private_subnets[8])
+    scalardl_green = list(module.vpc.private_subnets[9], module.vpc.private_subnets[10], module.vpc.private_subnets[11])
   }
   description = "The subnet map of VPC network."
 }
@@ -49,8 +49,8 @@ output "bastion_ip" {
   description = "Public IP address to bastion host"
 }
 
-output "location" {
-  value       = var.location
+output "azs" {
+  value       = var.azs
   description = "The AWS availability zone to deploy environment."
 }
 

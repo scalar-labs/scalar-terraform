@@ -12,8 +12,8 @@ This example will deploy a simple Scalar DL environment in the Tokyo region with
 ## What is created
 * An AWS VPC with a NAT gateway
 * DNS Zone for internal host lookup
-* 3 Scalar DL instances with a network load balancer (private)
-* 3 Cassandra instances with a network load balancer (private)
+* 3 Scalar DL instances
+* 3 Cassandra instances
 * 1 Cassy instance
 * 1 Reaper instance
 * 3 Envoy instances with a network load balancer (public)
@@ -106,10 +106,13 @@ network_cidr = 10.42.0.0/16
 network_dns = Z08111302BU37G0O8OMMY
 network_id = vpc-08f36c547a1aca222
 network_name = tei-aws-0j5y83k
-private_key_path = /Users/tei/work/src/scalar-terraform/examples/aws/network/your_private.pem
-scalardl_blue_subnet_id = subnet-04e9f97893fd8e794
-scalardl_green_subnet_id = subnet-015ee9afbcf722ec4
-scalardl_nlb_subnet_id = subnet-0a88b78eaaf74b16b
+private_key_path = /Users/tei/work/src/scalar-terraform/examples/aws/network/example_key
+subnet_map = {
+  "cassandra" = "subnet-05e8f97893fd8e321"
+  "private" = "subnet-0f88b78eaaf74b16b"
+  "public" = "subnet-0g88b78eaaf74b13c"
+  "scalardl_blue" = subnet-04e9f97893fd8e794
+  "scalardl_green" = subnet-015ee9afbcf722ec4
 user_name = centos
 ```
 

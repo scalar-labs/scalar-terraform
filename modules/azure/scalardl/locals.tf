@@ -18,24 +18,20 @@ locals {
 ### default
 locals {
   scalardl_default = {
-    resource_type             = "Standard_B2s"
-    resource_root_volume_size = 64
-    blue_resource_count       = 3
-    blue_image_tag            = "2.0.2"
-    blue_image_name           = "scalarlabs/scalar-ledger"
-    blue_subnet_id            = var.network.blue_subnet_id
-    green_resource_count      = 0
-    green_image_tag           = "2.0.2"
-    replication_factor        = 3
-    green_image_name          = "scalarlabs/scalar-ledger"
-    green_subnet_id           = var.network.green_subnet_id
-    target_port               = 50051
-    privileged_target_port    = 50052
-    listen_port               = 50051
-    privileged_listen_port    = 50052
-    enable_nlb                = true
-    nlb_internal              = true
-    enable_tdagent            = true
+    resource_type               = "Standard_B2s"
+    resource_root_volume_size   = 64
+    blue_resource_count         = 3
+    blue_image_tag              = "2.0.2"
+    blue_image_name             = "scalarlabs/scalar-ledger"
+    blue_subnet_id              = var.network.blue_subnet_id
+    blue_discoverable_by_envoy  = true
+    green_resource_count        = 0
+    green_image_tag             = "2.0.2"
+    replication_factor          = 3
+    green_image_name            = "scalarlabs/scalar-ledger"
+    green_subnet_id             = var.network.green_subnet_id
+    green_discoverable_by_envoy = false
+    enable_tdagent              = true
   }
 }
 
@@ -59,8 +55,6 @@ locals {
     local.scalardl_base[var.base],
     var.scalardl
   )
-
-  scalardl_nlb_subnet_id = local.scalardl.nlb_internal ? var.network.private_subnet_id : var.network.public_subnet_id
 }
 
 ### envoy
@@ -72,12 +66,12 @@ locals {
     target_port               = 50051
     listen_port               = 50051
     subnet_id                 = var.network.private_subnet_id
-    enable_nlb                = false
+    enable_nlb                = true
     nlb_internal              = false
     enable_tdagent            = true
     key                       = ""
     cert                      = ""
-    tag                       = "v1.10.0"
+    tag                       = "v1.12.3"
     image                     = "envoyproxy/envoy"
     tls                       = false
     cert_auto_gen             = true

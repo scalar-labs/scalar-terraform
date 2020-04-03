@@ -30,6 +30,4 @@ The Scalar DL module deploys a scalardl resource cluster using blue/green deploy
 | green_scalardl_ips | A list of host IP addresess for green cluster. |
 | scalardl_blue_resource_count | The number of resources to create for blue cluster. |
 | scalardl_green_resource_count | The number of resources to create for green cluster. |
-| scalardl_lb_dns | A list of dns URLs to access a scalardl cluster. |
-| scalardl_lb_listen_port | A listen port of a scalardl cluster. |
 | scalardl_replication_factor | The replication factor for the schema of scalardl. |

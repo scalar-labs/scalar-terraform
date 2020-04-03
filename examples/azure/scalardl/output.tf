@@ -17,11 +17,3 @@ output "envoy_dns" {
 output "envoy_listen_port" {
   value = module.scalardl.envoy_listen_port
 }
-
-output "scalardl_dns" {
-  value = length(module.scalardl.scalardl_lb_dns) > 0 ? module.scalardl.scalardl_lb_dns[0] : ""
-}
-
-output "scalardl_listen_port" {
-  value = module.scalardl.scalardl_lb_listen_port
-}

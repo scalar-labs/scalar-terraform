@@ -10,4 +10,6 @@ module "cassandra" {
   cassandra = var.cassandra
   cassy     = var.cassy
   reaper    = var.reaper
+
+  custom_tags = local.custom_tags
 }

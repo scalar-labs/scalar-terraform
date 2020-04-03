@@ -13,11 +13,14 @@ module "reaper_cluster" {
   associate_public_ip_address = false
   hostname_prefix             = "reaper"
 
-  tags = {
-    Terraform = true
-    Network   = local.network_name
-    Role      = "reaper"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+      Role      = "reaper"
+    }
+  )
 
   root_block_device = [
     {
@@ -48,9 +51,14 @@ resource "aws_security_group" "reaper" {
   description = "Reaper nodes"
   vpc_id      = local.network_id
 
-  tags = {
-    Name = "${local.network_name} reaper"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = "${local.network_name} reaper"
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 }
 
 resource "aws_security_group_rule" "reaper_ssh" {

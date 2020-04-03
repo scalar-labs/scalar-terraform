@@ -13,11 +13,14 @@ module "cassandra_cluster" {
   associate_public_ip_address = false
   hostname_prefix             = "cassandra"
 
-  tags = {
-    Terraform = true
-    Network   = local.network_name
-    Role      = "cassandra"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+      Role      = "cassandra"
+    }
+  )
 
   root_block_device = [
     {
@@ -34,6 +37,14 @@ resource "aws_ebs_volume" "cassandra_data_volume" {
   availability_zone = local.location
   size              = local.cassandra.data_remote_volume_size
   type              = local.cassandra.data_remote_volume_type
+
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 }
 
 resource "aws_volume_attachment" "cassandra_data_volume_attachment" {
@@ -96,6 +107,14 @@ resource "aws_ebs_volume" "cassandra_commitlog_volume" {
   availability_zone = local.location
   size              = local.cassandra.commitlog_remote_volume_size
   type              = local.cassandra.commitlog_remote_volume_type
+
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 }
 
 resource "aws_volume_attachment" "cassandra_commitlog_volume_attachment" {
@@ -176,9 +195,14 @@ resource "aws_security_group" "cassandra" {
   description = "Cassandra nodes"
   vpc_id      = local.network_id
 
-  tags = {
-    Name = "${local.network_name} Cassandra"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = "${local.network_name} Cassandra"
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 }
 
 resource "aws_security_group_rule" "cassandra_ssh" {

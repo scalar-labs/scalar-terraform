@@ -13,11 +13,14 @@ module "cassy_cluster" {
   associate_public_ip_address = false
   hostname_prefix             = "cassy"
 
-  tags = {
-    Terraform = true
-    Network   = local.network_name
-    Role      = "cassy"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+      Role      = "cassy"
+    }
+  )
 
   root_block_device = [
     {
@@ -47,9 +50,14 @@ resource "aws_security_group" "cassy" {
   description = "cassy nodes"
   vpc_id      = local.network_id
 
-  tags = {
-    Name = "${local.network_name} cassy"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = "${local.network_name} cassy"
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 }
 
 resource "aws_security_group_rule" "cassy_ssh" {

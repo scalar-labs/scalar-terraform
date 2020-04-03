@@ -69,6 +69,11 @@ output "internal_domain" {
   description = "The internal domain for setting srv record"
 }
 
+output "custom_tags" {
+  value       = var.custom_tags
+  description = "The internal domain for setting srv record"
+}
+
 output "ssh_config" {
   value = <<EOF
 Host *

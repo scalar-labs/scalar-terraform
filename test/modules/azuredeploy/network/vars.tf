@@ -15,6 +15,10 @@ variable "private_key_path" {
   default = "../../test_key"
 }
 
+variable "public_key_folder_path" {
+  default = "./public_key"
+}
+
 variable "internal_domain" {
   default = "internal.scalar-labs.com"
 }

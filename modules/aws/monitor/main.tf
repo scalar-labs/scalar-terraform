@@ -115,7 +115,7 @@ resource "aws_security_group" "monitor" {
   tags = merge(
     var.custom_tags,
     {
-      Name = "${local.network_name} monitor"
+      Name      = "${local.network_name} monitor"
       Terraform = "true"
       Network   = local.network_name
     }

@@ -42,6 +42,9 @@ $ chmod 400 example_key
 # If needed start ssh-agent using: eval $(ssh-agent -s)
 $ ssh-add example_key
 
+# to add access to your teammate, you can add the public ssh key under network/public_key, one key per file
+$ cp {team_member_key} examples/aws/network/public_key/
+
 # Create an environment
 $ terraform init
 $ terraform apply -var-file example.tfvars

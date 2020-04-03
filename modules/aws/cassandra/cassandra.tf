@@ -41,6 +41,7 @@ resource "aws_ebs_volume" "cassandra_data_volume" {
   tags = merge(
     var.custom_tags,
     {
+      Name      = "${local.network_name} Cassandra data"
       Terraform = "true"
       Network   = local.network_name
     }
@@ -111,6 +112,7 @@ resource "aws_ebs_volume" "cassandra_commitlog_volume" {
   tags = merge(
     var.custom_tags,
     {
+      Name      = "${local.network_name} Cassandra commitlog"
       Terraform = "true"
       Network   = local.network_name
     }

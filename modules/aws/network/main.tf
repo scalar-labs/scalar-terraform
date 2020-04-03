@@ -23,15 +23,21 @@ module "vpc" {
   enable_nat_gateway   = true
   single_nat_gateway   = true
 
-  igw_tags = {
-    Terraform = "true"
-    Name      = module.name_generator.name
-  }
+  igw_tags = merge(
+    var.custom_tags,
+    {
+      Name      = module.name_generator.name
+      Terraform = "true"
+    }
+  )
 
-  tags = {
-    Terraform = "true"
-    Name      = module.name_generator.name
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = module.name_generator.name
+      Terraform = "true"
+    }
+  )
 }
 
 module "dns" {

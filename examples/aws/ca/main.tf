@@ -7,4 +7,6 @@ module "ca" {
 
   # Optional Variables
   ca = var.ca
+
+  custom_tags = local.custom_tags
 }

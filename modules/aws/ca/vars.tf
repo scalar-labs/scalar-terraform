@@ -8,3 +8,9 @@ variable "ca" {
   default     = {}
   description = "The custom settings of CA resource"
 }
+
+variable "custom_tags" {
+  type        = map(string)
+  default     = {}
+  description = "The map of custom tags"
+}

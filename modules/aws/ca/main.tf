@@ -13,11 +13,14 @@ module "ca_cluster" {
   associate_public_ip_address = false
   hostname_prefix             = "ca"
 
-  tags = {
-    Terraform = true
-    Network   = local.network_name
-    Role      = "ca"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+      Role      = "ca"
+    }
+  )
 
   root_block_device = [
     {
@@ -47,9 +50,14 @@ resource "aws_security_group" "ca" {
   description = "ca nodes"
   vpc_id      = local.network_id
 
-  tags = {
-    Name = "${local.network_name} ca"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Name = "${local.network_name} ca"
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 }
 
 resource "aws_security_group_rule" "ca_ssh" {

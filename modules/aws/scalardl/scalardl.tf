@@ -20,6 +20,7 @@ module "scalardl_blue" {
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_domain           = local.internal_domain
+  custom_tags               = var.custom_tags
 }
 
 module "scalardl_green" {
@@ -44,6 +45,7 @@ module "scalardl_green" {
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_domain           = local.internal_domain
+  custom_tags               = var.custom_tags
 }
 
 resource "aws_security_group" "scalardl" {
@@ -53,9 +55,14 @@ resource "aws_security_group" "scalardl" {
   description = "Scalar DL Security Rules"
   vpc_id      = local.network_id
 
-  tags = {
-    Name = "${local.network_name} Scalar DL"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = "${local.network_name} Scalar DL"
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 }
 
 resource "aws_security_group_rule" "scalardl_ssh" {

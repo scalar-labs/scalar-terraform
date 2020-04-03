@@ -13,11 +13,14 @@ module "envoy_cluster" {
   associate_public_ip_address = false
   hostname_prefix             = "envoy"
 
-  tags = {
-    Terraform = true
-    Network   = local.network_name
-    Role      = "envoy"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+      Role      = "envoy"
+    }
+  )
 
   root_block_device = [
     {

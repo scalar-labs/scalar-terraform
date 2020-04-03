@@ -56,7 +56,9 @@ resource "aws_security_group" "bastion" {
   tags = merge(
     var.custom_tags,
     {
-      Name = "${var.network_name} Bastion"
+      Name      = "${var.network_name} Bastion"
+      Terraform = "true"
+      Network   = var.network_name
     }
   )
 

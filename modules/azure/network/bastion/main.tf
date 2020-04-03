@@ -19,14 +19,14 @@ module "bastion_cluster" {
 module "bastion_provision" {
   source = "../../../universal/bastion"
 
-  triggers                        = module.bastion_cluster.vm_ids
-  bastion_host_ips                = module.bastion_cluster.public_ip_dns_name
-  user_name                       = var.user_name
-  private_key_path                = var.private_key_path
-  multiple_public_key_folder_path = var.multiple_public_key_folder_path
-  provision_count                 = "1"
-  enable_tdagent                  = var.enable_tdagent
-  internal_domain                 = var.network_dns
+  triggers               = module.bastion_cluster.vm_ids
+  bastion_host_ips       = module.bastion_cluster.public_ip_dns_name
+  user_name              = var.user_name
+  private_key_path       = var.private_key_path
+  public_key_folder_path = var.public_key_folder_path
+  provision_count        = "1"
+  enable_tdagent         = var.enable_tdagent
+  internal_domain        = var.network_dns
 }
 
 resource "azurerm_private_dns_a_record" "bastion_dns_a" {

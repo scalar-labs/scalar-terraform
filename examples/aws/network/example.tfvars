@@ -10,7 +10,7 @@ private_key_path = "./example_key"
 
 internal_domain = "internal.scalar-labs.com"
 
-multiple_public_key_folder_path = "./public_key"
+public_key_folder_path = "./public_key"
 
 network = {
   # bastion_resource_type     = "t3.micro"

@@ -16,7 +16,7 @@ variable "triggers" {
   default     = []
 }
 
-variable "multiple_public_key_folder_path" {
+variable "public_key_folder_path" {
   description = "The path to the multiple public key folder for SSH access."
 }
 

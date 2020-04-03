@@ -18,7 +18,7 @@ variable "private_key_path" {
   description = "The path to the private key for SSH access"
 }
 
-variable "multiple_public_key_folder_path" {
+variable "public_key_folder_path" {
   description = "The path to the multiple public key folder for SSH access."
 }
 

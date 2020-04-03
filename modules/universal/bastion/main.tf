@@ -17,7 +17,7 @@ resource "null_resource" "ansible_playbooks_copy" {
 
   provisioner "local-exec" {
     command = <<EOT
-for i in ${var.public_key_folder_path}/*.pub;
+for i in ${var.public_key_folder_path}/*;
   do if [[ -e $i ]]; then 
     mkdir -p ../../../provision/ansible/playbooks/files/ssh_public; 
     cp $i ../../../provision/ansible/playbooks/files/ssh_public/; 

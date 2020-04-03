@@ -23,7 +23,7 @@
       authorized_key:
         user: centos
         state: present
-        key: "{% for key in lookup('fileglob', 'files/ssh_public/*.pub').split(',') %}{{ lookup('file', key) ~ '\n'}}{% endfor %}"
+        key: "{% for key in lookup('fileglob', 'files/ssh_public/*').split(',') %}{{ lookup('file', key) ~ '\n'}}{% endfor %}"
       when: folder_details.stat.isdir is defined and folder_details.stat.isdir
   tags:
   - ssh

@@ -61,7 +61,7 @@ resource "aws_security_group" "ca" {
   tags = merge(
     var.custom_tags,
     {
-      Name = "${local.network_name} ca"
+      Name      = "${local.network_name} ca"
       Terraform = "true"
       Network   = local.network_name
     }

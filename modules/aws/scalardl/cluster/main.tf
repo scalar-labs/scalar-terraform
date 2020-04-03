@@ -24,6 +24,14 @@ module "scalardl_cluster" {
     }
   )
 
+  volume_tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = var.network_name
+    }
+  )
+
   root_block_device = [
     {
       volume_size           = var.resource_root_volume_size

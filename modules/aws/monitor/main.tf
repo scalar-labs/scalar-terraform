@@ -13,11 +13,14 @@ module "monitor_cluster" {
   associate_public_ip_address = false
   hostname_prefix             = "monitor"
 
-  tags = {
-    Terraform = true
-    Network   = local.network_name
-    Role      = "monitor"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+      Role      = "monitor"
+    }
+  )
 
   root_block_device = [
     {
@@ -35,6 +38,15 @@ resource "aws_ebs_volume" "monitor_log_volume" {
   size              = local.monitor.log_volume_size
   type              = local.monitor.log_volume_type
   depends_on        = [module.monitor_cluster]
+
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = "${local.network_name} Monitor log"
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 }
 
 resource "aws_volume_attachment" "monitor_log_volume_attachment" {
@@ -92,9 +104,14 @@ resource "aws_security_group" "monitor" {
   description = "Monitor nodes"
   vpc_id      = local.network_id
 
-  tags = {
-    Name = "${local.network_name} monitor"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Name = "${local.network_name} monitor"
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 }
 
 resource "aws_security_group_rule" "monitor_ssh" {

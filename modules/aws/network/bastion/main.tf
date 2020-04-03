@@ -21,7 +21,7 @@ module "bastion_cluster" {
   tags = merge(
     var.custom_tags,
     {
-      Terraform = true
+      Terraform = "true"
       Trigger   = var.trigger
       Network   = var.network_name
       Role      = "bastion"

@@ -22,6 +22,14 @@ module "cassy_cluster" {
     }
   )
 
+  volume_tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
+
   root_block_device = [
     {
       volume_size           = local.cassy.resource_root_volume_size

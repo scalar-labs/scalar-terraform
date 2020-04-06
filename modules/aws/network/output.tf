@@ -34,7 +34,7 @@ output "image_id" {
   description = "The image id to initiate."
 }
 
-output "bastion_provision_ids" {
+output "bastion_provision_id" {
   value       = module.bastion.bastion_provision_id
   description = "The provision id of bastion."
 }

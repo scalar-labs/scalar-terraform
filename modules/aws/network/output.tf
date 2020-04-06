@@ -34,7 +34,7 @@ output "image_id" {
   description = "The image id to initiate."
 }
 
-output "bastion_provision_id" {
+output "bastion_provision_ids" {
   value       = module.bastion.bastion_provision_id
   description = "The provision id of bastion."
 }
@@ -44,9 +44,9 @@ output "key_name" {
   description = "The key-name of the AWS managed ssh key_pair."
 }
 
-output "bastion_ip" {
-  value       = module.bastion.bastion_host_ips[0]
-  description = "Public IP address to bastion host"
+output "bastion_ips" {
+  value       = module.bastion.bastion_host_ips
+  description = "Public IP address to bastion hosts"
 }
 
 output "azs" {

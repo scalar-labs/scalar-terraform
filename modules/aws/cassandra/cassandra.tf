@@ -9,7 +9,7 @@ module "cassandra_cluster" {
   key_name                    = local.key_name
   monitoring                  = false
   vpc_security_group_ids      = aws_security_group.cassandra.*.id
-  subnet_id                   = local.subnet_id
+  subnet_ids                  = local.subnet_ids
   associate_public_ip_address = false
   hostname_prefix             = "cassandra"
 
@@ -31,7 +31,7 @@ module "cassandra_cluster" {
 resource "aws_ebs_volume" "cassandra_data_volume" {
   count = local.cassandra.enable_data_volume && ! local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
-  availability_zone = local.location
+  availability_zone = local.azs[count.index]
   size              = local.cassandra.data_remote_volume_size
   type              = local.cassandra.data_remote_volume_type
 }
@@ -93,7 +93,7 @@ resource "null_resource" "volume_data_local" {
 resource "aws_ebs_volume" "cassandra_commitlog_volume" {
   count = local.cassandra.enable_commitlog_volume && ! local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
 
-  availability_zone = local.location
+  availability_zone = local.azs[count.index]
   size              = local.cassandra.commitlog_remote_volume_size
   type              = local.cassandra.commitlog_remote_volume_type
 }

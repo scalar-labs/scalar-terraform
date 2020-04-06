@@ -1,5 +1,5 @@
 output "bastion_ip" {
-  value = module.network.bastion_ip
+  value = module.network.bastion_ips[0]
 }
 
 output "network_cidr" {

@@ -6,7 +6,7 @@ locals {
     id   = "vpc-1234567890abcdefg"
     azs  = "ap-northeast-1c,ap-northeast-1a"
 
-    subnet_ids = ["subnet-1234567890abcdefg", "subnet-1234567890hijklmn"]
+    subnet_ids = "subnet-1234567890abcdefg,subnet-1234567890hijklmn"
     image_id   = "ami-1234567890abcdefg"
     key_name   = "example-aws-xxxxxxx-key"
 

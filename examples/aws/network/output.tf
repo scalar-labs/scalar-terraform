@@ -27,7 +27,7 @@ output "image_id" {
 }
 
 output "bastion_provision_id" {
-  value = module.network.bastion_provision_id
+  value = module.network.bastion_provision_ids[0]
 }
 
 output "key_name" {

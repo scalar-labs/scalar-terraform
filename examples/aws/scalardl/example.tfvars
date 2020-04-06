@@ -15,6 +15,8 @@ scalardl = {
   # green_image_name            = "scalarlabs/scalar-ledger"
   # green_discoverable_by_envoy = "false"
   # enable_tdagent              = "true"
+  # cassandra_user              = ""
+  # cassandra_password          = ""
 }
 
 envoy = {

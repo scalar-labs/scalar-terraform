@@ -27,7 +27,6 @@ envoy = {
   # resource_root_volume_size = "64"
   # target_port               = "50051"
   # listen_port               = "50051"
-  # nlb_subnet_id             = "
   # enable_nlb                = "false"
   # nlb_internal              = "false"
   # enable_tdagent            = "true"

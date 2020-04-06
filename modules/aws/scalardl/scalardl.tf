@@ -11,7 +11,7 @@ module "scalardl_blue" {
   triggers                  = local.triggers
   private_key_path          = local.private_key_path
   user_name                 = local.user_name
-  subnet_id                 = local.blue_subnet_id
+  subnet_ids                = local.blue_subnet_ids
   image_id                  = local.image_id
   key_name                  = local.key_name
   network_dns               = local.network_dns
@@ -35,7 +35,7 @@ module "scalardl_green" {
   triggers                  = local.triggers
   private_key_path          = local.private_key_path
   user_name                 = local.user_name
-  subnet_id                 = local.green_subnet_id
+  subnet_ids                = local.green_subnet_ids
   image_id                  = local.image_id
   key_name                  = local.key_name
   network_dns               = local.network_dns
@@ -155,7 +155,7 @@ resource "aws_lb" "scalardl-lb" {
   name               = "${local.network_name}-sdl-lb"
   internal           = local.scalardl.nlb_internal
   load_balancer_type = "network"
-  subnets            = [local.scalardl_nlb_subnet_id]
+  subnets            = local.scalardl_nlb_subnet_ids
 
   enable_deletion_protection = false
 }

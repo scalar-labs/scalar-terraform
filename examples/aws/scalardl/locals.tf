@@ -1,10 +1,10 @@
 locals {
   network = {
-    cidr     = data.terraform_remote_state.network.outputs.network_cidr
-    name     = data.terraform_remote_state.network.outputs.network_name
-    dns      = data.terraform_remote_state.network.outputs.network_dns
-    id       = data.terraform_remote_state.network.outputs.network_id
-    location = data.terraform_remote_state.network.outputs.location
+    cidr = data.terraform_remote_state.network.outputs.network_cidr
+    name = data.terraform_remote_state.network.outputs.network_name
+    dns  = data.terraform_remote_state.network.outputs.network_dns
+    id   = data.terraform_remote_state.network.outputs.network_id
+    azs  = join(",", data.terraform_remote_state.network.outputs.azs)
 
     image_id = data.terraform_remote_state.network.outputs.image_id
     key_name = data.terraform_remote_state.network.outputs.key_name
@@ -16,10 +16,10 @@ locals {
     user_name        = data.terraform_remote_state.network.outputs.user_name
     internal_domain  = data.terraform_remote_state.network.outputs.internal_domain
 
-    public_subnet_id  = data.terraform_remote_state.network.outputs.subnet_map["public"]
-    private_subnet_id = data.terraform_remote_state.network.outputs.subnet_map["private"]
-    blue_subnet_id    = data.terraform_remote_state.network.outputs.subnet_map["scalardl_blue"]
-    green_subnet_id   = data.terraform_remote_state.network.outputs.subnet_map["scalardl_green"]
+    public_subnet_ids  = join(",", data.terraform_remote_state.network.outputs.subnet_map["public"])
+    private_subnet_ids = join(",", data.terraform_remote_state.network.outputs.subnet_map["private"])
+    blue_subnet_ids    = join(",", data.terraform_remote_state.network.outputs.subnet_map["scalardl_blue"])
+    green_subnet_ids   = join(",", data.terraform_remote_state.network.outputs.subnet_map["scalardl_green"])
   }
 
   cassandra = {

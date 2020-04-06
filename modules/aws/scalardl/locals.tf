@@ -1,18 +1,20 @@
 ### General
 locals {
-  network_cidr     = var.network.cidr
-  network_name     = var.network.name
-  network_dns      = var.network.dns
-  network_id       = var.network.id
-  location         = var.network.location
-  image_id         = var.network.image_id
-  key_name         = var.network.key_name
-  bastion_ip       = var.network.bastion_ip
-  private_key_path = var.network.private_key_path
-  user_name        = var.network.user_name
-  blue_subnet_id   = var.network.blue_subnet_id
-  green_subnet_id  = var.network.green_subnet_id
-  internal_domain  = var.network.internal_domain
+  network_cidr       = var.network.cidr
+  network_name       = var.network.name
+  network_dns        = var.network.dns
+  network_id         = var.network.id
+  azs                = split(",", var.network.azs)
+  image_id           = var.network.image_id
+  key_name           = var.network.key_name
+  bastion_ip         = var.network.bastion_ip
+  private_key_path   = var.network.private_key_path
+  user_name          = var.network.user_name
+  private_subnet_ids = split(",", var.network.private_subnet_ids)
+  public_subnet_ids  = split(",", var.network.public_subnet_ids)
+  blue_subnet_ids    = split(",", var.network.blue_subnet_ids)
+  green_subnet_ids   = split(",", var.network.green_subnet_ids)
+  internal_domain    = var.network.internal_domain
 
   triggers = [var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id]
 }
@@ -62,7 +64,7 @@ locals {
     var.scalardl
   )
 
-  scalardl_nlb_subnet_id = local.scalardl.nlb_internal ? var.network.private_subnet_id : var.network.public_subnet_id
+  scalardl_nlb_subnet_ids = local.scalardl.nlb_internal ? local.private_subnet_ids : local.public_subnet_ids
 }
 
 ### envoy
@@ -73,7 +75,7 @@ locals {
     resource_root_volume_size = 64
     target_port               = 50051
     listen_port               = 50051
-    subnet_id                 = var.network.private_subnet_id
+    subnet_ids                = local.private_subnet_ids
     enable_nlb                = false
     nlb_internal              = false
     enable_tdagent            = true
@@ -107,5 +109,5 @@ locals {
 
   envoy_create_count     = local.envoy.resource_count > 0 ? 1 : 0
   envoy_nlb_create_count = local.envoy.enable_nlb ? 1 : 0
-  envoy_nlb_subnet_id    = local.envoy.nlb_internal ? var.network.private_subnet_id : var.network.public_subnet_id
+  envoy_nlb_subnet_ids   = local.envoy.nlb_internal ? local.private_subnet_ids : local.public_subnet_ids
 }

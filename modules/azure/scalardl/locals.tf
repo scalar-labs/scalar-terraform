@@ -32,6 +32,8 @@ locals {
     green_subnet_id             = var.network.green_subnet_id
     green_discoverable_by_envoy = false
     enable_tdagent              = true
+    cassandra_user              = ""
+    cassandra_password          = ""
   }
 }
 

@@ -158,7 +158,7 @@ resource "null_resource" "scalardl_schema" {
   provisioner "remote-exec" {
     inline = [
       "cd $HOME/provision",
-      "SCALAR_IMAGE=${local.provision_image} SCALAR_CASSANDRA_HOST=${local.scalar_cassandra_host} CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} docker-compose run --rm scalar dockerize -template create_schema.cql.tmpl:create_schema.cql -wait tcp://${local.scalar_cassandra_host}:9042 -timeout 30s ./create_schema.sh",
+      "SCALAR_IMAGE=${local.provision_image} SCALAR_CASSANDRA_HOST=${local.scalar_cassandra_host} SCALAR_CASSANDRA_USER=${local.cassandra_user} SCALAR_CASSANDRA_PASSWORD=${local.cassandra_password} CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} docker-compose run --rm scalar dockerize -template create_schema.cql.tmpl:create_schema.cql -wait tcp://${local.scalar_cassandra_host}:9042 -timeout 30s ./create_schema.sh",
     ]
   }
 }
@@ -184,6 +184,8 @@ resource "null_resource" "scalardl_container" {
       "echo export SCALAR_IMAGE=${local.provision_image} > env",
       "echo export FROM_SCALAR_IMAGE=${local.from_scalar_image} >> env",
       "echo export SCALAR_CASSANDRA_HOST=${local.scalar_cassandra_host} >> env",
+      "echo export SCALAR_CASSANDRA_USER=${local.cassandra_user} >> env",
+      "echo export SCALAR_CASSANDRA_PASSWORD=${local.cassandra_password} >> env",
       "echo export CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} >> env",
       "source ./env",
       "docker-compose up -d",

@@ -20,6 +20,8 @@ module "scalardl_blue" {
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_domain           = local.internal_domain
+  cassandra_user            = local.scalardl.cassandra_user
+  cassandra_password        = local.scalardl.cassandra_password
 }
 
 module "scalardl_green" {
@@ -44,6 +46,8 @@ module "scalardl_green" {
   replication_factor        = local.scalardl.replication_factor
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_domain           = local.internal_domain
+  cassandra_user            = local.scalardl.cassandra_user
+  cassandra_password        = local.scalardl.cassandra_password
 }
 
 resource "aws_security_group" "scalardl" {

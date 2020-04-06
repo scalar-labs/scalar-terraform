@@ -36,6 +36,8 @@ locals {
     listen_port                 = 50051
     privileged_listen_port      = 50052
     enable_tdagent              = true
+    cassandra_user              = ""
+    cassandra_password          = ""
   }
 }
 

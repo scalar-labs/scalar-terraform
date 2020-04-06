@@ -3,7 +3,9 @@ variable "region" {}
 
 variable "name" {}
 
-variable "location" {}
+variable "azs" {
+  type = list
+}
 
 variable "public_key_path" {}
 

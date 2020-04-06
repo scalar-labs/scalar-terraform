@@ -1,0 +1,30 @@
+locals {
+  network = {
+    cidr = "10.42.0.0/16"
+    name = "example-aws"
+    dns  = "Z08111302BU37G0O8OMMY"
+    id   = "vpc-08f36c547a1aca222"
+    azs  = "ap-northeast-1c,ap-northeast-1a"
+
+    subnet_ids = "subnet-1234567890abcdefg,subnet-1234567890hijklmn"
+    image_id   = "ami-0d9d854feeddeef21"
+    key_name   = "example-aws-xxxxxxx-key"
+
+    bastion_ip           = "13.231.179.116"
+    bastion_provision_id = "9139872180792820156"
+
+    private_key_path  = "../../test.pem"
+    user_name         = "centos"
+    internal_domain = "internal.scalar-labs.com"
+
+    public_subnet_ids  = "subnet-0fcdd0a1f75e86b1f,subnet-1fcdd0a1f75e86b1f"
+    private_subnet_ids = "subnet-0fcdd0a1f75e86b1g,subnet-1fcdd0a1f75e86b1g"
+    blue_subnet_ids    = "subnet-0fcdd0a1f75e86b1h,subnet-1fcdd0a1f75e86b1h"
+    green_subnet_ids   = "subnet-0fcdd0a1f75e86b1i,subnet-1fcdd0a1f75e86b1i"
+  }
+
+  cassandra = {
+    start_on_initial_boot = false
+    provision_ids         = "6806549857469577823"
+  }
+}

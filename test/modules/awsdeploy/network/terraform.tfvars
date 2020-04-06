@@ -2,7 +2,7 @@ region = "us-east-1"
 
 name = "Terratest"
 
-location = "us-east-1c"
+azs = ["us-east-1c"]
 
 public_key_path = "../../test_key.pub"
 

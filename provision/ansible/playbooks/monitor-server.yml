@@ -24,3 +24,21 @@
     - "docker"
   gather_facts: yes
   become: no
+
+- name: Set up multiple authorized keys
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: test if ssh_public folder exist
+      local_action: stat path="files/ssh_public"
+      register: folder_details
+
+    - name: add key
+      authorized_key:
+        user: centos
+        state: present
+        key: "{% for key in lookup('fileglob', 'files/ssh_public/*').split(',') %}{{ lookup('file', key) ~ '\n'}}{% endfor %}"
+      when: folder_details.stat.isdir is defined and folder_details.stat.isdir
+  tags:
+  - ssh
+

@@ -60,8 +60,10 @@ module "bastion" {
 
   trigger = module.vpc.natgw_ids[0]
 
-  public_key_path  = var.public_key_path
-  private_key_path = var.private_key_path
+  public_key_path        = var.public_key_path
+  private_key_path       = var.private_key_path
+  public_key_folder_path = var.public_key_folder_path
+
 
   resource_type             = local.network.bastion_resource_type
   resource_count            = local.network.bastion_resource_count

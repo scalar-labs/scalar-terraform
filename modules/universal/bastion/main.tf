@@ -15,6 +15,17 @@ resource "null_resource" "ansible_playbooks_copy" {
     private_key = file(var.private_key_path)
   }
 
+  provisioner "local-exec" {
+    command = <<EOT
+for i in ${var.public_key_folder_path}/*;
+  do if [[ -e $i ]]; then 
+    mkdir -p ../../../provision/ansible/playbooks/files/ssh_public; 
+    cp $i ../../../provision/ansible/playbooks/files/ssh_public/; 
+  fi; 
+done
+  EOT
+  }
+
   provisioner "file" {
     source      = module.ansible.local_playbook_path
     destination = module.ansible.remote_playbook_path

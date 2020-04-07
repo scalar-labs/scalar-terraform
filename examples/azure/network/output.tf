@@ -38,7 +38,6 @@ output "public_key_folder_path" {
   value = module.network.public_key_folder_path
 }
 
-
 output "location" {
   value = module.network.location
 }

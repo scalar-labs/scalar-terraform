@@ -26,8 +26,8 @@ module "reaper_provision" {
   replication_factor = local.reaper.replication_factor
   enable_tdagent     = local.reaper.enable_tdagent
   internal_domain    = local.internal_domain
-  cassandra_username  = local.reaper.cassandra_username
-  cassandra_password  = local.reaper.cassandra_password
+  cassandra_username = local.reaper.cassandra_username
+  cassandra_password = local.reaper.cassandra_password
 }
 
 resource "azurerm_private_dns_a_record" "reaper-dns" {

@@ -28,7 +28,7 @@ module "scalardl_blue" {
   enable_tdagent            = local.scalardl.enable_tdagent
   availability_set_id       = azurerm_availability_set.scalar_availability_set.id
   internal_domain           = local.internal_domain
-  cassandra_user            = local.scalardl.cassandra_user
+  cassandra_username        = local.scalardl.cassandra_username
   cassandra_password        = local.scalardl.cassandra_password
 }
 
@@ -56,7 +56,7 @@ module "scalardl_green" {
   enable_tdagent            = local.scalardl.enable_tdagent
   availability_set_id       = azurerm_availability_set.scalar_availability_set.id
   internal_domain           = local.internal_domain
-  cassandra_user            = local.scalardl.cassandra_user
+  cassandra_username        = local.scalardl.cassandra_username
   cassandra_password        = local.scalardl.cassandra_password
 }
 

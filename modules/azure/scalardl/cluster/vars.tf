@@ -81,8 +81,8 @@ variable "internal_domain" {
   description = "Internal domain"
 }
 
-variable "cassandra_user" {
-  description = "The user of cassandra cluster"
+variable "cassandra_username" {
+  description = "The username of cassandra cluster"
 }
 
 variable "cassandra_password" {

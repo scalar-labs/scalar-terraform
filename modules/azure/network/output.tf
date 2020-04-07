@@ -46,7 +46,7 @@ output "public_key_path" {
 
 output "additional_public_keys_path" {
   value       = abspath(pathexpand(var.additional_public_keys_path))
-  description = "The path to the multiple public key folder for SSH access."
+  description = "The path to the additional public key for SSH access."
 }
 
 output "bastion_ip" {

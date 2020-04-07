@@ -41,11 +41,11 @@ $ chmod 400 example_key
 # If needed start ssh-agent using: eval $(ssh-agent -s)
 $ ssh-add example_key
 
-# to add access to your teammate, you can add the public ssh key under network/public_key, one key per file
-$ cp {team_member_key} examples/azure/network/public_key/
-# ls examples/azure/network/public_key/
-# -rw-r--r--  1 paul  staff   410B Apr  6 11:23 member1_public
-# -rw-r--r--  1 paul  staff   410B Apr  6 11:23 member2_public
+# to add access to your teammate, you can add the public ssh key under additional_public_keys file (one line, one key)
+# the file should be like
+# cat examples/azure/network/additional_public_keys
+# ssh-rsa AAAAB3Nza..... teammate1
+# ssh-rsa...... teammate2
 
 # Create an environment
 $ terraform init

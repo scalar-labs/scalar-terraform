@@ -34,8 +34,8 @@ output "key_name" {
   value = module.network.key_name
 }
 
-output "azs" {
-  value = module.network.azs
+output "locations" {
+  value = module.network.locations
 }
 
 output "user_name" {

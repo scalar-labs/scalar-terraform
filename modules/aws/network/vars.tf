@@ -3,7 +3,7 @@ variable "name" {
   description = "A short name to attach to resources"
 }
 
-variable "azs" {
+variable "locations" {
   type = list(string)
   default = [
     "ap-northeast-1a",

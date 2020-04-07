@@ -5,7 +5,7 @@ variable "region" {
 
 variable "name" {}
 
-variable "azs" {
+variable "locations" {
   type = list(string)
   default = [
     "ap-northeast-1a",

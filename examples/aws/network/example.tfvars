@@ -1,8 +1,8 @@
 region = "ap-northeast-1"
 
-name = "tei-aws" # maximum of 13 characters
+name = "example-aws" # maximum of 13 characters
 
-azs = [
+locations = [
   "ap-northeast-1a",
   "ap-northeast-1c",
   "ap-northeast-1d",

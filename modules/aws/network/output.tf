@@ -49,8 +49,8 @@ output "bastion_ips" {
   description = "Public IP address to bastion hosts"
 }
 
-output "azs" {
-  value       = var.azs
+output "locations" {
+  value       = var.locations
   description = "The AWS availability zone to deploy environment."
 }
 

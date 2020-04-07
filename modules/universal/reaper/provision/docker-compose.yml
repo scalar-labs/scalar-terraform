@@ -4,7 +4,14 @@ services:
     image: scalar-cassandra-reaper:latest
     build:
       context: ./
-    command: ["cqlsh", "--cqlversion=3.4.4", "-u", "${REAPER_CASS_AUTH_USERNAME}", "-p", "${REAPER_CASS_AUTH_PASSWORD}", "${REAPER_CASS_CONTACT_POINTS}", "-e", "CREATE KEYSPACE reaper_db WITH replication = {'class': 'SimpleStrategy', 'replication_factor': ${CASSANDRA_REPLICATION_FACTOR} };"]
+    command:
+     - "cqlsh"
+     - "--cqlversion=3.4.4"
+     - "--username=${REAPER_CASS_AUTH_USERNAME}"
+     - "--password=${REAPER_CASS_AUTH_PASSWORD}"
+     - "--execute"
+     - "CREATE KEYSPACE reaper_db WITH replication = {'class': 'SimpleStrategy', 'replication_factor': ${CASSANDRA_REPLICATION_FACTOR} };"
+     - "${REAPER_CASS_CONTACT_POINTS}"
     restart: on-failure
   reaper:
     image: scalar-cassandra-reaper:latest

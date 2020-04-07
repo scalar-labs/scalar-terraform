@@ -15,7 +15,6 @@ variable "internal_domain" {}
 
 variable "public_key_folder_path" {}
 
-
 variable "network" {
   type    = map
   default = {}

@@ -11,7 +11,7 @@ variable "private_key_path" {}
 
 variable "internal_domain" {}
 
-variable "public_key_folder_path" {}
+variable "additional_public_keys_path" {}
 
 variable "network" {
   type    = map

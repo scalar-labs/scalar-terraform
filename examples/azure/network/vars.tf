@@ -7,7 +7,7 @@ variable "public_key_path" {}
 
 variable "private_key_path" {}
 
-variable "public_key_folder_path" {}
+variable "additional_public_keys_path" {}
 
 variable "internal_domain" {}
 

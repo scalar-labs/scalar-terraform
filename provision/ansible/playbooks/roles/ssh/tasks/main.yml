@@ -1,0 +1,16 @@
+---
+- name: test if ssh_public folder exist
+  local_action: stat path="roles/ssh/files/additional_public_keys"
+  register: files_detail
+
+- debug: 
+    msg: "{{item}}"
+  loop: "{{ lookup('file', 'roles/ssh/files/additional_public_keys').splitlines() }}"
+
+- name: add key
+  authorized_key:
+    user: "{{ ansible_user }}"
+    state: present
+    key: "{{ item }}"
+  loop: "{{ lookup('file', 'roles/ssh/files/additional_public_keys').splitlines() }}"
+  when: files_detail.stat.exists

@@ -8,7 +8,7 @@ private_key_path = "./example_key"
 
 internal_domain = "internal.scalar-labs.com"
 
-public_key_folder_path = "./public_key"
+additional_public_keys_path = "./additional_public_keys"
 
 network = {
   # bastion_resource_type     = "Standard_D2s_v3"

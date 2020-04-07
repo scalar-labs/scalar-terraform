@@ -35,15 +35,15 @@ module "bastion_cluster" {
 }
 
 module "bastion_provision" {
-  source                 = "../../../universal/bastion"
-  triggers               = module.bastion_cluster.id
-  bastion_host_ips       = module.bastion_cluster.public_ip
-  user_name              = var.user_name
-  private_key_path       = var.private_key_path
-  provision_count        = var.resource_count
-  enable_tdagent         = var.enable_tdagent
-  internal_domain        = var.internal_domain
-  public_key_folder_path = var.public_key_folder_path
+  source                      = "../../../universal/bastion"
+  triggers                    = module.bastion_cluster.id
+  bastion_host_ips            = module.bastion_cluster.public_ip
+  user_name                   = var.user_name
+  private_key_path            = var.private_key_path
+  provision_count             = var.resource_count
+  enable_tdagent              = var.enable_tdagent
+  internal_domain             = var.internal_domain
+  additional_public_keys_path = var.additional_public_keys_path
 }
 
 resource "aws_security_group" "bastion" {

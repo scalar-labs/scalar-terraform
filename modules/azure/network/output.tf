@@ -44,8 +44,8 @@ output "public_key_path" {
   description = "The path to the public key for SSH access."
 }
 
-output "public_key_folder_path" {
-  value       = abspath(pathexpand(var.public_key_folder_path))
+output "additional_public_keys_path" {
+  value       = abspath(pathexpand(var.additional_public_keys_path))
   description = "The path to the multiple public key folder for SSH access."
 }
 

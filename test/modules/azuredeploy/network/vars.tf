@@ -15,8 +15,8 @@ variable "private_key_path" {
   default = "../../test_key"
 }
 
-variable "public_key_folder_path" {
-  default = "./public_key"
+variable "additional_public_keys_path" {
+  default = "./additional_public_keys"
 }
 
 variable "internal_domain" {

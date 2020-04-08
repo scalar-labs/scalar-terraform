@@ -17,7 +17,7 @@ variable "triggers" {
 }
 
 variable "additional_public_keys_path" {
-  description = "The path to the additional public key for SSH access."
+  description = "The path to a file that contains multiple public keys for SSH access."
 }
 
 variable "provision_count" {

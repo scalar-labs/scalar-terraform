@@ -27,8 +27,8 @@ variable "private_key_path" {
 }
 
 variable "additional_public_keys_path" {
-  default = "./additional_public_keys"
-  description = "The path to the additional public key for SSH access."
+  default     = "./additional_public_keys"
+  description = "The path to a file that contains multiple public keys for SSH access."
 }
 
 variable "user_name" {

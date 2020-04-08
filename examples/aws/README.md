@@ -48,7 +48,6 @@ $ ssh-add example_key
 # ssh-rsa AAAAB3Nza..... teammate1
 # ssh-rsa...... teammate2
 
-
 # Create an environment
 $ terraform init
 $ terraform apply -var-file example.tfvars

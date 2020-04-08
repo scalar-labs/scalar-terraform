@@ -10,7 +10,6 @@ module "network" {
   internal_domain             = var.internal_domain
   additional_public_keys_path = var.additional_public_keys_path
 
-
   # Optional Variables
   network = var.network
 }

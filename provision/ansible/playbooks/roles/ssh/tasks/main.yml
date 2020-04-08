@@ -1,5 +1,5 @@
 ---
-- name: test if ssh_public folder exist
+- name: test if additional_public_keys file exists
   local_action: stat path="roles/ssh/files/additional_public_keys"
   register: files_detail
 

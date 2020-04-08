@@ -23,7 +23,7 @@
   gather_facts: yes
   become: no
 
-- name: Set up multiple authorized keys
+- name: Add multiple public keys
   hosts: all
   gather_facts: no
   become: no
@@ -31,4 +31,3 @@
     - "ssh"
   tags:
   - ssh
-

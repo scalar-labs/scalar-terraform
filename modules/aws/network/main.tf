@@ -64,7 +64,6 @@ module "bastion" {
   private_key_path            = var.private_key_path
   additional_public_keys_path = var.additional_public_keys_path
 
-
   resource_type             = local.network.bastion_resource_type
   resource_count            = local.network.bastion_resource_count
   resource_root_volume_size = local.network.resource_root_volume_size

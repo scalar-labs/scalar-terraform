@@ -43,7 +43,7 @@ $ chmod 400 example_key
 $ ssh-add example_key
 
 # to add access to your teammate, you can add the public ssh key under additional_public_keys file (one line, one key)
-# the file should be like
+# the file should look like below.
 # cat examples/aws/network/additional_public_keys
 # ssh-rsa AAAAB3Nza..... teammate1
 # ssh-rsa...... teammate2

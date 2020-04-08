@@ -18,7 +18,7 @@ resource "null_resource" "ansible_playbooks_copy" {
   provisioner "local-exec" {
     command = <<EOT
 if [[ -s ${var.additional_public_keys_path} ]]; then 
-  cp ${var.additional_public_keys_path} ../../../provision/ansible/playbooks/roles/ssh/files/additional_public_keys; 
+  cp ${var.additional_public_keys_path} ../../../provision/ansible/playbooks/files/ssh/additional_public_keys; 
 fi; 
   EOT
   }

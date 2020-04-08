@@ -27,10 +27,9 @@
 
 - name: Set up multiple authorized keys
   hosts: all
-  gather_facts: false
-  become: false
+  gather_facts: no
+  become: no
   roles:
     - "ssh"
   tags:
-  - ssh
-
+    - ssh

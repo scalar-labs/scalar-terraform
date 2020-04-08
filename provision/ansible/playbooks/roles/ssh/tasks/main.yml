@@ -1,16 +1,14 @@
 ---
 - name: test if additional_public_keys file exists
-  local_action: stat path="roles/ssh/files/additional_public_keys"
+  local_action: 
+    module: stat 
+    path: "roles/ssh/files/additional_public_keys"
   register: files_detail
-
-- debug: 
-    msg: "{{item}}"
-  loop: "{{ lookup('file', 'roles/ssh/files/additional_public_keys').splitlines() }}"
 
 - name: add key
   authorized_key:
     user: "{{ ansible_user }}"
     state: present
-    key: "{{ item }}"
-  loop: "{{ lookup('file', 'roles/ssh/files/additional_public_keys').splitlines() }}"
-  when: files_detail.stat.exists
+    key: "{{ lookup('file', 'roles/ssh/files/additional_public_keys') }}"
+  when: files_detail.stat.exists == true
+ 

@@ -11,7 +11,7 @@ The Network module creates a virtual network with subnets.
 | network | Custom definition for network and bastion | `map` | `{}` | no |
 | private_key_path | The path to a private key file ~/.ssh/key.pem | `any` | n/a | yes |
 | public_key_path | The path to a public key file ~/.ssh/key.pub | `any` | n/a | yes |
-| additional_public_keys_path | The path to the additional public key for SSH access. | `any` | n/a | yes |
+| additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `any` | n/a | no |
 
 ## Outputs
 
@@ -31,4 +31,4 @@ The Network module creates a virtual network with subnets.
 | ssh_config | The Configuration file for SSH access. |
 | subnet_map | The subnet map of VPC network. |
 | user_name | The user name of the remote hosts. |
-| additional_public_keys_path | The path to the additional public key for SSH access. |
+| additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. |

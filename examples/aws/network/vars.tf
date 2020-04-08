@@ -11,9 +11,11 @@ variable "public_key_path" {}
 
 variable "private_key_path" {}
 
-variable "internal_domain" {}
+variable "additional_public_keys_path" {
+  default = "./additional_public_keys"
+}
 
-variable "additional_public_keys_path" {}
+variable "internal_domain" {}
 
 variable "network" {
   type    = map

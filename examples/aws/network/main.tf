@@ -8,8 +8,8 @@ module "network" {
   public_key_path             = var.public_key_path
   private_key_path            = var.private_key_path
   internal_domain             = var.internal_domain
-  additional_public_keys_path = var.additional_public_keys_path
 
   # Optional Variables
   network = var.network
+  additional_public_keys_path = var.additional_public_keys_path
 }

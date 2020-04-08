@@ -15,10 +15,6 @@ variable "private_key_path" {
   description = "The path to a private key file ~/.ssh/key.pem"
 }
 
-variable "additional_public_keys_path" {
-  description = "The path to the additional public key for SSH access."
-}
-
 variable "internal_domain" {
   description = "An internal DNS domain name to use for mapping IP addresses"
 }
@@ -28,4 +24,8 @@ variable "network" {
   type        = map
   default     = {}
   description = "Custom definition for network and bastion"
+}
+
+variable "additional_public_keys_path" {
+  description = "The path to the additional public key for SSH access."
 }

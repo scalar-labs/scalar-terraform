@@ -44,8 +44,8 @@ output "key_name" {
   description = "The key-name of the AWS managed ssh key_pair."
 }
 
-output "bastion_ips" {
-  value       = module.bastion.bastion_host_ips
+output "bastion_ip" {
+  value       = module.bastion.bastion_host_ips[local.network.bastion_dns_index - 1]
   description = "Public IP address to bastion hosts"
 }
 
@@ -77,7 +77,7 @@ UserKnownHostsFile /dev/null
 StrictHostKeyChecking no
 
 Host bastion
-HostName ${module.bastion.bastion_host_ips[0]}
+HostName ${module.bastion.bastion_host_ips[local.network.bastion_dns_index - 1]}
 LocalForward 8000 monitor.${var.internal_domain}:80
 
 Host *.${var.internal_domain}

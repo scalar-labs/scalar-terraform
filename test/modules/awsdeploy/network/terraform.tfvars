@@ -9,3 +9,7 @@ public_key_path = "../../test_key.pub"
 private_key_path = "../../test_key"
 
 internal_domain = "internal.scalar-labs.com"
+
+network = {
+  bastion_resource_count = 1
+}

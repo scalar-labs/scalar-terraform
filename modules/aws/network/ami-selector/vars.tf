@@ -7,5 +7,5 @@ variable "owners" {
 }
 
 variable "name" {
-  default = "CentOS Linux 7 x86_64*"
+  default = "CentOS Linux 7 x86_64 - 20200407*"
 }

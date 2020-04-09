@@ -45,3 +45,11 @@ variable "enable_tdagent" {
 variable "internal_domain" {
   description = "Internal domain"
 }
+
+variable "cassandra_username" {
+  description = "The username of cassandra cluster"
+}
+
+variable "cassandra_password" {
+  description = "The password of cassandra cluster"
+}

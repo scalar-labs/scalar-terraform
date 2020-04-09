@@ -21,6 +21,8 @@ module "scalardl_blue" {
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_domain           = local.internal_domain
   custom_tags               = var.custom_tags
+  cassandra_username        = local.scalardl.cassandra_username
+  cassandra_password        = local.scalardl.cassandra_password
 }
 
 module "scalardl_green" {
@@ -46,6 +48,8 @@ module "scalardl_green" {
   enable_tdagent            = local.scalardl.enable_tdagent
   internal_domain           = local.internal_domain
   custom_tags               = var.custom_tags
+  cassandra_username        = local.scalardl.cassandra_username
+  cassandra_password        = local.scalardl.cassandra_password
 }
 
 resource "aws_security_group" "scalardl" {

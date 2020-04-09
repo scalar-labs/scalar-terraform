@@ -83,3 +83,11 @@ variable "custom_tags" {
   default     = {}
   description = "The map of custom tags"
 }
+
+variable "cassandra_username" {
+  description = "The username of cassandra cluster"
+}
+
+variable "cassandra_password" {
+  description = "The password of cassandra cluster"
+}

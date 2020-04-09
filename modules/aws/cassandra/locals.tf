@@ -118,6 +118,8 @@ locals {
     repliation_factor         = 3
     resource_count            = 1
     enable_tdagent            = true
+    cassandra_username        = ""
+    cassandra_password        = ""
   }
 }
 

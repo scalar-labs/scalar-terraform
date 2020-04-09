@@ -1,4 +1,4 @@
-ARG FROM_SCALAR_IMAGE=scalarlabs/scalar-ledger:2.0.2
+ARG FROM_SCALAR_IMAGE=scalarlabs/scalar-ledger:2.0.3
 FROM ${FROM_SCALAR_IMAGE}
 
 #Install cqlsh tool
@@ -15,13 +15,6 @@ COPY ./create_schema.sh ./
 
 RUN chmod 755 ./startup.sh
 RUN chmod 755 ./create_schema.sh
-
-ENV SCALAR_CASSANDRA_HOST ${SCALAR_CASSANDRA_HOST}
-ENV SCALAR_CASSANDRA_PORT 9042
-ENV SCALAR_CASSANDRA_USERNAME ''
-ENV SCALAR_CASSANDRA_PASSWORD ''
-ENV CASSANDRA_REPLICATION_FACTOR ${CASSANDRA_REPLICATION_FACTOR}
-
 
 CMD ["sh", "-c", "dockerize  -template ledger.properties.tmpl:ledger.properties -wait tcp://${SCALAR_CASSANDRA_HOST}:${SCALAR_CASSANDRA_PORT} -timeout 30s ./startup.sh"]
 

@@ -2,7 +2,7 @@
 locals {
   network_default = {
     bastion_resource_type     = "t3.micro"
-    bastion_resource_count    = 1
+    bastion_resource_count    = 2
     bastion_access_cidr       = "0.0.0.0/0"
     resource_root_volume_size = 16
     bastion_enable_tdagent    = true

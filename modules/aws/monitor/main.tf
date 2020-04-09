@@ -214,20 +214,40 @@ resource "aws_security_group_rule" "monitor_egress" {
 }
 
 resource "aws_route53_record" "monitor-dns" {
-  count = local.monitor.resource_count
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "monitor"
+  type    = "A"
+  ttl     = "300"
+  records = [module.monitor_cluster.private_ip[local.monitor.dns_index - 1]]
+}
+
+resource "aws_route53_record" "monitor-host" {
+  count = local.monitor.resource_count
+
+  zone_id = local.network_dns
+  name    = "monitor-${count.index + 1}"
   type    = "A"
   ttl     = "300"
   records = [module.monitor_cluster.private_ip[count.index]]
 }
 
 resource "aws_route53_record" "prometheus-dns" {
-  count = local.monitor.resource_count
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "prometheus"
+  type    = "A"
+  ttl     = "300"
+  records = [module.monitor_cluster.private_ip[local.monitor.dns_index - 1]]
+}
+
+resource "aws_route53_record" "prometheus-host" {
+  count = local.monitor.resource_count
+
+  zone_id = local.network_dns
+  name    = "prometheus-${count.index + 1}"
   type    = "A"
   ttl     = "300"
   records = [module.monitor_cluster.private_ip[count.index]]

@@ -4,12 +4,13 @@ The Scalar DL module deploys a scalardl resource cluster using blue/green deploy
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
-| base | The base of a scalardl cluster | `string` | `"default"` | no |
-| cassandra | The provisioning settings of a cassandra cluster | `map` | n/a | yes |
-| envoy | The custom settings of an envoy cluster | `map` | `{}` | no |
-| network | The network settings of a scalardl cluster | `map` | n/a | yes |
-| scalardl | The custom settings of a scalardl cluster | `map` | `{}` | no |
+|------|-------------|:----:|:-----:|:-----:|
+| base | The base of a scalardl cluster | string | `"default"` | no |
+| cassandra | The provisioning settings of a cassandra cluster | map | n/a | yes |
+| custom_tags | The map of custom tags | map(string) | `<map>` | no |
+| envoy | The custom settings of an envoy cluster | map | `<map>` | no |
+| network | The network settings of a scalardl cluster | map | n/a | yes |
+| scalardl | The custom settings of a scalardl cluster | map | `<map>` | no |
 
 ## Outputs
 
@@ -25,3 +26,4 @@ The Scalar DL module deploys a scalardl resource cluster using blue/green deploy
 | scalardl_green_resource_count | The number of resources to create for green cluster. |
 | scalardl_replication_factor | The replication factor for the schema of scalardl. |
 | scalardl_security_id | The security group ID of a scalardl cluster. |
+

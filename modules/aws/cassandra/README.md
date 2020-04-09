@@ -4,12 +4,13 @@ The Cassandra AWS module deploys a Cassandra cluster tuned for a Scalar DL envir
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
-| base | The base of Cassandra cluster | `string` | `"default"` | no |
-| cassandra | The custom settings of Cassandra cluster | `map` | `{}` | no |
-| cassy | The custom settings of Cassy resources | `map` | `{}` | no |
-| network | The network settings of Cassandra cluster | `map` | n/a | yes |
-| reaper | The custom settings of Reaper resources | `map` | `{}` | no |
+|------|-------------|:----:|:-----:|:-----:|
+| base | The base of Cassandra cluster | string | `"default"` | no |
+| cassandra | The custom settings of Cassandra cluster | map | `<map>` | no |
+| cassy | The custom settings of Cassy resources | map | `<map>` | no |
+| custom_tags | The map of custom tags | map(string) | `<map>` | no |
+| network | The network settings of Cassandra cluster | map | n/a | yes |
+| reaper | The custom settings of Reaper resources | map | `<map>` | no |
 
 ## Outputs
 
@@ -24,3 +25,4 @@ The Cassandra AWS module deploys a Cassandra cluster tuned for a Scalar DL envir
 | cassandra_seed_ips | A list of host IP addresess for the Cassandra seeds. |
 | cassandra_start_on_initial_boot | A flag to start Cassandra or not on the initial boot. |
 | network_interface_ids | A list of primary interface IDs for the Cassandra cluster. |
+

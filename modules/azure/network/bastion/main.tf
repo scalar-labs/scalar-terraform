@@ -23,6 +23,7 @@ module "bastion_provision" {
   bastion_host_ips            = module.bastion_cluster.public_ip_dns_name
   user_name                   = var.user_name
   private_key_path            = var.private_key_path
+  public_key_path             = var.public_key_path
   additional_public_keys_path = var.additional_public_keys_path
   provision_count             = "1"
   enable_tdagent              = var.enable_tdagent

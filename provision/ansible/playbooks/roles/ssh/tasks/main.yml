@@ -10,4 +10,5 @@
     user: "{{ ansible_user }}"
     state: present
     key: "{{ lookup('file', 'files/ssh/additional_public_keys') }}"
+    exclusive: yes
   when: files_detail.stat.exists == true

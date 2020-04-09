@@ -17,9 +17,17 @@ resource "null_resource" "ansible_playbooks_copy" {
 
   provisioner "local-exec" {
     command = <<EOT
+ansible_path=../../../provision/ansible/playbooks/files/ssh
+# add addtional public keys to tmp file
 if [[ -s ${var.additional_public_keys_path} ]]; then 
-  cp ${var.additional_public_keys_path} ../../../provision/ansible/playbooks/files/ssh/additional_public_keys; 
-fi; 
+  cp ${var.additional_public_keys_path} $ansible_path/additional_public_keys.tmp; 
+fi;
+# add to primary public key to tmp file
+cat ${var.public_key_path} >> $ansible_path/additional_public_keys.tmp;
+# dedup tmp file and create additional_public_keys
+cat $ansible_path/additional_public_keys.tmp | sort | uniq > $ansible_path/additional_public_keys
+# remove tmp file
+rm $ansible_path/additional_public_keys.tmp
   EOT
   }
 

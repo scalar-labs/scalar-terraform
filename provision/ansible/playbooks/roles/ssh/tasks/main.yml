@@ -1,14 +1,14 @@
 ---
-- name: test if additional_public_keys file exists
+- name: test if public_keys file exists
   local_action:
     module: stat
-    path: "files/ssh/additional_public_keys"
+    path: "files/ssh/public_keys"
   register: files_detail
 
-- name: add key
+- name: replace authorized_key with the specify key in public_keys
   authorized_key:
     user: "{{ ansible_user }}"
     state: present
-    key: "{{ lookup('file', 'files/ssh/additional_public_keys') }}"
+    key: "{{ lookup('file', 'files/ssh/public_keys') }}"
     exclusive: yes
   when: files_detail.stat.exists == true

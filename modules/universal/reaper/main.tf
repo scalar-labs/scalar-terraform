@@ -38,7 +38,7 @@ resource "null_resource" "docker_install" {
 
   provisioner "remote-exec" {
     inline = [
-      "cd ${module.ansible.remote_playbook_path}",
+      "cd ${module.ansible.remote_playbook_path}/playbooks",
       "ansible-playbook -u ${var.user_name} -i ${var.host_list[count.index]}, docker-server.yml -e enable_tdagent=${var.enable_tdagent ? 1 : 0} -e monitor_host=monitor.${var.internal_domain}",
     ]
   }
@@ -67,12 +67,17 @@ resource "null_resource" "reaper_container" {
   provisioner "remote-exec" {
     inline = [
       "cd $HOME/provision",
-      "export REAPER_JMX_AUTH_USERNAME=",
-      "export REAPER_JMX_AUTH_PASSWORD=",
-      "export REAPER_STORAGE_TYPE=cassandra",
-      "export CASSANDRA_REPLICATION_FACTOR=${var.replication_factor}",
-      "export REAPER_CASS_CONTACT_POINTS=cassandra-lb.${var.internal_domain}",
-      "j2 ./docker-compose.yml.j2 > ./docker-compose.yml",
+      "echo export REAPER_JMX_AUTH_USERNAME= > env",
+      "echo export REAPER_JMX_AUTH_PASSWORD= >> env",
+      "if [[ -n '${var.cassandra_username}' ]]; then",
+      "  echo export REAPER_CASS_AUTH_ENABLED=true >> env",
+      "  echo export REAPER_CASS_AUTH_USERNAME=${var.cassandra_username} >> env",
+      "  echo export REAPER_CASS_AUTH_PASSWORD=${var.cassandra_password} >> env",
+      "fi",
+      "echo export REAPER_STORAGE_TYPE=cassandra >> env",
+      "echo export CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} >> env",
+      "echo export REAPER_CASS_CONTACT_POINTS=cassandra-lb.${var.internal_domain} >> env",
+      "source ./env",
       "docker-compose up -d",
     ]
   }

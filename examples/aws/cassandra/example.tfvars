@@ -34,4 +34,6 @@ reaper = {
   # resource_count            = "1"
   # dns_index                 = "1"
   # enable_tdagent            = "true"
+  # cassandra_username        = ""
+  # cassandra_password        = ""
 }

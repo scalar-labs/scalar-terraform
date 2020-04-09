@@ -41,7 +41,7 @@ resource "null_resource" "docker_install" {
 
   provisioner "remote-exec" {
     inline = [
-      "cd ${module.ansible.remote_playbook_path}",
+      "cd ${module.ansible.remote_playbook_path}/playbooks",
       "ansible-playbook -u ${var.user_name} -i ${var.host_list[count.index]}, monitor-server.yml --extra-vars='enable_tdagent=${var.enable_tdagent ? 1 : 0}'",
     ]
   }

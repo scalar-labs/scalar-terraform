@@ -44,4 +44,6 @@ module "scalardl_provision" {
   scalardl_image_tag  = var.scalardl_image_tag
   replication_factor  = var.replication_factor
   internal_domain     = var.internal_domain
+  cassandra_username  = var.cassandra_username
+  cassandra_password  = var.cassandra_password
 }

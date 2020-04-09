@@ -124,7 +124,17 @@ resource "aws_route53_record" "cassy-dns" {
   name    = "cassy"
   type    = "A"
   ttl     = "300"
-  records = module.cassy_cluster.private_ip
+  records = [module.cassy_cluster.private_ip[local.cassy.dns_index - 1]]
+}
+
+resource "aws_route53_record" "cassy-host" {
+  count = local.cassy.resource_count
+
+  zone_id = local.network_dns
+  name    = "cassy-${count.index + 1}"
+  type    = "A"
+  ttl     = "300"
+  records = [module.cassy_cluster.private_ip[count.index]]
 }
 
 resource "aws_route53_record" "cassy-dns-srv" {

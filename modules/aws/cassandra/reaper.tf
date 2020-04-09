@@ -125,7 +125,17 @@ resource "aws_route53_record" "reaper-dns" {
   name    = "reaper"
   type    = "A"
   ttl     = "300"
-  records = module.reaper_cluster.private_ip
+  records = [module.reaper_cluster.private_ip[local.reaper.dns_index - 1]]
+}
+
+resource "aws_route53_record" "reaper-host" {
+  count = local.reaper.resource_count
+
+  zone_id = local.network_dns
+  name    = "reaper-${count.index + 1}"
+  type    = "A"
+  ttl     = "300"
+  records = [module.reaper_cluster.private_ip[count.index]]
 }
 
 resource "aws_route53_record" "reaper-dns-srv" {

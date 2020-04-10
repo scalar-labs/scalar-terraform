@@ -64,6 +64,8 @@ az login
 
 ### [Azure Scalar DL Example](../examples/azure/README.md)
 
+* To add tags to resources you create with scalar-terraform, please refer to [custom tags](./CustomTags.md).
+
 ## Next Steps
 
 * How to operate a [Cassandra Cluster](./CassandraOperation.md)

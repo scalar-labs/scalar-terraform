@@ -1,11 +1,6 @@
 # Tagging Resources
 
-scalar-terraform provides a feature to add arbitrary tags to resources created.
-
-Sometimes it is useful to add tags to cloud resources.
-
-* Label metadata such as the owner and the environment
-* Organize billing to summerize the system-wide costs
+scalar-terraform provides a feature to add arbitrary tags to resources. The feature may be useful to group resources so that you can do some operations for a particular group such as calculating cost.
 
 At present, the feature is only supported in AWS.
 

@@ -1,16 +1,22 @@
 # Scalar DL AWS Module
 The Scalar DL module deploys a scalardl resource cluster using blue/green deployment.
 
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| base | The base of a scalardl cluster | string | `"default"` | no |
-| cassandra | The provisioning settings of a cassandra cluster | map | n/a | yes |
-| custom_tags | The map of custom tags | map(string) | `<map>` | no |
-| envoy | The custom settings of an envoy cluster | map | `<map>` | no |
-| network | The network settings of a scalardl cluster | map | n/a | yes |
-| scalardl | The custom settings of a scalardl cluster | map | `<map>` | no |
+|------|-------------|------|---------|:-----:|
+| base | The base of a scalardl cluster | `string` | `"default"` | no |
+| cassandra | The provisioning settings of a cassandra cluster | `map` | n/a | yes |
+| custom_tags | The map of custom tags | `map(string)` | `{}` | no |
+| envoy | The custom settings of an envoy cluster | `map` | `{}` | no |
+| network | The network settings of a scalardl cluster | `map` | n/a | yes |
+| scalardl | The custom settings of a scalardl cluster | `map` | `{}` | no |
 
 ## Outputs
 

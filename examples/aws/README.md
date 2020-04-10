@@ -43,11 +43,11 @@ $ chmod 400 example_key
 $ ssh-add example_key
 
 # Optionally, you may want to create a file named `additional_public_keys` that contains multiple ssh public keys (one key per line) to allow other admins to access nodes created by the following `terraform apply`.
-# the file should look like below and don't forget the end of line.
+# the file should look like below
 # cat examples/aws/network/additional_public_keys
 # ssh-rsa AAAAB3Nza..... admin1
 # ssh-rsa...... admin2
-#
+
 
 # Create an environment
 $ terraform init

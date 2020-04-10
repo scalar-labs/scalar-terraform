@@ -17,22 +17,10 @@ resource "null_resource" "ansible_playbooks_copy" {
 
   provisioner "local-exec" {
     command = <<EOT
-# defined ansible_path
-ansible_path="${module.ansible.local_playbook_path}/files/ssh"
-
 # add addtional public keys to tmp file
 if [[ -s ${var.additional_public_keys_path} ]]; then 
-  cp ${var.additional_public_keys_path} $ansible_path/public_keys.tmp; 
+  cp ${var.additional_public_keys_path} ${module.ansible.local_playbook_path}/files/ssh/additional_public_keys; 
 fi;
-
-# add to primary public key to tmp file
-cat ${var.public_key_path} >> $ansible_path/public_keys.tmp;
-
-# dedup tmp file and create public_keys
-cat $ansible_path/public_keys.tmp | sort | uniq > $ansible_path/public_keys
-
-# remove tmp file
-rm $ansible_path/public_keys.tmp
   EOT
   }
 

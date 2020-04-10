@@ -7,10 +7,6 @@ variable "private_key_path" {
   description = "The path to a private key (.pem) file for auth"
 }
 
-variable "public_key_path" {
-  description = "The path to a public key file ~/.ssh/key.pub"
-}
-
 variable "user_name" {
   description = "The user of the remote instance to provision"
 }

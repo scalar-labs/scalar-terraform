@@ -31,8 +31,6 @@ $ aws configure --profile scalar
 
 ### Create network resources
 
-To add tags to resources you create with scalar-terraform, please refer to [custom tags](../../docs/CustomTags.md).
-
 ```console
 $ cd examples/aws/network
 
@@ -48,6 +46,8 @@ $ ssh-add example_key
 $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
+
+To add tags to resources you create with scalar-terraform, please refer to [custom tags](../../docs/CustomTags.md).
 
 ### Create Cassandra resources
 

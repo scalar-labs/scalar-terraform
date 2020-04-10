@@ -31,6 +31,8 @@ $ aws configure --profile scalar
 
 ### Create network resources
 
+To add tags to resources you create with scalar-terraform, please refer to [custom tags](../../docs/CustomTags.md).
+
 ```console
 $ cd examples/aws/network
 

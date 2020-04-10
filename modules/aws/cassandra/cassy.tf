@@ -117,16 +117,6 @@ resource "aws_security_group_rule" "cassy_egress" {
   security_group_id = aws_security_group.cassy[count.index].id
 }
 
-resource "aws_route53_record" "cassy" {
-  count = local.cassy.resource_count > 0 ? 1 : 0
-
-  zone_id = local.network_dns
-  name    = "cassy"
-  type    = "A"
-  ttl     = "300"
-  records = [module.cassy_cluster.private_ip[local.cassy.dns_index - 1]]
-}
-
 resource "aws_route53_record" "cassy-dns" {
   count = local.cassy.resource_count
 
@@ -146,7 +136,7 @@ resource "aws_route53_record" "cassy-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 8081 %s.%s",
-    aws_route53_record.cassy.*.name,
+    aws_route53_record.cassy-dns.*.name,
     "${local.internal_domain}.",
   )
 }

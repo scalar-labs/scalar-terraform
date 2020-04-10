@@ -120,16 +120,6 @@ resource "aws_security_group_rule" "reaper_egress" {
   security_group_id = aws_security_group.reaper[count.index].id
 }
 
-resource "aws_route53_record" "reaper" {
-  count = local.reaper.resource_count > 0 ? 1 : 0
-
-  zone_id = local.network_dns
-  name    = "reaper"
-  type    = "A"
-  ttl     = "300"
-  records = [module.reaper_cluster.private_ip[local.reaper.dns_index - 1]]
-}
-
 resource "aws_route53_record" "reaper-dns" {
   count = local.reaper.resource_count
 
@@ -149,7 +139,7 @@ resource "aws_route53_record" "reaper-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 8081 %s.%s",
-    aws_route53_record.reaper.*.name,
+    aws_route53_record.reaper-dns.*.name,
     "${local.internal_domain}.",
   )
 }

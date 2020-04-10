@@ -86,7 +86,6 @@ locals {
   cassy_default = {
     resource_type             = "t3.medium"
     resource_count            = 1
-    dns_index                 = 1
     resource_root_volume_size = 64
     enable_tdagent            = true
   }
@@ -118,7 +117,6 @@ locals {
     resource_root_volume_size = "64"
     repliation_factor         = 3
     resource_count            = 1
-    dns_index                 = 1
     enable_tdagent            = true
     cassandra_username        = ""
     cassandra_password        = ""

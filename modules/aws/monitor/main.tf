@@ -213,7 +213,7 @@ resource "aws_security_group_rule" "monitor_egress" {
   security_group_id = aws_security_group.monitor[count.index].id
 }
 
-resource "aws_route53_record" "monitor-dns" {
+resource "aws_route53_record" "monitor" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -223,7 +223,7 @@ resource "aws_route53_record" "monitor-dns" {
   records = [module.monitor_cluster.private_ip[local.monitor.dns_index - 1]]
 }
 
-resource "aws_route53_record" "monitor-host" {
+resource "aws_route53_record" "monitor-dns" {
   count = local.monitor.resource_count
 
   zone_id = local.network_dns
@@ -233,7 +233,7 @@ resource "aws_route53_record" "monitor-host" {
   records = [module.monitor_cluster.private_ip[count.index]]
 }
 
-resource "aws_route53_record" "prometheus-dns" {
+resource "aws_route53_record" "prometheus" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -243,7 +243,7 @@ resource "aws_route53_record" "prometheus-dns" {
   records = [module.monitor_cluster.private_ip[local.monitor.dns_index - 1]]
 }
 
-resource "aws_route53_record" "prometheus-host" {
+resource "aws_route53_record" "prometheus-dns" {
   count = local.monitor.resource_count
 
   zone_id = local.network_dns

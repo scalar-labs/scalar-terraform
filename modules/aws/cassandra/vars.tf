@@ -25,3 +25,9 @@ variable "reaper" {
   default     = {}
   description = "The custom settings of Reaper resources"
 }
+
+variable "custom_tags" {
+  type        = map(string)
+  default     = {}
+  description = "The map of custom tags"
+}

@@ -10,3 +10,8 @@ variable "internal_domain" {
   description = "An internal DNS domain name to use for mapping IP addresses"
 }
 
+variable "custom_tags" {
+  type        = map
+  default     = {}
+  description = "The map of custom tags"
+}

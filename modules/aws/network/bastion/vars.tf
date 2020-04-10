@@ -62,3 +62,9 @@ variable "enable_tdagent" {
 variable "internal_domain" {
   description = "The internal domain for setting srv record"
 }
+
+variable "custom_tags" {
+  type        = map(string)
+  default     = {}
+  description = "The map of custom tags"
+}

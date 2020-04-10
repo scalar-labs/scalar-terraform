@@ -47,6 +47,8 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
+To add tags to resources you create with scalar-terraform, please refer to [custom tags](../../docs/CustomTags.md).
+
 ### Create Cassandra resources
 
 ```console

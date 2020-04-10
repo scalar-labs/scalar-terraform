@@ -28,3 +28,9 @@ variable "slack_webhook_url" {
   default     = ""
   description = "The Webhook URL of Slack for alerting"
 }
+
+variable "custom_tags" {
+  type        = map(string)
+  default     = {}
+  description = "The map of custom tags"
+}

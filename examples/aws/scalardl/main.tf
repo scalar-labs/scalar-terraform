@@ -10,4 +10,6 @@ module "scalardl" {
   base     = var.base
   scalardl = var.scalardl
   envoy    = var.envoy
+
+  custom_tags = local.custom_tags
 }

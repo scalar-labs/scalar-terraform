@@ -12,4 +12,6 @@ module "monitor" {
   monitor = var.monitor
 
   slack_webhook_url = var.slack_webhook_url
+
+  custom_tags = local.custom_tags
 }

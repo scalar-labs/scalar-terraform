@@ -1,12 +1,6 @@
 # AMI-selector AWS Module
 The ami-selector module will find a valid AMI id for a given region.
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| aws | n/a |
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |

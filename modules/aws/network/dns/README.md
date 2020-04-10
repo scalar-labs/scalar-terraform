@@ -1,11 +1,5 @@
 # DNS AWS Module
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| aws | n/a |
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |

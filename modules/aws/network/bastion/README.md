@@ -1,12 +1,6 @@
 # Bastion AWS Module
 The bastion module deploys a network bastion host used to access and configure the environment.
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| aws | n/a |
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |

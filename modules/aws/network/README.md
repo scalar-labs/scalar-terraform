@@ -1,10 +1,6 @@
 # Network AWS Module
 The Network module creates a virtual network with subnets.
 
-## Providers
-
-No provider.
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |

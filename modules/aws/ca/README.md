@@ -1,12 +1,6 @@
 # CA Azure Module
 The CA module deploys a CA resource used to sign keys for Scalar DL.
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| aws | n/a |
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |

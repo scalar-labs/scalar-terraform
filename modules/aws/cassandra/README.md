@@ -1,13 +1,6 @@
 # Cassandra AWS Module
 The Cassandra AWS module deploys a Cassandra cluster tuned for a Scalar DL environment.
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| aws | n/a |
-| null | n/a |
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |

@@ -1,10 +1,6 @@
 # Cluster Module of Scalar DL
 The Cluster module deploys a Scalar DL cluster.
 
-## Providers
-
-No provider.
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |

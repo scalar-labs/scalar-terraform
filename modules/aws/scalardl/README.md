@@ -1,12 +1,6 @@
 # Scalar DL AWS Module
 The Scalar DL module deploys a scalardl resource cluster using blue/green deployment.
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| aws | n/a |
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |

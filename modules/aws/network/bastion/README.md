@@ -18,7 +18,7 @@ The bastion module deploys a network bastion host used to access and configure t
 | resource_count | The number of bastion resources to create | `any` | n/a | yes |
 | resource_root_volume_size | The root volume size of bastion instance | `any` | n/a | yes |
 | resource_type | The resource type of the bastion instance | `any` | n/a | yes |
-| subnet_id | The subnet ID to launch bastion host. Should be a public subnet | `any` | n/a | yes |
+| subnet_ids | The subnet IDs to launch bastion host. Should be a public subnet | `any` | n/a | yes |
 | trigger | A trigger key that will initiate provisioning of bastion resource | `string` | `""` | no |
 | user_name | The user name of the remote hosts | `any` | n/a | yes |
 

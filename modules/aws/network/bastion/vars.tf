@@ -23,7 +23,7 @@ variable "user_name" {
 }
 
 variable "subnet_ids" {
-  description = "The subnet ID to launch bastion host. Should be a public subnet"
+  description = "The subnet IDs to launch bastion host. Should be a public subnet"
 }
 
 variable "image_id" {

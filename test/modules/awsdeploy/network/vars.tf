@@ -4,7 +4,7 @@ variable "region" {}
 variable "name" {}
 
 variable "locations" {
-  type = list
+  type = list(string)
 }
 
 variable "public_key_path" {}

@@ -4,12 +4,7 @@ variable "name" {
 }
 
 variable "locations" {
-  type = list(string)
-  default = [
-    "ap-northeast-1a",
-    "ap-northeast-1c",
-    "ap-northeast-1d",
-  ]
+  type        = list(string)
   description = "The AWS availability zone to deploy environment `ap-northeast-1a`"
 }
 

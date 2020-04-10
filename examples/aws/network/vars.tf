@@ -7,11 +7,6 @@ variable "name" {}
 
 variable "locations" {
   type = list(string)
-  default = [
-    "ap-northeast-1a",
-    "ap-northeast-1c",
-    "ap-northeast-1d",
-  ]
 }
 
 variable "public_key_path" {}

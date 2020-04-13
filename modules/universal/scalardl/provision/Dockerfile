@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y curl gnupg apt-transport-https \
 #Copy templates from build step
 COPY ./startup.sh ./
 COPY ./create_schema.sh ./
+COPY ./create_schema.cql.tmpl ./
 
 RUN chmod 755 ./startup.sh
 RUN chmod 755 ./create_schema.sh

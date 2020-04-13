@@ -34,6 +34,10 @@ output "key_name" {
   value = module.network.key_name
 }
 
+output "additional_public_keys_path" {
+  value = module.network.additional_public_keys_path
+}
+
 output "location" {
   value = module.network.location
 }

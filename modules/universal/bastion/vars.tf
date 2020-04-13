@@ -16,6 +16,10 @@ variable "triggers" {
   default     = []
 }
 
+variable "additional_public_keys_path" {
+  description = "The path to a file that contains multiple public keys for SSH access."
+}
+
 variable "provision_count" {
   description = "The number of bastion resources to provision"
 }

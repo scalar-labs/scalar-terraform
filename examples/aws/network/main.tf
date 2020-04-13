@@ -10,7 +10,7 @@ module "network" {
   internal_domain  = var.internal_domain
 
   # Optional Variables
-  network = var.network
-
-  custom_tags = var.custom_tags
+  network                     = var.network
+  additional_public_keys_path = var.additional_public_keys_path
+  custom_tags                 = var.custom_tags
 }

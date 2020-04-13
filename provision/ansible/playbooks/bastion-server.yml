@@ -10,3 +10,12 @@
     tdagent_conf_template: templates/cassandra-server/td-agent.conf.j2
   gather_facts: no
   become: yes
+
+- name: Add multiple public keys
+  hosts: all
+  gather_facts: no
+  become: no
+  roles:
+    - "ssh"
+  tags:
+  - ssh

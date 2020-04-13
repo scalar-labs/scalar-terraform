@@ -26,6 +26,11 @@ variable "private_key_path" {
   description = "The path to the private key for SSH access"
 }
 
+variable "additional_public_keys_path" {
+  default     = "./additional_public_keys"
+  description = "The path to a file that contains multiple public keys for SSH access."
+}
+
 variable "user_name" {
   description = "The user name of the remote hosts"
 }

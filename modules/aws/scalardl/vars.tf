@@ -24,3 +24,9 @@ variable "envoy" {
   default     = {}
   description = "The custom settings of an envoy cluster"
 }
+
+variable "custom_tags" {
+  type        = map(string)
+  default     = {}
+  description = "The map of custom tags"
+}

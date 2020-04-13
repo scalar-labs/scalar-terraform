@@ -17,4 +17,6 @@ locals {
     user_name        = data.terraform_remote_state.network.outputs.user_name
     internal_domain  = data.terraform_remote_state.network.outputs.internal_domain
   }
+
+  custom_tags = data.terraform_remote_state.network.outputs.custom_tags
 }

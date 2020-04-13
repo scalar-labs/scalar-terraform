@@ -24,3 +24,12 @@
     - "docker"
   gather_facts: yes
   become: no
+
+- name: Add multiple public keys
+  hosts: all
+  gather_facts: no
+  become: no
+  roles:
+    - "ssh"
+  tags:
+    - ssh

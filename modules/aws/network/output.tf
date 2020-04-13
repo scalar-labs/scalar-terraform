@@ -64,8 +64,18 @@ output "private_key_path" {
   description = "The path to the private key for SSH access."
 }
 
+output "additional_public_keys_path" {
+  value       = abspath(pathexpand(var.additional_public_keys_path))
+  description = "The path to a file that contains multiple public keys for SSH access."
+}
+
 output "internal_domain" {
   value       = var.internal_domain
+  description = "The internal domain for setting srv record"
+}
+
+output "custom_tags" {
+  value       = var.custom_tags
   description = "The internal domain for setting srv record"
 }
 

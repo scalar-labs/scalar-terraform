@@ -13,11 +13,22 @@ module "envoy_cluster" {
   associate_public_ip_address = false
   hostname_prefix             = "envoy"
 
-  tags = {
-    Terraform = true
-    Network   = local.network_name
-    Role      = "envoy"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+      Role      = "envoy"
+    }
+  )
+
+  volume_tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 
   root_block_device = [
     {
@@ -55,9 +66,14 @@ resource "aws_security_group" "envoy" {
   description = "Envoy Security Rules"
   vpc_id      = local.network_id
 
-  tags = {
-    Name = "${local.network_name} Envoy"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = "${local.network_name} Envoy"
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 }
 
 resource "aws_security_group_rule" "envoy_ssh" {
@@ -147,6 +163,15 @@ resource "aws_lb" "envoy-lb" {
   subnets            = local.envoy_nlb_subnet_ids
 
   enable_deletion_protection = false
+
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+      Name      = "${local.network_name} Envoy"
+    }
+  )
 }
 
 resource "aws_lb_target_group" "envoy-lb-target-group" {

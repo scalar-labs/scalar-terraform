@@ -42,10 +42,19 @@ $ chmod 400 example_key
 # If needed start ssh-agent using: eval $(ssh-agent -s)
 $ ssh-add example_key
 
+# Optionally, you may want to create a file named `additional_public_keys` that contains multiple ssh public keys (one key per line) to allow other admins to access nodes created by the following `terraform apply`.
+# the file should look like below
+# cat examples/aws/network/additional_public_keys
+# ssh-rsa AAAAB3Nza..... admin1
+# ssh-rsa...... admin2
+
+
 # Create an environment
 $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
+
+To add tags to resources you create with scalar-terraform, please refer to [custom tags](../../docs/CustomTags.md).
 
 ### Create Cassandra resources
 

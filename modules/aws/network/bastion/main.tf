@@ -18,12 +18,23 @@ module "bastion_cluster" {
   associate_public_ip_address = true
   hostname_prefix             = "bastion"
 
-  tags = {
-    Terraform = true
-    Trigger   = var.trigger
-    Network   = var.network_name
-    Role      = "bastion"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Trigger   = var.trigger
+      Network   = var.network_name
+      Role      = "bastion"
+    }
+  )
+
+  volume_tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = var.network_name
+    }
+  )
 
   root_block_device = [
     {
@@ -37,13 +48,14 @@ module "bastion_cluster" {
 module "bastion_provision" {
   source = "../../../universal/bastion"
 
-  triggers         = module.bastion_cluster.id
-  bastion_host_ips = module.bastion_cluster.public_ip
-  user_name        = var.user_name
-  private_key_path = var.private_key_path
-  provision_count  = var.resource_count
-  enable_tdagent   = var.enable_tdagent
-  internal_domain  = var.internal_domain
+  triggers                    = module.bastion_cluster.id
+  bastion_host_ips            = module.bastion_cluster.public_ip
+  user_name                   = var.user_name
+  private_key_path            = var.private_key_path
+  additional_public_keys_path = var.additional_public_keys_path
+  provision_count             = var.resource_count
+  enable_tdagent              = var.enable_tdagent
+  internal_domain             = var.internal_domain
 }
 
 resource "aws_security_group" "bastion" {
@@ -51,9 +63,14 @@ resource "aws_security_group" "bastion" {
   description = "${var.network_name} bastion security group for provisioning"
   vpc_id      = var.network_id
 
-  tags = {
-    Name = "${var.network_name} Bastion"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = "${var.network_name} Bastion"
+      Terraform = "true"
+      Network   = var.network_name
+    }
+  )
 
   ingress {
     from_port   = 22

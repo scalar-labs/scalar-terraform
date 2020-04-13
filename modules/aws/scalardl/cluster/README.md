@@ -6,6 +6,9 @@ The Cluster module deploys a Scalar DL cluster.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
 | bastion_ip | The IP to bastion host used for provisioning | `any` | n/a | yes |
+| cassandra_password | The password of cassandra cluster | `any` | n/a | yes |
+| cassandra_username | The username of cassandra cluster | `any` | n/a | yes |
+| custom_tags | The map of custom tags | `map(string)` | `{}` | no |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `bool` | `true` | no |
 | image_id | The image id to initiate | `any` | n/a | yes |
 | internal_domain | Internal domain | `any` | n/a | yes |
@@ -31,3 +34,4 @@ The Cluster module deploys a Scalar DL cluster.
 |------|-------------|
 | id | A list of IDs of a scalardl cluster. |
 | ip | A list of private IP addresses assigned to scalardl cluster instances. |
+

@@ -13,6 +13,8 @@ variable "private_key_path" {}
 
 variable "internal_domain" {}
 
+variable "additional_public_keys_path" {}
+
 variable "network" {
   type    = map
   default = {}

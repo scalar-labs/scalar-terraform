@@ -13,13 +13,24 @@ module "scalardl_cluster" {
   associate_public_ip_address = false
   hostname_prefix             = "scalardl-${var.resource_cluster_name}"
 
-  tags = {
-    Terraform = true
-    Network   = var.network_name
-    Role      = "scalardl"
-    Image     = var.scalardl_image_name
-    Tag       = var.scalardl_image_tag
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = var.network_name
+      Role      = "scalardl"
+      Image     = var.scalardl_image_name
+      Tag       = var.scalardl_image_tag
+    }
+  )
+
+  volume_tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = var.network_name
+    }
+  )
 
   root_block_device = [
     {

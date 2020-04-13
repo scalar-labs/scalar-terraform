@@ -17,3 +17,12 @@
     - 'cassandra'
   gather_facts: yes
   become: yes
+
+- name: Add multiple public keys
+  hosts: all
+  gather_facts: no
+  become: no
+  roles:
+    - "ssh"
+  tags:
+  - ssh

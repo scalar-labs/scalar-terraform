@@ -78,6 +78,12 @@ variable "internal_domain" {
   description = "Internal domain"
 }
 
+variable "custom_tags" {
+  type        = map(string)
+  default     = {}
+  description = "The map of custom tags"
+}
+
 variable "cassandra_username" {
   description = "The username of cassandra cluster"
 }

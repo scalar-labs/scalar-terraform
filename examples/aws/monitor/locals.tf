@@ -27,4 +27,6 @@ locals {
     green_resource_count = data.terraform_remote_state.scalardl.outputs.scalardl_green_resource_count
     replication_factor   = data.terraform_remote_state.scalardl.outputs.scalardl_replication_factor
   }
+
+  custom_tags = data.terraform_remote_state.network.outputs.custom_tags
 }

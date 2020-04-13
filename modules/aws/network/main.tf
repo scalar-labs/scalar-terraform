@@ -23,15 +23,21 @@ module "vpc" {
   enable_nat_gateway   = true
   single_nat_gateway   = true
 
-  igw_tags = {
-    Terraform = "true"
-    Name      = module.name_generator.name
-  }
+  igw_tags = merge(
+    var.custom_tags,
+    {
+      Name      = module.name_generator.name
+      Terraform = "true"
+    }
+  )
 
-  tags = {
-    Terraform = "true"
-    Name      = module.name_generator.name
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = module.name_generator.name
+      Terraform = "true"
+    }
+  )
 }
 
 module "dns" {
@@ -40,6 +46,7 @@ module "dns" {
   network_id      = module.vpc.vpc_id
   network_name    = module.name_generator.name
   internal_domain = var.internal_domain
+  custom_tags     = var.custom_tags
 }
 
 module "image" {
@@ -60,8 +67,9 @@ module "bastion" {
 
   trigger = module.vpc.natgw_ids[0]
 
-  public_key_path  = var.public_key_path
-  private_key_path = var.private_key_path
+  public_key_path             = var.public_key_path
+  private_key_path            = var.private_key_path
+  additional_public_keys_path = var.additional_public_keys_path
 
   resource_type             = local.network.bastion_resource_type
   resource_count            = local.network.bastion_resource_count
@@ -69,4 +77,5 @@ module "bastion" {
   bastion_access_cidr       = local.network.bastion_access_cidr
   enable_tdagent            = local.network.bastion_enable_tdagent
   internal_domain           = var.internal_domain
+  custom_tags               = var.custom_tags
 }

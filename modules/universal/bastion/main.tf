@@ -15,6 +15,15 @@ resource "null_resource" "ansible_playbooks_copy" {
     private_key = file(var.private_key_path)
   }
 
+  provisioner "local-exec" {
+    command = <<EOT
+# add addtional public keys to tmp file
+if [[ -s ${var.additional_public_keys_path} ]]; then 
+  cp ${var.additional_public_keys_path} ${module.ansible.local_playbook_path}/files/ssh/additional_public_keys; 
+fi;
+  EOT
+  }
+
   provisioner "file" {
     source      = module.ansible.local_playbook_path
     destination = module.ansible.remote_playbook_path

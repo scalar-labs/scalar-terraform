@@ -21,3 +21,8 @@ variable "network" {
   type    = map
   default = {}
 }
+
+variable "custom_tags" {
+  type    = map(string)
+  default = {}
+}

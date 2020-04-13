@@ -21,3 +21,7 @@ network = {
   # user_name                 = "centos"
   # cidr                      = "10.42.0.0/16"
 }
+
+custom_tags = {
+  # Example = "test"
+}

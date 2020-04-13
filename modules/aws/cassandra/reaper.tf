@@ -13,11 +13,22 @@ module "reaper_cluster" {
   associate_public_ip_address = false
   hostname_prefix             = "reaper"
 
-  tags = {
-    Terraform = true
-    Network   = local.network_name
-    Role      = "reaper"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+      Role      = "reaper"
+    }
+  )
+
+  volume_tags = merge(
+    var.custom_tags,
+    {
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 
   root_block_device = [
     {
@@ -39,6 +50,8 @@ module "reaper_provision" {
   replication_factor = local.reaper.repliation_factor
   enable_tdagent     = local.reaper.enable_tdagent
   internal_domain    = local.internal_domain
+  cassandra_username = local.reaper.cassandra_username
+  cassandra_password = local.reaper.cassandra_password
 }
 
 resource "aws_security_group" "reaper" {
@@ -48,9 +61,14 @@ resource "aws_security_group" "reaper" {
   description = "Reaper nodes"
   vpc_id      = local.network_id
 
-  tags = {
-    Name = "${local.network_name} reaper"
-  }
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = "${local.network_name} reaper"
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
 }
 
 resource "aws_security_group_rule" "reaper_ssh" {

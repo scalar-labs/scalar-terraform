@@ -26,4 +26,6 @@ locals {
     start_on_initial_boot = data.terraform_remote_state.cassandra.outputs.cassandra_start_on_initial_boot
     provision_ids         = join(",", data.terraform_remote_state.cassandra.outputs.cassandra_provision_ids)
   }
+
+  custom_tags = data.terraform_remote_state.network.outputs.custom_tags
 }

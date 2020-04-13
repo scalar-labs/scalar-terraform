@@ -29,3 +29,9 @@ variable "network" {
 variable "additional_public_keys_path" {
   description = "The path to a file that contains multiple public keys for SSH access."
 }
+
+variable "custom_tags" {
+  type        = map
+  default     = {}
+  description = "The map of custom tags"
+}

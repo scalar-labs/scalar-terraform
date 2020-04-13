@@ -5,7 +5,8 @@ The Network module creates a virtual network with subnets.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
-| internal_domain | An internal domain to use for mapping IP addresses | `any` | n/a | yes |
+| custom_tags | The map of custom tags | `map` | `{}` | no |
+| internal_domain | An internal DNS domain name to use for mapping IP addresses | `any` | n/a | yes |
 | location | The AWS availability zone to deploy environment `ap-northeast-1a` | `any` | n/a | yes |
 | name | A short name to attach to resources | `any` | n/a | yes |
 | network | Custom definition for network and bastion | `map` | `{}` | no |
@@ -19,6 +20,7 @@ The Network module creates a virtual network with subnets.
 |------|-------------|
 | bastion_ip | Public IP address to bastion host |
 | bastion_provision_id | The provision id of bastion. |
+| custom_tags | The internal domain for setting srv record |
 | image_id | The image id to initiate. |
 | internal_domain | The internal domain for setting srv record |
 | key_name | The key-name of the AWS managed ssh key_pair. |

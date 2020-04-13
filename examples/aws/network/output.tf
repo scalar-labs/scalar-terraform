@@ -57,3 +57,7 @@ output "ssh_config" {
 output "internal_domain" {
   value = module.network.internal_domain
 }
+
+output "custom_tags" {
+  value = var.custom_tags
+}

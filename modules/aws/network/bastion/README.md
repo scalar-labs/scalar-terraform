@@ -6,6 +6,7 @@ The bastion module deploys a network bastion host used to access and configure t
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
 | bastion_access_cidr | You can limit access to the bastion node to a specified IP cidr range | `any` | n/a | yes |
+| custom_tags | The map of custom tags | `map(string)` | `{}` | no |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `any` | n/a | yes |
 | image_id | The image id to initiate | `any` | n/a | yes |
 | internal_domain | The internal domain for setting srv record | `any` | n/a | yes |
@@ -32,3 +33,4 @@ The bastion module deploys a network bastion host used to access and configure t
 | bastion_provision_id | The provision id of bastion. |
 | bastion_security_group_id | The security group ID of the bastion resource. |
 | key_name | The key-name of the AWS managed ssh key_pair. |
+

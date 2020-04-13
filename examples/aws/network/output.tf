@@ -36,6 +36,7 @@ output "key_name" {
 
 output "locations" {
   value = module.network.locations
+}
 
 output "additional_public_keys_path" {
   value = module.network.additional_public_keys_path

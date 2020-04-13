@@ -28,6 +28,7 @@ module "vpc" {
     var.custom_tags,
     {
       Name      = module.name_generator.name
+      Network   = module.name_generator.name
       Terraform = "true"
     }
   )
@@ -36,6 +37,7 @@ module "vpc" {
     var.custom_tags,
     {
       Name      = module.name_generator.name
+      Network   = module.name_generator.name
       Terraform = "true"
     }
   )

@@ -6,14 +6,14 @@ This alert indicates that one or more instances are not reporting as being up. T
 #### Firing
 ```
 [prodtest-f4vofpw][FIRING:2] InstanceDown critical
-reaper.internal.scalar-labs.com:9100 - firing -
+reaper-1.internal.scalar-labs.com:9100 - firing -
 scalardl-blue-1.internal.scalar-labs.com:9100 - firing -
 ```
 
 #### Resolved
 ```
 [prodtest-f4vofpw][RESOLVED] InstanceDown critical
-reaper.internal.scalar-labs.com:9100 - resolved -
+reaper-1.internal.scalar-labs.com:9100 - resolved -
 scalardl-blue-1.internal.scalar-labs.com:9100 - resolved -
 ```
 

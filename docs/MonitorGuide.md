@@ -39,13 +39,13 @@ The following is a list of the individual app URLs.
    the following line in ssh.cfg.
 
     ```ssh config
-    LocalForward 8000 monitor.internal.scalar-labs.com:80
+    LocalForward 8000 monitor-1.internal.scalar-labs.com:80
     ```
 
 3. You can also create a tunnel directly to the monitor host to access the apps.
 
     ```console
-    ssh -F ssh.cfg -L 3000:localhost:3000 -L 9090:localhost:9090 monitor.internal.scalar-labs.com
+    ssh -F ssh.cfg -L 3000:localhost:3000 -L 9090:localhost:9090 monitor-1.internal.scalar-labs.com
     ```
 
     With the above command, http://localhost:3000/ will navigate to Grafana and

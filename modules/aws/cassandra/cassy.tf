@@ -49,6 +49,7 @@ module "cassy_provision" {
   provision_count  = local.cassy.resource_count
   enable_tdagent   = local.cassy.enable_tdagent
   internal_domain  = local.internal_domain
+  storage_base_uri = "%{if local.cassy.s3_bucket_name != ""}s3://${local.cassy.s3_bucket_name}%{endif}"
 }
 
 resource "aws_security_group" "cassy" {

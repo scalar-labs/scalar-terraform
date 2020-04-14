@@ -88,6 +88,7 @@ locals {
     resource_count            = 1
     resource_root_volume_size = 64
     enable_tdagent            = true
+    s3_bucket_name            = ""
   }
 }
 

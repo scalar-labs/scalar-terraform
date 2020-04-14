@@ -33,3 +33,8 @@ variable "internal_domain" {
   default     = "internal.scalar-labs.com"
   description = "The internal domain"
 }
+
+variable "storage_base_uri" {
+  default     = ""
+  description = "The storage_base_uri property value in cassy.properties"
+}

@@ -12,6 +12,7 @@ module "cassandra_cluster" {
   subnet_id                   = local.subnet_id
   associate_public_ip_address = false
   hostname_prefix             = "cassandra"
+  iam_instance_profile        = aws_iam_instance_profile.cassandra_profile[0].name
 
   tags = merge(
     var.custom_tags,
@@ -179,6 +180,70 @@ resource "null_resource" "volume_commitlog_local" {
       "sudo sh -c 'echo export COMMIT_STORE=local >> /etc/profile.d/volumes.sh'",
     ]
   }
+}
+
+resource "aws_iam_instance_profile" "cassandra_profile" {
+  count = local.cassy.s3_bucket_name != "" ? 1 : 0
+
+  name = "${local.network_name}-cassandra"
+  role = aws_iam_role.cassandra_role[0].name
+}
+
+resource "aws_iam_role" "cassandra_role" {
+  count = local.cassy.s3_bucket_name != "" ? 1 : 0
+
+  name = "${local.network_name}-cassandra"
+  path = "/"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": {
+    "Effect": "Allow",
+    "Principal": { "Service": "ec2.amazonaws.com" },
+    "Action": "sts:AssumeRole"
+  }
+}
+EOF
+
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = "${local.network_name} Cassandra role"
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
+}
+
+resource "aws_iam_role_policy" "s3_policy" {
+  count = local.cassy.s3_bucket_name != "" ? 1 : 0
+
+  name = "${local.network_name}-cassandra-s3"
+  role = aws_iam_role.cassandra_role[0].id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": ["arn:aws:s3:::${local.cassy.s3_bucket_name}"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject",
+        "s3:PutObjectAcl"
+      ],
+      "Resource": ["arn:aws:s3:::${local.cassy.s3_bucket_name}/*"]
+    }
+  ]
+}
+EOF
 }
 
 module "cassandra_provision" {

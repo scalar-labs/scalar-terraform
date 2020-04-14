@@ -65,7 +65,7 @@ resource "null_resource" "cassy_container" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/provision"
+    source      = "${path.module}/provision/"
     destination = "$HOME/cassy"
   }
 

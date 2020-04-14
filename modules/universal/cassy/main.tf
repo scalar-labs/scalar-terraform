@@ -72,7 +72,7 @@ resource "null_resource" "cassy_container" {
   provisioner "remote-exec" {
     inline = [
       "echo '${tls_private_key.cassy_private_key.private_key_pem}' > $HOME/.ssh/cassy.pem",
-      "chmod 400 $HOME/.ssh/cassy.pem",
+      "chmod 600 $HOME/.ssh/cassy.pem",
       "cd $HOME/cassy",
       "docker-compose up -d",
     ]

@@ -1,6 +1,6 @@
 region = "ap-northeast-1"
 
-base = "default" # bai, chiku, sho
+base = "default" # dev, bai, chiku, sho
 
 monitor = {
   # resource_type             = "t3.small"

@@ -40,6 +40,16 @@ locals {
   cassandra_base = {
     default = local.cassandra_default
 
+    dev = merge(local.cassandra_default,
+      {
+        resource_type              = "r5d.large"
+        enable_data_volume         = true
+        data_remote_volume_size    = 1024
+        enable_commitlog_volume    = true
+        commitlog_use_local_volume = true
+      }
+    )
+
     bai = merge(local.cassandra_default,
       {
         resource_type              = "r5d.large"
@@ -95,6 +105,12 @@ locals {
   cassy_base = {
     default = local.cassy_default
 
+    dev = merge(local.cassy_default,
+      {
+        resource_count = 0
+      }
+    )
+
     bai = merge(local.cassy_default, {})
 
     chiku = merge(local.cassy_default, {})
@@ -126,6 +142,12 @@ locals {
 locals {
   reaper_base = {
     default = local.reaper_default
+
+    dev = merge(local.reaper_default,
+      {
+        resource_count = 0
+      }
+    )
 
     bai = merge(local.reaper_default, {})
 

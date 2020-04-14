@@ -137,7 +137,7 @@ resource "aws_route53_record" "ca-dns" {
   count = local.ca.resource_count
 
   zone_id = local.network_dns
-  name    = "ca"
+  name    = "ca-${count.index + 1}"
   type    = "A"
   ttl     = "300"
   records = [module.ca_cluster.private_ip[count.index]]

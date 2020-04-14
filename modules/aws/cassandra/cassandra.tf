@@ -12,7 +12,7 @@ module "cassandra_cluster" {
   subnet_id                   = local.subnet_id
   associate_public_ip_address = false
   hostname_prefix             = "cassandra"
-  iam_instance_profile        = aws_iam_instance_profile.cassandra_profile[0].name
+  iam_instance_profile        = "%{if length(aws_iam_instance_profile.cassandra_profile) > 0}${aws_iam_instance_profile.cassandra_profile[0].name}%{endif}"
 
   tags = merge(
     var.custom_tags,

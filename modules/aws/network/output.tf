@@ -45,8 +45,8 @@ output "key_name" {
 }
 
 output "bastion_ip" {
-  value       = module.bastion.bastion_host_ips[local.network.bastion_dns_index - 1]
-  description = "Public IP address to bastion hosts"
+  value       = module.bastion.bastion_host_ips[0]
+  description = "Public IP address to bastion host"
 }
 
 output "locations" {
@@ -87,7 +87,7 @@ UserKnownHostsFile /dev/null
 StrictHostKeyChecking no
 
 Host bastion
-HostName ${module.bastion.bastion_host_ips[local.network.bastion_dns_index - 1]}
+HostName ${module.bastion.bastion_host_ips[0]}
 LocalForward 8000 monitor.${var.internal_domain}:80
 
 Host *.${var.internal_domain}

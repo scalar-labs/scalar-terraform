@@ -24,7 +24,7 @@ The Network module creates a virtual network with subnets.
 | image_id | The image id to initiate. |
 | internal_domain | The internal domain for setting srv record |
 | key_name | The key-name of the AWS managed ssh key_pair. |
-| locations | The AWS availability zone to deploy environment. |
+| locations | The AWS availability zones to deploy environment. |
 | network_cidr | Network CIDR address space. |
 | network_dns | The VPC network DNS ID. |
 | network_id | The VPC network ID. |

@@ -42,7 +42,7 @@ module "cassandra_cluster" {
 resource "aws_ebs_volume" "cassandra_data_volume" {
   count = local.cassandra.enable_data_volume && ! local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
-  availability_zone = local.locations[count.index]
+  availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.cassandra.data_remote_volume_size
   type              = local.cassandra.data_remote_volume_type
 
@@ -113,7 +113,7 @@ resource "null_resource" "volume_data_local" {
 resource "aws_ebs_volume" "cassandra_commitlog_volume" {
   count = local.cassandra.enable_commitlog_volume && ! local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
 
-  availability_zone = local.locations[count.index]
+  availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.cassandra.commitlog_remote_volume_size
   type              = local.cassandra.commitlog_remote_volume_type
 

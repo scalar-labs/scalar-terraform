@@ -3,5 +3,5 @@ tuned_profile: virtual-guest
 disk_read_ahead: 8
 CASSANDRA_MEMTABLE_THRESHOLD: 0.33
 CASSANDRA_STATE: stopped
-cassandra_config_index: 0
+cassandra_rack_index: 0
 endpoint_snitch: GossipingPropertyFileSnitch

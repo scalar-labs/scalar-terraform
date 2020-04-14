@@ -22,7 +22,8 @@ module "ca_cluster" {
 }
 
 module "ca_provision" {
-  source           = "../../universal/ca"
+  source = "../../universal/ca"
+
   triggers         = local.triggers
   bastion_host_ip  = local.bastion_ip
   host_list        = module.ca_cluster.network_interface_private_ip
@@ -34,11 +35,12 @@ module "ca_provision" {
 }
 
 resource "azurerm_private_dns_a_record" "ca-dns" {
-  count               = local.ca.resource_count > 0 ? 1 : 0
-  name                = "ca"
+  count = local.ca.resource_count
+
+  name                = "ca-${count.index + 1}"
   zone_name           = local.network_dns
   resource_group_name = local.network_name
   ttl                 = 300
 
-  records = module.ca_cluster.network_interface_private_ip
+  records = [module.ca_cluster.network_interface_private_ip[count.index]]
 }

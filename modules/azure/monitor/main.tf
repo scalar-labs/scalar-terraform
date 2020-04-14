@@ -90,7 +90,7 @@ module "monitor_provision" {
   internal_domain               = local.internal_domain
 }
 
-resource "azurerm_private_dns_a_record" "monitor-dns" {
+resource "azurerm_private_dns_a_record" "monitor" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 
   name                = "monitor"
@@ -98,10 +98,21 @@ resource "azurerm_private_dns_a_record" "monitor-dns" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  records = module.monitor_cluster.network_interface_private_ip
+  records = [module.monitor_cluster.network_interface_private_ip[local.monitor.dns_index - 1]]
 }
 
-resource "azurerm_private_dns_a_record" "prometheus-dns" {
+resource "azurerm_private_dns_a_record" "monitor-dns" {
+  count = local.monitor.resource_count
+
+  name                = "monitor-${count.index + 1}"
+  zone_name           = local.network_dns
+  resource_group_name = local.network_name
+  ttl                 = 300
+
+  records = [module.monitor_cluster.network_interface_private_ip[count.index]]
+}
+
+resource "azurerm_private_dns_a_record" "prometheus" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 
   name                = "prometheus"
@@ -109,7 +120,18 @@ resource "azurerm_private_dns_a_record" "prometheus-dns" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  records = module.monitor_cluster.network_interface_private_ip
+  records = [module.monitor_cluster.network_interface_private_ip[local.monitor.dns_index - 1]]
+}
+
+resource "azurerm_private_dns_a_record" "prometheus-dns" {
+  count = local.monitor.resource_count
+
+  name                = "prometheus-${count.index + 1}"
+  zone_name           = local.network_dns
+  resource_group_name = local.network_name
+  ttl                 = 300
+
+  records = [module.monitor_cluster.network_interface_private_ip[count.index]]
 }
 
 resource "azurerm_private_dns_srv_record" "monitor-exporter-dns-srv" {

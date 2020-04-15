@@ -245,7 +245,7 @@ resource "aws_route53_record" "monitor" {
   name    = "monitor"
   type    = "A"
   ttl     = "300"
-  records = [module.monitor_cluster.private_ip[local.monitor.dns_index - 1]]
+  records = [module.monitor_cluster.private_ip[local.monitor.active_offset]]
 }
 
 resource "aws_route53_record" "monitor-dns" {
@@ -265,7 +265,7 @@ resource "aws_route53_record" "prometheus" {
   name    = "prometheus"
   type    = "A"
   ttl     = "300"
-  records = [module.monitor_cluster.private_ip[local.monitor.dns_index - 1]]
+  records = [module.monitor_cluster.private_ip[local.monitor.active_offset]]
 }
 
 resource "aws_route53_record" "prometheus-dns" {

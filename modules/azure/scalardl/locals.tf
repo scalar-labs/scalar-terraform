@@ -42,7 +42,11 @@ locals {
   scalardl_base = {
     default = local.scalardl_default
 
-    dev = merge(local.monitor_default, { blue_resource_count = 2 })
+    dev = merge(local.monitor_default,
+      {
+        blue_resource_count = 2
+      }
+    )
 
     bai = merge(local.scalardl_default, {})
 
@@ -87,7 +91,11 @@ locals {
   envoy_base = {
     default = local.envoy_default
 
-    dev = merge(local.envoy_default, { resource_count = 2 })
+    dev = merge(local.envoy_default,
+      {
+        resource_count = 2
+      }
+    )
 
     bai = merge(local.envoy_default, {})
 

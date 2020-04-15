@@ -102,7 +102,11 @@ locals {
   cassy_base = {
     default = local.cassy_default
 
-    dev = merge(local.cassy_default, { resource_count = 0 })
+    dev = merge(local.cassy_default,
+      {
+        resource_count = 0
+      }
+    )
 
     bai = merge(local.cassy_default, {})
 
@@ -136,7 +140,11 @@ locals {
   reaper_base = {
     default = local.reaper_default
 
-    dev = merge(local.reaper_default, { resource_count = 0 })
+    dev = merge(local.reaper_default,
+      {
+        resource_count = 0
+      }
+    )
 
     bai = merge(local.reaper_default, {})
 

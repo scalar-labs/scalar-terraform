@@ -42,11 +42,7 @@ locals {
 
     dev = merge(local.cassandra_default,
       {
-        resource_type              = "r5d.large"
-        enable_data_volume         = true
-        data_remote_volume_size    = 1024
-        enable_commitlog_volume    = true
-        commitlog_use_local_volume = true
+        resource_type = "r5d.large"
       }
     )
 

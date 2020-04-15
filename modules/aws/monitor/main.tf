@@ -12,6 +12,7 @@ module "monitor_cluster" {
   subnet_id                   = local.subnet_id
   associate_public_ip_address = false
   hostname_prefix             = "monitor"
+  use_num_suffix              = true
 
   tags = merge(
     var.custom_tags,
@@ -50,7 +51,7 @@ resource "aws_ebs_volume" "monitor_log_volume" {
   tags = merge(
     var.custom_tags,
     {
-      Name      = "${local.network_name} Monitor log"
+      Name      = "${local.network_name} Monitor Cluster-${count.index + 1}"
       Terraform = "true"
       Network   = local.network_name
     }

@@ -1,4 +1,4 @@
-base = "default" # bai, chiku, sho
+base = "default" # dev, bai, chiku, sho
 
 scalardl = {
   # resource_type               = "Standard_B2s"

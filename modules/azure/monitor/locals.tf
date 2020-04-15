@@ -40,6 +40,8 @@ locals {
   monitor_base = {
     default = local.monitor_default
 
+    dev = merge(local.monitor_default, { resource_count = 0 })
+
     bai = merge(local.monitor_default, {})
 
     chiku = merge(local.monitor_default, {})

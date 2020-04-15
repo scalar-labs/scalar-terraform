@@ -1,4 +1,4 @@
-base = "default" # bai, chiku, sho
+base = "default" # dev, bai, chiku, sho
 
 cassandra = {
   # resource_type                = "Standard_B2ms"

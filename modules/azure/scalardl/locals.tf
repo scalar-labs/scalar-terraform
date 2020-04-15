@@ -42,7 +42,7 @@ locals {
   scalardl_base = {
     default = local.scalardl_default
 
-    dev = merge(local.monitor_default,
+    dev = merge(local.scalardl_default,
       {
         blue_resource_count = 2
       }

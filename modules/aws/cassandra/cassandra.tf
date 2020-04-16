@@ -12,7 +12,7 @@ module "cassandra_cluster" {
   subnet_id                   = local.subnet_id
   associate_public_ip_address = false
   hostname_prefix             = "cassandra"
-  iam_instance_profile        = "%{if length(aws_iam_instance_profile.cassandra) > 0}${aws_iam_instance_profile.cassandra[0].name}%{endif}"
+  iam_instance_profile        = local.cassy.storage_base_uri != "" ? aws_iam_instance_profile.cassandra.name : ""
 
   tags = merge(
     var.custom_tags,
@@ -183,15 +183,11 @@ resource "null_resource" "volume_commitlog_local" {
 }
 
 resource "aws_iam_instance_profile" "cassandra" {
-  count = local.cassy.storage_base_uri != "" ? 1 : 0
-
   name = "${local.network_name}-cassandra"
-  role = aws_iam_role.cassandra[0].name
+  role = aws_iam_role.cassandra.name
 }
 
 resource "aws_iam_role" "cassandra" {
-  count = local.cassy.storage_base_uri != "" ? 1 : 0
-
   name               = "${local.network_name}-cassandra"
   path               = "/"
   assume_role_policy = data.aws_iam_policy_document.assume.json
@@ -205,12 +201,14 @@ resource "aws_iam_role" "cassandra" {
   )
 }
 
-resource "aws_iam_role_policy" "cassandra_s3" {
-  count = local.cassy.storage_base_uri != "" ? 1 : 0
-
-  name   = "${local.network_name}-cassandra-s3"
-  role   = aws_iam_role.cassandra[0].id
+resource "aws_iam_policy" "cassandra_s3" {
+  name   = "${local.network_name}-cassandra-s3-policy"
   policy = data.aws_iam_policy_document.s3.json
+}
+
+resource "aws_iam_role_policy_attachment" "cassandra" {
+  role       = aws_iam_role.cassandra.name
+  policy_arn = aws_iam_policy.cassandra_s3.arn
 }
 
 data "aws_iam_policy_document" "assume" {

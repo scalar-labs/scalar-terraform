@@ -192,19 +192,9 @@ resource "aws_iam_instance_profile" "cassandra" {
 resource "aws_iam_role" "cassandra" {
   count = local.cassy.storage_base_uri != "" ? 1 : 0
 
-  name = "${local.network_name}-cassandra"
-  path = "/"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": {
-    "Effect": "Allow",
-    "Principal": { "Service": "ec2.amazonaws.com" },
-    "Action": "sts:AssumeRole"
-  }
-}
-EOF
+  name               = "${local.network_name}-cassandra"
+  path               = "/"
+  assume_role_policy = data.aws_iam_policy_document.assume.json
 
   tags = merge(
     var.custom_tags,
@@ -216,38 +206,47 @@ EOF
   )
 }
 
+resource "aws_iam_role_policy" "cassandra_s3" {
+  count = local.cassy.storage_base_uri != "" ? 1 : 0
+
+  name   = "${local.network_name}-cassandra-s3"
+  role   = aws_iam_role.cassandra[0].id
+  policy = data.aws_iam_policy_document.s3.json
+}
+
+data "aws_iam_policy_document" "assume" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
 locals {
   s3_bucket_name = trimprefix(local.cassy.storage_base_uri, "s3://")
 }
 
-resource "aws_iam_role_policy" "cassandra_s3" {
-  count = local.cassy.storage_base_uri != "" ? 1 : 0
+data "aws_iam_policy_document" "s3" {
+  statement {
+    actions = ["s3:ListBucket"]
+    resources = [
+      "arn:aws:s3:::${local.s3_bucket_name}"
+    ]
+  }
 
-  name = "${local.network_name}-cassandra-s3"
-  role = aws_iam_role.cassandra[0].id
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": ["s3:ListBucket"],
-      "Resource": ["arn:aws:s3:::${local.s3_bucket_name}"]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:PutObject",
-        "s3:GetObject",
-        "s3:DeleteObject",
-        "s3:PutObjectAcl"
-      ],
-      "Resource": ["arn:aws:s3:::${local.s3_bucket_name}/*"]
-    }
-  ]
-}
-EOF
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:PutObjectAcl",
+    ]
+    resources = [
+      "arn:aws:s3:::${local.s3_bucket_name}/*",
+    ]
+  }
 }
 
 module "cassandra_provision" {

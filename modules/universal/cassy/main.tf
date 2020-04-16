@@ -65,14 +65,14 @@ resource "null_resource" "cassy_container" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/provision"
+    source      = "${path.module}/provision/"
     destination = "$HOME/cassy"
   }
 
   provisioner "remote-exec" {
     inline = [
       "echo '${tls_private_key.cassy_private_key.private_key_pem}' > $HOME/.ssh/cassy.pem",
-      "chmod 400 $HOME/.ssh/cassy.pem",
+      "chmod 600 $HOME/.ssh/cassy.pem",
       "cd $HOME/cassy",
       "export storage_base_uri=${var.storage_base_uri}",
       "j2 ./conf/cassy.properties.j2 > ./conf/cassy.properties",

@@ -183,14 +183,14 @@ resource "null_resource" "volume_commitlog_local" {
 }
 
 resource "aws_iam_instance_profile" "cassandra" {
-  count = local.cassy.s3_bucket_name != "" ? 1 : 0
+  count = local.cassy.storage_base_uri != "" ? 1 : 0
 
   name = "${local.network_name}-cassandra"
   role = aws_iam_role.cassandra[0].name
 }
 
 resource "aws_iam_role" "cassandra" {
-  count = local.cassy.s3_bucket_name != "" ? 1 : 0
+  count = local.cassy.storage_base_uri != "" ? 1 : 0
 
   name = "${local.network_name}-cassandra"
   path = "/"
@@ -216,8 +216,12 @@ EOF
   )
 }
 
+locals {
+  s3_bucket_name = trimprefix(local.cassy.storage_base_uri, "s3://")
+}
+
 resource "aws_iam_role_policy" "cassandra_s3" {
-  count = local.cassy.s3_bucket_name != "" ? 1 : 0
+  count = local.cassy.storage_base_uri != "" ? 1 : 0
 
   name = "${local.network_name}-cassandra-s3"
   role = aws_iam_role.cassandra[0].id
@@ -229,7 +233,7 @@ resource "aws_iam_role_policy" "cassandra_s3" {
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": ["arn:aws:s3:::${local.cassy.s3_bucket_name}"]
+      "Resource": ["arn:aws:s3:::${local.s3_bucket_name}"]
     },
     {
       "Effect": "Allow",
@@ -239,7 +243,7 @@ resource "aws_iam_role_policy" "cassandra_s3" {
         "s3:DeleteObject",
         "s3:PutObjectAcl"
       ],
-      "Resource": ["arn:aws:s3:::${local.cassy.s3_bucket_name}/*"]
+      "Resource": ["arn:aws:s3:::${local.s3_bucket_name}/*"]
     }
   ]
 }

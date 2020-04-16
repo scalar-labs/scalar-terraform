@@ -98,7 +98,7 @@ resource "azurerm_private_dns_a_record" "monitor" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  records = [module.monitor_cluster.network_interface_private_ip[local.monitor.dns_index - 1]]
+  records = [module.monitor_cluster.network_interface_private_ip[local.monitor.active_offset]]
 }
 
 resource "azurerm_private_dns_a_record" "monitor-dns" {
@@ -120,7 +120,7 @@ resource "azurerm_private_dns_a_record" "prometheus" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  records = [module.monitor_cluster.network_interface_private_ip[local.monitor.dns_index - 1]]
+  records = [module.monitor_cluster.network_interface_private_ip[local.monitor.active_offset]]
 }
 
 resource "azurerm_private_dns_a_record" "prometheus-dns" {

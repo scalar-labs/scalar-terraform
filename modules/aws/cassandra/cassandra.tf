@@ -199,7 +199,6 @@ resource "aws_iam_role" "cassandra" {
   tags = merge(
     var.custom_tags,
     {
-      Name      = "${local.network_name} Cassandra role"
       Terraform = "true"
       Network   = local.network_name
     }

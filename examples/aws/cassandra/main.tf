@@ -2,6 +2,9 @@ module "cassandra" {
   # source = "git@github.com:scalar-labs/scalar-terraform.git//modules/aws/cassandra?ref=v1.0.0"
   source = "../../../modules/aws/cassandra"
 
+  # Required Variables
+  cassy_storage_base_uri = var.cassy_storage_base_uri
+
   # Required Variables (Use network remote state)
   network = local.network
 

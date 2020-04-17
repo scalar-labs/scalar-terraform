@@ -21,3 +21,7 @@ variable "reaper" {
   type    = map
   default = {}
 }
+
+variable "cassy_storage_base_uri" {
+  type = string
+}

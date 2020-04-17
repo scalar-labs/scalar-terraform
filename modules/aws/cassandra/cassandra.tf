@@ -12,7 +12,7 @@ module "cassandra_cluster" {
   subnet_id                   = local.subnet_id
   associate_public_ip_address = false
   hostname_prefix             = "cassandra"
-  iam_instance_profile        = local.cassy.storage_base_uri != "" ? aws_iam_instance_profile.cassandra.name : ""
+  iam_instance_profile        = aws_iam_instance_profile.cassandra.name
 
   tags = merge(
     var.custom_tags,
@@ -222,7 +222,7 @@ data "aws_iam_policy_document" "assume" {
 }
 
 locals {
-  s3_bucket_name = trimprefix(local.cassy.storage_base_uri, "s3://")
+  s3_bucket_name = trimprefix(var.cassy_storage_base_uri, "s3://")
 }
 
 data "aws_iam_policy_document" "s3" {

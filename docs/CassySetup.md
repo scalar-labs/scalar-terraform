@@ -16,7 +16,7 @@ Cassy master tells each Cassandra node to upload backup files to Cloud Storages 
 
 1. Shutdown the docker container
     ```
-    $ cd cassy
+    $ cd provision
     $ docker-compose down
     ```
 

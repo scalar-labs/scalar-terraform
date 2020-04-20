@@ -44,6 +44,8 @@ module "dns" {
 
 module "image" {
   source = "./ami-selector"
+
+  name = "CentOS Linux 7 x86_64 HVM EBS ENA - ami-045f38c93733dd48d - SCALAR"
 }
 
 module "bastion" {

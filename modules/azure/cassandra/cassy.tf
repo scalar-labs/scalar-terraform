@@ -25,7 +25,7 @@ module "cassy_provision" {
   provision_count  = local.cassy.resource_count
   enable_tdagent   = local.cassy.enable_tdagent
   internal_domain  = local.internal_domain
-  version          = local.cassy.version
+  cassy_version    = local.cassy.version
 }
 
 resource "azurerm_private_dns_a_record" "cassy-dns" {

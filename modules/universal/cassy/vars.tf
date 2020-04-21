@@ -34,6 +34,6 @@ variable "internal_domain" {
   description = "The internal domain"
 }
 
-variable "version" {
+variable "cassy_version" {
   description = "The version of cassy container"
 }

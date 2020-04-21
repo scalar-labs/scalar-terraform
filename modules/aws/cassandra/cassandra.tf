@@ -203,13 +203,17 @@ resource "aws_iam_role" "cassandra" {
 }
 
 resource "aws_iam_policy" "cassandra_s3" {
+  count = length(data.aws_iam_policy_document.s3) > 0 ? 1 : 0
+
   name   = "${local.network_name}-cassandra-s3-policy"
-  policy = data.aws_iam_policy_document.s3.json
+  policy = data.aws_iam_policy_document.s3[0].json
 }
 
 resource "aws_iam_role_policy_attachment" "cassandra" {
+  count = length(aws_iam_policy.cassandra_s3) > 0 ? 1 : 0
+
   role       = aws_iam_role.cassandra.name
-  policy_arn = aws_iam_policy.cassandra_s3.arn
+  policy_arn = aws_iam_policy.cassandra_s3[0].arn
 }
 
 data "aws_iam_policy_document" "assume" {
@@ -222,15 +226,20 @@ data "aws_iam_policy_document" "assume" {
   }
 }
 
-locals {
-  s3_bucket_name = trimprefix(local.cassy.storage_base_uri, "s3://")
+data "aws_s3_bucket" "cassy_storage" {
+  # If the resource_count of Cassy > 0, this resource makes local.cassy.storage_base_uri required and ensures the S3 bucket is accessible.
+  count = local.cassy.resource_count > 0 ? 1 : 0
+
+  bucket = trimprefix(local.cassy.storage_base_uri, "s3://")
 }
 
 data "aws_iam_policy_document" "s3" {
+  count = length(data.aws_s3_bucket.cassy_storage) > 0 ? 1 : 0
+
   statement {
     actions = ["s3:ListBucket"]
     resources = [
-      "arn:aws:s3:::${local.s3_bucket_name}"
+      data.aws_s3_bucket.cassy_storage[0].arn
     ]
   }
 
@@ -242,7 +251,7 @@ data "aws_iam_policy_document" "s3" {
       "s3:PutObjectAcl",
     ]
     resources = [
-      "arn:aws:s3:::${local.s3_bucket_name}/*",
+      "${data.aws_s3_bucket.cassy_storage[0].arn}/*"
     ]
   }
 }

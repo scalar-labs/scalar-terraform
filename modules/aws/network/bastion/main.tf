@@ -17,6 +17,7 @@ module "bastion_cluster" {
   subnet_id                   = var.subnet_id
   associate_public_ip_address = true
   hostname_prefix             = "bastion"
+  use_num_suffix              = true
 
   tags = merge(
     var.custom_tags,

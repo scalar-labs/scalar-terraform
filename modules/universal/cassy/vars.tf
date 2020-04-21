@@ -33,3 +33,7 @@ variable "internal_domain" {
   default     = "internal.scalar-labs.com"
   description = "The internal domain"
 }
+
+variable "version" {
+  description = "The version of cassy container"
+}

@@ -74,6 +74,8 @@ resource "null_resource" "cassy_container" {
       "echo '${tls_private_key.cassy_private_key.private_key_pem}' > $HOME/.ssh/cassy.pem",
       "chmod 600 $HOME/.ssh/cassy.pem",
       "cd $HOME/provision",
+      "echo export VERSION=${var.version} > env",
+      "source ./env",
       "docker-compose up -d",
     ]
   }

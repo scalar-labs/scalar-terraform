@@ -20,11 +20,6 @@ variable "cassy" {
   description = "The custom settings of Cassy resources"
 }
 
-variable "cassy_storage_base_uri" {
-  type        = string
-  description = "The storage_base_uri that Cassy uses to store Cassandra backups. The URI must be in s3://<your-bucket-name> form."
-}
-
 variable "reaper" {
   type        = map
   default     = {}

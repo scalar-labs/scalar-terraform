@@ -90,7 +90,7 @@ module "monitor_provision" {
   internal_domain               = local.internal_domain
 }
 
-resource "azurerm_private_dns_a_record" "monitor" {
+resource "azurerm_private_dns_a_record" "monitor_cluster_dns" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 
   name                = "monitor"
@@ -101,7 +101,7 @@ resource "azurerm_private_dns_a_record" "monitor" {
   records = [module.monitor_cluster.network_interface_private_ip[local.monitor.active_offset]]
 }
 
-resource "azurerm_private_dns_a_record" "monitor-dns" {
+resource "azurerm_private_dns_a_record" "monitor_host_dns" {
   count = local.monitor.resource_count
 
   name                = "monitor-${count.index + 1}"
@@ -123,18 +123,7 @@ resource "azurerm_private_dns_a_record" "prometheus" {
   records = [module.monitor_cluster.network_interface_private_ip[local.monitor.active_offset]]
 }
 
-resource "azurerm_private_dns_a_record" "prometheus-dns" {
-  count = local.monitor.resource_count
-
-  name                = "prometheus-${count.index + 1}"
-  zone_name           = local.network_dns
-  resource_group_name = local.network_name
-  ttl                 = 300
-
-  records = [module.monitor_cluster.network_interface_private_ip[count.index]]
-}
-
-resource "azurerm_private_dns_srv_record" "monitor-exporter-dns-srv" {
+resource "azurerm_private_dns_srv_record" "monitor_exporter_dns_srv" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 
   name                = "_node-exporter._tcp.monitor"
@@ -143,7 +132,7 @@ resource "azurerm_private_dns_srv_record" "monitor-exporter-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.monitor-dns.*.name
+    for_each = azurerm_private_dns_a_record.monitor_host_dns.*.name
 
     content {
       priority = 0
@@ -154,7 +143,7 @@ resource "azurerm_private_dns_srv_record" "monitor-exporter-dns-srv" {
   }
 }
 
-resource "azurerm_private_dns_srv_record" "monitor-cadvisor-dns-srv" {
+resource "azurerm_private_dns_srv_record" "monitor_cadvisor_dns_srv" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 
   name                = "_cadvisor._tcp.monitor"
@@ -163,7 +152,7 @@ resource "azurerm_private_dns_srv_record" "monitor-cadvisor-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.monitor-dns.*.name
+    for_each = azurerm_private_dns_a_record.monitor_host_dns.*.name
 
     content {
       priority = 0

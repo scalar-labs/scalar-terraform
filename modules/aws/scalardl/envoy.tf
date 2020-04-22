@@ -12,6 +12,7 @@ module "envoy_cluster" {
   subnet_ids                  = local.envoy.subnet_ids
   associate_public_ip_address = false
   hostname_prefix             = "envoy"
+  use_num_suffix              = true
 
   tags = merge(
     var.custom_tags,

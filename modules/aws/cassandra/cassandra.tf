@@ -12,6 +12,7 @@ module "cassandra_cluster" {
   subnet_ids                  = local.subnet_ids
   associate_public_ip_address = false
   hostname_prefix             = "cassandra"
+  use_num_suffix              = true
 
   tags = merge(
     var.custom_tags,
@@ -49,7 +50,7 @@ resource "aws_ebs_volume" "cassandra_data_volume" {
   tags = merge(
     var.custom_tags,
     {
-      Name      = "${local.network_name} Cassandra data-${count.index + 1}"
+      Name      = "${local.network_name} Cassandra Cluster-${count.index + 1}"
       Terraform = "true"
       Network   = local.network_name
     }
@@ -120,7 +121,7 @@ resource "aws_ebs_volume" "cassandra_commitlog_volume" {
   tags = merge(
     var.custom_tags,
     {
-      Name      = "${local.network_name} Cassandra commitlog-${count.index + 1}"
+      Name      = "${local.network_name} Cassandra Cluster-${count.index + 1}"
       Terraform = "true"
       Network   = local.network_name
     }

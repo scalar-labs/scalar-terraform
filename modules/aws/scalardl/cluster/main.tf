@@ -12,6 +12,7 @@ module "scalardl_cluster" {
   subnet_ids                  = var.subnet_ids
   associate_public_ip_address = false
   hostname_prefix             = "scalardl-${var.resource_cluster_name}"
+  use_num_suffix              = true
 
   tags = merge(
     var.custom_tags,

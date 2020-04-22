@@ -112,17 +112,6 @@ resource "azurerm_private_dns_a_record" "monitor_host_dns" {
   records = [module.monitor_cluster.network_interface_private_ip[count.index]]
 }
 
-resource "azurerm_private_dns_a_record" "prometheus" {
-  count = local.monitor.resource_count > 0 ? 1 : 0
-
-  name                = "prometheus"
-  zone_name           = local.network_dns
-  resource_group_name = local.network_name
-  ttl                 = 300
-
-  records = [module.monitor_cluster.network_interface_private_ip[local.monitor.active_offset]]
-}
-
 resource "azurerm_private_dns_srv_record" "monitor_exporter_dns_srv" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 

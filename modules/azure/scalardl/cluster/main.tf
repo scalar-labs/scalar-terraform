@@ -14,6 +14,7 @@ module "cluster" {
   storage_os_disk_size          = var.resource_root_volume_size
   availability_set_id           = var.availability_set_id
   delete_os_disk_on_termination = true
+  enable_accelerated_networking = var.enable_accelerated_networking
 }
 
 module "scalardl_provision" {

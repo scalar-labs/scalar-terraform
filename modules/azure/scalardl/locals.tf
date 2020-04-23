@@ -18,22 +18,25 @@ locals {
 ### default
 locals {
   scalardl_default = {
-    resource_type               = "Standard_B2s"
-    resource_root_volume_size   = 64
-    blue_resource_count         = 3
-    blue_image_tag              = "2.0.3"
-    blue_image_name             = "scalarlabs/scalar-ledger"
-    blue_subnet_id              = var.network.blue_subnet_id
-    blue_discoverable_by_envoy  = true
-    green_resource_count        = 0
-    green_image_tag             = "2.0.3"
-    replication_factor          = 3
-    green_image_name            = "scalarlabs/scalar-ledger"
-    green_subnet_id             = var.network.green_subnet_id
-    green_discoverable_by_envoy = false
-    enable_tdagent              = true
-    cassandra_username          = ""
-    cassandra_password          = ""
+    resource_type                       = "Standard_B2s"
+    resource_root_volume_size           = 64
+    blue_resource_count                 = 3
+    blue_image_tag                      = "2.0.3"
+    blue_image_name                     = "scalarlabs/scalar-ledger"
+    blue_subnet_id                      = var.network.blue_subnet_id
+    blue_discoverable_by_envoy          = true
+    blue_enable_accelerated_networking  = false
+    green_resource_count                = 0
+    green_image_tag                     = "2.0.3"
+    replication_factor                  = 3
+    green_image_name                    = "scalarlabs/scalar-ledger"
+    green_subnet_id                     = var.network.green_subnet_id
+    green_discoverable_by_envoy         = false
+    green_enable_accelerated_networking = false
+    enable_tdagent                      = true
+    cassandra_username                  = ""
+    cassandra_password                  = ""
+
   }
 }
 
@@ -62,22 +65,23 @@ locals {
 ### envoy
 locals {
   envoy_default = {
-    resource_type             = "Standard_B2s"
-    resource_count            = 3
-    resource_root_volume_size = 64
-    target_port               = 50051
-    listen_port               = 50051
-    subnet_id                 = var.network.private_subnet_id
-    enable_nlb                = true
-    nlb_internal              = false
-    enable_tdagent            = true
-    key                       = ""
-    cert                      = ""
-    tag                       = "v1.12.3"
-    image                     = "envoyproxy/envoy"
-    tls                       = false
-    cert_auto_gen             = true
-    custom_config_path        = ""
+    resource_type                 = "Standard_B2s"
+    resource_count                = 3
+    resource_root_volume_size     = 64
+    target_port                   = 50051
+    listen_port                   = 50051
+    subnet_id                     = var.network.private_subnet_id
+    enable_nlb                    = true
+    nlb_internal                  = false
+    enable_tdagent                = true
+    key                           = ""
+    cert                          = ""
+    tag                           = "v1.12.3"
+    image                         = "envoyproxy/envoy"
+    tls                           = false
+    cert_auto_gen                 = true
+    custom_config_path            = ""
+    enable_accelerated_networking = false
   }
 }
 

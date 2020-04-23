@@ -14,6 +14,7 @@ module "bastion_cluster" {
   vm_size                       = var.resource_type
   delete_os_disk_on_termination = true
   ssh_key                       = var.public_key_path
+  enable_accelerated_networking = var.enable_accelerated_networking
 }
 
 module "bastion_provision" {

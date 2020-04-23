@@ -16,6 +16,6 @@ COPY ./create_schema.sh ./
 RUN chmod 755 ./startup.sh
 RUN chmod 755 ./create_schema.sh
 
-CMD ["sh", "-c", "dockerize  -template ledger.properties.tmpl:ledger.properties -wait tcp://${SCALAR_CASSANDRA_HOST}:${SCALAR_CASSANDRA_PORT} -timeout 30s ./startup.sh"]
+CMD ["sh", "-c", "dockerize  -template ledger.properties.tmpl:ledger.properties -wait tcp://${SCALAR_DB_CONTACT_POINTS}:${SCALAR_DB_CONTACT_PORT} -timeout 30s ./startup.sh"]
 
 EXPOSE 50051 50052 50053

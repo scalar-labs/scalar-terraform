@@ -24,6 +24,7 @@ The bastion module deploys a network bastion host used to access and configure t
 | additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `any` | n/a | no |
 | resource_root_volume_size | n/a | `any` | n/a | yes |
 | resource_type | The resource type of the bastion instance | `any` | n/a | yes |
+| resource_count | The number of bastion resources to create | `any` | n/a | yes |
 | subnet_id | The subnet ID to launch bastion host. Should be a public subnet | `any` | n/a | yes |
 | trigger | A trigger key that will initiate provisioning of bastion resource | `string` | `""` | no |
 | user_name | The user name of the remote hosts | `any` | n/a | yes |

@@ -48,6 +48,10 @@ variable "resource_type" {
   description = "The resource type of the bastion instance"
 }
 
+variable "resource_count" {
+  description = "The number of bastion resources to create"
+}
+
 variable "resource_root_volume_size" {}
 
 variable "bastion_access_cidr" {

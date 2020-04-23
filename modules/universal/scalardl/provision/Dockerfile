@@ -1,4 +1,4 @@
-ARG FROM_SCALAR_IMAGE=scalarlabs/scalar-ledger:2.0.3
+ARG FROM_SCALAR_IMAGE=scalarlabs/scalar-ledger:2.0.4
 FROM ${FROM_SCALAR_IMAGE}
 
 #Install cqlsh tool
@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y curl gnupg apt-transport-https \
 #Copy templates from build step
 COPY ./startup.sh ./
 COPY ./create_schema.sh ./
-COPY ./create_schema.cql.tmpl ./
 
 RUN chmod 755 ./startup.sh
 RUN chmod 755 ./create_schema.sh

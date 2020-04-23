@@ -7,7 +7,7 @@ It assumes that you have already created Cassy instance with `scalar-terraform` 
 
 Cassy master tells each Cassandra node to upload backup files to Cloud Storages such as AWS S3 and Azure Blob Storage, each Cassandra node needs to have required configurations, for example config and credentials in AWS, for `cassandra` user.
 
-If you deployed an environment on AWS with `scalar-terraform`, an IAM instance profile that allows EC2 instances to interact with the specified S3 bucket is created and attached to all Cassandra nodes. So you don't have to configure credentiails manually on each Cassandra node.
+If you deploy to AWS with `scalar-terraform`, an IAM instance profile that allows EC2 instances to interact with the specified S3 bucket is created and attached to all Cassandra nodes. So you don't need to configure credentials manually on Cassandra nodes.
 
 ## Configure Cassy to work with your environment
 

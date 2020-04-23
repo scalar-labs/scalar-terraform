@@ -8,7 +8,7 @@ This example will deploy a simple Scalar DL environment in the Tokyo region with
 * Ansible 2.8
 * AWS CLI
 * ssh-agent with private key
-* An S3 bucket to store Cassandra backups with Cassy
+* An S3 bucket URI to store Cassandra backups with Cassy
 
 ## What is created
 * An AWS VPC with a NAT gateway

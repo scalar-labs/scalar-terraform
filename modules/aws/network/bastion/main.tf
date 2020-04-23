@@ -14,7 +14,7 @@ module "bastion_cluster" {
   key_name                    = aws_key_pair.deploy_key.key_name
   monitoring                  = false
   vpc_security_group_ids      = [aws_security_group.bastion.id]
-  subnet_id                   = var.subnet_id
+  subnet_ids                  = var.subnet_ids
   associate_public_ip_address = true
   hostname_prefix             = "bastion"
   use_num_suffix              = true
@@ -47,7 +47,8 @@ module "bastion_cluster" {
 }
 
 module "bastion_provision" {
-  source                      = "../../../universal/bastion"
+  source = "../../../universal/bastion"
+
   triggers                    = module.bastion_cluster.id
   bastion_host_ips            = module.bastion_cluster.public_ip
   user_name                   = var.user_name
@@ -99,7 +100,7 @@ resource "aws_route53_record" "bastion-dns" {
   count = var.resource_count
 
   zone_id = var.network_dns
-  name    = "bastion"
+  name    = "bastion-${count.index + 1}"
   type    = "A"
   ttl     = "300"
   records = [module.bastion_cluster.private_ip[count.index]]

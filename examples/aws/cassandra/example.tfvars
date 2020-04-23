@@ -24,7 +24,9 @@ cassy = {
   #resource_count            = "1"
   #resource_root_volume_size = "64"
   #enable_tdagent            = "true"
-  #storage_base_uri          = ""
+
+  # Required if resource_count > 0
+  storage_base_uri = "s3://your-bucket-name"
 }
 
 reaper = {

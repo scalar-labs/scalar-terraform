@@ -8,6 +8,7 @@ This example will deploy a simple Scalar DL environment in the Tokyo region with
 * Ansible 2.8
 * AWS CLI
 * ssh-agent with private key
+* An S3 bucket to store Cassandra backups with Cassy
 
 ## What is created
 * An AWS VPC with a NAT gateway
@@ -57,6 +58,27 @@ $ terraform apply -var-file example.tfvars
 To add tags to resources you create with scalar-terraform, please refer to [custom tags](../../docs/CustomTags.md).
 
 ### Create Cassandra resources
+
+To use Cassy to backup Cassandra data (enabled by default), you need to create an S3 bucket manually before creating resources with `scalar-terraform`. Please update the `example.tfvars` file to specify the bucket name.
+
+```
+cassy = {
+  storage_base_uri = "s3://your-bucket-name"
+}
+```
+
+You can also turn off the use of Cassy by setting its `resource_count` to zero.
+
+```
+cassy = {
+  resource_count = 0
+  # storage_base_uri = ""
+}
+```
+
+For more information on Cassy, please refer to [CassySetup](../../docs/CassySetup.md).
+
+Then run the terraform command:
 
 ```console
 $ cd examples/aws/cassandra

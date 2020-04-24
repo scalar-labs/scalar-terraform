@@ -7,11 +7,11 @@ It assumes that you have already created Reaper instance with `scalar-terraform`
 
 1. Port-forward Reaper port to access Reaper web UI from your local
     ```
-    $ ssh -F ssh.cfg -L 8080:localhost:8080 reaper.internal.scalar-labs.com
+    $ ssh -F ssh.cfg -L 8080:localhost:8080 reaper-1.internal.scalar-labs.com
     ```
     * Alternatively, you can add the following line under `Host bastion` section of `ssh.cfg`, and do `ssh -F ssh.cfg bastion`.
     ```
-    LocalForward 8080 reaper.internal.scalar-labs.com:8080
+    LocalForward 8080 reaper-1.internal.scalar-labs.com:8080
     ```
 
 1. Access Reaper web UI from your browser

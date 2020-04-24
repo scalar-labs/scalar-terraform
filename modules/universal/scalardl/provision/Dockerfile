@@ -1,7 +1,8 @@
-ARG FROM_SCALAR_IMAGE=scalarlabs/scalar-ledger:2.0.3
+ARG FROM_SCALAR_IMAGE=scalarlabs/scalar-ledger:2.0.4
 FROM ${FROM_SCALAR_IMAGE}
 
 #Install cqlsh tool
+RUN mkdir -p /usr/share/man/man1
 RUN apt-get update && apt-get install -y curl gnupg apt-transport-https \
     && echo "deb https://downloads.apache.org/cassandra/debian 311x main" > /etc/apt/sources.list.d/cassandra.sources.list \
     && curl -fsSL https://downloads.apache.org/cassandra/KEYS | apt-key add - \
@@ -16,6 +17,6 @@ COPY ./create_schema.sh ./
 RUN chmod 755 ./startup.sh
 RUN chmod 755 ./create_schema.sh
 
-CMD ["sh", "-c", "dockerize  -template ledger.properties.tmpl:ledger.properties -wait tcp://${SCALAR_CASSANDRA_HOST}:${SCALAR_CASSANDRA_PORT} -timeout 30s ./startup.sh"]
+CMD ["sh", "-c", "dockerize  -template ledger.properties.tmpl:ledger.properties -wait tcp://${SCALAR_DB_CONTACT_POINTS}:${SCALAR_DB_CONTACT_PORT} -timeout 30s ./startup.sh"]
 
 EXPOSE 50051 50052 50053

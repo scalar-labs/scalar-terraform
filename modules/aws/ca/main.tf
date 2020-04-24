@@ -9,9 +9,10 @@ module "ca_cluster" {
   key_name                    = local.key_name
   monitoring                  = false
   vpc_security_group_ids      = aws_security_group.ca.*.id
-  subnet_id                   = local.subnet_id
+  subnet_ids                  = local.subnet_ids
   associate_public_ip_address = false
   hostname_prefix             = "ca"
+  use_num_suffix              = true
 
   tags = merge(
     var.custom_tags,
@@ -137,7 +138,7 @@ resource "aws_route53_record" "ca-dns" {
   count = local.ca.resource_count
 
   zone_id = local.network_dns
-  name    = "ca"
+  name    = "ca-${count.index + 1}"
   type    = "A"
   ttl     = "300"
   records = [module.ca_cluster.private_ip[count.index]]

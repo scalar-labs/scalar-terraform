@@ -3,7 +3,8 @@ variable "name" {
   description = "A short name to attach to resources"
 }
 
-variable "location" {
+variable "locations" {
+  type        = list(string)
   description = "The AWS availability zone to deploy environment `ap-northeast-1a`"
 }
 

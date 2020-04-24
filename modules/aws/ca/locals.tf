@@ -4,7 +4,7 @@ locals {
   network_name     = var.network.name
   network_dns      = var.network.dns
   network_id       = var.network.id
-  subnet_id        = var.network.subnet_id
+  subnet_ids       = split(",", var.network.subnet_ids)
   image_id         = var.network.image_id
   key_name         = var.network.key_name
   bastion_ip       = var.network.bastion_ip

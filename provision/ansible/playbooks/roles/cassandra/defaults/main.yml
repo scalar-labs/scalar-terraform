@@ -1,6 +1,8 @@
 ---
-CASSY_PUBLIC_KEY:
 tuned_profile: virtual-guest
 disk_read_ahead: 8
 CASSANDRA_MEMTABLE_THRESHOLD: 0.33
 CASSANDRA_STATE: stopped
+cassandra_dc_id: dc1
+cassandra_rack_id: rack1
+endpoint_snitch: GossipingPropertyFileSnitch

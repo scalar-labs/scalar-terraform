@@ -120,6 +120,16 @@
     src: cassandra.yaml.j2
     dest: /etc/cassandra/conf/cassandra.yaml
 
+- name: Copy cassandra-rackdc.properties
+  template:
+    src: cassandra-rackdc.properties.j2
+    dest: /etc/cassandra/conf/cassandra-rackdc.properties
+
+- name: Delete cassandra-topology.properties
+  file:
+    path: /etc/cassandra/conf/cassandra-topology.properties
+    state: absent
+
 - name: Setup Cassandra Service
   systemd:
     name: cassandra

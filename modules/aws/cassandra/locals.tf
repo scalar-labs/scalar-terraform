@@ -4,8 +4,8 @@ locals {
   network_name     = var.network.name
   network_dns      = var.network.dns
   network_id       = var.network.id
-  location         = var.network.location
-  subnet_id        = var.network.subnet_id
+  locations        = split(",", var.network.locations)
+  subnet_ids       = split(",", var.network.subnet_ids)
   image_id         = var.network.image_id
   key_name         = var.network.key_name
   bastion_ip       = var.network.bastion_ip

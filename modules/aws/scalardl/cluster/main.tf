@@ -9,9 +9,10 @@ module "scalardl_cluster" {
   key_name                    = var.key_name
   monitoring                  = false
   vpc_security_group_ids      = var.security_group_ids
-  subnet_id                   = var.subnet_id
+  subnet_ids                  = var.subnet_ids
   associate_public_ip_address = false
   hostname_prefix             = "scalardl-${var.resource_cluster_name}"
+  use_num_suffix              = true
 
   tags = merge(
     var.custom_tags,

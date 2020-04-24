@@ -9,9 +9,10 @@ module "cassy_cluster" {
   key_name                    = local.key_name
   monitoring                  = false
   vpc_security_group_ids      = aws_security_group.cassy.*.id
-  subnet_id                   = local.subnet_id
+  subnet_ids                  = local.subnet_ids
   associate_public_ip_address = false
   hostname_prefix             = "cassy"
+  use_num_suffix              = true
 
   tags = merge(
     var.custom_tags,
@@ -134,13 +135,13 @@ resource "aws_security_group_rule" "cassy_egress" {
 }
 
 resource "aws_route53_record" "cassy-dns" {
-  count = local.cassy.resource_count > 0 ? 1 : 0
+  count = local.cassy.resource_count
 
   zone_id = local.network_dns
-  name    = "cassy"
+  name    = "cassy-${count.index + 1}"
   type    = "A"
   ttl     = "300"
-  records = module.cassy_cluster.private_ip
+  records = [module.cassy_cluster.private_ip[count.index]]
 }
 
 resource "aws_route53_record" "cassy-dns-srv" {

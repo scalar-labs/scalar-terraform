@@ -9,9 +9,10 @@ module "monitor_cluster" {
   key_name                    = local.key_name
   monitoring                  = false
   vpc_security_group_ids      = aws_security_group.monitor.*.id
-  subnet_id                   = local.subnet_id
+  subnet_ids                  = local.subnet_ids
   associate_public_ip_address = false
   hostname_prefix             = "monitor"
+  use_num_suffix              = true
 
   tags = merge(
     var.custom_tags,
@@ -50,7 +51,7 @@ resource "aws_ebs_volume" "monitor_log_volume" {
   tags = merge(
     var.custom_tags,
     {
-      Name      = "${local.network_name} Monitor log"
+      Name      = "${local.network_name} Monitor Cluster-${count.index + 1}"
       Terraform = "true"
       Network   = local.network_name
     }
@@ -238,27 +239,27 @@ resource "aws_security_group_rule" "monitor_egress" {
   security_group_id = aws_security_group.monitor[count.index].id
 }
 
-resource "aws_route53_record" "monitor-dns" {
-  count = local.monitor.resource_count
+resource "aws_route53_record" "monitor_cluster_dns" {
+  count = local.monitor.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
   name    = "monitor"
   type    = "A"
   ttl     = "300"
-  records = [module.monitor_cluster.private_ip[count.index]]
+  records = [module.monitor_cluster.private_ip[local.monitor.active_offset]]
 }
 
-resource "aws_route53_record" "prometheus-dns" {
+resource "aws_route53_record" "monitor_host_dns" {
   count = local.monitor.resource_count
 
   zone_id = local.network_dns
-  name    = "prometheus"
+  name    = "monitor-${count.index + 1}"
   type    = "A"
   ttl     = "300"
   records = [module.monitor_cluster.private_ip[count.index]]
 }
 
-resource "aws_route53_record" "cadvisor-dns-srv" {
+resource "aws_route53_record" "cadvisor_dns_srv" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -267,12 +268,12 @@ resource "aws_route53_record" "cadvisor-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 18080 %s.%s",
-    aws_route53_record.monitor-dns.*.name,
+    aws_route53_record.monitor_host_dns.*.name,
     "${local.internal_domain}.",
   )
 }
 
-resource "aws_route53_record" "node-exporter-dns-srv" {
+resource "aws_route53_record" "node_exporter_dns_srv" {
   count = local.monitor.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -281,7 +282,7 @@ resource "aws_route53_record" "node-exporter-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 9100 %s.%s",
-    aws_route53_record.monitor-dns.*.name,
+    aws_route53_record.monitor_host_dns.*.name,
     "${local.internal_domain}.",
   )
 }

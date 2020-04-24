@@ -9,9 +9,10 @@ module "cassandra_cluster" {
   key_name                    = local.key_name
   monitoring                  = false
   vpc_security_group_ids      = aws_security_group.cassandra.*.id
-  subnet_id                   = local.subnet_id
+  subnet_ids                  = local.subnet_ids
   associate_public_ip_address = false
   hostname_prefix             = "cassandra"
+  use_num_suffix              = true
 
   tags = merge(
     var.custom_tags,
@@ -42,14 +43,14 @@ module "cassandra_cluster" {
 resource "aws_ebs_volume" "cassandra_data_volume" {
   count = local.cassandra.enable_data_volume && ! local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
-  availability_zone = local.location
+  availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.cassandra.data_remote_volume_size
   type              = local.cassandra.data_remote_volume_type
 
   tags = merge(
     var.custom_tags,
     {
-      Name      = "${local.network_name} Cassandra data-${count.index + 1}"
+      Name      = "${local.network_name} Cassandra Cluster-${count.index + 1}"
       Terraform = "true"
       Network   = local.network_name
     }
@@ -113,14 +114,14 @@ resource "null_resource" "volume_data_local" {
 resource "aws_ebs_volume" "cassandra_commitlog_volume" {
   count = local.cassandra.enable_commitlog_volume && ! local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
 
-  availability_zone = local.location
+  availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.cassandra.commitlog_remote_volume_size
   type              = local.cassandra.commitlog_remote_volume_type
 
   tags = merge(
     var.custom_tags,
     {
-      Name      = "${local.network_name} Cassandra commitlog-${count.index + 1}"
+      Name      = "${local.network_name} Cassandra Cluster-${count.index + 1}"
       Terraform = "true"
       Network   = local.network_name
     }
@@ -196,6 +197,7 @@ module "cassandra_provision" {
   cassy_public_key      = module.cassy_provision.public_key
   start_on_initial_boot = local.cassandra.start_on_initial_boot
   internal_domain       = local.internal_domain
+  locations             = local.locations
 }
 
 resource "aws_security_group" "cassandra" {

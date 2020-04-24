@@ -24,7 +24,7 @@ The Cluster module deploys a Scalar DL cluster.
 | scalardl_image_name | The docker image for Scalar DL | `any` | n/a | yes |
 | scalardl_image_tag | The docker image tag for Scalar DL | `any` | n/a | yes |
 | security_group_ids | A list of security groups to attach to resources | `list` | `[]` | no |
-| subnet_id | The subnet ID to launch scalardl hosts | `any` | n/a | yes |
+| subnet_ids | The subnet IDs to launch scalardl hosts | `any` | n/a | yes |
 | triggers | A trigger key that will initiate provisioning of scalardl resource | `list` | `[]` | no |
 | user_name | The user name of the remote hosts | `any` | n/a | yes |
 

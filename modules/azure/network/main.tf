@@ -57,6 +57,7 @@ module "bastion" {
   network_dns                 = basename(azurerm_private_dns_zone.dns.id)
   location                    = var.location
   resource_type               = local.network.bastion_resource_type
+  resource_count              = local.network.bastion_resource_count
   bastion_access_cidr         = local.network.bastion_access_cidr
   resource_root_volume_size   = local.network.resource_root_volume_size
   public_key_path             = var.public_key_path

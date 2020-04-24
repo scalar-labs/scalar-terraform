@@ -13,7 +13,7 @@ If you deploy to AWS with `scalar-terraform`, an IAM instance profile that allow
 
 1. Connect to a Cassy node
     ```
-    $ ssh -F ssh.cfg cassy.internal.scalar-labs.com
+    $ ssh -F ssh.cfg cassy-1.internal.scalar-labs.com
     ```
 
 1. Shutdown the docker container
@@ -45,11 +45,11 @@ If you deploy to AWS with `scalar-terraform`, an IAM instance profile that allow
 
 1. Port-forward Cassy port to access Cassy from your local
     ```
-    $ ssh -F ssh.cfg -L 20051:localhost:20051 cassy.internal.scalar-labs.com
+    $ ssh -F ssh.cfg -L 20051:localhost:20051 cassy-1.internal.scalar-labs.com
     ```
     * Alternatively, you can add the following line under `Host bastion` section of `ssh.cfg`, and do `ssh -F ssh.cfg bastion`.
     ```
-    LocalForward 20051 cassy.internal.scalar-labs.com:20051
+    LocalForward 20051 cassy-1.internal.scalar-labs.com:20051
     ```
 
 1. Interact with Cassy

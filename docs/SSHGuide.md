@@ -39,14 +39,14 @@ docker ps
 
 ## Access Reaper
 ```console
-ssh -F ssh.cfg -L 8080:localhost:8080 reaper.internal.scalar-labs.com
+ssh -F ssh.cfg -L 8080:localhost:8080 reaper-1.internal.scalar-labs.com
 ```
 
 http://localhost:8080/webui/index.html
 
 ## Access Logs (Monitor Resource)
 ```console
-ssh -F ssh.cfg monitor.internal.scalar-labs.com
+ssh -F ssh.cfg monitor-1.internal.scalar-labs.com
 
 cd /var/log/tdagent
 ```

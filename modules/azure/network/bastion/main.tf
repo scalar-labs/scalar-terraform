@@ -2,7 +2,7 @@ module "bastion_cluster" {
   # TODO: Fix ref=xxxxxx
   source = "github.com/scalar-labs/terraform-azurerm-compute?ref=ca8c721"
 
-  nb_instances                  = "1"
+  nb_instances                  = var.resource_count
   admin_username                = var.user_name
   resource_group_name           = var.network_name
   location                      = var.location
@@ -30,24 +30,32 @@ module "bastion_provision" {
 }
 
 resource "azurerm_private_dns_a_record" "bastion_dns_a" {
-  name                = "bastion"
+  count = var.resource_count
+
+  name                = "bastion-${count.index + 1}"
   zone_name           = var.network_dns
   resource_group_name = var.network_name
   ttl                 = 300
 
-  records = module.bastion_cluster.network_interface_private_ip
+  records = [module.bastion_cluster.network_interface_private_ip[count.index]]
 }
 
 resource "azurerm_private_dns_srv_record" "bastion_dns_srv" {
+  count = var.resource_count > 0 ? 1 : 0
+
   name                = "_node-exporter._tcp.bastion"
   zone_name           = var.network_dns
   resource_group_name = var.network_name
   ttl                 = 300
 
-  record {
-    priority = 0
-    weight   = 0
-    port     = 9100
-    target   = "${azurerm_private_dns_a_record.bastion_dns_a.name}.${var.network_dns}"
+  dynamic record {
+    for_each = azurerm_private_dns_a_record.bastion_dns_a.*.name
+
+    content {
+      priority = 0
+      weight   = 0
+      port     = 9100
+      target   = "${record.value}.${var.network_dns}"
+    }
   }
 }

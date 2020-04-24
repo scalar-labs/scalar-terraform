@@ -34,12 +34,12 @@ output "key_name" {
   value = module.network.key_name
 }
 
-output "additional_public_keys_path" {
-  value = module.network.additional_public_keys_path
+output "locations" {
+  value = module.network.locations
 }
 
-output "location" {
-  value = module.network.location
+output "additional_public_keys_path" {
+  value = module.network.additional_public_keys_path
 }
 
 output "user_name" {

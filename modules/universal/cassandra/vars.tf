@@ -29,6 +29,11 @@ variable "host_list" {
   description = "A list of C* hosts (IP or DNS) to provision"
 }
 
+variable "locations" {
+  default     = [""]
+  description = "A list of availability zone"
+}
+
 variable "host_seed_list" {
   default     = []
   description = "A list of C* seed hosts (IP)"

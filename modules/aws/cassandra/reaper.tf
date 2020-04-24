@@ -9,7 +9,7 @@ module "reaper_cluster" {
   key_name                    = local.key_name
   monitoring                  = false
   vpc_security_group_ids      = aws_security_group.reaper.*.id
-  subnet_id                   = local.subnet_id
+  subnet_ids                  = local.subnet_ids
   associate_public_ip_address = false
   hostname_prefix             = "reaper"
   use_num_suffix              = true
@@ -138,13 +138,13 @@ resource "aws_security_group_rule" "reaper_egress" {
 }
 
 resource "aws_route53_record" "reaper-dns" {
-  count = local.reaper.resource_count > 0 ? 1 : 0
+  count = local.reaper.resource_count
 
   zone_id = local.network_dns
-  name    = "reaper"
+  name    = "reaper-${count.index + 1}"
   type    = "A"
   ttl     = "300"
-  records = module.reaper_cluster.private_ip
+  records = [module.reaper_cluster.private_ip[count.index]]
 }
 
 resource "aws_route53_record" "reaper-dns-srv" {

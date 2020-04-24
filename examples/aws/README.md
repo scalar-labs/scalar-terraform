@@ -128,22 +128,46 @@ ProxyCommand ssh -F ssh.cfg bastion -W %h:%p
 
 bastion_ip = 13.231.179.116
 bastion_provision_id = 9139872180792820156
-cassandra_subnet_id = subnet-0fcdd0a1f75e86b1e
 image_id = ami-0d9d854feeddeef21
 internal_domain = internal.scalar-labs.com
-key_name = tei-aws-0j5y83k-key
-location = ap-northeast-1a
+key_name = example-aws-0j5y83k-key
+locations = [
+  "ap-northeast-1a",
+  "ap-northeast-1c",
+  "ap-northeast-1d",
+]
 network_cidr = 10.42.0.0/16
 network_dns = Z08111302BU37G0O8OMMY
 network_id = vpc-08f36c547a1aca222
-network_name = tei-aws-0j5y83k
-private_key_path = /Users/tei/work/src/scalar-terraform/examples/aws/network/example_key
+network_name = example-aws-0j5y83k
+private_key_path = /Users/scalar/scalar-terraform/examples/aws/network/example_key
 subnet_map = {
-  "cassandra" = "subnet-05e8f97893fd8e321"
-  "private" = "subnet-0f88b78eaaf74b16b"
-  "public" = "subnet-0g88b78eaaf74b13c"
-  "scalardl_blue" = subnet-04e9f97893fd8e794
-  "scalardl_green" = subnet-015ee9afbcf722ec4
+  "cassandra" = [
+    "subnet-01faef24111cafcc5",
+    "subnet-0803cd501120f883a",
+    "subnet-0c42ac0611318c8be",
+  ]
+  "private" = [
+    "subnet-0180c89a2223052dd",
+    "subnet-025d3c0b223093c2b",
+    "subnet-0f412dcc2245a84a6",
+  ]
+  "public" = [
+    "subnet-0d72b30d333199d7d",
+    "subnet-0c840d88334a665e1",
+    "subnet-0e39ddac33523b486",
+  ]
+  "scalardl_blue" = [
+    "subnet-0ea8cda0444fb2ee0",
+    "subnet-0253cbd1445951781",
+    "subnet-01cea495446d9df79",
+  ]
+  "scalardl_green" = [
+    "subnet-06fe39945554ca540",
+    "subnet-07318f3f556e62ae4",
+    "subnet-0259d0af5579bf5a3",
+  ]
+}
 user_name = centos
 ```
 

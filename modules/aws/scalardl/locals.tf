@@ -50,8 +50,7 @@ locals {
 
     dev = merge(local.scalardl_default,
       {
-        blue_resource_count  = 2
-        green_resource_count = 2
+        blue_resource_count = 2
       }
     )
 

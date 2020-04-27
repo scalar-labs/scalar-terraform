@@ -34,6 +34,6 @@ variable "internal_domain" {
   description = "The internal domain"
 }
 
-variable "cassy_version" {
-  description = "The version of cassy container"
+variable "image_tag" {
+  description = "The docker image tag for Cassy"
 }

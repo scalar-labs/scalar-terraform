@@ -37,3 +37,8 @@ variable "internal_domain" {
 variable "image_tag" {
   description = "The docker image tag for Cassy"
 }
+
+variable "storage_base_uri" {
+  default     = ""
+  description = "The storage_base_uri property value in cassy.properties"
+}

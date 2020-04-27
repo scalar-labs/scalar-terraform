@@ -109,5 +109,5 @@ locals {
 
   envoy_create_count     = local.envoy.resource_count > 0 ? 1 : 0
   envoy_nlb_create_count = local.envoy.enable_nlb ? 1 : 0
-  envoy_nlb_subnet_ids   = local.envoy.nlb_internal ? local.private_subnet_ids : local.public_subnet_ids
+  envoy_nlb_subnet_ids   = local.envoy.nlb_internal ? slice(local.private_subnet_ids, 0, length(local.locations)) : slice(local.public_subnet_ids, 0, length(local.locations))
 }

@@ -75,6 +75,8 @@ resource "null_resource" "cassy_container" {
       "chmod 600 $HOME/.ssh/cassy.pem",
       "cd $HOME/provision",
       "echo export IMAGE_TAG=${var.image_tag} > env",
+      "export storage_base_uri=${var.storage_base_uri}",
+      "j2 ./conf/cassy.properties.j2 > ./conf/cassy.properties",
       "source ./env",
       "docker-compose up -d",
     ]

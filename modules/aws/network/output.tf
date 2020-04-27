@@ -50,7 +50,7 @@ output "bastion_ip" {
 }
 
 output "locations" {
-  value       = var.locations
+  value       = local.locations
   description = "The AWS availability zone to deploy environment."
 }
 

@@ -19,6 +19,8 @@ locals {
 }
 
 locals {
+  locations = distinct(var.locations)
+
   subnet_map = {
     public         = cidrsubnets(cidrsubnet(local.network.cidr, 8, 0), 2, 2, 2)
     private        = cidrsubnets(cidrsubnet(local.network.cidr, 8, 1), 2, 2, 2)

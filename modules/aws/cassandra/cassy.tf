@@ -50,6 +50,7 @@ module "cassy_provision" {
   provision_count  = local.cassy.resource_count
   enable_tdagent   = local.cassy.enable_tdagent
   internal_domain  = local.internal_domain
+  storage_base_uri = local.cassy.storage_base_uri
 }
 
 resource "aws_security_group" "cassy" {

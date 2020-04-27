@@ -8,7 +8,7 @@ module "vpc" {
   version = "~> v2.0"
 
   cidr = local.network.cidr
-  azs  = var.locations
+  azs  = local.locations
 
   private_subnets = concat(
     local.subnet_map.private,

@@ -22,6 +22,10 @@ cassy = {
   # resource_count            = "1"
   # resource_root_volume_size = "64"
   # enable_tdagent            = "true"
+
+  # Required if resource_count > 0
+  storage_base_uri = "your-container-name"
+  storage_type     = "azure_blob"
 }
 
 reaper = {

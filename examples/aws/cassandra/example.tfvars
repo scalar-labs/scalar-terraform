@@ -27,6 +27,7 @@ cassy = {
 
   # Required if resource_count > 0
   storage_base_uri = "s3://your-bucket-name"
+  storage_type     = "aws_s3"
 }
 
 reaper = {

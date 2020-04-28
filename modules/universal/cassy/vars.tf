@@ -38,3 +38,8 @@ variable "storage_base_uri" {
   default     = ""
   description = "The storage_base_uri property value in cassy.properties"
 }
+
+variable "storage_type" {
+  default     = ""
+  description = "The storage_type property value in cassy.properties"
+}

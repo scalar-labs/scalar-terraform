@@ -89,6 +89,7 @@ locals {
     resource_root_volume_size = 64
     enable_tdagent            = true
     storage_base_uri          = ""
+    storage_type              = ""
   }
 }
 

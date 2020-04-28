@@ -11,6 +11,8 @@ If you deploy to AWS with `scalar-terraform`, an IAM instance profile that allow
 
 ## Configure Cassy to work with your environment
 
+You only need to manually set the storage URI if you deploy to Azure. On AWS, the S3 URI specified in the tfvars file is used.
+
 1. Connect to a Cassy node
     ```
     $ ssh -F ssh.cfg cassy-1.internal.scalar-labs.com
@@ -26,13 +28,7 @@ If you deploy to AWS with `scalar-terraform`, an IAM instance profile that allow
     ```
     $ vi conf/cassy.properties
 
-    // the following variables need to be filled
-    scalar.cassy.server.srv_service_url=
-    ```
-
-    e.g.
-    ```
-    scalar.cassy.server.srv_service_url=_scalardl._tcp.scalardl-service.internal.scalar-labs.com
+    scalar.cassy.server.storage_base_uri=your_container_name
     ```
 
 1. Start the container and exit

@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   cassy:
-    image: scalarlabs/cassy:v1.0.0
+    image: scalarlabs/cassy:1.1.1
     ports:
       - "20051:20051"
     volumes:

@@ -41,7 +41,8 @@ module "cassy_cluster" {
 }
 
 module "cassy_provision" {
-  source           = "../../universal/cassy"
+  source = "../../universal/cassy"
+
   triggers         = local.triggers
   bastion_host_ip  = local.bastion_ip
   host_list        = module.cassy_cluster.private_ip
@@ -50,6 +51,7 @@ module "cassy_provision" {
   provision_count  = local.cassy.resource_count
   enable_tdagent   = local.cassy.enable_tdagent
   internal_domain  = local.internal_domain
+  image_tag        = local.cassy.image_tag
   storage_base_uri = local.cassy.storage_base_uri
 }
 

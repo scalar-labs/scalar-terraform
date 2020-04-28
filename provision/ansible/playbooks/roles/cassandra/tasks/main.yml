@@ -29,7 +29,8 @@
 - name: Set Active Tuned Profile to Cassandra
   command: "tuned-adm profile cassandra"
 
-- sysctl:
+- name: Set vm.max_map_count
+  sysctl:
     name: vm.max_map_count
     value: "{{ vm_max_map_count }}"
     sysctl_set: yes

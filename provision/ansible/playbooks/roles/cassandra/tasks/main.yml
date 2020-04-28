@@ -29,6 +29,13 @@
 - name: Set Active Tuned Profile to Cassandra
   command: "tuned-adm profile cassandra"
 
+- sysctl:
+    name: vm.max_map_count
+    value: "{{ vm_max_map_count }}"
+    sysctl_set: yes
+    state: present
+    reload: yes
+
 - name: Copy Cassy Backup Tool
   copy:
     src: cassy

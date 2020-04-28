@@ -1,8 +1,10 @@
 ---
 tuned_profile: virtual-guest
+tuned_disk_devices: '!sda, !xvda'
 disk_read_ahead: 8
 CASSANDRA_MEMTABLE_THRESHOLD: 0.33
 CASSANDRA_STATE: stopped
 cassandra_dc_id: dc1
 cassandra_rack_id: rack1
 endpoint_snitch: GossipingPropertyFileSnitch
+vm_max_map_count: 1048575

@@ -75,6 +75,7 @@ resource "null_resource" "cassy_container" {
       "chmod 600 $HOME/.ssh/cassy.pem",
       "cd $HOME/provision",
       "export storage_base_uri=${var.storage_base_uri}",
+      "export internal_domain=${var.internal_domain}",
       "j2 ./conf/cassy.properties.j2 > ./conf/cassy.properties",
       "docker-compose up -d",
     ]

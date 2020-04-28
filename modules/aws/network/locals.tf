@@ -19,7 +19,9 @@ locals {
 }
 
 locals {
-  locations = distinct(var.locations)
+  dist_locations = distinct(var.locations)
+
+  locations = length(local.dist_locations) == 2 ? concat(local.dist_locations, [local.dist_locations[0]]) : local.dist_locations
 
   subnet_map = {
     public         = cidrsubnets(cidrsubnet(local.network.cidr, 8, 0), 2, 2, 2)

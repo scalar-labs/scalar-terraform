@@ -18,6 +18,7 @@ cassandra = {
 }
 
 cassy = {
+  # image_tag                 = "1.1.1"
   # resource_type             = "Standard_B2s"
   # resource_count            = "1"
   # resource_root_volume_size = "64"

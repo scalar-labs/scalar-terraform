@@ -1,8 +1,9 @@
 ---
 tuned_profile: virtual-guest
+# Only Cassandra disks are tuned and OS disks are not tuned.
 # In AWS, sda and xvda are used depending on virtualization types.
 # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html#available-ec2-device-names
-# In Azure, sda is used.
+# In Azure, sda is used for OS.
 tuned_disk_devices: '!sda, !xvda'
 disk_read_ahead: 8
 CASSANDRA_MEMTABLE_THRESHOLD: 0.33

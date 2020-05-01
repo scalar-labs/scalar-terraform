@@ -19,6 +19,7 @@ module "ca_cluster" {
   storage_os_disk_size          = local.ca.resource_root_volume_size
   delete_os_disk_on_termination = true
   ssh_key                       = local.public_key_path
+  enable_accelerated_networking = local.ca.enable_accelerated_networking
 }
 
 module "ca_provision" {

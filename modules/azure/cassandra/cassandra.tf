@@ -18,6 +18,7 @@ module "cassandra_cluster" {
   vm_size                       = local.cassandra.resource_type
   ssh_key                       = local.public_key_path
   delete_os_disk_on_termination = true
+  enable_accelerated_networking = local.cassandra.enable_accelerated_networking
 }
 
 resource "azurerm_managed_disk" "cassandra_data_volume" {

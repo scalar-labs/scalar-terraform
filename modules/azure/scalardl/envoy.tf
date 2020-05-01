@@ -20,6 +20,7 @@ module "envoy_cluster" {
   storage_os_disk_size          = local.envoy.resource_root_volume_size
   delete_os_disk_on_termination = true
   remote_port                   = local.envoy.target_port
+  enable_accelerated_networking = local.envoy.enable_accelerated_networking
 }
 
 module "envoy_provision" {

@@ -88,3 +88,8 @@ variable "cassandra_username" {
 variable "cassandra_password" {
   description = "The password of cassandra cluster"
 }
+
+variable "enable_accelerated_networking" {
+  default     = false
+  description = "A flag to enable accelerated networking on network interface"
+}

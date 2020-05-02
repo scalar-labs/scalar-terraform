@@ -159,6 +159,7 @@ module "cassandra_provision" {
   host_list             = module.cassandra_cluster.network_interface_private_ip
   host_seed_list        = local.cassandra.resource_count > 0 ? slice(module.cassandra_cluster.network_interface_private_ip, 0, min(local.cassandra.resource_count, 3)) : []
   user_name             = local.user_name
+  use_agent             = local.cassandra.use_agent
   private_key_path      = local.private_key_path
   provision_count       = local.cassandra.resource_count
   enable_tdagent        = local.cassandra.enable_tdagent

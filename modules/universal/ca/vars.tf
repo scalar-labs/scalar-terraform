@@ -16,7 +16,8 @@ variable "triggers" {
 }
 
 variable "vm_ids" {
-  default = []
+  default     = []
+  description = "A list of virtual machine IDs to provision"
 }
 
 variable "host_list" {

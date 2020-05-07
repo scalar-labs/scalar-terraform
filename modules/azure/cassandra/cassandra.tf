@@ -18,6 +18,7 @@ module "cassandra_cluster" {
   vm_size                       = local.cassandra.resource_type
   ssh_key                       = local.public_key_path
   delete_os_disk_on_termination = true
+  enable_accelerated_networking = local.cassandra.enable_accelerated_networking
 }
 
 resource "azurerm_managed_disk" "cassandra_data_volume" {
@@ -158,6 +159,7 @@ module "cassandra_provision" {
   host_list             = module.cassandra_cluster.network_interface_private_ip
   host_seed_list        = local.cassandra.resource_count > 0 ? slice(module.cassandra_cluster.network_interface_private_ip, 0, min(local.cassandra.resource_count, 3)) : []
   user_name             = local.user_name
+  use_agent             = local.cassandra.use_agent
   private_key_path      = local.private_key_path
   provision_count       = local.cassandra.resource_count
   enable_tdagent        = local.cassandra.enable_tdagent

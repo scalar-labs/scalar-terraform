@@ -10,9 +10,12 @@ The Cluster module deploys a Scalar DL cluster on Azure.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | availability_set_id | n/a | `string` | `""` | no |
 | bastion_ip | The IP to bastion host used for provisioning | `any` | n/a | yes |
+| cassandra_password | The password of cassandra cluster | `any` | n/a | yes |
+| cassandra_username | The username of cassandra cluster | `any` | n/a | yes |
+| enable_accelerated_networking | A flag to enable accelerated networking on network interface | `bool` | `false` | no |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `bool` | `true` | no |
 | image_id | The image id to initiate | `any` | n/a | yes |
 | internal_domain | Internal domain | `any` | n/a | yes |

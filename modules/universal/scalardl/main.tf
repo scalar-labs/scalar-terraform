@@ -58,6 +58,7 @@ resource "null_resource" "scalardl_waitfor" {
 
   triggers = {
     triggers     = join(",", var.triggers)
+    vm_id        = var.vm_ids[count.index]
     scalar_image = null_resource.scalardl_image_push[0].id
   }
 

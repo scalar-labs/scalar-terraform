@@ -10,26 +10,27 @@ module "scalardl_blue" {
   bastion_ip   = local.bastion_ip
   network_name = local.network_name
 
-  resource_type             = local.scalardl.resource_type
-  resource_count            = local.scalardl.blue_resource_count
-  resource_cluster_name     = "blue"
-  resource_root_volume_size = local.scalardl.resource_root_volume_size
-  triggers                  = local.triggers
-  location                  = local.location
-  private_key_path          = local.private_key_path
-  public_key_path           = local.public_key_path
-  user_name                 = local.user_name
-  subnet_id                 = local.scalardl.blue_subnet_id
-  image_id                  = local.image_id
-  network_dns               = local.network_dns
-  scalardl_image_name       = local.scalardl.blue_image_name
-  scalardl_image_tag        = local.scalardl.blue_image_tag
-  replication_factor        = local.scalardl.replication_factor
-  enable_tdagent            = local.scalardl.enable_tdagent
-  availability_set_id       = azurerm_availability_set.scalar_availability_set.id
-  internal_domain           = local.internal_domain
-  cassandra_username        = local.scalardl.cassandra_username
-  cassandra_password        = local.scalardl.cassandra_password
+  resource_type                 = local.scalardl.resource_type
+  resource_count                = local.scalardl.blue_resource_count
+  resource_cluster_name         = "blue"
+  resource_root_volume_size     = local.scalardl.resource_root_volume_size
+  triggers                      = local.triggers
+  location                      = local.location
+  private_key_path              = local.private_key_path
+  public_key_path               = local.public_key_path
+  user_name                     = local.user_name
+  subnet_id                     = local.scalardl.blue_subnet_id
+  image_id                      = local.image_id
+  network_dns                   = local.network_dns
+  scalardl_image_name           = local.scalardl.blue_image_name
+  scalardl_image_tag            = local.scalardl.blue_image_tag
+  replication_factor            = local.scalardl.replication_factor
+  enable_tdagent                = local.scalardl.enable_tdagent
+  availability_set_id           = azurerm_availability_set.scalar_availability_set.id
+  internal_domain               = local.internal_domain
+  cassandra_username            = local.scalardl.cassandra_username
+  cassandra_password            = local.scalardl.cassandra_password
+  enable_accelerated_networking = local.scalardl.blue_enable_accelerated_networking
 }
 
 module "scalardl_green" {
@@ -38,26 +39,27 @@ module "scalardl_green" {
   bastion_ip   = local.bastion_ip
   network_name = local.network_name
 
-  resource_type             = local.scalardl.resource_type
-  resource_count            = local.scalardl.green_resource_count
-  resource_cluster_name     = "green"
-  resource_root_volume_size = local.scalardl.resource_root_volume_size
-  triggers                  = local.triggers
-  location                  = local.location
-  private_key_path          = local.private_key_path
-  public_key_path           = local.public_key_path
-  user_name                 = local.user_name
-  subnet_id                 = local.scalardl.green_subnet_id
-  image_id                  = local.image_id
-  network_dns               = local.network_dns
-  scalardl_image_name       = local.scalardl.green_image_name
-  scalardl_image_tag        = local.scalardl.green_image_tag
-  replication_factor        = local.scalardl.replication_factor
-  enable_tdagent            = local.scalardl.enable_tdagent
-  availability_set_id       = azurerm_availability_set.scalar_availability_set.id
-  internal_domain           = local.internal_domain
-  cassandra_username        = local.scalardl.cassandra_username
-  cassandra_password        = local.scalardl.cassandra_password
+  resource_type                 = local.scalardl.resource_type
+  resource_count                = local.scalardl.green_resource_count
+  resource_cluster_name         = "green"
+  resource_root_volume_size     = local.scalardl.resource_root_volume_size
+  triggers                      = local.triggers
+  location                      = local.location
+  private_key_path              = local.private_key_path
+  public_key_path               = local.public_key_path
+  user_name                     = local.user_name
+  subnet_id                     = local.scalardl.green_subnet_id
+  image_id                      = local.image_id
+  network_dns                   = local.network_dns
+  scalardl_image_name           = local.scalardl.green_image_name
+  scalardl_image_tag            = local.scalardl.green_image_tag
+  replication_factor            = local.scalardl.replication_factor
+  enable_tdagent                = local.scalardl.enable_tdagent
+  availability_set_id           = azurerm_availability_set.scalar_availability_set.id
+  internal_domain               = local.internal_domain
+  cassandra_username            = local.scalardl.cassandra_username
+  cassandra_password            = local.scalardl.cassandra_password
+  enable_accelerated_networking = local.scalardl.green_enable_accelerated_networking
 }
 
 resource "azurerm_availability_set" "scalar_availability_set" {

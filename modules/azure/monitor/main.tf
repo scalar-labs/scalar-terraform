@@ -21,6 +21,7 @@ module "monitor_cluster" {
   storage_os_disk_size          = local.monitor.resource_root_volume_size
   delete_os_disk_on_termination = true
   remote_port                   = local.monitor.remote_port
+  enable_accelerated_networking = local.monitor.enable_accelerated_networking
 }
 
 resource "azurerm_managed_disk" "monitor_log_volume" {

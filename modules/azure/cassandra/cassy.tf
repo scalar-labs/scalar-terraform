@@ -12,6 +12,7 @@ module "cassy_cluster" {
   vm_size                       = local.cassy.resource_type
   delete_os_disk_on_termination = true
   ssh_key                       = local.public_key_path
+  enable_accelerated_networking = local.cassy.enable_accelerated_networking
 }
 
 module "cassy_provision" {

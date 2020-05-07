@@ -51,20 +51,21 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dns_vnet_link" {
 module "bastion" {
   source = "./bastion"
 
-  network_name                = module.name_generator.name
-  network_id                  = azurerm_virtual_network.vnet.id
-  network_cidr                = local.network.cidr
-  network_dns                 = basename(azurerm_private_dns_zone.dns.id)
-  location                    = var.location
-  resource_type               = local.network.bastion_resource_type
-  resource_count              = local.network.bastion_resource_count
-  bastion_access_cidr         = local.network.bastion_access_cidr
-  resource_root_volume_size   = local.network.resource_root_volume_size
-  public_key_path             = var.public_key_path
-  private_key_path            = var.private_key_path
-  additional_public_keys_path = var.additional_public_keys_path
-  user_name                   = local.network.user_name
-  subnet_id                   = azurerm_subnet.subnet["public"].id
-  image_id                    = local.network.image_id
-  enable_tdagent              = local.network.bastion_enable_tdagent
+  network_name                  = module.name_generator.name
+  network_id                    = azurerm_virtual_network.vnet.id
+  network_cidr                  = local.network.cidr
+  network_dns                   = basename(azurerm_private_dns_zone.dns.id)
+  location                      = var.location
+  resource_type                 = local.network.bastion_resource_type
+  resource_count                = local.network.bastion_resource_count
+  bastion_access_cidr           = local.network.bastion_access_cidr
+  resource_root_volume_size     = local.network.bastion_resource_root_volume_size
+  public_key_path               = var.public_key_path
+  private_key_path              = var.private_key_path
+  additional_public_keys_path   = var.additional_public_keys_path
+  user_name                     = local.network.user_name
+  subnet_id                     = azurerm_subnet.subnet["public"].id
+  image_id                      = local.network.image_id
+  enable_tdagent                = local.network.bastion_enable_tdagent
+  enable_accelerated_networking = local.network.bastion_enable_accelerated_networking
 }

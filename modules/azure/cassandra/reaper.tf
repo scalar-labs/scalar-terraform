@@ -12,6 +12,7 @@ module "reaper_cluster" {
   vm_size                       = local.reaper.resource_type
   delete_os_disk_on_termination = true
   ssh_key                       = local.public_key_path
+  enable_accelerated_networking = local.reaper.enable_accelerated_networking
 }
 
 module "reaper_provision" {

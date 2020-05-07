@@ -65,3 +65,8 @@ variable "image_id" {
 variable "enable_tdagent" {
   description = "A flag to install td-agent that forwards logs to the monitor host"
 }
+
+variable "enable_accelerated_networking" {
+  default     = false
+  description = "A flag to enable accelerated networking on network interface"
+}

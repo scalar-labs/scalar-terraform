@@ -42,6 +42,7 @@ module "reaper_cluster" {
 
 module "reaper_provision" {
   source             = "../../universal/reaper"
+  vm_ids             = module.reaper_cluster.id
   triggers           = local.triggers
   bastion_host_ip    = local.bastion_ip
   host_list          = module.reaper_cluster.private_ip

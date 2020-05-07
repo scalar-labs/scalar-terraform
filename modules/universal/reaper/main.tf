@@ -7,6 +7,7 @@ resource "null_resource" "reaper_waitfor" {
 
   triggers = {
     triggers = join(",", var.triggers)
+    vm_id    = var.vm_ids[count.index]
   }
 
   connection {

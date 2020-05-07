@@ -11,6 +11,7 @@ resource "null_resource" "envoy_waitfor" {
 
   triggers = {
     triggers = join(",", var.triggers)
+    vm_id    = var.vm_ids[count.index]
   }
 
   connection {

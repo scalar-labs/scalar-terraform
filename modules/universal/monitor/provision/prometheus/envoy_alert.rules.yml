@@ -1,0 +1,18 @@
+groups:
+  - name: Envoy Alerts
+    rules:
+      - alert: EnvoyContainerDown
+        expr: count(up{job="cadvisor", instance=~"^envoy-.*"}) by (instance) unless count(time() - container_last_seen{container_label_com_docker_compose_service="envoy",instance=~"^envoy-.*"} < 15) by (instance) > 0
+        labels:
+          severity: warning
+        annotations:
+          summary: "Envoy container has stopped."
+          description: "The Envoy container on {{ '{{' }} $labels.instance {{ '}}' }} has stopped."
+
+      - alert: EnvoyClusterDown
+        expr: absent(job:active_envoy_nodes:count)
+        labels:
+          severity: critical
+        annotations:
+          summary: "Envoy cluster is down"
+          description: "The Envoy cluster is down!!!"

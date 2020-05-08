@@ -7,7 +7,7 @@ groups:
           severity: warning
         annotations:
           summary: "Envoy container has stopped."
-          description: "The Envoy container on {{ '{{' }} $labels.instance {{ '}}' }} has stopped."
+          description: "The Envoy container on {{ $labels.instance }} has stopped."
 
       - alert: EnvoyClusterDown
         expr: absent(job:active_envoy_nodes:count)

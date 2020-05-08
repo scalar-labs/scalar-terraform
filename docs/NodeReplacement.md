@@ -33,7 +33,7 @@ module.scalardl.module.scalardl_blue.module.cluster.azurerm_virtual_machine.vm-l
 ```
 
 * The index for `aws_instance.this` or `azurerm_virtual_machine.vm-linux` should be changed according to the node you want to replace.
-* If you are replacing a `green` node, change `blue` in the resource names with `green`.
+* If you replace a `green` node, replace `blue` in the resource names with `green`.
 
 
 ## Envoy

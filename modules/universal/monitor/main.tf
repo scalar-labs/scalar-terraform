@@ -81,7 +81,7 @@ resource "null_resource" "monitor_container" {
       "export cassandra_resource_count=${var.cassandra_resource_count}",
       "export cassandra_replication_factor=${var.replication_factor}",
       "export dashboard_local_forwarding_port=8000",
-      "export grafana_datasource_url=prometheus.${var.internal_domain}:9090",
+      "export grafana_datasource_url=monitor.${var.internal_domain}:9090",
       "export internal_domain=${var.internal_domain}",
       "j2 ./prometheus/prometheus.yml.j2 > ./prometheus/prometheus.yml",
       "j2 ./prometheus/scalardl_alert.rules.yml.j2 > ./prometheus/scalardl_alert.rules.yml",

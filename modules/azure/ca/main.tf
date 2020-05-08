@@ -25,6 +25,7 @@ module "ca_cluster" {
 module "ca_provision" {
   source = "../../universal/ca"
 
+  vm_ids           = module.ca_cluster.vm_ids
   triggers         = local.triggers
   bastion_host_ip  = local.bastion_ip
   host_list        = module.ca_cluster.network_interface_private_ip

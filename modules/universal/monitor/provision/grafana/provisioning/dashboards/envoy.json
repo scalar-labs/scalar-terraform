@@ -721,7 +721,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "envoy_http_downstream_cx_active{envoy_http_conn_manager_prefix=~\"$cluster\",host=~\"$hosts\"}",
+          "expr": "envoy_http_downstream_cx_active{envoy_http_conn_manager_prefix=~\"ingress_http\",host=~\"$hosts\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{instance}}",
@@ -811,7 +811,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(envoy_http_downstream_rq_total{envoy_http_conn_manager_prefix=~\"$cluster\",host=~\"$hosts\"}[1m])",
+          "expr": "irate(envoy_http_downstream_rq_total{envoy_http_conn_manager_prefix=~\"ingress_http\",host=~\"$hosts\"}[1m])",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{instance}}",
@@ -998,14 +998,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(envoy_http_downstream_cx_rx_bytes_total{envoy_http_conn_manager_prefix=~\"$cluster\",host=~\"$hosts\"}[1m])",
+          "expr": "irate(envoy_http_downstream_cx_rx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_http\",host=~\"$hosts\"}[1m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{instance}} - in",
           "refId": "A"
         },
         {
-          "expr": "irate(envoy_http_downstream_cx_tx_bytes_total{envoy_http_conn_manager_prefix=~\"$cluster\",host=~\"$hosts\"}[1m])",
+          "expr": "irate(envoy_http_downstream_cx_tx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_http\",host=~\"$hosts\"}[1m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{instance}} - out",

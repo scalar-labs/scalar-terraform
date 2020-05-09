@@ -16,8 +16,7 @@
   "editable": true,
   "gnetId": 6693,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1588919700184,
+  "iteration": 1589016372285,
   "links": [],
   "panels": [
     {
@@ -634,8 +633,36 @@
           "expr": "irate(envoy_cluster_upstream_rq_total{envoy_cluster_name=~\"$cluster\",instance=~\"$hosts\"}[1m])",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{instance}} - total",
           "refId": "A"
+        },
+        {
+          "expr": "irate(envoy_cluster_upstream_rq_xx{envoy_response_code_class=\"2\",envoy_cluster_name=~\"$cluster\",instance=~\"$hosts\"}[1m])",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}} - 2xx",
+          "refId": "B"
+        },
+        {
+          "expr": "irate(envoy_cluster_upstream_rq_xx{envoy_response_code_class=\"3\",envoy_cluster_name=~\"$cluster\",instance=~\"$hosts\"}[1m])",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}} - 3xx",
+          "refId": "C"
+        },
+        {
+          "expr": "irate(envoy_cluster_upstream_rq_xx{envoy_response_code_class=\"4\",envoy_cluster_name=~\"$cluster\",instance=~\"$hosts\"}[1m])",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}} - 4xx",
+          "refId": "D"
+        },
+        {
+          "expr": "irate(envoy_cluster_upstream_rq_xx{envoy_response_code_class=\"5\",envoy_cluster_name=~\"$cluster\",instance=~\"$hosts\"}[1m])",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}} - 5xx",
+          "refId": "E"
         }
       ],
       "thresholds": [],
@@ -814,8 +841,36 @@
           "expr": "irate(envoy_http_downstream_rq_total{envoy_http_conn_manager_prefix=~\"ingress_http\",instance=~\"$hosts\"}[1m])",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{instance}} - total",
           "refId": "A"
+        },
+        {
+          "expr": "irate(envoy_http_downstream_rq_xx{envoy_response_code_class=\"2\",envoy_http_conn_manager_prefix=~\"ingress_http\",host=~\"$hosts\"}[1m])",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}} - 2xx",
+          "refId": "B"
+        },
+        {
+          "expr": "irate(envoy_http_downstream_rq_xx{envoy_response_code_class=\"3\",envoy_http_conn_manager_prefix=~\"ingress_http\",host=~\"$hosts\"}[1m])",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}} - 3xx",
+          "refId": "C"
+        },
+        {
+          "expr": "irate(envoy_http_downstream_rq_xx{envoy_response_code_class=\"4\",envoy_http_conn_manager_prefix=~\"ingress_http\",host=~\"$hosts\"}[1m])",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}} - 4xx",
+          "refId": "D"
+        },
+        {
+          "expr": "irate(envoy_http_downstream_rq_xx{envoy_response_code_class=\"5\",envoy_http_conn_manager_prefix=~\"ingress_http\",host=~\"$hosts\"}[1m])",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{instance}} - 5xx",
+          "refId": "E"
         }
       ],
       "thresholds": [],
@@ -1151,7 +1206,7 @@
       }
     }
   ],
-  "refresh": "30s",
+  "refresh": false,
   "schemaVersion": 21,
   "style": "dark",
   "tags": [],
@@ -1160,8 +1215,9 @@
       {
         "allValue": null,
         "current": {
-          "text": "scalar-privileged",
-          "value": "scalar-privileged"
+          "tags": [],
+          "text": "scalar-service",
+          "value": "scalar-service"
         },
         "datasource": "prometheus",
         "definition": "",
@@ -1186,8 +1242,9 @@
         "allValue": null,
         "current": {
           "selected": false,
+          "tags": [],
           "text": "All",
-          "value": "$__all"
+          "value": ["$__all"]
         },
         "datasource": "prometheus",
         "definition": "",
@@ -1211,8 +1268,8 @@
     ]
   },
   "time": {
-    "from": "now-15m",
-    "to": "now"
+    "from": "2020-05-08T06:32:35.864Z",
+    "to": "2020-05-08T09:56:28.353Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -1232,5 +1289,5 @@
   "timezone": "",
   "title": "Envoy Proxy",
   "uid": "000000003",
-  "version": 3
+  "version": 9
 }

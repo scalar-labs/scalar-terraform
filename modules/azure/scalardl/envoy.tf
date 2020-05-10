@@ -26,6 +26,7 @@ module "envoy_cluster" {
 module "envoy_provision" {
   source = "../../universal/envoy"
 
+  vm_ids              = module.envoy_cluster.vm_ids
   triggers            = local.triggers
   bastion_host_ip     = local.bastion_ip
   host_list           = module.envoy_cluster.network_interface_private_ip

@@ -18,6 +18,7 @@ module "cassy_cluster" {
 module "cassy_provision" {
   source = "../../universal/cassy"
 
+  vm_ids           = module.cassy_cluster.vm_ids
   triggers         = local.triggers
   bastion_host_ip  = local.bastion_ip
   host_list        = module.cassy_cluster.network_interface_private_ip

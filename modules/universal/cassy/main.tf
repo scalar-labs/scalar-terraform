@@ -12,6 +12,7 @@ resource "null_resource" "cassy_waitfor" {
 
   triggers = {
     triggers = join(",", var.triggers)
+    vm_id    = var.vm_ids[count.index]
   }
 
   connection {

@@ -7,6 +7,7 @@ resource "null_resource" "ca_waitfor" {
 
   triggers = {
     triggers = join(",", var.triggers)
+    vm_id    = var.vm_ids[count.index]
   }
 
   connection {

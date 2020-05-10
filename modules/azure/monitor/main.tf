@@ -73,6 +73,7 @@ resource "null_resource" "volume_data" {
 module "monitor_provision" {
   source = "../../universal/monitor"
 
+  vm_ids           = module.monitor_cluster.vm_ids
   triggers         = local.triggers
   bastion_host_ip  = local.bastion_ip
   host_list        = module.monitor_cluster.network_interface_private_ip

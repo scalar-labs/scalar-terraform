@@ -15,6 +15,11 @@ variable "triggers" {
   default     = []
 }
 
+variable "vm_ids" {
+  default     = []
+  description = "A list of virtual machine IDs to provision"
+}
+
 variable "host_list" {
   default     = []
   description = "A list of CA hosts (IP or DNS) to provision"

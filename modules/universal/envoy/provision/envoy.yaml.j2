@@ -4,13 +4,15 @@ admin:
   address:
     socket_address: { address: 0.0.0.0, port_value: 9001 }
 
+{% set envoy_confs = {'scalar-service': 50051, 'scalar-privileged': 50052} -%}
 static_resources:
   listeners:
-    - name:                        frontend_listener
+  {%- for key, value in envoy_confs.items() %}
+    - name:                        {{ key|e }}
       address:
         socket_address:
           address:                 0.0.0.0
-          port_value:              50051
+          port_value:              {{ value|e }}
       filter_chains:
         - filters:
           - name:                  envoy.http_connection_manager
@@ -28,34 +30,22 @@ static_resources:
               route_config:
                 name:              scalar_route
                 virtual_hosts:
-                  - name:          scalar_service
+                  - name:          {{ key|e }}
                     domains:
                       - "*"
                     routes:
                       - match:
-                          prefix: "/rpc.LedgerPrivileged"
-                          grpc: {}
-                        route:
-                          cluster: scalar-privileged
-                      - match:
-                          prefix: "/rpc.LedgerPrivileged"
-                          headers:
-                            - name: "X-User-Agent"
-                              prefix_match: "grpc-web-javascript"
-                        route:
-                          cluster: scalar-privileged
-                      - match:
                           prefix:  "/"
                           grpc: {}
                         route:
-                          cluster: scalar-service
+                          cluster: {{ key|e }}
                       - match:
                           prefix:  "/"
                           headers:
                             - name: "X-User-Agent"
                               prefix_match: "grpc-web-javascript"
                         route:
-                          cluster: scalar-service
+                          cluster: {{ key|e }}
                     cors:
                       allow_origin_string_match:
                       - prefix: "*"
@@ -63,9 +53,19 @@ static_resources:
                       allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
                       max_age: "1728000"
                       expose_headers: grpc-status,grpc-message,rpc.status-bin
+        {%- if envoy_tls == "true" %}
+          tls_context:
+            common_tls_context:
+              alpn_protocols:      "h2"
+              tls_certificates:
+                - certificate_chain:
+                    filename:      "/etc/envoy/cert.pem"
+                  private_key:
+                    filename:      "/etc/envoy/key.pem"
+        {%- endif -%}}
+  {%- endfor %}
   clusters:
-  {% set envoy_items = {'scalar-service': 50051, 'scalar-privileged': 50052} %}
-  {% for key, value in envoy_items.items() %}
+  {%- for key, value in envoy_confs.items() %}
     - name:                        {{ key|e }}
       connect_timeout:             0.25s
       type:                        strict_dns
@@ -83,7 +83,7 @@ static_resources:
           grpc_health_check:       {}
       drain_connections_on_host_removal: true
       load_assignment:
-        cluster_name:              scalar-service
+        cluster_name:              {{ key|e }}
         endpoints:
         - lb_endpoints:
           - endpoint:
@@ -91,4 +91,4 @@ static_resources:
               socket_address:
                 address:           scalardl.{{ internal_domain }}
                 port_value:        {{ value|e }}
-  {% endfor %}
+  {%- endfor -%}

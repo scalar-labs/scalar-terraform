@@ -98,12 +98,11 @@ resource "null_resource" "envoy_container" {
     inline = [
       "cd $HOME/provision",
       "export internal_domain=${var.internal_domain}",
+      "export envoy_tls=${var.envoy_tls}",
       "j2 ./envoy.yaml.j2 > ./envoy.yaml",
-      "j2 ./envoy-tls.yaml.j2 > ./envoy-tls.yaml",
       "echo export ENVOY_CERT_AUTO_GEN=${var.envoy_cert_auto_gen}",
       "echo export ENVOY_IMAGE=${var.envoy_image} > env",
       "echo export ENVOY_TAG=${var.envoy_tag} >> env",
-      "echo export ENVOY_CONF=${var.envoy_tls ? "envoy-tls.yaml" : "envoy.yaml"} >> env",
       "echo export ENVOY_PORT=${var.envoy_port} >> env",
       "echo export ENVOY_PRIVILEGED_PORT=${var.envoy_privileged_port} >> env",
       "source ./env",

@@ -89,7 +89,7 @@ resource "azurerm_lb_rule" "envoy_lb_rule" {
   backend_port                   = local.envoy.target_port
   frontend_ip_configuration_name = "EnvoyLBAddress"
   backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool.*.id[count.index]
-  probe_id                       = azurerm_lb_probe.envoy-lb-probe.*.id[count.index]
+  probe_id                       = azurerm_lb_probe.envoy_lb_probe.*.id[count.index]
 }
 
 resource "azurerm_lb_rule" "envoy_lb_privileged_rule" {
@@ -103,7 +103,7 @@ resource "azurerm_lb_rule" "envoy_lb_privileged_rule" {
   backend_port                   = local.envoy.privileged_target_port
   frontend_ip_configuration_name = "EnvoyLBAddress"
   backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool.*.id[count.index]
-  probe_id                       = azurerm_lb_probe.envoy-lb-probe.*.id[count.index]
+  probe_id                       = azurerm_lb_probe.envoy_lb_probe.*.id[count.index]
 }
 
 resource "azurerm_lb_probe" "envoy_lb_probe" {

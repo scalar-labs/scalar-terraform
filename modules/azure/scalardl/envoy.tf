@@ -26,26 +26,27 @@ module "envoy_cluster" {
 module "envoy_provision" {
   source = "../../universal/envoy"
 
-  vm_ids              = module.envoy_cluster.vm_ids
-  triggers            = local.triggers
-  bastion_host_ip     = local.bastion_ip
-  host_list           = module.envoy_cluster.network_interface_private_ip
-  user_name           = local.user_name
-  private_key_path    = local.private_key_path
-  provision_count     = local.envoy.resource_count
-  key                 = local.envoy.key
-  cert                = local.envoy.cert
-  envoy_tls           = local.envoy.tls
-  envoy_cert_auto_gen = local.envoy.cert_auto_gen
-  envoy_tag           = local.envoy.tag
-  envoy_image         = local.envoy.image
-  envoy_port          = local.envoy.target_port
-  enable_tdagent      = local.envoy.enable_tdagent
-  custom_config_path  = local.envoy.custom_config_path
-  internal_domain     = local.internal_domain
+  vm_ids                = module.envoy_cluster.vm_ids
+  triggers              = local.triggers
+  bastion_host_ip       = local.bastion_ip
+  host_list             = module.envoy_cluster.network_interface_private_ip
+  user_name             = local.user_name
+  private_key_path      = local.private_key_path
+  provision_count       = local.envoy.resource_count
+  key                   = local.envoy.key
+  cert                  = local.envoy.cert
+  envoy_tls             = local.envoy.tls
+  envoy_cert_auto_gen   = local.envoy.cert_auto_gen
+  envoy_tag             = local.envoy.tag
+  envoy_image           = local.envoy.image
+  envoy_port            = local.envoy.target_port
+  envoy_privileged_port = local.envoy.privileged_target_port
+  enable_tdagent        = local.envoy.enable_tdagent
+  custom_config_path    = local.envoy.custom_config_path
+  internal_domain       = local.internal_domain
 }
 
-resource "azurerm_public_ip" "envoy-public-ip" {
+resource "azurerm_public_ip" "envoy_public_ip" {
   count      = local.envoy.resource_count > 0 ? 1 : 0
   depends_on = [null_resource.envoy_wait_for]
 
@@ -56,7 +57,7 @@ resource "azurerm_public_ip" "envoy-public-ip" {
   allocation_method   = "Static"
 }
 
-resource "azurerm_lb" "envoy-lb" {
+resource "azurerm_lb" "envoy_lb" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   name                = "EnvoyLoadBalancer"
@@ -65,50 +66,64 @@ resource "azurerm_lb" "envoy-lb" {
 
   frontend_ip_configuration {
     name                 = "EnvoyLBAddress"
-    public_ip_address_id = azurerm_public_ip.envoy-public-ip.*.id[count.index]
+    public_ip_address_id = azurerm_public_ip.envoy_public_ip.*.id[count.index]
   }
 }
 
-resource "azurerm_lb_backend_address_pool" "envoy-lb-pool" {
+resource "azurerm_lb_backend_address_pool" "envoy_lb_pool" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   resource_group_name = local.network_name
-  loadbalancer_id     = azurerm_lb.envoy-lb.*.id[count.index]
+  loadbalancer_id     = azurerm_lb.envoy_lb.*.id[count.index]
   name                = "EnvoyAddressPool"
 }
 
-resource "azurerm_lb_rule" "envoy-lb-rule" {
+resource "azurerm_lb_rule" "envoy_lb_rule" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   resource_group_name            = local.network_name
-  loadbalancer_id                = azurerm_lb.envoy-lb.*.id[count.index]
+  loadbalancer_id                = azurerm_lb.envoy_lb.*.id[count.index]
   name                           = "EnvoyLBRule"
   protocol                       = "Tcp"
   frontend_port                  = local.envoy.listen_port
   backend_port                   = local.envoy.target_port
   frontend_ip_configuration_name = "EnvoyLBAddress"
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy-lb-pool.*.id[count.index]
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool.*.id[count.index]
   probe_id                       = azurerm_lb_probe.envoy-lb-probe.*.id[count.index]
 }
 
-resource "azurerm_lb_probe" "envoy-lb-probe" {
+resource "azurerm_lb_rule" "envoy_lb_privileged_rule" {
+  count = local.envoy.resource_count > 0 ? 1 : 0
+
+  resource_group_name            = local.network_name
+  loadbalancer_id                = azurerm_lb.envoy_lb.*.id[count.index]
+  name                           = "EnvoyLBPrivilegedRule"
+  protocol                       = "Tcp"
+  frontend_port                  = local.envoy.privileged_listen_port
+  backend_port                   = local.envoy.privileged_target_port
+  frontend_ip_configuration_name = "EnvoyLBAddress"
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool.*.id[count.index]
+  probe_id                       = azurerm_lb_probe.envoy-lb-probe.*.id[count.index]
+}
+
+resource "azurerm_lb_probe" "envoy_lb_probe" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   resource_group_name = local.network_name
-  loadbalancer_id     = azurerm_lb.envoy-lb.*.id[count.index]
+  loadbalancer_id     = azurerm_lb.envoy_lb.*.id[count.index]
   name                = "envoy-running-probe"
   port                = local.envoy.target_port
 }
 
-resource "azurerm_network_interface_backend_address_pool_association" "envoy-lb-association" {
+resource "azurerm_network_interface_backend_address_pool_association" "envoy_lb_association" {
   count = local.envoy.resource_count
 
   network_interface_id    = module.envoy_cluster.network_interface_ids[count.index]
   ip_configuration_name   = "ipconfig${count.index}"
-  backend_address_pool_id = azurerm_lb_backend_address_pool.envoy-lb-pool.*.id[0]
+  backend_address_pool_id = azurerm_lb_backend_address_pool.envoy_lb_pool.*.id[0]
 }
 
-resource "azurerm_private_dns_a_record" "envoy-dns" {
+resource "azurerm_private_dns_a_record" "envoy_dns" {
   count = local.envoy.resource_count
 
   name                = "envoy-${count.index + 1}"
@@ -119,7 +134,7 @@ resource "azurerm_private_dns_a_record" "envoy-dns" {
   records = [module.envoy_cluster.network_interface_private_ip[count.index]]
 }
 
-resource "azurerm_private_dns_srv_record" "envoy-exporter-dns-srv" {
+resource "azurerm_private_dns_srv_record" "envoy_exporter_dns_srv" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   name                = "_node-exporter._tcp.envoy"
@@ -128,7 +143,7 @@ resource "azurerm_private_dns_srv_record" "envoy-exporter-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.envoy-dns.*.name
+    for_each = azurerm_private_dns_a_record.envoy_dns.*.name
 
     content {
       priority = 0
@@ -139,7 +154,7 @@ resource "azurerm_private_dns_srv_record" "envoy-exporter-dns-srv" {
   }
 }
 
-resource "azurerm_private_dns_srv_record" "envoy-node-exporter-dns-srv" {
+resource "azurerm_private_dns_srv_record" "envoy_node_exporter_dns_srv" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   name                = "_envoy-exporter._tcp.envoy"
@@ -148,7 +163,7 @@ resource "azurerm_private_dns_srv_record" "envoy-node-exporter-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.envoy-dns.*.name
+    for_each = azurerm_private_dns_a_record.envoy_dns.*.name
 
     content {
       priority = 0
@@ -159,7 +174,7 @@ resource "azurerm_private_dns_srv_record" "envoy-node-exporter-dns-srv" {
   }
 }
 
-resource "azurerm_private_dns_srv_record" "envoy-cadvisor-dns-srv" {
+resource "azurerm_private_dns_srv_record" "envoy_cadvisor_dns_srv" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   name                = "_cadvisor._tcp.envoy"
@@ -168,7 +183,7 @@ resource "azurerm_private_dns_srv_record" "envoy-cadvisor-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.envoy-dns.*.name
+    for_each = azurerm_private_dns_a_record.envoy_dns.*.name
 
     content {
       priority = 0

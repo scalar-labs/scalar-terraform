@@ -32,17 +32,29 @@ static_resources:
                     domains:
                     - "*"
                     routes:
-                    - match:
+                      - match:
+                          prefix: "/rpc.LedgerPrivileged"
+                          grpc: {}
+                        route:
+                          cluster: scalar-privileged
+                      - match:
+                          prefix: "/rpc.LedgerPrivileged"
+                          headers:
+                            - name: "X-User-Agent"
+                              prefix_match: "grpc-web-javascript"
+                        route:
+                          cluster: scalar-privileged
+                      - match:
                           prefix:  "/"
                           grpc: {}
-                      route:
+                        route:
                           cluster: scalar-service
-                    - match:
+                      - match:
                           prefix:  "/"
                           headers:
                             - name: "X-User-Agent"
                               prefix_match: "grpc-web-javascript"
-                      route:
+                        route:
                           cluster: scalar-service
                     cors:
                       allow_origin_string_match:
@@ -60,7 +72,9 @@ static_resources:
                   private_key:
                     filename:      "/etc/envoy/key.pem"
   clusters:
-    - name:                        scalar-service
+  {% set envoy_items = {'scalar-service': 50051, 'scalar-privileged': 50052} %}
+  {% for key, value in envoy_items.items() %}
+    - name:                        {{ key|e }}
       connect_timeout:             0.25s
       type:                        strict_dns
       http2_protocol_options:      {}
@@ -84,4 +98,5 @@ static_resources:
              address:
               socket_address:
                 address:           scalardl.{{ internal_domain }}
-                port_value:        50051
+                port_value:        {{ value|e }}
+  {% endfor %}

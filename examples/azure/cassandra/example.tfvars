@@ -27,8 +27,9 @@ cassy = {
   # enable_accelerated_networking = "false"
 
   # Required if resource_count > 0
-  storage_base_uri = "your-container-name"
-  storage_type     = "azure_blob"
+  storage_account_name = "yourstorageaccountname"
+  storage_base_uri     = "https://yourstorageaccountname.blob.core.windows.net/your-container-name"
+  storage_type         = "azure_blob"
 }
 
 reaper = {

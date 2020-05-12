@@ -5,9 +5,10 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"modules/grpc_helper"
+
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/stretchr/testify/assert"
-	"modules/grpc_helper"
 )
 
 func TestScalarDL(t *testing.T) {
@@ -70,7 +71,7 @@ func writePropertiesFile(t *testing.T, host string) {
 	properties := []byte(fmt.Sprintf(`
   scalar.dl.client.server.host=%s
   scalar.dl.client.server.port=50051
-  scalar.dl.client.server.privileged_port=50051
+  scalar.dl.client.server.privileged_port=50052
   scalar.dl.client.cert_holder_id=test
   scalar.dl.client.cert_version=1
   scalar.dl.client.cert_path=./resources/Test.pem

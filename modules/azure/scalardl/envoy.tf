@@ -46,6 +46,21 @@ module "envoy_provision" {
   internal_domain       = local.internal_domain
 }
 
+resource "azurerm_network_security_rule" "envoy_privileged_nsg" {
+  name                        = "allow_remote_${local.envoy.privileged_target_port}_in_all"
+  description                 = "Allow remote protocol in from all locations"
+  priority                    = 200
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = local.envoy.privileged_target_port
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = local.network_name
+  network_security_group_name = module.envoy_cluster.network_security_group_name
+}
+
 resource "azurerm_public_ip" "envoy_public_ip" {
   count      = local.envoy.resource_count > 0 ? 1 : 0
   depends_on = [null_resource.envoy_wait_for]
@@ -103,7 +118,7 @@ resource "azurerm_lb_rule" "envoy_lb_privileged_rule" {
   backend_port                   = local.envoy.privileged_target_port
   frontend_ip_configuration_name = "EnvoyLBAddress"
   backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool.*.id[count.index]
-  probe_id                       = azurerm_lb_probe.envoy_lb_probe.*.id[count.index]
+  probe_id                       = azurerm_lb_probe.envoy_lb_privileged_probe.*.id[count.index]
 }
 
 resource "azurerm_lb_probe" "envoy_lb_probe" {
@@ -113,6 +128,15 @@ resource "azurerm_lb_probe" "envoy_lb_probe" {
   loadbalancer_id     = azurerm_lb.envoy_lb.*.id[count.index]
   name                = "envoy-running-probe"
   port                = local.envoy.target_port
+}
+
+resource "azurerm_lb_probe" "envoy_lb_privileged_probe" {
+  count = local.envoy.resource_count > 0 ? 1 : 0
+
+  resource_group_name = local.network_name
+  loadbalancer_id     = azurerm_lb.envoy_lb.*.id[count.index]
+  name                = "envoy-running-privileged-probe"
+  port                = local.envoy.privileged_target_port
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "envoy_lb_association" {

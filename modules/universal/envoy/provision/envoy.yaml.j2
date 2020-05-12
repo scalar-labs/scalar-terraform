@@ -8,34 +8,34 @@ admin:
 static_resources:
   listeners:
   {%- for key, value in envoy_confs.items() %}
-    - name:                        {{ key|e }}
+    - name: {{ key|e }}
       address:
         socket_address:
-          address:                 0.0.0.0
-          port_value:              {{ value|e }}
+          address: 0.0.0.0
+          port_value: {{ value|e }}
       filter_chains:
         - filters:
-          - name:                  envoy.http_connection_manager
+          - name: envoy.http_connection_manager
             config:
               access_log:
-                - name:            envoy.file_access_log
+                - name: envoy.file_access_log
                   config:
-                    path:          "/dev/stdout"
+                    path: "/dev/stdout"
               http_filters:
-                - name:            envoy.grpc_web
-                - name:            envoy.cors
-                - name:            envoy.router
-              codec_type:          auto
-              stat_prefix:         ingress_http
+                - name: envoy.grpc_web
+                - name: envoy.cors
+                - name: envoy.router
+              codec_type: auto
+              stat_prefix: ingress_http
               route_config:
-                name:              scalar_route
+                name: scalar_route
                 virtual_hosts:
-                  - name:          {{ key|e }}
+                  - name: {{ key|e }}
                     domains:
                       - "*"
                     routes:
                       - match:
-                          prefix:  "/"
+                          prefix: "/"
                           grpc: {}
                         route:
                           cluster: {{ key|e }}
@@ -53,42 +53,42 @@ static_resources:
                       allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
                       max_age: "1728000"
                       expose_headers: grpc-status,grpc-message,rpc.status-bin
-        {%- if envoy_tls == "true" %}
+        {%- if envoy_tls is defined and envoy_tls == "true" %}
           tls_context:
             common_tls_context:
-              alpn_protocols:      "h2"
+              alpn_protocols: "h2"
               tls_certificates:
                 - certificate_chain:
-                    filename:      "/etc/envoy/cert.pem"
+                    filename: "/etc/envoy/cert.pem"
                   private_key:
-                    filename:      "/etc/envoy/key.pem"
+                    filename: "/etc/envoy/key.pem"
         {%- endif -%}}
   {%- endfor %}
   clusters:
   {%- for key, value in envoy_confs.items() %}
-    - name:                        {{ key|e }}
-      connect_timeout:             0.25s
-      type:                        strict_dns
-      http2_protocol_options:      {}
+    - name: {{ key|e }}
+      connect_timeout: 0.25s
+      type: strict_dns
+      http2_protocol_options: {}
       upstream_connection_options:
         tcp_keepalive:
-          keepalive_time:          300
-      lb_policy:                   round_robin
+          keepalive_time: 300
+      lb_policy: round_robin
       health_checks:
-        - timeout:                 1s
-          interval:                5s
-          interval_jitter:         1s
-          unhealthy_threshold:     3
-          healthy_threshold:       3
-          grpc_health_check:       {}
+        - timeout: 1s
+          interval: 5s
+          interval_jitter: 1s
+          unhealthy_threshold: 3
+          healthy_threshold: 3
+          grpc_health_check: {}
       drain_connections_on_host_removal: true
       load_assignment:
-        cluster_name:              {{ key|e }}
+        cluster_name: {{ key|e }}
         endpoints:
-        - lb_endpoints:
-          - endpoint:
-             address:
-              socket_address:
-                address:           scalardl.{{ internal_domain }}
-                port_value:        {{ value|e }}
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: scalardl.{{ internal_domain }}
+                    port_value: {{ value|e }}
   {%- endfor -%}

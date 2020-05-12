@@ -1,7 +1,9 @@
 groups:
-- name: Recording Rules
-  rules:
-  - record: job:active_scalardl_blue_nodes:count
-    expr: count(time() - container_last_seen{container_label_com_docker_compose_service="scalar", instance=~"^scalardl-blue-.*"} < 15)
-  - record: job:active_scalardl_green_nodes:count
-    expr: count(time() - container_last_seen{container_label_com_docker_compose_service="scalar", instance=~"^scalardl-green-.*"} < 15)
+  - name: Recording Rules
+    rules:
+      - record: job:active_scalardl_blue_nodes:count
+        expr: count(time() - container_last_seen{container_label_com_docker_compose_service="scalar", instance=~"^scalardl-blue-.*"} < 15)
+      - record: job:active_scalardl_green_nodes:count
+        expr: count(time() - container_last_seen{container_label_com_docker_compose_service="scalar", instance=~"^scalardl-green-.*"} < 15)
+      - record: job:active_envoy_nodes:count
+        expr: count(time() - container_last_seen{container_label_com_docker_compose_service="envoy", instance=~"^envoy-.*"} < 15)

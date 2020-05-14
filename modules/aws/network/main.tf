@@ -4,8 +4,7 @@ module "name_generator" {
 }
 
 module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "~> v2.0"
+  source = "github.com/scalar-labs/terraform-aws-vpc?ref=1fabb6b"
 
   cidr = local.network.cidr
   azs  = local.locations

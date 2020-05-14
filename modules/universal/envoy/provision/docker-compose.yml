@@ -1,11 +1,12 @@
-version: '3.7'
+version: "3.7"
 
 services:
   envoy:
     image: ${ENVOY_IMAGE}:${ENVOY_TAG}
     ports:
       - ${ENVOY_PORT}:50051
+      - ${ENVOY_PRIVILEGED_PORT}:50052
       - 9001:9001
     volumes:
       - ./:/etc/envoy
-    command: /usr/local/bin/envoy -c /etc/envoy/${ENVOY_CONF}
+    command: /usr/local/bin/envoy -c /etc/envoy/envoy.yaml

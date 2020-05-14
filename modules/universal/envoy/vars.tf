@@ -64,6 +64,11 @@ variable "envoy_port" {
   description = "The host access port to listen on"
 }
 
+variable "envoy_privileged_port" {
+  default     = 50052
+  description = "The host access privileged port to listen on"
+}
+
 variable "enable_tdagent" {
   default     = true
   description = "A flag to install td-agent that forwards logs to the monitor host"

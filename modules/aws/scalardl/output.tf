@@ -39,7 +39,7 @@ output "scalardl_replication_factor" {
 }
 
 output "envoy_dns" {
-  value       = aws_lb.envoy-lb.*.dns_name
+  value       = aws_lb.envoy_lb.*.dns_name
   description = "A list of DNS URLs to access an envoy cluster."
 }
 

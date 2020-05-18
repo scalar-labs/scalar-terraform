@@ -69,10 +69,12 @@ locals {
     resource_count                = 3
     resource_root_volume_size     = 64
     target_port                   = 50051
+    privileged_target_port        = 50052
     listen_port                   = 50051
+    privileged_listen_port        = 50052
     subnet_id                     = var.network.private_subnet_id
     enable_nlb                    = true
-    nlb_internal                  = false
+    nlb_internal                  = true
     enable_tdagent                = true
     key                           = ""
     cert                          = ""

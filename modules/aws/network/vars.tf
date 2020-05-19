@@ -5,7 +5,7 @@ variable "name" {
 
 variable "locations" {
   type        = list(string)
-  description = "The AWS availability zone to deploy environment `ap-northeast-1a`"
+  description = "The AWS availability zones to deploy environment `ap-northeast-1a`"
 }
 
 variable "public_key_path" {

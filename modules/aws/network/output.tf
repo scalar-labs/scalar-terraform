@@ -51,7 +51,7 @@ output "bastion_ip" {
 
 output "locations" {
   value       = local.locations
-  description = "The AWS availability zone to deploy environment."
+  description = "The AWS availability zones to deploy environment."
 }
 
 output "user_name" {

@@ -9,7 +9,7 @@ The Network module creates a virtual network with subnets.
 | additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `string` | `""` | no |
 | custom_tags | The map of custom tags | `map` | `{}` | no |
 | internal_domain | An internal DNS domain name to use for mapping IP addresses | `any` | n/a | yes |
-| locations | The AWS availability zone to deploy environment `ap-northeast-1a` | `list(string)` | n/a | yes |
+| locations | The AWS availability zones to deploy environment `ap-northeast-1a` | `list(string)` | n/a | yes |
 | name | A short name to attach to resources | `any` | n/a | yes |
 | network | Custom definition for network and bastion | `map` | `{}` | no |
 | private_key_path | The path to a private key file ~/.ssh/key.pem | `any` | n/a | yes |
@@ -26,7 +26,7 @@ The Network module creates a virtual network with subnets.
 | image_id | The image id to initiate. |
 | internal_domain | The internal domain for setting srv record |
 | key_name | The key-name of the AWS managed ssh key_pair. |
-| locations | The AWS availability zone to deploy environment. |
+| locations | The AWS availability zones to deploy environment. |
 | network_cidr | Network CIDR address space. |
 | network_dns | The VPC network DNS ID. |
 | network_id | The VPC network ID. |

@@ -62,7 +62,7 @@ static_resources:
                     filename: "/etc/envoy/cert.pem"
                   private_key:
                     filename: "/etc/envoy/key.pem"
-        {%- endif -%}}
+        {%- endif -%}
   {%- endfor %}
   clusters:
   {%- for key, value in envoy_listeners.items() %}

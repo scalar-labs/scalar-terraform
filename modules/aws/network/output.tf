@@ -65,7 +65,7 @@ output "private_key_path" {
 }
 
 output "additional_public_keys_path" {
-  value       = trimspace(var.additional_public_keys_path) == "" ? "" : abspath(pathexpand(trimspace(var.additional_public_keys_path)))
+  value       = abspath(pathexpand(var.additional_public_keys_path))
   description = "The path to a file that contains multiple public keys for SSH access."
 }
 

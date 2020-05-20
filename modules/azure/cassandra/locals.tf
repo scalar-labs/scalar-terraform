@@ -92,6 +92,9 @@ locals {
     resource_root_volume_size     = 64
     enable_tdagent                = true
     enable_accelerated_networking = false
+    storage_account_name          = ""
+    storage_base_uri              = ""
+    storage_type                  = ""
   }
 }
 

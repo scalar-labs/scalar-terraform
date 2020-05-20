@@ -20,7 +20,7 @@ cassandra = {
 }
 
 cassy = {
-  # image_tag                 = "1.1.1"
+  # image_tag                 = "1.2.0"
   # resource_type             = "t3.medium"
   # resource_count            = "1"
   # resource_root_volume_size = "64"

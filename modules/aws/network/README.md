@@ -19,7 +19,6 @@ The Network module creates a virtual network with subnets.
 
 | Name | Description |
 |------|-------------|
-| additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. |
 | bastion_ip | Public IP address to bastion host |
 | bastion_provision_id | The provision id of bastion. |
 | custom_tags | The internal domain for setting srv record |

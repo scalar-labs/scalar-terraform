@@ -3,7 +3,6 @@ cassandra = {
 }
 
 cassy = {
-  resource_root_volume_size = 16
-  storage_base_uri          = "scalar-terraform-test"
-  storage_type              = "azure_blob"
+  # Set the count to zero because it needs a storage account
+  resource_count = 0
 }

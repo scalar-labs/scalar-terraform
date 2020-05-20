@@ -33,7 +33,6 @@ This repo is mainly maintained by the Scalar Engineering Team, but of course we 
 * For filing bugs, suggesting improvements, or requesting new features, help us out by opening an issue.
 
 ## Future Work
-* Support multi-AZ (Availability Zone) deployment
 * Support multi-cluster deployment
 * Support other cloud providers
 

@@ -5,7 +5,7 @@ resource "null_resource" "envoy_wait_for" {
 }
 
 module "envoy_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=ca8c721"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=c122120"
 
   nb_instances                  = local.envoy.resource_count
   admin_username                = local.user_name

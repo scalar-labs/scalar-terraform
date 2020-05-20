@@ -5,7 +5,7 @@ resource "null_resource" "wait_for" {
 }
 
 module "ca_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=ca8c721"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=c122120"
 
   nb_instances                  = local.ca.resource_count
   admin_username                = local.user_name

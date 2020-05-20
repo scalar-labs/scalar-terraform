@@ -44,11 +44,6 @@ output "public_key_path" {
   description = "The path to the public key for SSH access."
 }
 
-output "additional_public_keys_path" {
-  value       = abspath(pathexpand(var.additional_public_keys_path))
-  description = "The path to a file that contains multiple public keys for SSH access."
-}
-
 output "bastion_ip" {
   value       = module.bastion.bastion_host_ips[0]
   description = "Public IP address to bastion host"

@@ -51,7 +51,7 @@ output "bastion_ip" {
 
 output "locations" {
   value       = local.locations
-  description = "The AWS availability zone to deploy environment."
+  description = "The AWS availability zones to deploy environment."
 }
 
 output "user_name" {
@@ -62,11 +62,6 @@ output "user_name" {
 output "private_key_path" {
   value       = abspath(pathexpand(var.private_key_path))
   description = "The path to the private key for SSH access."
-}
-
-output "additional_public_keys_path" {
-  value       = abspath(pathexpand(var.additional_public_keys_path))
-  description = "The path to a file that contains multiple public keys for SSH access."
 }
 
 output "internal_domain" {

@@ -1,17 +1,12 @@
 # Bastion Azure Module
+
 The bastion module deploys a network bastion host used to access and configure the environment.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| azurerm | =1.38.0 |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `string` | `"./additional_public_keys"` | no |
+| additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `string` | `""` | no |
 | bastion_access_cidr | You can limit access to the bastion node to a specified IP cidr range | `any` | n/a | yes |
 | enable_accelerated_networking | A flag to enable accelerated networking on network interface | `bool` | `false` | no |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `any` | n/a | yes |
@@ -38,3 +33,4 @@ The bastion module deploys a network bastion host used to access and configure t
 | bastion_host_ips | A list of bastion hosts' IP addresses. |
 | bastion_provision_id | The provision id of bastion. |
 | bastion_security_group_id | The security group ID of the bastion resource. |
+

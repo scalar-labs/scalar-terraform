@@ -17,6 +17,7 @@ variable "triggers" {
 }
 
 variable "additional_public_keys_path" {
+  default     = ""
   description = "The path to a file that contains multiple public keys for SSH access."
 }
 

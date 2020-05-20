@@ -1,18 +1,19 @@
 # Network AWS Module
+
 The Network module creates a virtual network with subnets.
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
+| additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `string` | `""` | no |
 | custom_tags | The map of custom tags | `map` | `{}` | no |
 | internal_domain | An internal DNS domain name to use for mapping IP addresses | `any` | n/a | yes |
-| location | The AWS availability zone to deploy environment `ap-northeast-1a` | `any` | n/a | yes |
+| locations | The AWS availability zones to deploy environment `ap-northeast-1a` | `list(string)` | n/a | yes |
 | name | A short name to attach to resources | `any` | n/a | yes |
 | network | Custom definition for network and bastion | `map` | `{}` | no |
 | private_key_path | The path to a private key file ~/.ssh/key.pem | `any` | n/a | yes |
 | public_key_path | The path to a public key file ~/.ssh/key.pub | `any` | n/a | yes |
-| additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `any` | n/a | no |
 
 ## Outputs
 
@@ -33,4 +34,4 @@ The Network module creates a virtual network with subnets.
 | ssh_config | The Configuration file for SSH access. |
 | subnet_map | The subnet map of VPC network. |
 | user_name | The user name of the remote hosts. |
-| additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. |
+

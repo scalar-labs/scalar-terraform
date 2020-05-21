@@ -32,7 +32,7 @@ module "reaper_provision" {
   cassandra_password = local.reaper.cassandra_password
 }
 
-resource "azurerm_private_dns_a_record" "reaper-dns" {
+resource "azurerm_private_dns_a_record" "reaper_dns" {
   count = local.reaper.resource_count
 
   name                = "reaper-${count.index + 1}"
@@ -43,7 +43,7 @@ resource "azurerm_private_dns_a_record" "reaper-dns" {
   records = [module.reaper_cluster.network_interface_private_ip[count.index]]
 }
 
-resource "azurerm_private_dns_srv_record" "reaper-exporter-dns-srv" {
+resource "azurerm_private_dns_srv_record" "reaper_exporter_dns_srv" {
   count = local.reaper.resource_count > 0 ? 1 : 0
 
   name                = "_node-exporter._tcp.reaper"
@@ -52,7 +52,7 @@ resource "azurerm_private_dns_srv_record" "reaper-exporter-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.reaper-dns.*.name
+    for_each = azurerm_private_dns_a_record.reaper_dns.*.name
 
     content {
       priority = 0
@@ -63,7 +63,7 @@ resource "azurerm_private_dns_srv_record" "reaper-exporter-dns-srv" {
   }
 }
 
-resource "azurerm_private_dns_srv_record" "reaper-dns-srv" {
+resource "azurerm_private_dns_srv_record" "reaper_dns_srv" {
   count = local.reaper.resource_count > 0 ? 1 : 0
 
   name                = "_reaper._tcp.reaper"
@@ -72,7 +72,7 @@ resource "azurerm_private_dns_srv_record" "reaper-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.reaper-dns.*.name
+    for_each = azurerm_private_dns_a_record.reaper_dns.*.name
 
     content {
       priority = 0
@@ -83,7 +83,7 @@ resource "azurerm_private_dns_srv_record" "reaper-dns-srv" {
   }
 }
 
-resource "azurerm_private_dns_srv_record" "reaper-cadvisor-dns-srv" {
+resource "azurerm_private_dns_srv_record" "reaper_cadvisor_dns_srv" {
   count = local.reaper.resource_count > 0 ? 1 : 0
 
   name                = "_cadvisor._tcp.reaper"
@@ -92,7 +92,7 @@ resource "azurerm_private_dns_srv_record" "reaper-cadvisor-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.reaper-dns.*.name
+    for_each = azurerm_private_dns_a_record.reaper_dns.*.name
 
     content {
       priority = 0

@@ -334,7 +334,7 @@ resource "aws_security_group_rule" "cassandra_egress" {
   security_group_id = aws_security_group.cassandra[count.index].id
 }
 
-resource "aws_route53_record" "cassandra-dns-lb" {
+resource "aws_route53_record" "cassandra_dns_lb" {
   count = local.cassandra.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -344,7 +344,7 @@ resource "aws_route53_record" "cassandra-dns-lb" {
   records = module.cassandra_cluster.private_ip
 }
 
-resource "aws_route53_record" "cassandra-dns" {
+resource "aws_route53_record" "cassandra_dns" {
   count = local.cassandra.resource_count
 
   zone_id = local.network_dns
@@ -354,7 +354,7 @@ resource "aws_route53_record" "cassandra-dns" {
   records = [module.cassandra_cluster.private_ip[count.index]]
 }
 
-resource "aws_route53_record" "cassandra-exporter-dns-srv" {
+resource "aws_route53_record" "cassandra_exporter_dns_srv" {
   count = local.cassandra.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -363,12 +363,12 @@ resource "aws_route53_record" "cassandra-exporter-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 7070 %s.%s",
-    aws_route53_record.cassandra-dns.*.name,
+    aws_route53_record.cassandra_dns.*.name,
     "${local.internal_domain}.",
   )
 }
 
-resource "aws_route53_record" "node-exporter-dns-srv" {
+resource "aws_route53_record" "node_exporter_dns_srv" {
   count = local.cassandra.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -377,7 +377,7 @@ resource "aws_route53_record" "node-exporter-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 9100 %s.%s",
-    aws_route53_record.cassandra-dns.*.name,
+    aws_route53_record.cassandra_dns.*.name,
     "${local.internal_domain}.",
   )
 }

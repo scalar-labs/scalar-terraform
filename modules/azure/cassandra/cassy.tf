@@ -50,7 +50,7 @@ resource "azurerm_private_dns_srv_record" "cassy_exporter_dns_srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.cassy-dns.*.name
+    for_each = azurerm_private_dns_a_record.cassy_dns.*.name
 
     content {
       priority = 0

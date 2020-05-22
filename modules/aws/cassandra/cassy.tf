@@ -138,7 +138,7 @@ resource "aws_security_group_rule" "cassy_egress" {
   security_group_id = aws_security_group.cassy[count.index].id
 }
 
-resource "aws_route53_record" "cassy-dns" {
+resource "aws_route53_record" "cassy_dns" {
   count = local.cassy.resource_count
 
   zone_id = local.network_dns
@@ -148,7 +148,7 @@ resource "aws_route53_record" "cassy-dns" {
   records = [module.cassy_cluster.private_ip[count.index]]
 }
 
-resource "aws_route53_record" "cassy-dns-srv" {
+resource "aws_route53_record" "cassy_dns_srv" {
   count = local.cassy.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -157,12 +157,12 @@ resource "aws_route53_record" "cassy-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 8081 %s.%s",
-    aws_route53_record.cassy-dns.*.name,
+    aws_route53_record.cassy_dns.*.name,
     "${local.internal_domain}.",
   )
 }
 
-resource "aws_route53_record" "cassy-cadvisor-dns-srv" {
+resource "aws_route53_record" "cassy_cadvisor_dns_srv" {
   count = local.cassy.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -171,12 +171,12 @@ resource "aws_route53_record" "cassy-cadvisor-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 18080 %s.%s",
-    aws_route53_record.cassy-dns.*.name,
+    aws_route53_record.cassy_dns.*.name,
     "${local.internal_domain}.",
   )
 }
 
-resource "aws_route53_record" "cassy-node-exporter-dns-srv" {
+resource "aws_route53_record" "cassy_node_exporter_dns_srv" {
   count = local.cassy.resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -185,7 +185,7 @@ resource "aws_route53_record" "cassy-node-exporter-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 9100 %s.%s",
-    aws_route53_record.cassy-dns.*.name,
+    aws_route53_record.cassy_dns.*.name,
     "${local.internal_domain}.",
   )
 }

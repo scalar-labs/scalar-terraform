@@ -73,7 +73,7 @@ resource "azurerm_availability_set" "scalar_availability_set" {
   managed                      = true
 }
 
-resource "azurerm_private_dns_a_record" "scalardl-blue-dns" {
+resource "azurerm_private_dns_a_record" "scalardl_blue_dns" {
   count = local.scalardl.blue_resource_count
 
   name                = "scalardl-blue-${count.index + 1}"
@@ -84,7 +84,7 @@ resource "azurerm_private_dns_a_record" "scalardl-blue-dns" {
   records = [module.scalardl_blue.network_interface_private_ip[count.index]]
 }
 
-resource "azurerm_private_dns_a_record" "scalardl-green-dns" {
+resource "azurerm_private_dns_a_record" "scalardl_green_dns" {
   count = local.scalardl.green_resource_count
 
   name                = "scalardl-green-${count.index + 1}"
@@ -95,7 +95,7 @@ resource "azurerm_private_dns_a_record" "scalardl-green-dns" {
   records = [module.scalardl_green.network_interface_private_ip[count.index]]
 }
 
-resource "azurerm_private_dns_a_record" "scalardl-dns" {
+resource "azurerm_private_dns_a_record" "scalardl_dns" {
   count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   name                = "scalardl"
@@ -109,7 +109,7 @@ resource "azurerm_private_dns_a_record" "scalardl-dns" {
   )
 }
 
-resource "azurerm_private_dns_srv_record" "node-exporter-blue-dns-srv" {
+resource "azurerm_private_dns_srv_record" "node_exporter_blue_dns_srv" {
   count = local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   name                = "_node-exporter._tcp.scalardl-blue"
@@ -118,7 +118,7 @@ resource "azurerm_private_dns_srv_record" "node-exporter-blue-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.scalardl-blue-dns.*.name
+    for_each = azurerm_private_dns_a_record.scalardl_blue_dns.*.name
 
     content {
       priority = 0
@@ -129,7 +129,7 @@ resource "azurerm_private_dns_srv_record" "node-exporter-blue-dns-srv" {
   }
 }
 
-resource "azurerm_private_dns_srv_record" "node-exporter-green-dns-srv" {
+resource "azurerm_private_dns_srv_record" "node_exporter_green_dns_srv" {
   count = local.scalardl.green_resource_count > 0 ? 1 : 0
 
   name                = "_node-exporter._tcp.scalardl-green"
@@ -138,7 +138,7 @@ resource "azurerm_private_dns_srv_record" "node-exporter-green-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.scalardl-green-dns.*.name
+    for_each = azurerm_private_dns_a_record.scalardl_green_dns.*.name
 
     content {
       priority = 0
@@ -149,7 +149,7 @@ resource "azurerm_private_dns_srv_record" "node-exporter-green-dns-srv" {
   }
 }
 
-resource "azurerm_private_dns_srv_record" "cadvisor-blue-dns-srv" {
+resource "azurerm_private_dns_srv_record" "cadvisor_blue_dns_srv" {
   count = local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   name                = "_cadvisor._tcp.scalardl-blue"
@@ -158,7 +158,7 @@ resource "azurerm_private_dns_srv_record" "cadvisor-blue-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.scalardl-blue-dns.*.name
+    for_each = azurerm_private_dns_a_record.scalardl_blue_dns.*.name
 
     content {
       priority = 0
@@ -169,7 +169,7 @@ resource "azurerm_private_dns_srv_record" "cadvisor-blue-dns-srv" {
   }
 }
 
-resource "azurerm_private_dns_srv_record" "cadvisor-green-dns-srv" {
+resource "azurerm_private_dns_srv_record" "cadvisor_green_dns_srv" {
   count = local.scalardl.green_resource_count > 0 ? 1 : 0
 
   name                = "_cadvisor._tcp.scalardl-green"
@@ -178,7 +178,7 @@ resource "azurerm_private_dns_srv_record" "cadvisor-green-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.scalardl-green-dns.*.name
+    for_each = azurerm_private_dns_a_record.scalardl_green_dns.*.name
 
     content {
       priority = 0
@@ -189,7 +189,7 @@ resource "azurerm_private_dns_srv_record" "cadvisor-green-dns-srv" {
   }
 }
 
-resource "azurerm_private_dns_srv_record" "scalardl-dns-srv" {
+resource "azurerm_private_dns_srv_record" "scalardl_dns_srv" {
   count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   name                = "_scalardl._tcp.scalardl-service"
@@ -198,7 +198,7 @@ resource "azurerm_private_dns_srv_record" "scalardl-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = concat(azurerm_private_dns_a_record.scalardl-blue-dns.*.name, azurerm_private_dns_a_record.scalardl-green-dns.*.name)
+    for_each = concat(azurerm_private_dns_a_record.scalardl_blue_dns.*.name, azurerm_private_dns_a_record.scalardl_green_dns.*.name)
 
     content {
       priority = 0

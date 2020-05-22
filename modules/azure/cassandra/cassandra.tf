@@ -169,7 +169,7 @@ module "cassandra_provision" {
   internal_domain       = local.internal_domain
 }
 
-resource "azurerm_private_dns_a_record" "cassandra-dns" {
+resource "azurerm_private_dns_a_record" "cassandra_dns" {
   count = local.cassandra.resource_count
 
   name                = "cassandra-${count.index + 1}"
@@ -180,7 +180,7 @@ resource "azurerm_private_dns_a_record" "cassandra-dns" {
   records = [module.cassandra_cluster.network_interface_private_ip[count.index]]
 }
 
-resource "azurerm_private_dns_a_record" "cassandra-dns-lb" {
+resource "azurerm_private_dns_a_record" "cassandra_dns_lb" {
   count = local.cassandra.resource_count > 0 ? 1 : 0
 
   name                = "cassandra-lb"
@@ -191,7 +191,7 @@ resource "azurerm_private_dns_a_record" "cassandra-dns-lb" {
   records = module.cassandra_cluster.network_interface_private_ip
 }
 
-resource "azurerm_private_dns_srv_record" "node-exporter-dns-srv" {
+resource "azurerm_private_dns_srv_record" "node_exporter_dns_srv" {
   count = local.cassandra.resource_count > 0 ? 1 : 0
 
   name                = "_node-exporter._tcp.cassandra"
@@ -200,7 +200,7 @@ resource "azurerm_private_dns_srv_record" "node-exporter-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.cassandra-dns.*.name
+    for_each = azurerm_private_dns_a_record.cassandra_dns.*.name
 
     content {
       priority = 0
@@ -211,7 +211,7 @@ resource "azurerm_private_dns_srv_record" "node-exporter-dns-srv" {
   }
 }
 
-resource "azurerm_private_dns_srv_record" "cassanda-exporter-dns-srv" {
+resource "azurerm_private_dns_srv_record" "cassanda_exporter_dns_srv" {
   count = local.cassandra.resource_count > 0 ? 1 : 0
 
   name                = "_cassandra-exporter._tcp.cassandra"
@@ -220,7 +220,7 @@ resource "azurerm_private_dns_srv_record" "cassanda-exporter-dns-srv" {
   ttl                 = 300
 
   dynamic record {
-    for_each = azurerm_private_dns_a_record.cassandra-dns.*.name
+    for_each = azurerm_private_dns_a_record.cassandra_dns.*.name
 
     content {
       priority = 0

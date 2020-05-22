@@ -96,7 +96,7 @@ resource "aws_security_group" "bastion" {
   }
 }
 
-resource "aws_route53_record" "bastion-dns" {
+resource "aws_route53_record" "bastion_dns" {
   count = var.resource_count
 
   zone_id = var.network_dns
@@ -106,7 +106,7 @@ resource "aws_route53_record" "bastion-dns" {
   records = [module.bastion_cluster.private_ip[count.index]]
 }
 
-resource "aws_route53_record" "node-exporter-dns-srv" {
+resource "aws_route53_record" "node_exporter_dns_srv" {
   count = var.resource_count > 0 ? 1 : 0
 
   zone_id = var.network_dns
@@ -115,7 +115,7 @@ resource "aws_route53_record" "node-exporter-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 9100 %s.%s",
-    aws_route53_record.bastion-dns.*.name,
+    aws_route53_record.bastion_dns.*.name,
     "${var.internal_domain}.",
   )
 }

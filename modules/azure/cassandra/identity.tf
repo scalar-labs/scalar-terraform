@@ -6,14 +6,14 @@ data "azurerm_role_definition" "contributor" {
 
 data "azurerm_storage_account" "cassy_storage_account" {
   # If the resource_count of Cassy > 0, this resource makes local.cassy.storage_account_name required and ensures it is accessible.
-  count = local.cassy.resource_count > 0 ? 1 : 0
+  count = local.cassy.use_managed_identity && local.cassy.resource_count > 0 ? 1 : 0
 
   resource_group_name = local.network_name
   name                = local.cassy.storage_account_name
 }
 
 resource "azurerm_role_assignment" "cassy" {
-  count = local.cassy.resource_count
+  count = local.cassy.use_managed_identity ? local.cassy.resource_count : 0
 
   scope              = data.azurerm_storage_account.cassy_storage_account[0].id
   role_definition_id = "${data.azurerm_subscription.subscription.id}${data.azurerm_role_definition.contributor.id}"
@@ -21,7 +21,7 @@ resource "azurerm_role_assignment" "cassy" {
 }
 
 resource "azurerm_role_assignment" "cassandra" {
-  count = length(data.azurerm_storage_account.cassy_storage_account) > 0 ? local.cassandra.resource_count : 0
+  count = local.cassy.use_managed_identity ? local.cassandra.resource_count : 0
 
   scope              = data.azurerm_storage_account.cassy_storage_account[0].id
   role_definition_id = "${data.azurerm_subscription.subscription.id}${data.azurerm_role_definition.contributor.id}"

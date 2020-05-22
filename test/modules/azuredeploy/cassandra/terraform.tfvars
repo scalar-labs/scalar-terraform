@@ -3,6 +3,6 @@ cassandra = {
 }
 
 cassy = {
-  # Set the count to zero because it needs a storage account
-  resource_count = 0
+  resource_root_volume_size = 16
+  use_managed_identity      = false
 }

@@ -5,11 +5,11 @@ data "azurerm_role_definition" "contributor" {
 }
 
 data "azurerm_storage_account" "cassy_storage_account" {
-  # If the resource_count of Cassy > 0, this resource makes local.cassy.storage_account_name required and ensures it is accessible.
+  # If the resource_count of Cassy > 0, this resource makes sure that the storage_base_uri is properly formatted and that the account is accessible.
   count = local.cassy.use_managed_identity && local.cassy.resource_count > 0 ? 1 : 0
 
   resource_group_name = local.network_name
-  name                = local.cassy.storage_account_name
+  name                = regex(":\\/\\/(.*?)\\.", local.cassy.storage_base_uri)[0] # Extracts the first subdomain
 }
 
 resource "azurerm_role_assignment" "cassy" {

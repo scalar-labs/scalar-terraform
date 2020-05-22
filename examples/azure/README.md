@@ -62,7 +62,6 @@ Then, create a blob type container in the storage account, and update `example.t
 
 ```
 cassy = {
-  storage_account_name = "yourstorageaccountname"
   storage_base_uri     = "https://yourstorageaccountname.blob.core.windows.net/your-container-name"
   storage_type         = "azure_blob"
 }

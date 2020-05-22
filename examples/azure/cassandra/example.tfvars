@@ -28,7 +28,6 @@ cassy = {
   # use_managed_identity          = "true"
 
   # Required if use_managed_identity = "true" and resource_count > 0
-  storage_account_name = "yourstorageaccountname"
   storage_base_uri     = "https://yourstorageaccountname.blob.core.windows.net/your-container-name"
   storage_type         = "azure_blob"
 }

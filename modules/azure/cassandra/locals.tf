@@ -93,7 +93,6 @@ locals {
     enable_tdagent                = true
     enable_accelerated_networking = false
     use_managed_identity          = true
-    storage_account_name          = ""
     storage_base_uri              = ""
     storage_type                  = ""
   }

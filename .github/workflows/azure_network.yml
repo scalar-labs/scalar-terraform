@@ -1,63 +1,57 @@
-name: 'Terraform test for Network module of Azure'
+name: Terraform test for Network module of Azure
+
 on:
   pull_request:
     branches:
       - master
     paths:
-      - 'modules/azure/network/**'
-      - 'modules/universal/bastion/**'
-      - 'modules/universal/name-generator/**'
-      - 'test/modules/azuredeploy/network/**'
-      - 'provision/**'
+      - modules/azure/network/**
+      - modules/universal/bastion/**
+      - modules/universal/name-generator/**
+      - test/modules/azuredeploy/network/**
+      - provision/**
   push:
     branches:
       - master
     paths:
-      - 'modules/azure/network/**'
-      - 'modules/universal/bastion/**'
-      - 'modules/universal/name-generator/**'
-      - 'test/modules/azuredeploy/network/**'
-      - 'provision/**'
+      - modules/azure/network/**
+      - modules/universal/bastion/**
+      - modules/universal/name-generator/**
+      - test/modules/azuredeploy/network/**
+      - provision/**
+
 jobs:
   terraform:
-    name: 'Terraform'
+    name: Terraform
     runs-on: ubuntu-latest
     env:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-      TF_VERSION: 0.12.19
-      TF_ACTIONS_COMMENT: false
-      TF_TEST_WORKING_DIR: ./test/modules/azuredeploy/network
+      TF_VERSION: 0.12.25
+    defaults:
+      run:
+        working-directory: ./test/modules/azuredeploy/network
+
     steps:
-      - name: 'Checkout'
-        uses: actions/checkout@master
-      - name: 'Terraform Format'
-        uses: hashicorp/terraform-github-actions@master
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
         with:
-          tf_actions_subcommand: 'fmt'
-          tf_actions_working_dir: './modules/azure/network'
-          tf_actions_version: ${{ env.TF_VERSION }}
-          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
-      - name: 'Terraform Init'
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_subcommand: 'init'
-          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
-          tf_actions_version: ${{ env.TF_VERSION }}
-          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
-      - name: 'Terraform Validate'
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_subcommand: 'validate'
-          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
-          tf_actions_version: ${{ env.TF_VERSION }}
-          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
-      - name: 'Terraform Plan'
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_subcommand: 'plan'
-          tf_actions_working_dir: ${{ env.TF_TEST_WORKING_DIR }}
-          tf_actions_version: ${{ env.TF_VERSION }}
-          tf_actions_comment: ${{ env.TF_ACTIONS_COMMENT }}
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Terraform Format
+        run: terraform fmt -check -recursive
+        working-directory: ./modules/azure/network
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        run: terraform plan -no-color

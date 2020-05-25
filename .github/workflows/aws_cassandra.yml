@@ -10,7 +10,7 @@ on:
       - modules/universal/cassy/**
       - modules/universal/reaper/**
       - test/modules/awsdeploy/cassandra/**
-      - provision/**"
+      - provision/**
   push:
     branches:
       - master
@@ -49,7 +49,7 @@ jobs:
           mv locals.tf.dummy locals.tf
 
       - name: Terraform Format
-        run: terraform fmt -check
+        run: terraform fmt -check -recursive
         working-directory: ./modules/aws/cassandra
 
       - name: Terraform Init

@@ -160,7 +160,7 @@ resource "aws_security_group_rule" "scalardl_egress" {
   security_group_id = aws_security_group.scalardl[count.index].id
 }
 
-resource "aws_route53_record" "scalardl-dns" {
+resource "aws_route53_record" "scalardl_dns" {
   count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -173,7 +173,7 @@ resource "aws_route53_record" "scalardl-dns" {
   )
 }
 
-resource "aws_route53_record" "scalardl-blue-dns" {
+resource "aws_route53_record" "scalardl_blue_dns" {
   count = local.scalardl.blue_resource_count
 
   zone_id = local.network_dns
@@ -183,7 +183,7 @@ resource "aws_route53_record" "scalardl-blue-dns" {
   records = [module.scalardl_blue.ip[count.index]]
 }
 
-resource "aws_route53_record" "scalardl-green-dns" {
+resource "aws_route53_record" "scalardl_green_dns" {
   count = local.scalardl.green_resource_count
 
   zone_id = local.network_dns
@@ -193,7 +193,7 @@ resource "aws_route53_record" "scalardl-green-dns" {
   records = [module.scalardl_green.ip[count.index]]
 }
 
-resource "aws_route53_record" "scalardl-blue-cadvisor-dns-srv" {
+resource "aws_route53_record" "scalardl_blue_cadvisor_dns_srv" {
   count = local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -202,12 +202,12 @@ resource "aws_route53_record" "scalardl-blue-cadvisor-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 18080 %s.%s",
-    aws_route53_record.scalardl-blue-dns.*.name,
+    aws_route53_record.scalardl_blue_dns.*.name,
     "${local.internal_domain}.",
   )
 }
 
-resource "aws_route53_record" "scalardl-green-cadvisor-dns-srv" {
+resource "aws_route53_record" "scalardl_green_cadvisor_dns_srv" {
   count = local.scalardl.green_resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -216,12 +216,12 @@ resource "aws_route53_record" "scalardl-green-cadvisor-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 18080 %s.%s",
-    aws_route53_record.scalardl-green-dns.*.name,
+    aws_route53_record.scalardl_green_dns.*.name,
     "${local.internal_domain}.",
   )
 }
 
-resource "aws_route53_record" "scalardl-blue-node-exporter-dns-srv" {
+resource "aws_route53_record" "scalardl_blue_node_exporter_dns_srv" {
   count = local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -230,12 +230,12 @@ resource "aws_route53_record" "scalardl-blue-node-exporter-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 9100 %s.%s",
-    aws_route53_record.scalardl-blue-dns.*.name,
+    aws_route53_record.scalardl_blue_dns.*.name,
     "${local.internal_domain}.",
   )
 }
 
-resource "aws_route53_record" "scalardl-green-node-exporter-dns-srv" {
+resource "aws_route53_record" "scalardl_green_node_exporter_dns_srv" {
   count = local.scalardl.green_resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -244,12 +244,12 @@ resource "aws_route53_record" "scalardl-green-node-exporter-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 9100 %s.%s",
-    aws_route53_record.scalardl-green-dns.*.name,
+    aws_route53_record.scalardl_green_dns.*.name,
     "${local.internal_domain}.",
   )
 }
 
-resource "aws_route53_record" "scalardl-service-dns-srv" {
+resource "aws_route53_record" "scalardl_service_dns_srv" {
   count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   zone_id = local.network_dns
@@ -258,7 +258,7 @@ resource "aws_route53_record" "scalardl-service-dns-srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 50053 %s.%s",
-    concat(aws_route53_record.scalardl-blue-dns.*.name, aws_route53_record.scalardl-green-dns.*.name),
+    concat(aws_route53_record.scalardl_blue_dns.*.name, aws_route53_record.scalardl_green_dns.*.name),
     "${local.internal_domain}."
   )
 }

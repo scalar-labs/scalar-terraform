@@ -4,8 +4,6 @@ location = "japaneast"
 
 public_key_path = "./example_key.pub"
 
-# additional_public_keys_path = "./additional_public_keys"
-
 private_key_path = "./example_key"
 
 internal_domain = "internal.scalar-labs.com"
@@ -20,3 +18,5 @@ network = {
   # user_name                             = "centos"
   # cidr                                  = "10.42.0.0/16"
 }
+
+# additional_public_keys_path = "./additional_public_keys"

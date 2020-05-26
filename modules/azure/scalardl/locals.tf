@@ -74,7 +74,7 @@ locals {
     privileged_listen_port        = 50052
     subnet_id                     = var.network.private_subnet_id
     enable_nlb                    = true
-    nlb_internal                  = false
+    nlb_internal                  = true
     enable_tdagent                = true
     key                           = ""
     cert                          = ""

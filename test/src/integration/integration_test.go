@@ -53,7 +53,7 @@ func TestEndToEnd(t *testing.T) {
 
 	test_structure.RunTestStage(t, "validate", func() {
 		t.Run("TestScalarDL", TestScalarDL)
-		t.Run("TestPrometheusAlerts", TestPrometheusAlerts)
+		// t.Run("TestPrometheusAlerts", TestPrometheusAlerts)
 	})
 }
 

@@ -135,7 +135,7 @@ resource "aws_security_group_rule" "ca_egress" {
   security_group_id = aws_security_group.ca[count.index].id
 }
 
-resource "aws_route53_record" "ca-dns" {
+resource "aws_route53_record" "ca_dns" {
   count = local.ca.resource_count
 
   zone_id = local.network_dns

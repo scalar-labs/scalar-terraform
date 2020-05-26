@@ -24,7 +24,7 @@ output "cassandra_security_ids" {
 }
 
 output "cassandra_hosts" {
-  value       = aws_route53_record.cassandra-dns.*.name
+  value       = aws_route53_record.cassandra_dns.*.name
   description = "A list of dns urls to access the Cassandra cluster."
 }
 

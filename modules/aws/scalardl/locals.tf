@@ -79,7 +79,7 @@ locals {
     privileged_listen_port    = 50052
     subnet_ids                = local.private_subnet_ids
     enable_nlb                = true
-    nlb_internal              = false
+    nlb_internal              = true
     enable_tdagent            = true
     key                       = ""
     cert                      = ""

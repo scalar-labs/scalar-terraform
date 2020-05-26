@@ -9,38 +9,6 @@ Cassy master tells each Cassandra node to upload backup files to Cloud Storages 
 
 If you deploy to AWS with `scalar-terraform`, an IAM instance profile that allows EC2 instances to interact with the specified S3 bucket is created and attached to all Cassandra nodes. So you don't need to configure credentials manually on Cassandra nodes.
 
-## Configure Cassy to work with your environment
-
-1. Connect to a Cassy node
-    ```
-    $ ssh -F ssh.cfg cassy-1.internal.scalar-labs.com
-    ```
-
-1. Shutdown the docker container
-    ```
-    $ cd provision
-    $ docker-compose down
-    ```
-
-1. Update the configuration
-    ```
-    $ vi conf/cassy.properties
-
-    // the following variables need to be filled
-    scalar.cassy.server.srv_service_url=
-    ```
-
-    e.g.
-    ```
-    scalar.cassy.server.srv_service_url=_scalardl._tcp.scalardl-service.internal.scalar-labs.com
-    ```
-
-1. Start the container and exit
-    ```
-    docker-compose up -d
-    exit
-    ```
-
 ## Interact with Cassy
 
 1. Port-forward Cassy port to access Cassy from your local

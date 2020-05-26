@@ -36,7 +36,7 @@ module "ca_provision" {
   internal_domain  = local.internal_domain
 }
 
-resource "azurerm_private_dns_a_record" "ca-dns" {
+resource "azurerm_private_dns_a_record" "ca_dns" {
   count = local.ca.resource_count
 
   name                = "ca-${count.index + 1}"

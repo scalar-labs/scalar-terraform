@@ -60,9 +60,6 @@ Before creating Cassandra resources with `terraform apply`, you probably need to
 The first thing you need to do for Cassy is create a storage account in the same resource group as the network resource created in the previous section and create a blob type container in the storage account.
 
 Then, update `example.tfvars` with the container URL as follows.
-Note that it must be in the resource group created by the network module in the previous section.
-
-Then, create a blob type container in the storage account, and update `example.tfvars` as follows.
 
 ```
 cassy = {

@@ -16,10 +16,12 @@ static_resources:
       filter_chains:
         - filters:
           - name: envoy.filters.network.http_connection_manager
-            config:
+            typed_config:
+              "@type": type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager
               access_log:
                 - name: envoy.access_loggers.file
-                  config:
+                  typed_config:
+                    "@type": type.googleapis.com/envoy.config.accesslog.v2.FileAccessLog
                     path: "/dev/stdout"
               http_filters:
                 - name: envoy.filters.http.grpc_web

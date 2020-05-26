@@ -77,6 +77,7 @@ resource "null_resource" "cassy_container" {
       "cd $HOME/provision",
       "echo export IMAGE_TAG=${var.image_tag} > env",
       "export storage_base_uri=${var.storage_base_uri}",
+      "export storage_type=${var.storage_type}",
       "export internal_domain=${var.internal_domain}",
       "j2 ./conf/cassy.properties.j2 > ./conf/cassy.properties",
       "source ./env",

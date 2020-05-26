@@ -54,6 +54,7 @@ module "cassy_provision" {
   internal_domain  = local.internal_domain
   image_tag        = local.cassy.image_tag
   storage_base_uri = local.cassy.storage_base_uri
+  storage_type     = local.cassy.storage_type
 }
 
 resource "aws_security_group" "cassy" {

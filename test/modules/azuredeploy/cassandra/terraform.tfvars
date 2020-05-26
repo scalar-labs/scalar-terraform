@@ -3,5 +3,6 @@ cassandra = {
 }
 
 cassy = {
-  resource_root_volume_size = 16
+  resource_root_volume_size = "16"
+  use_managed_identity      = "false"
 }

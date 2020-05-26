@@ -7,4 +7,5 @@ cassandra = {
 cassy = {
   resource_root_volume_size = 16
   storage_base_uri          = "s3://scalar-terraform-test"
+  storage_type              = "aws_s3"
 }

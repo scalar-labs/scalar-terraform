@@ -84,12 +84,13 @@ locals {
 ### cassy
 locals {
   cassy_default = {
-    image_tag                 = "v1.0.0"
+    image_tag                 = "1.2.0"
     resource_type             = "t3.medium"
     resource_count            = 1
     resource_root_volume_size = 64
     enable_tdagent            = true
     storage_base_uri          = ""
+    storage_type              = ""
   }
 }
 

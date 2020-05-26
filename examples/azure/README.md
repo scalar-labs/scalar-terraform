@@ -55,6 +55,31 @@ $ terraform apply -var-file example.tfvars
 
 ### Create Cassandra resources
 
+Before creating Cassandra resources with `terraform apply`, you probably need to configure for Cassy to manage backups of Cassandra data. 
+
+The first thing you need to do for Cassy is create a storage account in the same resource group as the network resource created in the previous section and create a blob type container in the storage account.
+
+Then, update `example.tfvars` with the container URL as follows.
+
+```
+cassy = {
+  storage_base_uri     = "https://yourstorageaccountname.blob.core.windows.net/your-container-name"
+  storage_type         = "azure_blob"
+}
+```
+
+If you don't need Cassy, you can disable it by setting its `resource_count` to zero.
+
+```
+cassy = {
+  resource_count = 0
+}
+```
+
+For more information on Cassy, please refer to [CassySetup](../../docs/CassySetup.md).
+
+Now it's ready to run the terraform commands:
+
 ```console
 $ cd examples/azure/cassandra
 

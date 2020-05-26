@@ -20,7 +20,7 @@ cassandra = {
 }
 
 cassy = {
-  # image_tag                 = "v1.0.0"
+  # image_tag                 = "1.2.0"
   # resource_type             = "t3.medium"
   # resource_count            = "1"
   # resource_root_volume_size = "64"
@@ -28,6 +28,7 @@ cassy = {
 
   # Required if resource_count > 0
   storage_base_uri = "s3://your-bucket-name"
+  storage_type     = "aws_s3"
 }
 
 reaper = {

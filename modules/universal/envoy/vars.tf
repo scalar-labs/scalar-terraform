@@ -40,7 +40,7 @@ variable "cert" {
 }
 
 variable "envoy_tag" {
-  default     = "v1.12.0"
+  default     = "v1.14.1"
   description = "The envoy docker tag to deploy"
 }
 

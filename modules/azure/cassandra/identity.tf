@@ -9,7 +9,7 @@ data "azurerm_storage_account" "cassy_storage_account" {
   count = local.cassy.use_managed_identity && local.cassy.resource_count > 0 ? 1 : 0
 
   resource_group_name = local.network_name
-  name                = regex(":\\/\\/(.*?)\\.", local.cassy.storage_base_uri)[0] # Extracts the first subdomain
+  name                = regex(":\\/\\/([^.]+)", local.cassy.storage_base_uri)[0] # Extracts the first subdomain
 }
 
 resource "azurerm_role_assignment" "cassy" {

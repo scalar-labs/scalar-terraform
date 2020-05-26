@@ -33,7 +33,6 @@ resource "azurerm_managed_disk" "monitor_log_volume" {
   storage_account_type = local.monitor.log_volume_type
   create_option        = "Empty"
   disk_size_gb         = local.monitor.log_volume_size
-  depends_on           = [module.monitor_cluster]
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "monitor_log_volume_attachment" {

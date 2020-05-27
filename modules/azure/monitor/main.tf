@@ -74,7 +74,7 @@ module "monitor_provision" {
   source = "../../universal/monitor"
 
   vm_ids           = module.monitor_cluster.vm_ids
-  triggers         = concat(local.triggers, azurerm_virtual_machine_data_disk_attachment.monitor_log_volume_attachment.*.id)
+  triggers         = concat(local.triggers, null_resource.volume_data.*.id)
   bastion_host_ip  = local.bastion_ip
   host_list        = module.monitor_cluster.network_interface_private_ip
   user_name        = local.user_name

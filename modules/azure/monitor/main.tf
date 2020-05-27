@@ -51,7 +51,7 @@ resource "null_resource" "volume_data" {
   triggers = {
     volume_attachment_ids = join(
       ",",
-      azurerm_managed_disk.monitor_log_volume.*.id,
+      azurerm_virtual_machine_data_disk_attachment.monitor_log_volume_attachment.*.id
     )
   }
 

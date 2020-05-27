@@ -70,6 +70,13 @@ resource "aws_volume_attachment" "monitor_log_volume_attachment" {
 resource "null_resource" "volume_data" {
   count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
 
+  triggers = {
+    volume_attachment_ids = join(
+      ",",
+      aws_volume_attachment.monitor_log_volume_attachment.*.id,
+    )
+  }
+
   connection {
     bastion_host = local.bastion_ip
     host         = module.monitor_cluster.private_ip[count.index]

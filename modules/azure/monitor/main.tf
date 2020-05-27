@@ -27,7 +27,7 @@ module "monitor_cluster" {
 resource "azurerm_managed_disk" "monitor_log_volume" {
   count = local.monitor.enable_log_volume ? local.monitor.resource_count : 0
 
-  name                 = "log-${count.index}"
+  name                 = "log-${count.index + 1}"
   location             = local.location
   resource_group_name  = local.network_name
   storage_account_type = local.monitor.log_volume_type
@@ -51,7 +51,7 @@ resource "null_resource" "volume_data" {
   triggers = {
     volume_attachment_ids = join(
       ",",
-      azurerm_virtual_machine_data_disk_attachment.monitor_log_volume_attachment.*.id,
+      azurerm_managed_disk.monitor_log_volume.*.id,
     )
   }
 
@@ -74,7 +74,7 @@ module "monitor_provision" {
   source = "../../universal/monitor"
 
   vm_ids           = module.monitor_cluster.vm_ids
-  triggers         = local.triggers
+  triggers         = concat(local.triggers, azurerm_virtual_machine_data_disk_attachment.monitor_log_volume_attachment.*.id)
   bastion_host_ip  = local.bastion_ip
   host_list        = module.monitor_cluster.network_interface_private_ip
   user_name        = local.user_name

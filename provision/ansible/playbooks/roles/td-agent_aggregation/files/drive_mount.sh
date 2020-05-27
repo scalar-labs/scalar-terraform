@@ -44,11 +44,9 @@ mount_log_volume() {
   chown td-agent:td-agent /log
 }
 
-IFS='
-'
-
 # Loop over the output of lsblk to format volumes
-for drive in $(lsblk -p -P -d -o name,serial,UUID,HCTL | tail -n +2); do
+IFS=$'\n'
+for drive in $(lsblk -p -P -d -o NAME,SERIAL,UUID,HCTL | tail -n +2); do
   # For Each line in lsblk eval the output into the following variable space
   # UUID=<blank if store is not formatted>
   # SERIAL=<either vol-id or AWSxxx> If AWS it indicates local volume

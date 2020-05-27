@@ -16,15 +16,14 @@ if [[ -z "$LOG_STORE" ]]; then
   exit 0
 fi
 
-mount_log_volume() {
-  name=$1
-  uuid=$2
+mount_log_volume () {
+  local name=$1 uuid=$2
 
-  echo "Using $NAME as a log volume"
+  echo "Using $name as a log volume"
 
   if [[ -z $uuid ]]; then
     # The volume is not formatted
-    echo "Running mkfs on $NAME"
+    echo "Running mkfs on $name"
     if mkfs -t xfs $name; then
       uuid=$(blkid $name -s UUID -o value)
     else
@@ -38,7 +37,7 @@ mount_log_volume() {
     echo "UUID=$uuid /log xfs defaults,nofail 0 2" >> /etc/fstab
   fi
 
-  echo "Mounting $NAME on /log"
+  echo "Mounting $name on /log"
   mkdir -p /log
   mount /log
   chown td-agent:td-agent /log

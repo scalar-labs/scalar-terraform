@@ -73,7 +73,7 @@ resource "null_resource" "volume_data" {
   triggers = {
     volume_attachment_ids = join(
       ",",
-      aws_volume_attachment.monitor_log_volume_attachment.*.id,
+      aws_volume_attachment.monitor_log_volume_attachment.*.id
     )
   }
 

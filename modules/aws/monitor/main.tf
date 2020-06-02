@@ -43,10 +43,9 @@ module "monitor_cluster" {
 resource "aws_ebs_volume" "monitor_log_volume" {
   count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
 
-  availability_zone = module.monitor_cluster.availability_zone[count.index]
+  availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.monitor.log_volume_size
   type              = local.monitor.log_volume_type
-  depends_on        = [module.monitor_cluster]
 
   tags = merge(
     var.custom_tags,

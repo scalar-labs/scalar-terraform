@@ -13,7 +13,7 @@ data "azurerm_storage_account" "cassy_storage_account" {
 }
 
 resource "azurerm_role_assignment" "cassy" {
-  count = local.cassy.use_managed_identity ? local.cassy.resource_count : 0
+  count = local.cassy.use_managed_identity && length(data.azurerm_storage_account.cassy_storage_account) > 0 ? local.cassy.resource_count : 0
 
   scope              = data.azurerm_storage_account.cassy_storage_account[0].id
   role_definition_id = "${data.azurerm_subscription.subscription.id}${data.azurerm_role_definition.contributor.id}"
@@ -21,7 +21,7 @@ resource "azurerm_role_assignment" "cassy" {
 }
 
 resource "azurerm_role_assignment" "cassandra" {
-  count = local.cassy.use_managed_identity ? local.cassandra.resource_count : 0
+  count = local.cassy.use_managed_identity && length(data.azurerm_storage_account.cassy_storage_account) > 0 ? local.cassandra.resource_count : 0
 
   scope              = data.azurerm_storage_account.cassy_storage_account[0].id
   role_definition_id = "${data.azurerm_subscription.subscription.id}${data.azurerm_role_definition.contributor.id}"

@@ -95,7 +95,7 @@ resource "null_resource" "volume_data" {
 module "monitor_provision" {
   source           = "../../universal/monitor"
   vm_ids           = module.monitor_cluster.id
-  triggers         = local.triggers
+  triggers         = concat(local.triggers, null_resource.volume_data.*.id)
   bastion_host_ip  = local.bastion_ip
   host_list        = module.monitor_cluster.private_ip
   user_name        = local.user_name

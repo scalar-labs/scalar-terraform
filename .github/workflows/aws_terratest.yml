@@ -2,7 +2,7 @@ name: Integration-test-with-terratest-for-AWS
 
 on:
   schedule:
-    - cron: 0 0 * * *
+    - cron: 0 15 * * *
 
 jobs:
   terratest:

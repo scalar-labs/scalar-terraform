@@ -1,0 +1,10 @@
+groups:
+  - name: Cassy Alerts
+    rules:
+      - alert: CassyContainerDown
+        expr: count(up{job="cadvisor", instance=~"^cassy-.*"}) by (instance) unless count(time() - container_last_seen{container_label_com_docker_compose_service="cassy",instance=~"^cassy-.*"} < 15) by (instance) > 0
+        labels:
+          severity: warning
+        annotations:
+          summary: "Cassy container has stopped."
+          description: "The Cassy container on {{ $labels.instance }} has stopped."

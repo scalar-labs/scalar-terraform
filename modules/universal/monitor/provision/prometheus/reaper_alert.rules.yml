@@ -1,0 +1,10 @@
+groups:
+  - name: Reaper Alerts
+    rules:
+      - alert: ReaperContainerDown
+        expr: count(up{job="cadvisor", instance=~"^reaper-.*"}) by (instance) unless count(time() - container_last_seen{container_label_com_docker_compose_service="reaper",instance=~"^reaper-.*"} < 15) by (instance) > 0
+        labels:
+          severity: warning
+        annotations:
+          summary: "Reaper container has stopped."
+          description: "The Reaper container on {{ $labels.instance }} has stopped."

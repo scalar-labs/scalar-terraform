@@ -4,6 +4,7 @@ locals {
   general_targets   = "grafana,alertmanager,prometheus,nginx"
   service_targets   = join(",", setunion(local.scalardl_targets, local.cassandra_targets))
   node_targets      = "${local.service_targets},bastion"
+  cadvisor_targets  = join(",", compact(setunion(local.scalardl_targets, local.cassandra_targets, ["monitor"])))
 }
 
 module "ansible" {
@@ -95,6 +96,7 @@ resource "null_resource" "monitor_container" {
       "export service_targets=${local.service_targets}",
       "export node_targets=${local.node_targets}",
       "export general_targets=${local.general_targets}",
+      "export cadvisor_targets=${local.cadvisor_targets}",
       "j2 ./prometheus/prometheus.yml.j2 > ./prometheus/prometheus.yml",
       "j2 ./prometheus/general_alert.rules.yml.j2 > ./prometheus/general_alert.rules.yml",
       "j2 ./prometheus/scalardl_alert.rules.yml.j2 > ./prometheus/scalardl_alert.rules.yml",

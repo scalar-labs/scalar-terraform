@@ -4,12 +4,19 @@ global:
   external_labels:
       environment: "{{ environment_name }}"
 
+{% set service_list = service_targets.split(',') %}
+{% set node_list = node_targets.split(',') %}
+
 rule_files:
-  - recording.rules.yml
   - general_alert.rules.yml
+{% if "cassandra" in service_list %}
   - cassandra_alert.rules.yml
+{% endif %}
+{% if "scalardl-blue" in service_list and "scalardl-green" in service_list %}
   - scalardl_alert.rules.yml
+  - recording.rules.yml
   - envoy_alert.rules.yml
+{% endif %}
 
 # alert
 alerting:
@@ -22,8 +29,9 @@ alerting:
 scrape_configs:
   - job_name: 'prometheus'
     static_configs:
-         - targets: ['localhost:9090']
+      - targets: ['localhost:9090']
 
+{% if "cassandra" in service_list %}
   - job_name: cassandra
     dns_sd_configs:
     - names:
@@ -34,16 +42,18 @@ scrape_configs:
       regex: '.*\.([^.]+)\.{{ internal_domain | replace('.', '\\.') }}'
       replacement: ${1}
       target_label: role
+{% endif %}
 
   - job_name: host
     dns_sd_configs:
     - names:
-    {% for s in ['scalardl-blue','scalardl-green','cassandra','bastion','monitor','reaper','envoy']|list %}
+    {% for s in node_list %}
       - _node-exporter._tcp.{{ s }}.{{ internal_domain }}
     {% endfor %}
     relabel_configs:
     - *relabel_role
 
+{% if "reaper" in service_list %}
   - job_name: reaper
     metrics_path: /prometheusMetrics
     dns_sd_configs:
@@ -51,7 +61,9 @@ scrape_configs:
       - _reaper._tcp.reaper.{{ internal_domain }}
     relabel_configs:
     - *relabel_role
+{% endif %}
 
+{% if "envoy" in service_list %}
   - job_name: envoy
     metrics_path: /stats/prometheus
     dns_sd_configs:
@@ -59,13 +71,14 @@ scrape_configs:
       - _envoy-exporter._tcp.envoy.{{ internal_domain }}
     relabel_configs:
     - *relabel_role
+{% endif %}
 
   - job_name: cadvisor
     scrape_interval: 5s
     metrics_path: /metrics
     dns_sd_configs:
     - names:
-    {% for s in ['scalardl-blue','scalardl-green','monitor','reaper','cassy','envoy']|list %}
+    {% for s in service_list %}
       - _cadvisor._tcp.{{ s }}.{{ internal_domain }}
     {% endfor %}
     relabel_configs:

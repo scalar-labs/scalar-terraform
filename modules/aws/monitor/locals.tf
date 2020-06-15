@@ -31,6 +31,7 @@ locals {
     log_volume_size           = 500
     log_volume_type           = "sc1"
     enable_tdagent            = true
+    target_monitoring         = "cassandra,scalardl"
   }
 }
 

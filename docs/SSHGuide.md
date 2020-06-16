@@ -19,7 +19,7 @@ ssh -F ssh.cfg resource-name-[1-3].internal.scalar-labs.com
 ```console
 ssh -F ssh.cfg cassandra-1.internal.scalar-labs.com
 
-cqlsh cassandra-1.internal.scalar-labs.com
+cqlsh -u cassandra -p cassandra cassandra-1.internal.scalar-labs.com
 ```
 
 ## Access Scalar DL

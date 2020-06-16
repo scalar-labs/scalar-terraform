@@ -4,20 +4,20 @@ global:
   external_labels:
       environment: "{{ environment_name }}"
 
-{% set service_list = service_targets.split(',') %}
-{% set node_list = node_targets.split(',') %}
-{% set cadvisor_list = cadvisor_targets.split(',') %}
+{%- set service_list = service_targets.split(',') -%}
+{%- set node_list = node_targets.split(',') -%}
+{%- set cadvisor_list = cadvisor_targets.split(',') %}
 
 rule_files:
   - general_alert.rules.yml
-{% if "cassandra" in service_list %}
+{%- if "cassandra" in service_list %}
   - cassandra_alert.rules.yml
-{% endif %}
-{% if "scalardl-blue" in service_list and "scalardl-green" in service_list %}
+{%- endif %}
+{%- if "scalardl-blue" in service_list and "scalardl-green" in service_list %}
   - scalardl_alert.rules.yml
   - recording.rules.yml
   - envoy_alert.rules.yml
-{% endif %}
+{%- endif %}
 
 # alert
 alerting:
@@ -43,18 +43,18 @@ scrape_configs:
       regex: '.*\.([^.]+)\.{{ internal_domain | replace('.', '\\.') }}'
       replacement: ${1}
       target_label: role
-{% endif %}
+{%- endif %}
 
   - job_name: host
     dns_sd_configs:
     - names:
-    {% for s in node_list %}
+    {%- for s in node_list %}
       - _node-exporter._tcp.{{ s }}.{{ internal_domain }}
-    {% endfor %}
+    {%- endfor %}
     relabel_configs:
     - *relabel_role
 
-{% if "reaper" in service_list %}
+{% if "reaper" in service_list -%}
   - job_name: reaper
     metrics_path: /prometheusMetrics
     dns_sd_configs:
@@ -62,7 +62,7 @@ scrape_configs:
       - _reaper._tcp.reaper.{{ internal_domain }}
     relabel_configs:
     - *relabel_role
-{% endif %}
+{%- endif -%}
 
 {% if "envoy" in service_list %}
   - job_name: envoy
@@ -72,15 +72,15 @@ scrape_configs:
       - _envoy-exporter._tcp.envoy.{{ internal_domain }}
     relabel_configs:
     - *relabel_role
-{% endif %}
+{%- endif %}
 
   - job_name: cadvisor
     scrape_interval: 5s
     metrics_path: /metrics
     dns_sd_configs:
     - names:
-    {% for s in cadvisor_list %}
+    {%- for s in cadvisor_list %}
       - _cadvisor._tcp.{{ s }}.{{ internal_domain }}
-    {% endfor %}
+    {%- endfor %}
     relabel_configs:
     - *relabel_role

@@ -13,7 +13,7 @@ rule_files:
 {%- if "cassandra" in service_list %}
   - cassandra_alert.rules.yml
 {%- endif %}
-{%- if "scalardl-blue" in service_list and "scalardl-green" in service_list %}
+{%- if "scalardl-blue" in service_list or "scalardl-green" in service_list %}
   - scalardl_alert.rules.yml
   - recording.rules.yml
   - envoy_alert.rules.yml
@@ -32,19 +32,6 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-{% if "cassandra" in service_list %}
-  - job_name: cassandra
-    dns_sd_configs:
-    - names:
-      - _cassandra-exporter._tcp.cassandra.{{ internal_domain }}
-    relabel_configs:
-    - &relabel_role
-      source_labels: ['__meta_dns_name']
-      regex: '.*\.([^.]+)\.{{ internal_domain | replace('.', '\\.') }}'
-      replacement: ${1}
-      target_label: role
-{%- endif %}
-
   - job_name: host
     dns_sd_configs:
     - names:
@@ -52,9 +39,22 @@ scrape_configs:
       - _node-exporter._tcp.{{ s }}.{{ internal_domain }}
     {%- endfor %}
     relabel_configs:
-    - *relabel_role
+    - &relabel_role
+      source_labels: ['__meta_dns_name']
+      regex: '.*\.([^.]+)\.{{ internal_domain | replace('.', '\\.') }}'
+      replacement: ${1}
+      target_label: role
 
-{% if "reaper" in service_list -%}
+{% if "cassandra" in service_list %}
+  - job_name: cassandra
+    dns_sd_configs:
+    - names:
+      - _cassandra-exporter._tcp.cassandra.{{ internal_domain }}
+    relabel_configs:
+    - *relabel_role
+{%- endif %}
+
+{% if "reaper" in service_list %}
   - job_name: reaper
     metrics_path: /prometheusMetrics
     dns_sd_configs:

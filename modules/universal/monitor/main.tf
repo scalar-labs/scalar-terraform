@@ -1,12 +1,3 @@
-locals {
-  scalardl_targets  = contains(split(",", var.target_monitoring), "scalardl") ? ["scalardl-blue", "scalardl-green", "envoy"] : []
-  cassandra_targets = contains(split(",", var.target_monitoring), "cassandra") ? ["cassandra", "cassy", "reaper"] : []
-  general_targets   = "grafana,alertmanager,prometheus,nginx"
-  service_targets   = join(",", compact(setunion(local.scalardl_targets, local.cassandra_targets)))
-  node_targets      = join(",", compact(setunion(local.scalardl_targets, local.cassandra_targets, ["bastion", "monitor"])))
-  cadvisor_targets  = join(",", compact(setunion(local.scalardl_targets, local.cassandra_targets, ["monitor"])))
-}
-
 module "ansible" {
   source = "../../../provision/ansible"
 }
@@ -93,10 +84,10 @@ resource "null_resource" "monitor_container" {
       "export dashboard_local_forwarding_port=8000",
       "export grafana_datasource_url=monitor.${var.internal_domain}:9090",
       "export internal_domain=${var.internal_domain}",
-      "export service_targets=${local.service_targets}",
-      "export node_targets=${local.node_targets}",
-      "export general_targets=${local.general_targets}",
-      "export cadvisor_targets=${local.cadvisor_targets}",
+      "export service_targets=${join(",", local.service_targets)}",
+      "export node_targets=${join(",", local.node_targets)}",
+      "export general_targets=${join(",", local.general_targets)}",
+      "export cadvisor_targets=${join(",", local.cadvisor_targets)}",
       "j2 ./prometheus/prometheus.yml.j2 > ./prometheus/prometheus.yml",
       "j2 ./prometheus/general_alert.rules.yml.j2 > ./prometheus/general_alert.rules.yml",
       "j2 ./prometheus/scalardl_alert.rules.yml.j2 > ./prometheus/scalardl_alert.rules.yml",

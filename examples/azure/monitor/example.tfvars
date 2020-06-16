@@ -12,6 +12,7 @@ monitor = {
   # set_public_access             = "false"
   # remote_port                   = 9090
   # enable_accelerated_networking = "false"
+  # target_monitoring             = "cassandra,scalardl"
 }
 
 #slack_webhook_url = ""

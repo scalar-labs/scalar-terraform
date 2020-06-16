@@ -89,6 +89,7 @@ module "monitor_provision" {
   network_name                  = local.network_name
   enable_tdagent                = local.monitor.enable_tdagent
   internal_domain               = local.internal_domain
+  target_monitoring             = local.monitor.target_monitoring
 }
 
 resource "azurerm_private_dns_a_record" "monitor_cluster_dns" {

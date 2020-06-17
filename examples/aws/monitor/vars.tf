@@ -13,7 +13,7 @@ variable "monitor" {
 }
 
 variable "target_monitoring" {
-  type    = list(string)
+  type = list(string)
   default = [
     "cassandra",
     "scalardl",

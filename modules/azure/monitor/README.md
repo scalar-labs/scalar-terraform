@@ -12,10 +12,10 @@ The monitor Azure module deploys a Prometheus monitoring service along with an A
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
 | base | The base of monitor resources | `string` | `"default"` | no |
-| cassandra | The provisioning settings of a cassandra cluster | `map` | n/a | yes |
+| cassandra | The provisioning settings of a cassandra cluster | `{}` | n/a | yes |
 | monitor | The custom settings of monitor resources | `map` | `{}` | no |
 | network | The network settings of monitor resources | `map` | n/a | yes |
-| scalardl | The provisioning settings of a scalardl cluster | `map` | n/a | yes |
+| scalardl | The provisioning settings of a scalardl cluster | `{}` | n/a | yes |
 | slack_webhook_url | The Webhook URL of Slack for alerting | `string` | `""` | no |
 
 ## Outputs

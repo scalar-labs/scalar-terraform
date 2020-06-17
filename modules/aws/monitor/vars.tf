@@ -10,11 +10,13 @@ variable "network" {
 
 variable "cassandra" {
   type        = map
+  default     = {}
   description = "The provisioning settings of a cassandra cluster"
 }
 
 variable "scalardl" {
   type        = map
+  default     = {}
   description = "The provisioning settings of a scalardl cluster"
 }
 

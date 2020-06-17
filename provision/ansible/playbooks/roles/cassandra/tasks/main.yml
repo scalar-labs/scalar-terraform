@@ -136,7 +136,7 @@
 - name: Disable debug.log
   replace:
     path: /etc/cassandra/conf/logback.xml
-    regexp: '(<appender-ref ref="ASYNCDEBUGLOG"\s*/>)'
+    regexp: '^\s*(<appender-ref ref="ASYNCDEBUGLOG"\s*/>)'
     replace: '<!-- \1 -->'
 
 - name: Delete cassandra-topology.properties

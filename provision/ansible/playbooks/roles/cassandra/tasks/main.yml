@@ -133,6 +133,12 @@
     src: cassandra-rackdc.properties.j2
     dest: /etc/cassandra/conf/cassandra-rackdc.properties
 
+- name: Disable debug.log
+  replace:
+    path: /etc/cassandra/conf/logback.xml
+    regexp: '(<appender-ref ref="ASYNCDEBUGLOG"\s*/>)'
+    replace: '<!-- \1 -->'
+
 - name: Delete cassandra-topology.properties
   file:
     path: /etc/cassandra/conf/cassandra-topology.properties

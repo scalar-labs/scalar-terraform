@@ -8,8 +8,9 @@ module "monitor" {
   scalardl  = local.scalardl
 
   # Optional Variables
-  base    = var.base
-  monitor = var.monitor
+  base              = var.base
+  monitor           = var.monitor
+  target_monitoring = var.target_monitoring
 
   slack_webhook_url = var.slack_webhook_url
 

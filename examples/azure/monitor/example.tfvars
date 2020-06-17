@@ -15,4 +15,9 @@ monitor = {
   # target_monitoring             = "cassandra,scalardl"
 }
 
+# target_monitoring = [
+#   "cassandra",
+#   "scalardl",
+# ]
+
 #slack_webhook_url = ""

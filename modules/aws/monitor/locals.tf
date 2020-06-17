@@ -14,8 +14,7 @@ locals {
   internal_domain  = var.network.internal_domain
   triggers         = [var.network.bastion_provision_id]
 
-  cassandra_resource_count = lookup(var.cassandra, "resource_count", 0)
-
+  cassandra_resource_count      = lookup(var.cassandra, "resource_count", 0)
   scalardl_blue_resource_count  = lookup(var.scalardl, "blue_resource_count", 0)
   scalardl_green_resource_count = lookup(var.scalardl, "green_resource_count", 0)
   scalardl_replication_factor   = lookup(var.scalardl, "replication_factor", 0)
@@ -32,7 +31,6 @@ locals {
     log_volume_size           = 500
     log_volume_type           = "sc1"
     enable_tdagent            = true
-    target_monitoring         = "cassandra,scalardl"
   }
 }
 

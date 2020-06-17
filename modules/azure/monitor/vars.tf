@@ -26,6 +26,12 @@ variable "monitor" {
   description = "The custom settings of monitor resources"
 }
 
+variable "target_monitoring" {
+  type        = list(string)
+  default     = []
+  description = "The target monitoring"
+}
+
 variable "slack_webhook_url" {
   default     = ""
   description = "The Webhook URL of Slack for alerting"

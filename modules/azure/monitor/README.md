@@ -17,6 +17,7 @@ The monitor Azure module deploys a Prometheus monitoring service along with an A
 | network | The network settings of monitor resources | `map` | n/a | yes |
 | scalardl | The provisioning settings of a scalardl cluster | `{}` | n/a | yes |
 | slack_webhook_url | The Webhook URL of Slack for alerting | `string` | `""` | no |
+| target_monitoring | The target monitoring | `list(string)` | `[]` | no |
 
 ## Outputs
 

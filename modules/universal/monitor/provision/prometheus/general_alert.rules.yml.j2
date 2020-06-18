@@ -49,11 +49,11 @@ groups:
   - name: Docker Container Alerts
     rules:
     {% for s in monitor_list + cassandra_list %}
-      - alert: {{ s }}ContainerDown
+      - alert: {{ s|capitalize }}ContainerDown
         expr: time() - container_last_seen{container_label_com_docker_compose_service="{{ s }}"} > 15
         labels:
           severity: warning
         annotations:
-          summary: "{{ s }} container is down"
+          summary: "{{ s|capitalize }} container is down"
           description: "The {{ s }} container on {{ '{{' }} $labels.instance {{ '}}' }} of role {{ '{{' }} $labels.role {{ '}}' }} down for more than 15 seconds"
     {% endfor %}

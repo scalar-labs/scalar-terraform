@@ -26,7 +26,7 @@ variable "monitor" {
   description = "The custom settings of monitor resources"
 }
 
-variable "target_monitoring" {
+variable "targets" {
   type        = list(string)
   default     = []
   description = "The target monitoring"

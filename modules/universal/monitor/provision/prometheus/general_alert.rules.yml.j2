@@ -1,4 +1,4 @@
-{% set general_list = general_targets.split(',') %}
+{% set monitor_list = monitor_targets.split(',') %}
 {% set service_list = service_targets.split(',') %}
 {% if "cassandra" in service_list %}
 {%   set cassandra_list = ["cassy","reaper"] %}
@@ -48,7 +48,7 @@ groups:
 
   - name: Docker Container Alerts
     rules:
-    {% for s in general_list + cassandra_list %}
+    {% for s in monitor_list + cassandra_list %}
       - alert: {{ s }}ContainerDown
         expr: time() - container_last_seen{container_label_com_docker_compose_service="{{ s }}"} > 15
         labels:

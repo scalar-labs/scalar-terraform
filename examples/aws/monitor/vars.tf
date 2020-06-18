@@ -12,7 +12,7 @@ variable "monitor" {
   default = {}
 }
 
-variable "target_monitoring" {
+variable "targets" {
   type = list(string)
   default = [
     "cassandra",

@@ -86,7 +86,7 @@ resource "null_resource" "monitor_container" {
       "export internal_domain=${var.internal_domain}",
       "export service_targets=${join(",", local.service_targets)}",
       "export node_targets=${join(",", local.node_targets)}",
-      "export general_targets=${join(",", local.general_targets)}",
+      "export monitor_targets=${join(",", local.monitor_targets)}",
       "export cadvisor_targets=${join(",", local.cadvisor_targets)}",
       "j2 ./prometheus/prometheus.yml.j2 > ./prometheus/prometheus.yml",
       "j2 ./prometheus/general_alert.rules.yml.j2 > ./prometheus/general_alert.rules.yml",

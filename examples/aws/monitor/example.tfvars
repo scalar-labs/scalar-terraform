@@ -13,7 +13,7 @@ monitor = {
   # enable_tdagent            = "true"
 }
 
-# target_monitoring = [
+# targets = [
 #   "cassandra",
 #   "scalardl",
 # ]

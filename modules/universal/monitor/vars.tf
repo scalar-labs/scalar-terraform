@@ -63,5 +63,5 @@ variable "internal_domain" {
 
 variable "targets" {
   default     = []
-  description = "Target monitoring"
+  description = "A list of targets to be monitored"
 }

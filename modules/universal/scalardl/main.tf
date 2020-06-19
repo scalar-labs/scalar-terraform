@@ -145,7 +145,7 @@ resource "null_resource" "scalardl_schema" {
   count = var.provision_count > 0 ? 1 : 0
 
   triggers = {
-    triggers = null_resource.scalardl_load[0].id
+    triggers = join(",", null_resource.scalardl_load.*.id)
   }
 
   connection {
@@ -168,7 +168,7 @@ resource "null_resource" "scalardl_container" {
   count = var.provision_count
 
   triggers = {
-    triggers = "${null_resource.scalardl_load[count.index].id}${null_resource.scalardl_schema[0].id}"
+    triggers = null_resource.scalardl_load[count.index].id
   }
 
   connection {

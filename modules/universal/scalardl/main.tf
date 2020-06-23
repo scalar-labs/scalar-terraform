@@ -49,7 +49,7 @@ resource "null_resource" "scalardl_image_push" {
 
   provisioner "file" {
     source      = "${path.module}/${local.image_filename}"
-    destination = "/tmp/${local.image_filename}"
+    destination = "${module.ansible.remote_playbook_path}/${local.image_filename}"
   }
 }
 
@@ -57,9 +57,8 @@ resource "null_resource" "scalardl_waitfor" {
   count = var.provision_count
 
   triggers = {
-    triggers     = join(",", var.triggers)
-    vm_id        = var.vm_ids[count.index]
-    scalar_image = null_resource.scalardl_image_push[0].id
+    triggers = join(",", var.triggers)
+    vm_id    = var.vm_ids[count.index]
   }
 
   connection {
@@ -101,7 +100,8 @@ resource "null_resource" "scalardl_push" {
   count = var.provision_count
 
   triggers = {
-    triggers = null_resource.docker_install[count.index].id
+    triggers     = null_resource.docker_install[count.index].id,
+    scalar_image = null_resource.scalardl_image_push[0].id
   }
 
   connection {
@@ -112,7 +112,7 @@ resource "null_resource" "scalardl_push" {
   }
 
   provisioner "remote-exec" {
-    inline = ["rsync -e 'ssh -o StrictHostKeyChecking=no' -cvv /tmp/${local.image_filename} ${var.user_name}@${var.host_list[count.index]}:/tmp/"]
+    inline = ["rsync -e 'ssh -o StrictHostKeyChecking=no' -cvv ${module.ansible.remote_playbook_path}/${local.image_filename} ${var.user_name}@${var.host_list[count.index]}:/tmp/"]
   }
 }
 

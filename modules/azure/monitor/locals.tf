@@ -14,10 +14,10 @@ locals {
   internal_domain  = var.network.internal_domain
   triggers         = [var.network.bastion_provision_id]
 
-  cassandra_resource_count      = var.cassandra.resource_count
-  scalardl_blue_resource_count  = var.scalardl.blue_resource_count
-  scalardl_green_resource_count = var.scalardl.green_resource_count
-  scalardl_replication_factor   = var.scalardl.replication_factor
+  cassandra_resource_count      = lookup(var.cassandra, "resource_count", 0)
+  scalardl_blue_resource_count  = lookup(var.scalardl, "blue_resource_count", 0)
+  scalardl_green_resource_count = lookup(var.scalardl, "green_resource_count", 0)
+  scalardl_replication_factor   = lookup(var.scalardl, "replication_factor", 0)
 }
 
 ### default

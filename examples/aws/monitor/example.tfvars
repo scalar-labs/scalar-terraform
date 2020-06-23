@@ -13,4 +13,9 @@ monitor = {
   # enable_tdagent            = "true"
 }
 
+# targets = [
+#   "cassandra",
+#   "scalardl",
+# ]
+
 #slack_webhook_url = ""

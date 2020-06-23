@@ -10,11 +10,13 @@ variable "network" {
 
 variable "cassandra" {
   type        = map
+  default     = {}
   description = "The provisioning settings of a cassandra cluster"
 }
 
 variable "scalardl" {
   type        = map
+  default     = {}
   description = "The provisioning settings of a scalardl cluster"
 }
 
@@ -22,6 +24,12 @@ variable "monitor" {
   type        = map
   default     = {}
   description = "The custom settings of monitor resources"
+}
+
+variable "targets" {
+  type        = list(string)
+  default     = []
+  description = "The target monitoring"
 }
 
 variable "slack_webhook_url" {

@@ -4,12 +4,20 @@ global:
   external_labels:
       environment: "{{ environment_name }}"
 
+{%- set service_list = service_targets.split(',') -%}
+{%- set node_list = node_targets.split(',') -%}
+{%- set cadvisor_list = cadvisor_targets.split(',') %}
+
 rule_files:
-  - recording.rules.yml
   - general_alert.rules.yml
+{%- if "cassandra" in service_list %}
   - cassandra_alert.rules.yml
+{%- endif %}
+{%- if "scalardl-blue" in service_list or "scalardl-green" in service_list %}
   - scalardl_alert.rules.yml
+  - recording.rules.yml
   - envoy_alert.rules.yml
+{%- endif %}
 
 # alert
 alerting:
@@ -22,12 +30,14 @@ alerting:
 scrape_configs:
   - job_name: 'prometheus'
     static_configs:
-         - targets: ['localhost:9090']
+      - targets: ['localhost:9090']
 
-  - job_name: cassandra
+  - job_name: host
     dns_sd_configs:
     - names:
-      - _cassandra-exporter._tcp.cassandra.{{ internal_domain }}
+    {%- for s in node_list %}
+      - _node-exporter._tcp.{{ s }}.{{ internal_domain }}
+    {%- endfor %}
     relabel_configs:
     - &relabel_role
       source_labels: ['__meta_dns_name']
@@ -35,15 +45,16 @@ scrape_configs:
       replacement: ${1}
       target_label: role
 
-  - job_name: host
+{% if "cassandra" in service_list %}
+  - job_name: cassandra
     dns_sd_configs:
     - names:
-    {% for s in ['scalardl-blue','scalardl-green','cassandra','bastion','monitor','reaper','envoy']|list %}
-      - _node-exporter._tcp.{{ s }}.{{ internal_domain }}
-    {% endfor %}
+      - _cassandra-exporter._tcp.cassandra.{{ internal_domain }}
     relabel_configs:
     - *relabel_role
+{%- endif %}
 
+{% if "reaper" in service_list %}
   - job_name: reaper
     metrics_path: /prometheusMetrics
     dns_sd_configs:
@@ -51,7 +62,9 @@ scrape_configs:
       - _reaper._tcp.reaper.{{ internal_domain }}
     relabel_configs:
     - *relabel_role
+{%- endif -%}
 
+{% if "envoy" in service_list %}
   - job_name: envoy
     metrics_path: /stats/prometheus
     dns_sd_configs:
@@ -59,14 +72,15 @@ scrape_configs:
       - _envoy-exporter._tcp.envoy.{{ internal_domain }}
     relabel_configs:
     - *relabel_role
+{%- endif %}
 
   - job_name: cadvisor
     scrape_interval: 5s
     metrics_path: /metrics
     dns_sd_configs:
     - names:
-    {% for s in ['scalardl-blue','scalardl-green','monitor','reaper','cassy','envoy']|list %}
+    {%- for s in cadvisor_list %}
       - _cadvisor._tcp.{{ s }}.{{ internal_domain }}
-    {% endfor %}
+    {%- endfor %}
     relabel_configs:
     - *relabel_role

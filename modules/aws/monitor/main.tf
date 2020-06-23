@@ -111,6 +111,7 @@ module "monitor_provision" {
   network_name                  = local.network_name
   enable_tdagent                = local.monitor.enable_tdagent
   internal_domain               = local.internal_domain
+  targets                       = var.targets
 }
 
 resource "aws_security_group" "monitor" {

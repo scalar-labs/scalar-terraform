@@ -14,4 +14,9 @@ monitor = {
   # enable_accelerated_networking = "false"
 }
 
+# targets = [
+#   "cassandra",
+#   "scalardl",
+# ]
+
 #slack_webhook_url = ""

@@ -60,3 +60,8 @@ variable "enable_tdagent" {
 variable "internal_domain" {
   description = "Internal domain"
 }
+
+variable "targets" {
+  default     = []
+  description = "A list of targets to be monitored"
+}

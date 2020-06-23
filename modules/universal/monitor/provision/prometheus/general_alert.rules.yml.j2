@@ -1,0 +1,59 @@
+{% set monitor_list = monitor_targets.split(',') %}
+{% set service_list = service_targets.split(',') %}
+{% if "cassandra" in service_list %}
+{%   set cassandra_list = ["cassy","reaper"] %}
+{% else %}
+{%   set cassandra_list = [] %}
+{% endif %}
+
+groups:
+  - name: Instance Alerts
+    rules:
+      - alert: InstanceHighCPUUtilization
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) - (avg by(instance) (irate(node_cpu_seconds_total{mode="iowait"}[5m])) * 100) > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          description: 'High CPU utilization detected for instance {{ '{{' }} $labels.instance {{ '}}' }}, the utilization is currently: {{ '{{' }} $value | printf "%.2f" {{ '}}' }}%'
+          summary: CPU Utilization Alert
+          value: '{{ '{{' }} $value | printf "%.2f" {{ '}}' }}%'
+
+      - alert: InstanceDown
+        expr: up{job="host"} == 0
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ '{{' }} $labels.instance {{ '}}' }} down"
+          description: "{{ '{{' }} $labels.instance {{ '}}' }} of role {{ '{{' }} $labels.role {{ '}}' }} is down"
+
+      - alert: InstanceDriveSpaceLow
+        expr: ((node_filesystem_avail_bytes{device=~"/dev/.*"}*100) / node_filesystem_size_bytes{device=~"/dev/.*"}) < 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Instance {{ '{{' }} $labels.instance {{ '}}' }} Drive Space Low"
+          description: "Instance {{ '{{' }} $labels.instance {{ '}}' }} has less than 10% free space"
+          value: '{{ '{{' }} $labels.device {{ '}}' }} drive has {{ '{{' }} $value | printf "%.2f" {{ '}}' }}% free space'
+
+      - alert: TdAgentDown
+        expr: node_systemd_unit_state{name="td-agent.service",state="active"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "The td-agent process is down"
+          description: "The td-agent process on {{ '{{' }} $labels.instance {{ '}}' }} is down"
+
+  - name: Docker Container Alerts
+    rules:
+    {% for s in monitor_list + cassandra_list %}
+      - alert: {{ s|capitalize }}ContainerDown
+        expr: time() - container_last_seen{container_label_com_docker_compose_service="{{ s }}"} > 15
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ s|capitalize }} container is down"
+          description: "The {{ s }} container on {{ '{{' }} $labels.instance {{ '}}' }} of role {{ '{{' }} $labels.role {{ '}}' }} down for more than 15 seconds"
+    {% endfor %}

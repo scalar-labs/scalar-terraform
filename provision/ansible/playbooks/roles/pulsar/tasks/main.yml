@@ -1,0 +1,11 @@
+---
+- include_tasks: setup.yml
+
+- include_tasks: broker.yml
+  when: pulsar_component == 'broker'
+
+- include_tasks: bookie.yml
+  when: pulsar_component == 'bookie'
+
+- include_tasks: zookeeper.yml
+  when: pulsar_component == 'zookeeper'

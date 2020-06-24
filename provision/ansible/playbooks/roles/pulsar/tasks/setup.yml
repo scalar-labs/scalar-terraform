@@ -1,0 +1,29 @@
+---
+- name: Create necessary directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /opt/pulsar
+
+- name: Install RPM packages
+  yum:
+    pkg: "{{ item }}"
+    state: present
+  loop:
+    - wget
+    - java
+    - sysstat
+    - vim
+
+- name: Download Pulsar binary package
+  unarchive:
+    src: "{{ pulsar_archive_url }}"
+    remote_src: yes
+    dest: /opt/pulsar
+    extra_opts: ["--strip-components=1"]
+
+- name: Add pulsar_env.sh configuration file
+  template:
+    src: pulsar_env.sh.j2
+    dest: /opt/pulsar/conf/pulsar_env.sh

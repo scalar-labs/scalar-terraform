@@ -1,5 +1,5 @@
 # Scalar Monitor Guide
-The Scalar deployment tools include a Prometheus metrics server, Grafana data visulization server, and Alertmanager server.
+The Scalar deployment tools include a Prometheus metrics server, Grafana data visualization server, and Alertmanager server.
 
 Normally, accessing the Grafana server is enough to see the overall system status.
 
@@ -19,7 +19,7 @@ terraform output ssh_config > ssh.cfg
 ssh -F ssh.cfg bastion
 ```
 
-Then the folloing is the URL of the monitor index page.
+Then the following is the URL of the monitor index page.
 
 * http://localhost:8000/
 

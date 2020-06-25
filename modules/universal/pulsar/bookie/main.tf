@@ -1,8 +1,8 @@
 module "ansible" {
-  source = "../../../provision/ansible"
+  source = "../../../../provision/ansible"
 }
 
-resource "null_resource" "pulsar_waitfor" {
+resource "null_resource" "bookie_waitfor" {
   count = var.provision_count
 
   triggers = {
@@ -19,13 +19,13 @@ resource "null_resource" "pulsar_waitfor" {
   }
 
   provisioner "remote-exec" {
-    inline = ["echo pulsar host up"]
+    inline = ["echo bookie host up"]
   }
 }
 
-resource "null_resource" "pulsar" {
+resource "null_resource" "bookie" {
   count      = var.provision_count
-  depends_on = [null_resource.pulsar_waitfor]
+  depends_on = [null_resource.bookie_waitfor]
 
   triggers = {
     triggers = var.vm_ids[count.index]
@@ -41,7 +41,7 @@ resource "null_resource" "pulsar" {
   provisioner "remote-exec" {
     inline = [
       "cd ${module.ansible.remote_playbook_path}/playbooks",
-      "ansible-playbook -u ${var.user_name} -i ${var.host_list[count.index]}, pulsar-server.yml -e pulsar_component=${var.pulsar_component} -e enable_tdagent=${var.enable_tdagent ? 1 : 0} -e monitor_host=monitor.${var.internal_domain}",
+      "ansible-playbook -u ${var.user_name} -i ${var.host_list[count.index]}, pulsar-server.yml -e pulsar_component=${var.pulsar_component} -e enable_tdagent=${var.enable_tdagent ? 1 : 0} -e monitor_host=monitor.${var.internal_domain} -e zookeeper_servers=${join(",", var.zookeeper_servers)}",
     ]
   }
 }

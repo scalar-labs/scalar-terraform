@@ -11,7 +11,7 @@ module "zookeeper_cluster" {
   vpc_security_group_ids      = aws_security_group.zookeeper.*.id
   subnet_ids                  = local.subnet_ids
   associate_public_ip_address = false
-  hostname_prefix             = "broker"
+  hostname_prefix             = "zookeeper"
   use_num_suffix              = true
 
   tags = merge(
@@ -41,7 +41,7 @@ module "zookeeper_cluster" {
 }
 
 module "zookeeper_provision" {
-  source = "../../universal/pulsar"
+  source = "../../universal/pulsar/zookeeper"
 
   vm_ids           = module.zookeeper_cluster.id
   triggers         = local.triggers

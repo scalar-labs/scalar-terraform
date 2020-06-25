@@ -47,3 +47,8 @@ variable "internal_domain" {
 variable "pulsar_component" {
   description = "The component type of Pulsar"
 }
+
+variable "zookeeper_servers" {
+  default     = []
+  description = "A list of Zookeeper private ip"
+}

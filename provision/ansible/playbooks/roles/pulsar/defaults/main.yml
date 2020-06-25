@@ -2,10 +2,16 @@
 pulsar_version: 2.5.1
 pulsar_archive_url: "https://archive.apache.org/dist/pulsar/pulsar-{{ pulsar_version }}/apache-pulsar-{{ pulsar_version }}-bin.tar.gz"
 
-max_heap_memory: 12g
-max_direct_memory: 12g
+bookie_max_heap_memory: 12g
+bookie_max_direct_memory: 12g
 cluster_name: local
 
-service_url: "pulsar://{{ proxy_ip }}:6650/"
-http_url: "http://{{ proxy_ip }}:8080/"
+# service_url: "pulsar://{{ proxy_ip }}:6650/"
+# http_url: "http://{{ proxy_ip }}:8080/"
 zookeeper_servers: ""
+zookeeper_myid: 1
+zookeeper_max_heap_memory: 512m
+zookeeper_max_direct_memory: 1g
+
+max_heap_memory: "{% if pulsar_component == 'bookie' %}{{ bookie_max_heap_memory }}{% else %}{{ zookeeper_max_heap_memory }}{% endif %}"
+max_direct_memory: "{% if pulsar_component == 'bookie' %}{{ bookie_max_direct_memory }}{% else %}{{ zookeeper_max_direct_memory }}{% endif %}"

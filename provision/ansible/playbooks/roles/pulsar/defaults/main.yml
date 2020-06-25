@@ -6,8 +6,9 @@ bookie_max_heap_memory: 12g
 bookie_max_direct_memory: 12g
 cluster_name: local
 
-# service_url: "pulsar://{{ proxy_ip }}:6650/"
-# http_url: "http://{{ proxy_ip }}:8080/"
+service_url: "pulsar://{{ service_ip }}:6650/"
+http_url: "http://{{ service_ip }}:8080/"
+
 zookeeper_servers: ""
 zookeeper_myid: 1
 zookeeper_max_heap_memory: 512m

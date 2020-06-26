@@ -53,7 +53,6 @@ module "zookeeper_provision" {
   enable_tdagent   = local.zookeeper.enable_tdagent
   internal_domain  = local.internal_domain
   pulsar_component = "zookeeper"
-  broker_server    = module.broker_cluster.private_ip[0]
 }
 
 resource "aws_security_group" "zookeeper" {

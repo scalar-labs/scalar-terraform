@@ -121,6 +121,16 @@ resource "aws_route53_record" "broker_dns" {
   records = [module.broker_cluster.private_ip[count.index]]
 }
 
+resource "aws_route53_record" "broker_dns_lb" {
+  count = local.broker.resource_count > 0 ? 1 : 0
+
+  zone_id = local.network_dns
+  name    = "broker-lb"
+  type    = "A"
+  ttl     = "300"
+  records = module.broker_cluster.private_ip
+}
+
 resource "aws_route53_record" "broker_exporter_dns_srv" {
   count = local.broker.resource_count > 0 ? 1 : 0
 

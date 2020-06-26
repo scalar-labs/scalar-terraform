@@ -41,7 +41,7 @@ resource "null_resource" "zookeeper" {
   provisioner "remote-exec" {
     inline = [
       "cd ${module.ansible.remote_playbook_path}/playbooks",
-      "ansible-playbook -u ${var.user_name} -i ${var.host_list[count.index]}, pulsar-server.yml -e pulsar_component=${var.pulsar_component} -e enable_tdagent=${var.enable_tdagent ? 1 : 0} -e monitor_host=monitor.${var.internal_domain} -e zookeeper_servers=${join(",", var.host_list)} -e zookeeper_myid=${count.index + 1} -e broker_server=${var.broker_server}",
+      "ansible-playbook -u ${var.user_name} -i ${var.host_list[count.index]}, pulsar-server.yml -e pulsar_component=${var.pulsar_component} -e enable_tdagent=${var.enable_tdagent ? 1 : 0} -e monitor_host=monitor.${var.internal_domain} -e zookeeper_servers=${join(",", var.host_list)} -e zookeeper_myid=${count.index + 1} -e broker_server=broker-lb.${var.internal_domain}",
     ]
   }
 }

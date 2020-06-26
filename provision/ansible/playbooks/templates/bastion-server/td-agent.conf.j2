@@ -28,4 +28,11 @@
     @type file
     path /var/log/td-agent/forward-failed
   </secondary>
+
+  <buffer>
+    flush_mode interval
+    flush_interval 20s
+    flush_thread_count 8
+    chunk_limit_size 8M
+  </buffer>
 </match>

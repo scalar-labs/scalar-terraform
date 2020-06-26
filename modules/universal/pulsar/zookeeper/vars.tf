@@ -48,7 +48,7 @@ variable "pulsar_component" {
   description = "The component type of Pulsar"
 }
 
-variable "zookeeper_servers" {
-  default     = []
-  description = "A list of Zookeeper private ip"
+variable "broker_server" {
+  default     = "127.0.0.1"
+  description = "The private ip of Broker cluster to Initialize cluster metadata"
 }

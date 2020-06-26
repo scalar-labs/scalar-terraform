@@ -53,6 +53,7 @@ module "zookeeper_provision" {
   enable_tdagent   = local.zookeeper.enable_tdagent
   internal_domain  = local.internal_domain
   pulsar_component = "zookeeper"
+  broker_server    = module.broker_cluster.private_ip[0]
 }
 
 resource "aws_security_group" "zookeeper" {
@@ -93,7 +94,46 @@ resource "aws_security_group_rule" "zookeeper_service" {
   to_port     = 2181
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
-  description = "Zookeeper 2181"
+  description = "Zookeeper client port"
+
+  security_group_id = aws_security_group.zookeeper[count.index].id
+}
+
+resource "aws_security_group_rule" "zookeeper_peerport" {
+  count = local.zookeeper.resource_count > 0 ? 1 : 0
+
+  type        = "ingress"
+  from_port   = 2888
+  to_port     = 2888
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Zookeeper peer port"
+
+  security_group_id = aws_security_group.zookeeper[count.index].id
+}
+
+resource "aws_security_group_rule" "zookeeper_leaderport" {
+  count = local.zookeeper.resource_count > 0 ? 1 : 0
+
+  type        = "ingress"
+  from_port   = 3888
+  to_port     = 3888
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Zookeeper ledger port"
+
+  security_group_id = aws_security_group.zookeeper[count.index].id
+}
+
+resource "aws_security_group_rule" "zookeeper_admin" {
+  count = local.zookeeper.resource_count > 0 ? 1 : 0
+
+  type        = "ingress"
+  from_port   = 8080
+  to_port     = 8080
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Zookeeper admin port"
 
   security_group_id = aws_security_group.zookeeper[count.index].id
 }

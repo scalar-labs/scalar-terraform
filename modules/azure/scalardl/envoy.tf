@@ -62,7 +62,7 @@ resource "azurerm_network_security_rule" "envoy_privileged_nsg" {
 }
 
 resource "azurerm_public_ip" "envoy_public_ip" {
-  count      = local.envoy.enable_nlb ? 1 : 0
+  count      = local.envoy.enable_nlb && ! local.envoy.nlb_internal ? 1 : 0
   depends_on = [null_resource.envoy_wait_for]
 
   name                = "PublicIPForEnvoy"
@@ -82,7 +82,7 @@ resource "azurerm_lb" "envoy_lb" {
   frontend_ip_configuration {
     name                          = "EnvoyLBAddress"
     public_ip_address_id          = local.envoy.nlb_internal ? "" : azurerm_public_ip.envoy_public_ip.*.id[count.index]
-    subnet_id                     = local.envoy_nlb_subnet_id
+    subnet_id                     = local.envoy.nlb_internal ? local.envoy_nlb_subnet_id : ""
     private_ip_address_allocation = "dynamic"
   }
 }
@@ -150,7 +150,7 @@ resource "azurerm_network_interface_backend_address_pool_association" "envoy_lb_
 }
 
 resource "azurerm_private_dns_a_record" "envoy_lb" {
-  count = local.envoy.enable_nlb ? 1 : 0
+  count = local.envoy.enable_nlb && local.envoy.nlb_internal ? 1 : 0
 
   name                = "envoy-lb"
   zone_name           = local.network_dns

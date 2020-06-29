@@ -142,7 +142,7 @@ resource "azurerm_lb_probe" "envoy_lb_privileged_probe" {
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "envoy_lb_association" {
-  count = local.envoy.resource_count
+  count = local.envoy.enable_nlb ? local.envoy.resource_count : 0
 
   network_interface_id    = module.envoy_cluster.network_interface_ids[count.index]
   ip_configuration_name   = "ipconfig${count.index}"

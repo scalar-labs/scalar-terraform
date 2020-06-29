@@ -62,7 +62,7 @@ resource "azurerm_network_security_rule" "envoy_privileged_nsg" {
 }
 
 resource "azurerm_public_ip" "envoy_public_ip" {
-  count      = local.envoy.resource_count > 0 ? 1 : 0
+  count      = local.envoy.enable_nlb ? 1 : 0
   depends_on = [null_resource.envoy_wait_for]
 
   name                = "PublicIPForEnvoy"
@@ -73,20 +73,22 @@ resource "azurerm_public_ip" "envoy_public_ip" {
 }
 
 resource "azurerm_lb" "envoy_lb" {
-  count = local.envoy.resource_count > 0 ? 1 : 0
+  count = local.envoy.enable_nlb ? 1 : 0
 
   name                = "EnvoyLoadBalancer"
   location            = local.location
   resource_group_name = local.network_name
 
   frontend_ip_configuration {
-    name                 = "EnvoyLBAddress"
-    public_ip_address_id = azurerm_public_ip.envoy_public_ip.*.id[count.index]
+    name                          = "EnvoyLBAddress"
+    public_ip_address_id          = local.envoy.nlb_internal ? "" : azurerm_public_ip.envoy_public_ip.*.id[count.index]
+    subnet_id                     = local.envoy_nlb_subnet_id
+    private_ip_address_allocation = "dynamic"
   }
 }
 
 resource "azurerm_lb_backend_address_pool" "envoy_lb_pool" {
-  count = local.envoy.resource_count > 0 ? 1 : 0
+  count = local.envoy.enable_nlb ? 1 : 0
 
   resource_group_name = local.network_name
   loadbalancer_id     = azurerm_lb.envoy_lb.*.id[count.index]
@@ -94,7 +96,7 @@ resource "azurerm_lb_backend_address_pool" "envoy_lb_pool" {
 }
 
 resource "azurerm_lb_rule" "envoy_lb_rule" {
-  count = local.envoy.resource_count > 0 ? 1 : 0
+  count = local.envoy.enable_nlb ? 1 : 0
 
   resource_group_name            = local.network_name
   loadbalancer_id                = azurerm_lb.envoy_lb.*.id[count.index]
@@ -108,7 +110,7 @@ resource "azurerm_lb_rule" "envoy_lb_rule" {
 }
 
 resource "azurerm_lb_rule" "envoy_lb_privileged_rule" {
-  count = local.envoy.resource_count > 0 ? 1 : 0
+  count = local.envoy.enable_nlb ? 1 : 0
 
   resource_group_name            = local.network_name
   loadbalancer_id                = azurerm_lb.envoy_lb.*.id[count.index]
@@ -122,7 +124,7 @@ resource "azurerm_lb_rule" "envoy_lb_privileged_rule" {
 }
 
 resource "azurerm_lb_probe" "envoy_lb_probe" {
-  count = local.envoy.resource_count > 0 ? 1 : 0
+  count = local.envoy.enable_nlb ? 1 : 0
 
   resource_group_name = local.network_name
   loadbalancer_id     = azurerm_lb.envoy_lb.*.id[count.index]
@@ -131,7 +133,7 @@ resource "azurerm_lb_probe" "envoy_lb_probe" {
 }
 
 resource "azurerm_lb_probe" "envoy_lb_privileged_probe" {
-  count = local.envoy.resource_count > 0 ? 1 : 0
+  count = local.envoy.enable_nlb ? 1 : 0
 
   resource_group_name = local.network_name
   loadbalancer_id     = azurerm_lb.envoy_lb.*.id[count.index]
@@ -145,6 +147,17 @@ resource "azurerm_network_interface_backend_address_pool_association" "envoy_lb_
   network_interface_id    = module.envoy_cluster.network_interface_ids[count.index]
   ip_configuration_name   = "ipconfig${count.index}"
   backend_address_pool_id = azurerm_lb_backend_address_pool.envoy_lb_pool.*.id[0]
+}
+
+resource "azurerm_private_dns_a_record" "envoy_lb" {
+  count = local.envoy.enable_nlb ? 1 : 0
+
+  name                = "envoy-lb"
+  zone_name           = local.network_dns
+  resource_group_name = local.network_name
+  ttl                 = 300
+
+  records = azurerm_lb.envoy_lb[count.index].private_ip_addresses
 }
 
 resource "azurerm_private_dns_a_record" "envoy_dns" {

@@ -15,11 +15,8 @@
   notify: Restart docker
   become: yes
 
-- name: Ensure Docker is started and enabled at boot.
-  systemd:
-    name: docker
-    state: started
-    enabled: true
+- import_tasks: docker-compose.yml
+  become: yes
 
 - import_tasks: docker-users.yml
   when: docker_users | length > 0
@@ -38,6 +35,7 @@
         src: daemon.json
         dest: /etc/docker/daemon.json
   when: "'td-agent' in ansible_facts.packages"
+  become: yes
 
 - name: Install Git
   package:
@@ -47,12 +45,14 @@
   until: install_git_result is succeeded
   retries: 3
   delay: 5
+  become: yes
 
 - name: Ensure Docker is started and enabled at boot.
   systemd:
     name: docker
     state: started
     enabled: true
+  become: yes
 
 - import_tasks: install-cadvisor.yml
   become: yes

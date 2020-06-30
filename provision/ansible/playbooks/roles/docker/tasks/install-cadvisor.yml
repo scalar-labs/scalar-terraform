@@ -1,0 +1,35 @@
+- name: Create cadvisor directories
+  file:
+    path: "{{ item }}"
+    recurse: yes
+    state: directory
+  loop:
+    - /opt/cadvisor
+
+- name: Download cadvisor
+  get_url:
+    url: "{{ cadvisor_download }}"
+    checksum: "sha256:{{ cadvisor_checksum }}"
+    dest: "/opt/cadvisor/cadvisor-{{ cadvisor_version }}"
+    force: false
+    mode: u=rwx,g=rx,o=rx
+
+- name: Create cadvisor symlink
+  file:
+    src: "/opt/cadvisor/cadvisor-{{ cadvisor_version }}"
+    path: /usr/local/bin/cadvisor
+    force: true
+    state: link
+
+- name: Copy cadvisor service file
+  copy:
+    src: cadvisor.service
+    dest: /etc/systemd/system/cadvisor.service
+  notify: Restart cadvisor
+
+- name: Ensure cadvisor is started and enabled at boot.
+  systemd:
+    enabled: yes
+    name: cadvisor
+    state: started
+    daemon_reload: yes

@@ -1,9 +1,31 @@
 ---
-- name: Install Docker From Script
-  script: docker_install.sh
+- import_tasks: setup-redhat.yml
+  when: ansible_os_family == 'RedHat'
   become: yes
 
-- name: Check if td-agent is installed
+- import_tasks: setup-debian.yml
+  when: ansible_os_family == 'Debian'
+  become: yes
+
+- name: Install Docker.
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ docker_packages }}"
+  notify: Restart docker
+  become: yes
+
+- name: Ensure Docker is started and enabled at boot.
+  systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- import_tasks: docker-users.yml
+  when: docker_users | length > 0
+  become: yes
+
+- name: Gather the package facts
   package_facts:
     manager: auto
 
@@ -15,46 +37,22 @@
     - copy:
         src: daemon.json
         dest: /etc/docker/daemon.json
-  become: yes
   when: "'td-agent' in ansible_facts.packages"
-
-- name: adding existing user '{{ ansible_user_id }}' to group docker
-  user:
-    name: '{{ ansible_user_id }}'
-    groups: docker
-    append: yes
-  become: yes
 
 - name: Install Git
   package:
     name: git
     state: present
-  become: yes
   register: install_git_result
   until: install_git_result is succeeded
   retries: 3
   delay: 5
 
-
-- name: Enable and start Docker service
+- name: Ensure Docker is started and enabled at boot.
   systemd:
     name: docker
-    enabled: yes
     state: started
-  become: yes
+    enabled: true
 
-- name: Install cAdvisor
-  block:
-    - get_url:
-        url: https://github.com/google/cadvisor/releases/download/v0.33.0/cadvisor
-        dest: /usr/local/bin/cadvisor
-        mode: 0755
-    - copy:
-        src: cadvisor.service
-        dest: /etc/systemd/system/cadvisor.service
-    - systemd:
-        name: cadvisor
-        enabled: yes
-        daemon_reload: yes
-        state: started
+- import_tasks: install-cadvisor.yml
   become: yes

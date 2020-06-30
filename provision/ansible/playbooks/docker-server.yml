@@ -30,4 +30,4 @@
   roles:
     - "ssh"
   tags:
-  - ssh
+    - ssh

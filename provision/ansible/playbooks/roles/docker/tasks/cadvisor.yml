@@ -12,7 +12,7 @@
     checksum: sha256:{{ cadvisor_checksum }}
     dest: "/opt/cadvisor/cadvisor-{{ cadvisor_version }}"
     force: false
-    mode: u=rwx,g=rx,o=rx
+    mode: 0755
 
 - name: Create cadvisor symlink
   file:

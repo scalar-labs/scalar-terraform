@@ -18,8 +18,11 @@
 - import_tasks: docker-compose.yml
   become: yes
 
-- import_tasks: docker-users.yml
-  when: docker_users | length > 0
+- name: adding existing user '{{ ansible_user_id }}' to group docker
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
   become: yes
 
 - name: Gather the package facts

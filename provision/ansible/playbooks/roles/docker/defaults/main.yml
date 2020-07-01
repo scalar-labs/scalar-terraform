@@ -5,7 +5,7 @@ docker_packages:
   - containerd.io
 
 # Docker Compose options.
-docker_compose_version: "1.26.1"
+docker_compose_version: 1.26.1
 docker_compose_path: /usr/local/bin/docker-compose
 docker_compose_file: docker-compose-Linux-x86_64
 docker_compose_download: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/{{ docker_compose_file }}"

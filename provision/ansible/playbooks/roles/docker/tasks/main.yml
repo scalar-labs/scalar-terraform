@@ -57,5 +57,5 @@
     enabled: yes
   become: yes
 
-- import_tasks: install-cadvisor.yml
+- import_tasks: cadvisor.yml
   become: yes

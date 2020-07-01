@@ -50,7 +50,7 @@
   delay: 5
   become: yes
 
-- name: Ensure Docker is started and enabled at boot.
+- name: Ensure Docker is started and enabled at boot
   systemd:
     name: docker
     state: started

@@ -22,5 +22,5 @@ docker_yum_gpg_key: https://download.docker.com/linux/centos/gpg
 # cAdvisor options
 cadvisor_version: v0.35.0
 cadvisor_checksum: e9bb5513d9c49741a6ccf9ec0ce68a0ca5d25d8e75cb426c525b003fbf19cdd9
-cadvisor_url: https://github.com/google/cadvisor/releases/download/
+cadvisor_url: https://github.com/google/cadvisor/releases/download
 cadvisor_download: "{{ cadvisor_url }}/{{ cadvisor_version }}/cadvisor"

@@ -11,14 +11,14 @@
     url: "{{ cadvisor_download }}"
     checksum: sha256:{{ cadvisor_checksum }}
     dest: "/opt/cadvisor/cadvisor-{{ cadvisor_version }}"
-    force: false
+    force: no
     mode: 0755
 
 - name: Create cadvisor symlink
   file:
     src: "/opt/cadvisor/cadvisor-{{ cadvisor_version }}"
     path: /usr/local/bin/cadvisor
-    force: true
+    force: yes
     state: link
 
 - name: Copy cadvisor service file

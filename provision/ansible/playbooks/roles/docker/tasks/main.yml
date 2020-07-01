@@ -54,7 +54,7 @@
   systemd:
     name: docker
     state: started
-    enabled: true
+    enabled: yes
   become: yes
 
 - import_tasks: install-cadvisor.yml

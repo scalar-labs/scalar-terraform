@@ -47,6 +47,7 @@ resource "aws_ebs_volume" "cassandra_data_volume" {
   availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.cassandra.data_remote_volume_size
   type              = local.cassandra.data_remote_volume_type
+  encrypted         = local.cassandra.encrypt_volume
 
   tags = merge(
     var.custom_tags,
@@ -118,6 +119,7 @@ resource "aws_ebs_volume" "cassandra_commitlog_volume" {
   availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.cassandra.commitlog_remote_volume_size
   type              = local.cassandra.commitlog_remote_volume_type
+  encrypted         = local.cassandra.encrypt_volume
 
   tags = merge(
     var.custom_tags,

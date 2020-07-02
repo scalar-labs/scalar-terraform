@@ -40,12 +40,16 @@ module "monitor_cluster" {
   ]
 }
 
+data "aws_ebs_default_kms_key" "current" {}
+
 resource "aws_ebs_volume" "monitor_log_volume" {
   count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
 
   availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.monitor.log_volume_size
   type              = local.monitor.log_volume_type
+  encrypted         = true
+  kms_key_id        = data.aws_ebs_default_kms_key.current.key_arn
 
   tags = merge(
     var.custom_tags,

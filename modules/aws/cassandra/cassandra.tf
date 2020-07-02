@@ -41,12 +41,16 @@ module "cassandra_cluster" {
   ]
 }
 
+data "aws_ebs_default_kms_key" "current" {}
+
 resource "aws_ebs_volume" "cassandra_data_volume" {
   count = local.cassandra.enable_data_volume && ! local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
   availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.cassandra.data_remote_volume_size
   type              = local.cassandra.data_remote_volume_type
+  encrypted         = true
+  kms_key_id        = data.aws_ebs_default_kms_key.current.key_arn
 
   tags = merge(
     var.custom_tags,
@@ -118,6 +122,8 @@ resource "aws_ebs_volume" "cassandra_commitlog_volume" {
   availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.cassandra.commitlog_remote_volume_size
   type              = local.cassandra.commitlog_remote_volume_type
+  encrypted         = true
+  kms_key_id        = data.aws_ebs_default_kms_key.current.key_arn
 
   tags = merge(
     var.custom_tags,

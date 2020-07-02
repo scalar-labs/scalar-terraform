@@ -1,0 +1,14 @@
+---
+- name: Download docker-compose
+  get_url:
+    url: "{{ docker_compose_download }}"
+    checksum: sha256:{{ docker_compose_checksum }}
+    dest: "{{ docker_compose_path }}-{{ docker_compose_version }}"
+    mode: 0755
+
+- name: Create docker-compose symlink
+  file:
+    src: "{{ docker_compose_path }}-{{ docker_compose_version }}"
+    path: "{{ docker_compose_path }}"
+    force: yes
+    state: link

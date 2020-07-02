@@ -1,0 +1,27 @@
+- name: Download cadvisor
+  get_url:
+    url: "{{ cadvisor_download }}"
+    checksum: sha256:{{ cadvisor_checksum }}
+    dest: "{{ cadvisor_path }}-{{ cadvisor_version }}"
+    force: no
+    mode: 0755
+
+- name: Create cadvisor symlink
+  file:
+    src: "{{ cadvisor_path }}-{{ cadvisor_version }}"
+    path: "{{ cadvisor_path }}"
+    force: yes
+    state: link
+
+- name: Copy cadvisor service file
+  copy:
+    src: cadvisor.service
+    dest: /etc/systemd/system/cadvisor.service
+  notify: Restart cadvisor
+
+- name: Ensure cadvisor is started and enabled at boot
+  systemd:
+    enabled: yes
+    name: cadvisor
+    state: started
+    daemon_reload: yes

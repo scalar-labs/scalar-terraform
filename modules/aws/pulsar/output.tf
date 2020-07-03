@@ -14,5 +14,9 @@ ${ip}
 %{for ip in aws_route53_record.zookeeper_dns.*.fqdn~}
 ${ip}
 %{endfor}
+
+[all:vars]
+zookeeper_servers=${join(",", module.zookeeper_cluster.private_ip)}
+broker_server=broker-lb.${local.internal_domain}
 EOF
 }

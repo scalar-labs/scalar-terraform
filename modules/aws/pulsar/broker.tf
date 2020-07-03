@@ -40,21 +40,21 @@ module "broker_cluster" {
   ]
 }
 
-module "broker_provision" {
-  source = "../../universal/pulsar/broker"
+# module "broker_provision" {
+#   source = "../../universal/pulsar/broker"
 
-  vm_ids            = module.broker_cluster.id
-  triggers          = local.triggers
-  bastion_host_ip   = local.bastion_ip
-  host_list         = module.broker_cluster.private_ip
-  user_name         = local.user_name
-  private_key_path  = local.private_key_path
-  provision_count   = local.broker.resource_count
-  enable_tdagent    = local.broker.enable_tdagent
-  internal_domain   = local.internal_domain
-  pulsar_component  = "broker"
-  zookeeper_servers = module.zookeeper_cluster.private_ip
-}
+#   vm_ids            = module.broker_cluster.id
+#   triggers          = local.triggers
+#   bastion_host_ip   = local.bastion_ip
+#   host_list         = module.broker_cluster.private_ip
+#   user_name         = local.user_name
+#   private_key_path  = local.private_key_path
+#   provision_count   = local.broker.resource_count
+#   enable_tdagent    = local.broker.enable_tdagent
+#   internal_domain   = local.internal_domain
+#   pulsar_component  = "broker"
+#   zookeeper_servers = module.zookeeper_cluster.private_ip
+# }
 
 resource "aws_security_group" "broker" {
   count = local.broker.resource_count > 0 ? 1 : 0

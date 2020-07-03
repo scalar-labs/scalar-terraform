@@ -40,20 +40,20 @@ module "zookeeper_cluster" {
   ]
 }
 
-module "zookeeper_provision" {
-  source = "../../universal/pulsar/zookeeper"
+# module "zookeeper_provision" {
+#   source = "../../universal/pulsar/zookeeper"
 
-  vm_ids           = module.zookeeper_cluster.id
-  triggers         = local.triggers
-  bastion_host_ip  = local.bastion_ip
-  host_list        = module.zookeeper_cluster.private_ip
-  user_name        = local.user_name
-  private_key_path = local.private_key_path
-  provision_count  = local.zookeeper.resource_count
-  enable_tdagent   = local.zookeeper.enable_tdagent
-  internal_domain  = local.internal_domain
-  pulsar_component = "zookeeper"
-}
+#   vm_ids           = module.zookeeper_cluster.id
+#   triggers         = local.triggers
+#   bastion_host_ip  = local.bastion_ip
+#   host_list        = module.zookeeper_cluster.private_ip
+#   user_name        = local.user_name
+#   private_key_path = local.private_key_path
+#   provision_count  = local.zookeeper.resource_count
+#   enable_tdagent   = local.zookeeper.enable_tdagent
+#   internal_domain  = local.internal_domain
+#   pulsar_component = "zookeeper"
+# }
 
 resource "aws_security_group" "zookeeper" {
   count = local.zookeeper.resource_count > 0 ? 1 : 0

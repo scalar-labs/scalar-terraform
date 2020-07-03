@@ -22,6 +22,7 @@ locals {
     resource_type                = "t3.large"
     resource_count               = 3
     resource_root_volume_size    = 64
+    encrypt_volume               = true
     enable_data_volume           = false
     data_use_local_volume        = false
     data_remote_volume_size      = 64

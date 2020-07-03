@@ -1,0 +1,12 @@
+---
+- name: Restart docker
+  systemd:
+    name: docker
+    state: restarted
+  become: yes
+
+- name: Restart cadvisor
+  systemd:
+    name: cadvisor
+    state: restarted
+  become: yes

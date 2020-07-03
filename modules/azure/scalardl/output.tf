@@ -39,7 +39,7 @@ output "scalardl_replication_factor" {
 }
 
 output "envoy_dns" {
-  value       = local.envoy.resource_count > 0 ? azurerm_public_ip.envoy_public_ip.*.fqdn : []
+  value       = local.envoy.enable_nlb ? (local.envoy.nlb_internal ? ["envoy-lb.${local.internal_domain}"] : azurerm_public_ip.envoy_public_ip.*.fqdn) : []
   description = "A list of dns URLs to access a envoy cluster."
 }
 

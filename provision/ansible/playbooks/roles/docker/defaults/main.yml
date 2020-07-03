@@ -1,0 +1,27 @@
+---
+# Docker options.
+docker_packages:
+  - docker-ce
+  - containerd.io
+
+# Docker Compose options.
+docker_compose_version: 1.26.1
+docker_compose_path: /usr/local/bin/docker-compose
+docker_compose_file: docker-compose-Linux-x86_64
+docker_compose_download: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/{{ docker_compose_file }}"
+docker_compose_checksum: b1c7e9b835dd6a4e6436772fe984bf52c93c13149a6b6d06616c7eda1f66123b
+
+# Used only for Debian/Ubuntu.
+docker_apt_repository: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+docker_apt_gpg_key: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+
+# Used only for RedHat/CentOS/Fedora.
+docker_yum_repo_url: https://download.docker.com/linux/{{ (ansible_distribution == "Fedora") | ternary("fedora","centos") }}/docker-ce.repo
+docker_yum_gpg_key: https://download.docker.com/linux/centos/gpg
+
+# cAdvisor options
+cadvisor_version: v0.35.0
+cadvisor_path: /usr/local/bin/cadvisor
+cadvisor_checksum: e9bb5513d9c49741a6ccf9ec0ce68a0ca5d25d8e75cb426c525b003fbf19cdd9
+cadvisor_url: https://github.com/google/cadvisor/releases/download
+cadvisor_download: "{{ cadvisor_url }}/{{ cadvisor_version }}/cadvisor"

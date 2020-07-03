@@ -46,6 +46,7 @@ resource "aws_ebs_volume" "monitor_log_volume" {
   availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.monitor.log_volume_size
   type              = local.monitor.log_volume_type
+  encrypted         = local.monitor.encrypt_volume
 
   tags = merge(
     var.custom_tags,

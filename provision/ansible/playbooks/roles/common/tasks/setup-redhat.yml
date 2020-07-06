@@ -1,0 +1,13 @@
+---
+- name: Install epel-release
+  package:
+    name: epel-release
+    state: present
+    lock_timeout: 120
+
+- name: Install python
+  package:
+    name: "{{ item }}"
+    state: present
+    lock_timeout: 120
+  loop: "{{ python_packages }}"

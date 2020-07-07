@@ -1,5 +1,7 @@
 ---
-python_packages:
-  - python3
-  - python3-devel
-  - python3-pip
+pip_packages:
+  - j2cli
+
+required_packages:
+  - vim
+  - lvm2

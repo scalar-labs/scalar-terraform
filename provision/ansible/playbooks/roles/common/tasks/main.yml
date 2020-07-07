@@ -5,21 +5,23 @@
 - import_tasks: setup-debian.yml
   when: ansible_os_family == 'Debian'
 
+- name: Upgrade pip
+  pip:
+    name: pip
+    executable: pip3
+    state: latest
+
 - name: Install required packages via pip
   pip:
     name: "{{ item }}"
     state: present
-  loop:
-    - j2cli
-  environment:
-    PATH: /usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+    executable: pip3
+  loop: "{{ pip_packages }}"
 
-- name: Install nessnecessary packages
+- name: Install required packages
   package:
     name: "{{ item }}"
     state: present
-  loop:
-    - vim
-    - lvm2
+  loop: "{{ required_packages }}"
   retries: 3
   delay: 5

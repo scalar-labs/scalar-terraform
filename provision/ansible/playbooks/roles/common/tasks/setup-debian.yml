@@ -1,3 +1,8 @@
 ---
-- name: Install epel-release
-  yum: name=epel-release state=present lock_timeout=120
+- name: Install python (debian)
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - python3
+    - python3-pip

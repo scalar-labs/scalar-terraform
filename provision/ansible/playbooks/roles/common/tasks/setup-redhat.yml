@@ -3,11 +3,12 @@
   package:
     name: epel-release
     state: present
-    lock_timeout: 120
 
-- name: Install python
+- name: Install python (redhat)
   package:
     name: "{{ item }}"
     state: present
-    lock_timeout: 120
-  loop: "{{ python_packages }}"
+  loop:
+    - python3
+    - python3-devel
+    - python3-pip

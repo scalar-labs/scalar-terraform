@@ -40,22 +40,6 @@ module "bookie_cluster" {
   ]
 }
 
-# module "bookie_provision" {
-#   source = "../../universal/pulsar/bookie"
-
-#   vm_ids            = module.bookie_cluster.id
-#   triggers          = local.triggers
-#   bastion_host_ip   = local.bastion_ip
-#   host_list         = module.bookie_cluster.private_ip
-#   user_name         = local.user_name
-#   private_key_path  = local.private_key_path
-#   provision_count   = local.bookie.resource_count
-#   enable_tdagent    = local.bookie.enable_tdagent
-#   internal_domain   = local.internal_domain
-#   pulsar_component  = "bookie"
-#   zookeeper_servers = module.zookeeper_cluster.private_ip
-# }
-
 resource "aws_security_group" "bookie" {
   count = local.bookie.resource_count > 0 ? 1 : 0
 

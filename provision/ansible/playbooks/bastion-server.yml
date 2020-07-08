@@ -3,6 +3,7 @@
   hosts: all
   roles:
     - "common"
+    - "node-exporter"
     - "ansible"
     - role: td-agent
       when: enable_tdagent is undefined or enable_tdagent == '1'

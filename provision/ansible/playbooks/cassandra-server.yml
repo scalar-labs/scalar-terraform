@@ -2,7 +2,8 @@
 - name: Common
   hosts: all
   roles:
-    - 'common'
+    - "common"
+    - "node-exporter"
     - role: td-agent
       when: enable_tdagent is undefined or enable_tdagent == '1'
   vars:
@@ -13,8 +14,8 @@
 - name: Cassandra
   hosts: all
   roles:
-    - 'java'
-    - 'cassandra'
+    - "java"
+    - "cassandra"
   gather_facts: yes
   become: yes
 
@@ -25,4 +26,4 @@
   roles:
     - "ssh"
   tags:
-  - ssh
+    - ssh

@@ -1,0 +1,7 @@
+---
+# defaults file for ansible-role-node-exporter
+node_exporter_version: 0.18.1
+node_exporter_archive: "node_exporter-{{ node_exporter_version }}.linux-amd64"
+node_exporter_download: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/{{ node_exporter_archive }}.tar.gz"
+node_exporter_checksum: b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424
+node_exporter_path: /usr/local/bin/node_exporter

@@ -13,6 +13,7 @@
   hosts: all
   roles:
     - "common"
+    - "node-exporter"
   gather_facts: no
   become: yes
 

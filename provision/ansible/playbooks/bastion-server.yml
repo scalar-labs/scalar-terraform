@@ -2,9 +2,9 @@
 - name: Bastion server
   hosts: all
   roles:
-    - "common"
-    - "node-exporter"
-    - "ansible"
+    - common
+    - node-exporter
+    - ansible
     - role: td-agent
       when: enable_tdagent is undefined or enable_tdagent == '1'
   vars:
@@ -17,6 +17,6 @@
   gather_facts: no
   become: no
   roles:
-    - "ssh"
+    - ssh
   tags:
     - ssh

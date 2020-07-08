@@ -14,15 +14,15 @@
 - name: Common Install
   hosts: all
   roles:
-    - "common"
-    - "node-exporter"
+    - common
+    - node-exporter
   gather_facts: no
   become: yes
 
 - name: Docker Server
   hosts: all
   roles:
-    - "docker"
+    - docker
   gather_facts: yes
   become: no
 
@@ -31,6 +31,6 @@
   gather_facts: no
   become: no
   roles:
-    - "ssh"
+    - ssh
   tags:
     - ssh

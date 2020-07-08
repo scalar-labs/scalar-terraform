@@ -8,7 +8,7 @@
       when: enable_tdagent is undefined or enable_tdagent == '1'
   vars:
     tdagent_conf_template: templates/bastion-server/td-agent.conf.j2
-  gather_facts: no
+  gather_facts: yes
   become: yes
 
 - name: Add multiple public keys
@@ -18,4 +18,4 @@
   roles:
     - "ssh"
   tags:
-  - ssh
+    - ssh

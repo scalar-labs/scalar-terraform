@@ -1,25 +1,28 @@
 ---
-- name: Install Python3 Pip
-  script: python_install.sh
+- import_tasks: setup-redhat.yml
+  when: ansible_os_family == 'RedHat'
 
-- name: Install j2cli
-  command: python3 -m pip install j2cli j2cli[yaml]
+- import_tasks: setup-debian.yml
+  when: ansible_os_family == 'Debian'
 
-- name: Install Vim
-  package:
-    name: vim
+- name: Upgrade pip
+  pip:
+    name: pip
+    executable: pip3
+    state: latest
+
+- name: Install required packages via pip
+  pip:
+    name: "{{ item }}"
     state: present
-  register: install_vim_result
-  until: install_vim_result is succeeded
-  retries: 3
-  delay: 5
+    executable: pip3
+  loop: "{{ pip_packages }}"
 
-- name: Install lvm2
+- name: Install required packages
   package:
-    name: lvm2
+    name: "{{ item }}"
     state: present
-  register: install_lvm2_result
-  until: install_lvm2_result is succeeded
+  loop: "{{ required_packages }}"
   retries: 3
   delay: 5
 
@@ -37,7 +40,7 @@
         dest: "/etc/prometheus/node_exporter"
         remote_src: yes
         extra_opts:
-        - --strip-components=1
+          - --strip-components=1
     - file:
         state: absent
         path: /tmp/{{ NODE_EXPORTER_FILE | default('node_exporter-0.16.0.linux-amd64.tar.gz') }}

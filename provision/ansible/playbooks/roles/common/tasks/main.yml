@@ -20,9 +20,8 @@
 
 - name: Install required packages
   package:
-    name: "{{ item }}"
+    name: "{{ required_packages }}"
     state: present
-  loop: "{{ required_packages }}"
   retries: 3
   delay: 5
 

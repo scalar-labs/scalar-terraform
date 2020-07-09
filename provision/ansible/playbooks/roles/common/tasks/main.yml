@@ -5,6 +5,10 @@
 - import_tasks: setup-debian.yml
   when: ansible_os_family == 'Debian'
 
+- set_fact:
+    ansible_python_default_interpreter: "{{ ansible_python_interpreter }}"
+    ansible_python_interpreter: /usr/bin/python3
+
 - name: Upgrade pip
   pip:
     name: pip
@@ -17,6 +21,9 @@
     state: present
     executable: pip3
   loop: "{{ pip_packages }}"
+
+- set_fact:
+    ansible_python_interpreter: "{{ ansible_python_default_interpreter }}"
 
 - name: Install required packages
   package:

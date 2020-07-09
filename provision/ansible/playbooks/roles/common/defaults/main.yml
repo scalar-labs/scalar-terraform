@@ -5,3 +5,5 @@ pip_packages:
 required_packages:
   - vim
   - lvm2
+
+ansible_python_interpreter: /usr/bin/python

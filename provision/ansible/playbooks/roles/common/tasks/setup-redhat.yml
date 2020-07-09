@@ -6,8 +6,9 @@
 
 - name: Install python (redhat)
   package:
-    name: "{{ item }}"
+    name: "{{ packages }}"
     state: present
-  loop:
-    - python3
-    - python3-pip
+  vars:
+    packages:
+      - python3
+      - python3-pip

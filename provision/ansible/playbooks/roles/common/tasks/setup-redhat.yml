@@ -1,0 +1,14 @@
+---
+- name: Install epel-release
+  package:
+    name: epel-release
+    state: present
+
+- name: Install python (redhat)
+  package:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - python3
+      - python3-pip

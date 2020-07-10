@@ -1,0 +1,7 @@
+---
+pip_packages:
+  - j2cli
+
+required_packages:
+  - vim
+  - lvm2

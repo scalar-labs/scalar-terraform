@@ -1,0 +1,9 @@
+---
+- name: Install python (debian)
+  package:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - python3
+      - python3-pip

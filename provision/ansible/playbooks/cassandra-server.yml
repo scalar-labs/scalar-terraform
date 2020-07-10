@@ -2,19 +2,23 @@
 - name: Common
   hosts: all
   roles:
-    - 'common'
+    - "common"
     - role: td-agent
       when: enable_tdagent is undefined or enable_tdagent == '1'
   vars:
-    tdagent_conf_template: templates/cassandra-server/td-agent.conf.j2
+    tdagent_confd_templates:
+      - {
+          src: "templates/td-agent-confd/td-agent-cassandra.conf.j2",
+          dest: "cassandra.conf",
+        }
   gather_facts: yes
   become: yes
 
 - name: Cassandra
   hosts: all
   roles:
-    - 'java'
-    - 'cassandra'
+    - "java"
+    - "cassandra"
   gather_facts: yes
   become: yes
 
@@ -25,4 +29,4 @@
   roles:
     - "ssh"
   tags:
-  - ssh
+    - ssh

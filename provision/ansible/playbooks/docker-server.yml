@@ -5,8 +5,12 @@
     - role: td-agent
       when: enable_tdagent is undefined or enable_tdagent == '1'
   vars:
-    tdagent_conf_template: templates/docker-server/td-agent.conf.j2
-  gather_facts: no
+    dagent_confd_templates:
+      - {
+          src: "templates/td-agent-confd/td-agent-docker.conf.j2",
+          dest: "docker.conf",
+        }
+  gather_facts: yes
   become: yes
 
 - name: Common Install

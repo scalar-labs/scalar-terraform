@@ -1,0 +1,11 @@
+# Simple default td-agent.conf
+
+{% if tdagent_forward_enabled == 'true' %}
+<source>
+    @type forward
+</source>
+{% endif %}
+
+{% if tdagent_confd_dir is defined %}
+@include {{ tdagent_confd_dir }}/*.conf
+{% endif %}

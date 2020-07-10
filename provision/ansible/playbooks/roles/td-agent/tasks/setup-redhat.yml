@@ -1,0 +1,13 @@
+---
+- name: Add rpm gpg key
+  rpm_key:
+    key: "{{ tdagent_gpg_key }}"
+    state: present
+
+- name: Add td-agent repository
+  template:
+    src: td.repo.j2
+    dest: /etc/yum.repos.d/td.repo
+    owner: root
+    group: root
+    mode: 0644

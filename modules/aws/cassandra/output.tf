@@ -42,3 +42,26 @@ output "cassandra_start_on_initial_boot" {
   value       = local.cassandra.start_on_initial_boot
   description = "A flag to start Cassandra or not on the initial boot."
 }
+
+output "cassandra_ini" {
+  value = <<EOF
+[cassandra]
+%{for ip in aws_route53_record.cassandra_dns.*.fqdn~}
+${ip}
+%{endfor}
+
+[cassy]
+%{for ip in aws_route53_record.cassy_dns.*.fqdn~}
+${ip}
+%{endfor}
+
+[reaper]
+%{for ip in aws_route53_record.reaper_dns.*.fqdn~}
+${ip}
+%{endfor}
+
+[all:vars]
+internal_domain=${local.internal_domain}
+monitor_host=monit.${local.internal_domain}
+EOF
+}

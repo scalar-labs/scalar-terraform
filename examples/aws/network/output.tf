@@ -57,3 +57,7 @@ output "internal_domain" {
 output "custom_tags" {
   value = var.custom_tags
 }
+
+output "bastion_ini" {
+  value = module.network.bastion_ini
+}

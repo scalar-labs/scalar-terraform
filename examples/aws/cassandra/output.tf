@@ -9,3 +9,7 @@ output "cassandra_provision_ids" {
 output "cassandra_start_on_initial_boot" {
   value = module.cassandra.cassandra_start_on_initial_boot
 }
+
+output "cassandra_ini" {
+  value = module.cassandra.cassandra_ini
+}

@@ -91,3 +91,16 @@ EOF
 
   description = "The Configuration file for SSH access."
 }
+
+output "bastion_ini" {
+  value = <<EOF
+[bastion]
+%{for ip in module.bastion.bastion_host_ips~}
+${ip}
+%{endfor}
+
+[all:vars]
+internal_domain=${var.internal_domain}
+monitor_host=monitor.${var.internal_domain}
+EOF
+}

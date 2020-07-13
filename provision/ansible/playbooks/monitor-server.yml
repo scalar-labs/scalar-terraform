@@ -16,7 +16,7 @@
   roles:
     - common
     - node-exporter
-  gather_facts: no
+  gather_facts: yes
   become: yes
 
 - name: Docker Server

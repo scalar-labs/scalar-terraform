@@ -22,7 +22,7 @@
 
 - name: Create conf.d directory
   file:
-    path: /etc/td-agent/conf.d
+    path: "{{ tdagent_confd_dir }}"
     state: directory
 
 - name: Enable td-agent
@@ -34,17 +34,15 @@
   lineinfile:
     path: /etc/rsyslog.conf
     line: "*.* @127.0.0.1:5140"
-  notify:
-    - restart rsyslog
+  notify: Restart rsyslog
 
 - name: Update td-agent.conf
   template:
     src: td-agent.conf.j2
-    dest: /etc/td-agent/td-agent.conf
+    dest: "{{ tdagent_conf_dir }}/td-agent.conf"
     owner: td-agent
     group: td-agent
-  notify:
-    - reload td-agent
+  notify: Reload td-agent
 
 - name: Add user defined templates
   template:
@@ -53,6 +51,4 @@
     owner: td-agent
     group: td-agent
   loop: "{{ tdagent_confd_templates }}"
-  when: tdagent_confd_templates is defined
-  notify:
-    - reload td-agent
+  notify: Reload td-agent

@@ -19,7 +19,6 @@
     dest: "{{ node_exporter_path }}-{{ node_exporter_version }}"
     mode: 0755
     remote_src: yes
-  notify: Restart node_exporter
 
 - name: Create node_exporter symlink
   file:
@@ -27,6 +26,7 @@
     path: "{{ node_exporter_path }}"
     force: yes
     state: link
+  notify: Restart node_exporter
 
 - name: Copy node_exporter service file
   copy:

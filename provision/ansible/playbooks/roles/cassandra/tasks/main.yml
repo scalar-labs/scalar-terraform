@@ -153,6 +153,10 @@
 
 - name: Install Tools
   block:
+    - file:
+        path: "/etc/prometheus"
+        state: directory
+        mode: 0755
     - get_url:
         url: https://github.com/criteo/cassandra_exporter/releases/download/2.1.0/cassandra_exporter-2.1.0-all.jar
         dest: /etc/prometheus/cassandra_exporter.jar

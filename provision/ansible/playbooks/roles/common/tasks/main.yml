@@ -24,30 +24,3 @@
     state: present
   retries: 3
   delay: 5
-
-- name: Install Prometheus Node Exporter
-  block:
-    - get_url:
-        url: https://github.com/prometheus/node_exporter/releases/download/v0.16.0/node_exporter-0.16.0.linux-amd64.tar.gz
-        dest: /tmp
-    - file:
-        path: "/etc/prometheus/node_exporter"
-        state: directory
-        mode: 0755
-    - unarchive:
-        src: /tmp/{{ NODE_EXPORTER_FILE | default('node_exporter-0.16.0.linux-amd64.tar.gz') }}
-        dest: "/etc/prometheus/node_exporter"
-        remote_src: yes
-        extra_opts:
-          - --strip-components=1
-    - file:
-        state: absent
-        path: /tmp/{{ NODE_EXPORTER_FILE | default('node_exporter-0.16.0.linux-amd64.tar.gz') }}
-    - copy:
-        src: node_exporter.service
-        dest: /etc/systemd/system/node_exporter.service
-    - systemd:
-        name: node_exporter
-        enabled: yes
-        daemon_reload: yes
-        state: started

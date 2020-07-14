@@ -1,0 +1,42 @@
+---
+# tasks file for ansible-role-node-exporter
+- name: Download archive file
+  get_url:
+    url: "{{ node_exporter_download }}"
+    checksum: sha256:{{ node_exporter_checksum }}
+    dest: "/tmp/{{ node_exporter_archive  }}.tar.gz"
+
+- name: Unarchive file
+  unarchive:
+    src: "/tmp/{{ node_exporter_archive }}.tar.gz"
+    dest: /tmp
+    creates: "/tmp/{{ node_exporter_archive }}/node_exporter"
+    remote_src: yes
+
+- name: Propagate node_exporter binaries
+  copy:
+    src: "/tmp/{{ node_exporter_archive }}/node_exporter"
+    dest: "{{ node_exporter_path }}-{{ node_exporter_version }}"
+    mode: 0755
+    remote_src: yes
+
+- name: Create node_exporter symlink
+  file:
+    src: "{{ node_exporter_path }}-{{ node_exporter_version }}"
+    path: "{{ node_exporter_path }}"
+    force: yes
+    state: link
+  notify: Restart node_exporter
+
+- name: Copy node_exporter service file
+  copy:
+    src: node_exporter.service
+    dest: /etc/systemd/system/node_exporter.service
+  notify: Restart node_exporter
+
+- name: Ensure node_exporter is started and enabled at boot
+  systemd:
+    name: node_exporter
+    enabled: yes
+    daemon_reload: yes
+    state: started

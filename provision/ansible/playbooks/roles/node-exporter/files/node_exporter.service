@@ -7,7 +7,7 @@ StartLimitIntervalSec=300
 
 [Service]
 Type=simple
-ExecStart=/etc/prometheus/node_exporter/node_exporter --collector.systemd
+ExecStart=/usr/local/bin/node_exporter --collector.systemd
 Restart=always
 RestartSec=30
 

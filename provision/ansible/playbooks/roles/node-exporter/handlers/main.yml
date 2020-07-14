@@ -1,0 +1,7 @@
+---
+# handlers file for ansible-role-node-exporter
+- name: Restart node_exporter
+  systemd:
+    name: node_exporter
+    state: restarted
+  become: yes

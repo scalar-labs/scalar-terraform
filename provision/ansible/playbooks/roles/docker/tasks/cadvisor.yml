@@ -5,6 +5,9 @@
     dest: "{{ cadvisor_path }}-{{ cadvisor_version }}"
     force: no
     mode: 0755
+  register: download_result
+  until: download_result | succeeded
+  retries: 3
 
 - name: Create cadvisor symlink
   file:

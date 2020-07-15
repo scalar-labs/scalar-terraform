@@ -5,6 +5,9 @@
     url: "{{ node_exporter_download }}"
     checksum: sha256:{{ node_exporter_checksum }}
     dest: "/tmp/{{ node_exporter_archive  }}.tar.gz"
+  register: download_result
+  until: download_result | succeeded
+  retries: 3
 
 - name: Unarchive file
   unarchive:

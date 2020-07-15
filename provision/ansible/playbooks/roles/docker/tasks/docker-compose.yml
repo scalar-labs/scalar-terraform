@@ -5,6 +5,9 @@
     checksum: sha256:{{ docker_compose_checksum }}
     dest: "{{ docker_compose_path }}-{{ docker_compose_version }}"
     mode: 0755
+  register: download_result
+  until: download_result | succeeded
+  retries: 3
 
 - name: Create docker-compose symlink
   file:

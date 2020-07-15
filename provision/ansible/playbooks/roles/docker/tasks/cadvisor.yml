@@ -6,7 +6,7 @@
     force: no
     mode: 0755
   register: download_result
-  until: download_result | succeeded
+  until: download_result is succeeded
   retries: 3
 
 - name: Create cadvisor symlink

@@ -40,6 +40,34 @@ module "bookie_cluster" {
   ]
 }
 
+resource "aws_ebs_volume" "bookie_data_volume" {
+  count = local.bookie.enable_data_volume && ! local.bookie.data_use_local_volume ? local.bookie.resource_count : 0
+
+  availability_zone = local.locations[count.index % length(local.locations)]
+  size              = local.bookie.data_remote_volume_size
+  type              = local.bookie.data_remote_volume_type
+  encrypted         = local.bookie.encrypt_volume
+
+  tags = merge(
+    var.custom_tags,
+    {
+      Name      = "${local.network_name} Bookie Cluster-${count.index + 1}"
+      Terraform = "true"
+      Network   = local.network_name
+    }
+  )
+}
+
+resource "aws_volume_attachment" "bookie_data_volume_attachment" {
+  count = local.bookie.enable_data_volume && ! local.bookie.data_use_local_volume ? local.bookie.resource_count : 0
+
+  device_name = "/dev/xvdh"
+  volume_id   = aws_ebs_volume.bookie_data_volume[count.index].id
+  instance_id = module.bookie_cluster.id[count.index]
+
+  force_detach = true
+}
+
 resource "aws_security_group" "bookie" {
   count = local.bookie.resource_count > 0 ? 1 : 0
 

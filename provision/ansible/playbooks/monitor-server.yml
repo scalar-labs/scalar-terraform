@@ -8,10 +8,7 @@
       when: enable_tdagent is undefined or enable_tdagent == '1'
   vars:
     tdagent_confd_templates:
-      - {
-          src: "templates/td-agent-confd/td-agent-monitor.conf.j2",
-          dest: "monitor.conf",
-        }
+      - { src: "templates/td-agent-confd/td-agent-monitor.conf.j2", dest: "monitor.conf" }
   gather_facts: yes
   become: yes
 

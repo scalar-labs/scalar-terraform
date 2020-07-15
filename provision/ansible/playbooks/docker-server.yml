@@ -5,11 +5,8 @@
     - role: td-agent
       when: enable_tdagent is undefined or enable_tdagent == '1'
   vars:
-    dagent_confd_templates:
-      - {
-          src: "templates/td-agent-confd/td-agent-docker.conf.j2",
-          dest: "docker.conf",
-        }
+    tdagent_confd_templates:
+      - { src: "templates/td-agent-confd/td-agent-docker.conf.j2", dest: "docker.conf" }
   gather_facts: yes
   become: yes
 

@@ -1,0 +1,19 @@
+---
+- name: Install required packages (debian)
+  package:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - python-software-properties
+      - apt-transport-https
+
+- name: Add apt gpg key
+  apt_key:
+    url: "{{ tdagent_gpg_key }}"
+    state: present
+
+- name: Add td-agent repository
+  apt_repository:
+    repo: "deb https://packages.treasuredata.com/3/{{ ansible_distribution|lower }}/{{ ansible_distribution_release|lower }}/ {{ ansible_distribution_release|lower }} contrib"
+    state: present

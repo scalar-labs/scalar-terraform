@@ -1,0 +1,9 @@
+---
+# defaults file for ansible-role-td-agent
+td_agent_version: 3
+tdagent_conf_dir: /etc/td-agent
+tdagent_confd_dir: "{{ tdagent_conf_dir }}/conf.d"
+tdagent_gpg_key: https://packages.treasuredata.com/GPG-KEY-td-agent
+tdagent_confd_templates: []
+td_agent_plugins: []
+tdagent_forward_enabled: "{% if tdagent_confd_templates |length > 0 %}false{% else %}true{% endif %}"

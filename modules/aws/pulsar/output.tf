@@ -1,18 +1,18 @@
 output "inventory_ini" {
   value = <<EOF
 [bookie]
-%{for ip in aws_route53_record.bookie_dns.*.fqdn~}
-${ip}
+%{for f in aws_route53_record.bookie_dns.*.fqdn~}
+${f}
 %{endfor}
 
 [broker]
-%{for ip in aws_route53_record.broker_dns.*.fqdn~}
-${ip}
+%{for f in aws_route53_record.broker_dns.*.fqdn~}
+${f}
 %{endfor}
 
 [zookeeper]
-%{for ip in aws_route53_record.zookeeper_dns.*.fqdn~}
-${ip}
+%{for f in aws_route53_record.zookeeper_dns.*.fqdn~}
+${f}
 %{endfor}
 
 [all:vars]

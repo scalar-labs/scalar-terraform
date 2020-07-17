@@ -29,7 +29,7 @@ The provision directory is where Ansible Playbooks are located. The Ansible Play
 ## Contributing 
 This repo is mainly maintained by the Scalar Engineering Team, but of course we appreciate any help.
 
-* For asking questions, finding answers and helping other users, please go to [scalardl-user](https://groups.google.com/forum/#!forum/scalardl-user).
+* For asking questions, finding answers and helping other users, please go to [stackoverflow](https://stackoverflow.com/) and use [scalardl](https://stackoverflow.com/questions/tagged/scalardl) tag.
 * For filing bugs, suggesting improvements, or requesting new features, help us out by opening an issue.
 
 ## Future Work

@@ -10,7 +10,7 @@ services:
      - "--username=${REAPER_CASS_AUTH_USERNAME}"
      - "--password=${REAPER_CASS_AUTH_PASSWORD}"
      - "--execute"
-     - "CREATE KEYSPACE IF NOT EXISTS reaper_db WITH replication = {'class': 'SimpleStrategy', 'replication_factor': ${CASSANDRA_REPLICATION_FACTOR} };"
+     - "CREATE KEYSPACE IF NOT EXISTS reaper_db WITH replication = {'class': 'NetworkTopologyStrategy', 'replication_factor': ${CASSANDRA_REPLICATION_FACTOR} };"
      - "${REAPER_CASS_CONTACT_POINTS}"
     restart: on-failure
   reaper:

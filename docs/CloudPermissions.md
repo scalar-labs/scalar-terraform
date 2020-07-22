@@ -104,6 +104,7 @@ Please keep your subscription ID in the `assignableScopes` array.
         "permissions": [
             {
                 "actions": [
+                    "Microsoft.Authorization/roleAssignments/*",
                     "Microsoft.Compute/availabilitySets/*",
                     "Microsoft.Compute/disks/*",
                     "Microsoft.Compute/virtualMachines/*",

@@ -47,3 +47,8 @@ output "envoy_listen_port" {
   value       = local.envoy.listen_port
   description = "A listen port of envoy cluster."
 }
+
+output "envoy_host_ips" {
+  value       = module.envoy_cluster.network_interface_private_ip
+  description = "A list of host IPs for envoy cluster."
+}

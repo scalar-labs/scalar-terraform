@@ -17,3 +17,7 @@ output "cassandra_test_ip_0" {
 output "cassandra_test_ip_1" {
   value = module.cassandra.cassandra_host_ips[1]
 }
+
+output "cassandra_host_ips" {
+  value = module.cassandra.cassandra_host_ips
+}

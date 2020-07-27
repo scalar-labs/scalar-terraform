@@ -20,7 +20,7 @@
 <filter **>
   @type record_transformer
   <record>
-    hostname ${hostname}
+    hostname "#{Socket.gethostname}"
   </record>
 </filter>
 

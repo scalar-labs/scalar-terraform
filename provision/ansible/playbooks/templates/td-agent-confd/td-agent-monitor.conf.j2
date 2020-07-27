@@ -21,6 +21,7 @@
 </source>
 
 # Capture fluentd's own logs
+
 <match fluent.**>
   @type relabel
   @label @local
@@ -31,7 +32,7 @@
   <filter **>
     @type record_transformer
     <record>
-      hostname ${hostname}
+      hostname "#{Socket.gethostname}"
     </record>
   </filter>
   <match **>
@@ -46,6 +47,8 @@
     path /log/${hostname}/%Y/%m-%d/${tag[0]}
     append true
     <buffer time,tag,hostname>
+      @type file
+      path /log/buffer
       timekey 1d
       timekey_wait 5m
       timekey_use_utc true

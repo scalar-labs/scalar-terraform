@@ -12,6 +12,7 @@ module "cassy_cluster" {
   subnet_ids                  = local.subnet_ids
   associate_public_ip_address = false
   hostname_prefix             = "cassy"
+  iam_instance_profile        = aws_iam_instance_profile.cassandra.name
   use_num_suffix              = true
 
   tags = merge(

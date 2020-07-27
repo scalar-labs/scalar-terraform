@@ -21,11 +21,12 @@
 </source>
 
 # Capture fluentd's own logs
-
-<match fluent.**>
-  @type relabel
-  @label @local
-</match>
+<label @FLUENT_LOG>
+  <match fluent.**>
+    @type relabel
+    @label @local
+  </match>
+</label>
 
 # Add hostname field to local log records
 <label @local>

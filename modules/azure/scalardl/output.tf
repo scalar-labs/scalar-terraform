@@ -52,3 +52,22 @@ output "envoy_host_ips" {
   value       = module.envoy_cluster.network_interface_private_ip
   description = "A list of host IPs for envoy cluster."
 }
+
+output "scalardl_ini" {
+  value = <<EOF
+[scalardl_blue]
+%{for ip in azurerm_private_dns_a_record.scalardl_blue_dns~}
+${ip.name}.${ip.zone_name}
+%{endfor}
+
+[scalardl_green]
+%{for ip in azurerm_private_dns_a_record.scalardl_green_dns~}
+${ip.name}.${ip.zone_name}
+%{endfor}
+
+[envoy]
+%{for ip in azurerm_private_dns_a_record.envoy_dns~}
+${ip.name}.${ip.zone_name}
+%{endfor}
+EOF
+}

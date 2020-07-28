@@ -13,3 +13,7 @@ output "cassandra_start_on_initial_boot" {
 output "cassandra_host_ips" {
   value = module.cassandra.cassandra_host_ips
 }
+
+output "cassandra_ini" {
+  value = module.cassandra.cassandra_ini
+}

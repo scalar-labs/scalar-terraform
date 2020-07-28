@@ -52,3 +52,23 @@ output "envoy_host_ips" {
   value       = module.envoy_cluster.private_ip
   description = "A list of host IPs for envoy cluster."
 }
+
+output "scalardl_ini" {
+  value = <<EOF
+[scalardl_blue]
+%{for ip in aws_route53_record.scalardl_blue_dns.*.fqdn~}
+${ip}
+%{endfor}
+
+[scalardl_green]
+%{for ip in aws_route53_record.scalardl_green_dns.*.fqdn~}
+${ip}
+%{endfor}
+
+[envoy]
+%{for ip in aws_route53_record.envoy_dns.*.fqdn~}
+${ip}
+%{endfor}
+EOF
+}
+

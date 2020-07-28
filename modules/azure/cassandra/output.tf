@@ -32,3 +32,12 @@ output "cassandra_start_on_initial_boot" {
   value       = local.cassandra.start_on_initial_boot
   description = "A flag to start Cassandra or not on the initial boot."
 }
+
+output "cassandra_ini" {
+  value = <<EOF
+[cassandra]
+%{for ip in azurerm_private_dns_a_record.cassandra_dns~}
+${ip.name}.${ip.zone_name}
+%{endfor}
+EOF
+}

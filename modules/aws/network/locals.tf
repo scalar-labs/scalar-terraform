@@ -29,5 +29,6 @@ locals {
     cassandra      = cidrsubnets(cidrsubnet(local.network.cidr, 8, 2), 2, 2, 2)
     scalardl_blue  = cidrsubnets(cidrsubnet(local.network.cidr, 8, 3), 2, 2, 2)
     scalardl_green = cidrsubnets(cidrsubnet(local.network.cidr, 8, 4), 2, 2, 2)
+    pulsar         = cidrsubnets(cidrsubnet(local.network.cidr, 8, 5), 2, 2, 2)
   }
 }

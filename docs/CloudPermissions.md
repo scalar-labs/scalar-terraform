@@ -1,8 +1,8 @@
-# Setting Cloud Permissions for scalar-terraform
+# Restricting Cloud Privileges for scalar-terraform
 
-This guide explains the privileges for users to run scalar-terraform to deploy resources to the cloud.
+This guide explains how to restrict privileges for running scalar-terraform.
 
-In general, users who have policies or roles with higher enough privileges, such as the `*FullAccess` actions on AWS or the `Contributor` role on Azure, can deploy resources with scalar-terraform without problems. But for more secure use, you can create a dedicated user and give it limited privileges.
+In general from security perspective, it is better to assign restricted privileges to users not to make them able to do operations that they are not supposed to do.
 
 ## AWS
 
@@ -10,7 +10,7 @@ In general, users who have policies or roles with higher enough privileges, such
 
 The following JSON is a general policy that allows users to manage resources for Scalar DLT with scalar-terraform.
 
-To create a policy in the AWS console, open IAM > Policies and choose Create policy, then paste the JSON in the JSON tab. Usually it should be attached to the group to which the users running Terraform belong.
+To create a policy in the AWS console, open IAM > Policies and choose Create policy, then paste the JSON in the JSON tab. Usually it should be attached to a group of users who run scalar-terraform.
 
 ```json
 {
@@ -81,15 +81,15 @@ To create a policy in the AWS console, open IAM > Policies and choose Create pol
 
 ### Using S3 as a Terraform Backend
 
-If you use S3 as a Terraform backend, the action `s3:PutObject` is needed additionally.
+If you use S3 as a Terraform backend, the action `s3:PutObject` needs to be added to the above list.
 
 ## Azure
 
 ### General Role for Deployment with scalar-terraform
 
-The following shows a JSON that represents a custom role for users who manage resources for Scalar DLT with scalar-terraform.
+The following JSON is a custom role that allow users to manage resources for Scalar DLT with scalar-terraform.
 
-In Azure Portal, you can create the role in the Subscriptions section. Choose your subscription and select Access control (IAM) from the menu, then click "+Add" and select "Add custom role". Once the role is created, you can assign it to a user or a group from "Add role assignment" in the "+Add" menu.
+In Azure Portal, you can create the role in Subscriptions section. Choose your subscription and select Access control (IAM) from the menu, then click "+Add" and select "Add custom role". Once the role is created, you can assign it to a user or a group from "Add role assignment" in the "+Add" menu.
 
 Please keep your subscription ID in the `assignableScopes` array.
 
@@ -127,4 +127,4 @@ Please keep your subscription ID in the `assignableScopes` array.
 
 ### Using Azure Storage as a Terraform Backend
 
-If you use Azure Storage as a Terraform backend, the built-in role `Storage Account Contributor` will work.
+If you use Azure Storage as a Terraform backend, the built-in role `Storage Account Contributor` needs to be assigned additionally.

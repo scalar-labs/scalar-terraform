@@ -18,18 +18,6 @@ output "envoy_listen_port" {
   value = module.scalardl.envoy_listen_port
 }
 
-output "blue_scalardl_ips" {
-  value = module.scalardl.blue_scalardl_ips
-}
-
-output "green_scalardl_ips" {
-  value = module.scalardl.green_scalardl_ips
-}
-
-output "envoy_host_ips" {
-  value = module.scalardl.envoy_host_ips
-}
-
 output "scalardl_ini" {
   value = module.scalardl.scalardl_ini
 }

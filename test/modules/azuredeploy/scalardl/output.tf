@@ -25,11 +25,3 @@ output "scalardl_blue_test_ip_0" {
 output "scalardl_blue_test_ip_1" {
   value = module.scalardl.blue_scalardl_ips[1]
 }
-
-output "blue_scalardl_ips" {
-  value = module.scalardl.blue_scalardl_ips
-}
-
-output "envoy_host_ips" {
-  value = module.scalardl.envoy_host_ips
-}

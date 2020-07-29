@@ -48,11 +48,6 @@ output "envoy_listen_port" {
   description = "A listen port of an envoy cluster."
 }
 
-output "envoy_host_ips" {
-  value       = module.envoy_cluster.private_ip
-  description = "A list of host IPs for envoy cluster."
-}
-
 output "scalardl_ini" {
   value = <<EOF
 [scalardl_blue]

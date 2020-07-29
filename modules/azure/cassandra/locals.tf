@@ -27,7 +27,7 @@ locals {
     data_remote_volume_size       = 64
     enable_commitlog_volume       = false
     commitlog_use_local_volume    = false
-    commitlog_remote_volume_size  = ""
+    commitlog_remote_volume_size  = 32
     memtable_threshold            = "0.33"
     data_remote_volume_type       = "Premium_LRS"
     commitlog_remote_volume_type  = "Premium_LRS"
@@ -44,31 +44,28 @@ locals {
 
     bai = merge(local.cassandra_default,
       {
-        resource_type              = "Standard_E2s_v3"
-        enable_data_volume         = true
-        data_remote_volume_size    = 1024
-        enable_commitlog_volume    = true
-        commitlog_use_local_volume = true
+        resource_type                 = "Standard_E2s_v3"
+        enable_data_volume            = true
+        data_remote_volume_size       = 1024
+        enable_commitlog_volume       = true
+        commitlog_remote_volume_size  = 128
       }
     )
 
     chiku = merge(local.cassandra_default,
       {
-        resource_type              = "Standard_E4s_v3"
-        enable_data_volume         = true
-        data_remote_volume_size    = 1024
-        enable_commitlog_volume    = true
-        commitlog_use_local_volume = true
+        resource_type                 = "Standard_E4s_v3"
+        enable_data_volume            = true
+        data_remote_volume_size       = 1024
+        enable_commitlog_volume       = true
+        commitlog_remote_volume_size  = 128
       }
     )
 
     sho = merge(local.cassandra_default,
       {
         resource_type              = "Standard_L8s"
-        enable_data_volume         = true
         data_use_local_volume      = true
-        data_remote_volume_size    = ""
-        enable_commitlog_volume    = true
         commitlog_use_local_volume = true
         memtable_threshold         = "0.67"
       }

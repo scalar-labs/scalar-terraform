@@ -44,21 +44,21 @@ locals {
 
     bai = merge(local.cassandra_default,
       {
-        resource_type                 = "Standard_E2s_v3"
-        enable_data_volume            = true
-        data_remote_volume_size       = 1024
-        enable_commitlog_volume       = true
-        commitlog_remote_volume_size  = 128
+        resource_type                = "Standard_E2s_v3"
+        enable_data_volume           = true
+        data_remote_volume_size      = 1024
+        enable_commitlog_volume      = true
+        commitlog_remote_volume_size = 128
       }
     )
 
     chiku = merge(local.cassandra_default,
       {
-        resource_type                 = "Standard_E4s_v3"
-        enable_data_volume            = true
-        data_remote_volume_size       = 1024
-        enable_commitlog_volume       = true
-        commitlog_remote_volume_size  = 128
+        resource_type                = "Standard_E4s_v3"
+        enable_data_volume           = true
+        data_remote_volume_size      = 1024
+        enable_commitlog_volume      = true
+        commitlog_remote_volume_size = 128
       }
     )
 

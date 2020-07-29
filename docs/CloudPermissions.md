@@ -6,9 +6,9 @@ In general from security perspective, it is better to assign restricted privileg
 
 ## AWS
 
-### General Policy for Deployment with scalar-terraform
+### A Policy for Deployment with scalar-terraform
 
-The following JSON is a general policy that allows users to manage resources for Scalar DLT with scalar-terraform.
+The following JSON is a policy that allows users to manage resources for Scalar DLT with scalar-terraform. Please note that it is sufficient but not necessary since, for example, it doesn't limit the target resource with `"Resource": "*"` so it can/should be further restricted.
 
 To create a policy in the AWS console, open IAM > Policies and choose Create policy, then paste the JSON in the JSON tab. Usually it should be attached to a group of users who run scalar-terraform.
 
@@ -85,7 +85,7 @@ If you use S3 as a Terraform backend, the action `s3:PutObject` needs to be adde
 
 ## Azure
 
-### General Role for Deployment with scalar-terraform
+### A Role for Deployment with scalar-terraform
 
 The following JSON is a custom role that allow users to manage resources for Scalar DLT with scalar-terraform.
 

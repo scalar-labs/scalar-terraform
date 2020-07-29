@@ -58,6 +58,6 @@ output "custom_tags" {
   value = var.custom_tags
 }
 
-output "bastion_ini" {
-  value = module.network.bastion_ini
+output "inventory_ini" {
+  value = module.network.inventory_ini
 }

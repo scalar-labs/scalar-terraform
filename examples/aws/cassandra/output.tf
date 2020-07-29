@@ -11,5 +11,5 @@ output "cassandra_start_on_initial_boot" {
 }
 
 output "cassandra_ini" {
-  value = module.cassandra.cassandra_ini
+  value = module.cassandra.inventory_ini
 }

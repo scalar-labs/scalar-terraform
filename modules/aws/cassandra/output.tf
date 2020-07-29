@@ -43,7 +43,7 @@ output "cassandra_start_on_initial_boot" {
   description = "A flag to start Cassandra or not on the initial boot."
 }
 
-output "cassandra_ini" {
+output "inventory_ini" {
   value = <<EOF
 [cassandra]
 %{for ip in aws_route53_record.cassandra_dns.*.fqdn~}

@@ -92,7 +92,7 @@ EOF
   description = "The Configuration file for SSH access."
 }
 
-output "bastion_ini" {
+output "inventory_ini" {
   value = <<EOF
 [bastion]
 %{for ip in module.bastion.bastion_host_ips~}

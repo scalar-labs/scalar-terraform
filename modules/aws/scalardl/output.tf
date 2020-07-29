@@ -47,3 +47,26 @@ output "envoy_listen_port" {
   value       = local.envoy.listen_port
   description = "A listen port of an envoy cluster."
 }
+
+output "inventory_ini" {
+  value = <<EOF
+[scalardl-blue]
+%{for ip in aws_route53_record.scalardl_blue_dns.*.fqdn~}
+${ip}
+%{endfor}
+
+[scalardl-green]
+%{for ip in aws_route53_record.scalardl_green_dns.*.fqdn~}
+${ip}
+%{endfor}
+
+[envoy]
+%{for ip in aws_route53_record.envoy_dns.*.fqdn~}
+${ip}
+%{endfor}
+
+[all:vars]
+internal_domain=${local.internal_domain}
+monitor_host=monit.${local.internal_domain}
+EOF
+}

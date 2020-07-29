@@ -55,15 +55,9 @@ output "scalardl_ini" {
 ${ip}
 %{endfor}
 
-[scalardl_green]
-%{for ip in aws_route53_record.scalardl_green_dns.*.fqdn~}
-${ip}
-%{endfor}
-
 [envoy]
 %{for ip in aws_route53_record.envoy_dns.*.fqdn~}
 ${ip}
 %{endfor}
 EOF
 }
-

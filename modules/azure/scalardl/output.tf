@@ -55,11 +55,6 @@ output "scalardl_ini" {
 ${ip.name}.${ip.zone_name}
 %{endfor}
 
-[scalardl_green]
-%{for ip in azurerm_private_dns_a_record.scalardl_green_dns~}
-${ip.name}.${ip.zone_name}
-%{endfor}
-
 [envoy]
 %{for ip in azurerm_private_dns_a_record.envoy_dns~}
 ${ip.name}.${ip.zone_name}

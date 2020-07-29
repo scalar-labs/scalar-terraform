@@ -19,5 +19,6 @@ ${f}
 zookeeper_servers=${join(",", module.zookeeper_cluster.private_ip)}
 broker_server=broker-lb.${local.internal_domain}
 internal_domain=${local.internal_domain}
+network_name=${local.network_name}
 EOF
 }

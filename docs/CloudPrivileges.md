@@ -87,7 +87,7 @@ If you use S3 as a Terraform backend, the action `s3:PutObject` needs to be adde
 
 ### A Role for Deployment with scalar-terraform
 
-The following JSON is a custom role that allow users to manage resources for Scalar DLT with scalar-terraform.
+The following JSON is a custom role that allow users to manage resources for Scalar DLT with scalar-terraform. This it also sufficient but not necessary as described in AWS section.
 
 In Azure Portal, you can create the role in Subscriptions section. Choose your subscription and select Access control (IAM) from the menu, then click "+Add" and select "Add custom role". Once the role is created, you can assign it to a user or a group from "Add role assignment" in the "+Add" menu.
 

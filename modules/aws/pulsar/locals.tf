@@ -8,12 +8,7 @@ locals {
   subnet_ids       = split(",", var.network.subnet_ids)
   image_id         = var.network.image_id
   key_name         = var.network.key_name
-  bastion_ip       = var.network.bastion_ip
-  private_key_path = var.network.private_key_path
-  user_name        = var.network.user_name
   internal_domain  = var.network.internal_domain
-
-  triggers = [var.network.bastion_provision_id]
 }
 
 ### Pulsar

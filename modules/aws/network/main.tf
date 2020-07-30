@@ -49,6 +49,7 @@ module "dns" {
   network_name    = module.name_generator.name
   internal_domain = var.internal_domain
   custom_tags     = var.custom_tags
+  custom_vpc_ids  = local.associate_custom_vpc_ids
 }
 
 module "image" {

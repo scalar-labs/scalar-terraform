@@ -14,3 +14,10 @@ resource "aws_route53_zone" "private" {
     }
   )
 }
+
+resource "aws_route53_zone_association" "custom" {
+  count = length(var.custom_vpc_ids)
+
+  zone_id = aws_route53_zone.private.zone_id
+  vpc_id  = var.custom_vpc_ids[count.index]
+}

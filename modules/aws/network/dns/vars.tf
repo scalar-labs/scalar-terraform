@@ -15,3 +15,9 @@ variable "custom_tags" {
   default     = {}
   description = "The map of custom tags"
 }
+
+variable "custom_vpc_ids" {
+  type        = list
+  default     = []
+  description = "The map of custom vpc ids"
+}

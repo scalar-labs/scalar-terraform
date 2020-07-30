@@ -22,6 +22,7 @@ network = {
   # bastion_enable_tdagent    = "true"
   # user_name                 = "centos"
   # cidr                      = "10.42.0.0/16"
+  # associate_custom_vpc_ids  = ""
 }
 
 # additional_public_keys_path = "./additional_public_keys"

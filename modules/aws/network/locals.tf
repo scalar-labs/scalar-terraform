@@ -8,6 +8,7 @@ locals {
     bastion_enable_tdagent    = true
     user_name                 = "centos"
     cidr                      = "10.42.0.0/16"
+    associate_custom_vpc_ids  = ""
   }
 }
 
@@ -30,4 +31,6 @@ locals {
     scalardl_blue  = cidrsubnets(cidrsubnet(local.network.cidr, 8, 3), 2, 2, 2)
     scalardl_green = cidrsubnets(cidrsubnet(local.network.cidr, 8, 4), 2, 2, 2)
   }
+
+  associate_custom_vpc_ids = split(",", local.network.associate_custom_vpc_ids)
 }

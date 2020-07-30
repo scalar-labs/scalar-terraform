@@ -1,14 +1,14 @@
 ### General
 locals {
-  network_cidr     = var.network.cidr
-  network_name     = var.network.name
-  network_dns      = var.network.dns
-  network_id       = var.network.id
-  locations        = split(",", var.network.locations)
-  subnet_ids       = split(",", var.network.subnet_ids)
-  image_id         = var.network.image_id
-  key_name         = var.network.key_name
-  internal_domain  = var.network.internal_domain
+  network_cidr    = var.network.cidr
+  network_name    = var.network.name
+  network_dns     = var.network.dns
+  network_id      = var.network.id
+  locations       = split(",", var.network.locations)
+  subnet_ids      = split(",", var.network.subnet_ids)
+  image_id        = var.network.image_id
+  key_name        = var.network.key_name
+  internal_domain = var.network.internal_domain
 }
 
 ### Pulsar

@@ -13,4 +13,8 @@ resource "aws_route53_zone" "private" {
       Network   = var.network_name
     }
   )
+
+  lifecycle {
+    ignore_changes = [vpc]
+  }
 }

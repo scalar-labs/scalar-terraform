@@ -148,7 +148,7 @@ resource "null_resource" "scalardl_schema" {
 
   provisioner "remote-exec" {
     inline = [
-      "CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} docker run --rm ${local.scalar_image} dockerize -template create_schema.cql.tmpl:create_schema.cql -wait tcp://${local.scalar_cassandra_host}:9042 -timeout 30s cqlsh --cqlversion=3.4.4 ${local.scalar_cassandra_host} -u '${var.cassandra_username}' -p '${var.cassandra_password}' -f create_schema.cql"
+      "docker run -e CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} --rm ${local.scalar_image} dockerize -template create_schema.cql.tmpl:create_schema.cql -wait tcp://${local.scalar_cassandra_host}:9042 -timeout 30s cqlsh --cqlversion=3.4.4 ${local.scalar_cassandra_host} -u '${var.cassandra_username}' -p '${var.cassandra_password}' -f create_schema.cql"
     ]
   }
 }

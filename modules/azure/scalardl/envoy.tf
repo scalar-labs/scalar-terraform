@@ -69,6 +69,8 @@ resource "azurerm_public_ip" "envoy_public_ip" {
   name                = "PublicIPForEnvoy"
   domain_name_label   = "envoy-${local.network_name}"
   location            = local.location
+  sku                 = length(local.locations) > 0 ? "Standard" : "Basic"
+  zones               = length(local.locations) > 0 ? [local.locations[count.index]] : null
   resource_group_name = local.network_name
   allocation_method   = "Static"
 }

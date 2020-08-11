@@ -5,12 +5,13 @@ resource "null_resource" "wait_for" {
 }
 
 module "cassandra_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=c122120"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=7349266"
 
   nb_instances                  = local.cassandra.resource_count
   admin_username                = local.user_name
   resource_group_name           = local.network_name
   location                      = local.location
+  availability_zones            = var.locations
   vm_hostname                   = "cassandra"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id
@@ -27,6 +28,7 @@ resource "azurerm_managed_disk" "cassandra_data_volume" {
 
   name                 = "data-disk-cassandra${count.index}"
   location             = local.location
+  zones                = length(local.locations) > 0 ? [local.locations[count.index]] : null
   resource_group_name  = local.network_name
   storage_account_type = local.cassandra.data_remote_volume_type
   create_option        = "Empty"
@@ -92,6 +94,7 @@ resource "azurerm_managed_disk" "cassandra_commitlog_volume" {
 
   name                 = "commitlog-cassandra${count.index}"
   location             = local.location
+  zones                = length(local.locations) > 0 ? [local.locations[count.index]] : null
   resource_group_name  = local.network_name
   storage_account_type = local.cassandra.commitlog_remote_volume_type
   create_option        = "Empty"
@@ -167,6 +170,7 @@ module "cassandra_provision" {
   cassy_public_key      = module.cassy_provision.public_key
   start_on_initial_boot = local.cassandra.start_on_initial_boot
   internal_domain       = local.internal_domain
+  locations             = local.locations
 }
 
 resource "azurerm_private_dns_a_record" "cassandra_dns" {

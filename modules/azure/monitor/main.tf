@@ -5,12 +5,13 @@ resource "null_resource" "wait_for" {
 }
 
 module "monitor_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=c122120"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=b48be04"
 
   nb_instances                  = local.monitor.resource_count
   admin_username                = local.user_name
   resource_group_name           = local.network_name
   location                      = local.location
+  availability_zones            = local.locations
   vm_hostname                   = "monitor"
   nb_public_ip                  = local.monitor.set_public_access ? 1 : 0
   public_ip_dns                 = ["monitor-${local.network_name}"]
@@ -29,6 +30,7 @@ resource "azurerm_managed_disk" "monitor_log_volume" {
 
   name                 = "log-${count.index + 1}"
   location             = local.location
+  zones                = length(local.locations) > 0 ? [local.locations[count.index]] : null
   resource_group_name  = local.network_name
   storage_account_type = local.monitor.log_volume_type
   create_option        = "Empty"

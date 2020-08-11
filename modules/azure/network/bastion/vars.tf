@@ -18,6 +18,11 @@ variable "location" {
   description = "The Azure location to deploy environment"
 }
 
+variable "locations" {
+  type        = list(string)
+  description = "The Azure availability zones to deploy environment"
+}
+
 variable "public_key_path" {
   description = "The path to the public key for SSH access"
 }

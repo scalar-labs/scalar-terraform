@@ -1,11 +1,11 @@
 module "bastion_cluster" {
-  # TODO: Fix ref=xxxxxx
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=c122120"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=e487d3a"
 
   nb_instances                  = var.resource_count
   admin_username                = var.user_name
   resource_group_name           = var.network_name
   location                      = var.location
+  availability_zones            = var.locations
   vm_hostname                   = "bastion"
   vm_os_simple                  = var.image_id
   vnet_subnet_id                = var.subnet_id

@@ -5,12 +5,13 @@ resource "null_resource" "envoy_wait_for" {
 }
 
 module "envoy_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=c122120"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=b48be04"
 
   nb_instances                  = local.envoy.resource_count
   admin_username                = local.user_name
   resource_group_name           = local.network_name
   location                      = local.location
+  availability_zones            = local.locations
   vm_hostname                   = "envoy"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id
@@ -78,12 +79,14 @@ resource "azurerm_lb" "envoy_lb" {
   name                = "EnvoyLoadBalancer"
   location            = local.location
   resource_group_name = local.network_name
+  sku                 = length(local.locations) > 0 ? "Standard" : "Basic"
 
   frontend_ip_configuration {
     name                          = "EnvoyLBAddress"
     public_ip_address_id          = local.envoy.nlb_internal ? "" : azurerm_public_ip.envoy_public_ip.*.id[count.index]
     subnet_id                     = local.envoy.nlb_internal ? local.envoy_nlb_subnet_id : ""
     private_ip_address_allocation = "dynamic"
+    zones                         = length(local.locations) > 0 ? [local.locations[count.index]] : null
   }
 }
 

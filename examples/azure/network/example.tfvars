@@ -2,6 +2,8 @@ name = "example-azure" # maximum of 82 characters
 
 location = "japaneast"
 
+# locations = ["1","2","3"]
+
 public_key_path = "./example_key.pub"
 
 private_key_path = "./example_key"
@@ -17,7 +19,6 @@ network = {
   # bastion_enable_accelerated_networking = "false"
   # user_name                             = "centos"
   # cidr                                  = "10.42.0.0/16"
-  # locations                             = "1,2,3"
 }
 
 # additional_public_keys_path = "./additional_public_keys"

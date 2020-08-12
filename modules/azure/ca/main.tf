@@ -5,12 +5,13 @@ resource "null_resource" "wait_for" {
 }
 
 module "ca_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=c122120"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=b48be04"
 
   nb_instances                  = local.ca.resource_count
   admin_username                = local.user_name
   resource_group_name           = local.network_name
   location                      = local.location
+  availability_zones            = local.locations
   vm_hostname                   = "ca"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id

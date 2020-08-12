@@ -10,7 +10,6 @@ locals {
     user_name                             = "centos"
     cidr                                  = "10.42.0.0/16"
     image_id                              = "CentOS"
-    locations                             = "1,2,3"
   }
 
   network = merge(
@@ -28,5 +27,5 @@ locals {
     scalardl_green = cidrsubnet(local.network.cidr, 8, 4)
   }
 
-  locations = compact(split(",", local.network.locations))
+  locations = compact(split(",", var.locations))
 }

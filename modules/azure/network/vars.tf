@@ -9,6 +9,7 @@ variable "location" {
 
 variable "locations" {
   description = "The Azure availability zones to deploy environment"
+  default     = []
 }
 
 variable "public_key_path" {

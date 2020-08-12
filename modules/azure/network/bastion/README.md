@@ -12,6 +12,7 @@ The bastion module deploys a network bastion host used to access and configure t
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `any` | n/a | yes |
 | image_id | The image id to initiate | `any` | n/a | yes |
 | location | The Azure location to deploy environment | `any` | n/a | yes |
+| locations | The Azure availability zones to deploy environment | `list(string)` | `[]` | no |
 | network_cidr | The network cidr address space | `any` | n/a | yes |
 | network_dns | The ID for the internal DNS zone | `any` | n/a | yes |
 | network_id | The id of the cloud provider network ID resource | `any` | n/a | yes |

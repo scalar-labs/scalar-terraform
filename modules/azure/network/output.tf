@@ -56,7 +56,7 @@ output "location" {
 
 output "locations" {
   value       = local.locations
-  description = "The Azure availability zone to deploy environment."
+  description = "The Azure availability zones to deploy environment."
 }
 
 output "user_name" {

@@ -1,5 +1,5 @@
 module "scalardl_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=7200e68"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=6a2b26c"
 
   name           = "${var.network_name} ScalarDL ${var.scalardl_image_tag} ${var.resource_cluster_name}"
   instance_count = var.resource_count

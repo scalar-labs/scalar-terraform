@@ -5,6 +5,7 @@ module "network" {
   # Required Variables
   name             = var.name
   location         = var.location
+  locations        = var.locations
   public_key_path  = var.public_key_path
   private_key_path = var.private_key_path
   internal_domain  = var.internal_domain

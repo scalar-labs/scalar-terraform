@@ -27,5 +27,5 @@ locals {
     scalardl_green = cidrsubnet(local.network.cidr, 8, 4)
   }
 
-  locations = compact(split(",", var.locations))
+  locations = compact(var.locations)
 }

@@ -3,10 +3,8 @@ locals {
   image_filename        = "${basename(var.scalardl_image_name)}-${var.scalardl_image_tag}.tar.gz"
   scalar_cassandra_host = "cassandra-lb.${var.internal_domain}"
 
-  schema_loader_cassandra_image_name     = "scalarlabs/scalardl-schema-loader-cassandra"
-  schema_loader_cassandra_image_tag      = "1.0.0"
-  schema_loader_cassandra_image          = "${local.schema_loader_cassandra_image_name}:${local.schema_loader_cassandra_image_tag}"
-  schema_loader_cassandra_image_filename = "${basename(local.schema_loader_cassandra_image_name)}-${local.schema_loader_cassandra_image_tag}.tar.gz"
+  schema_loader_cassandra_image          = "${var.schema_loader_cassandra_image_name}:${var.schema_loader_cassandra_image_tag}"
+  schema_loader_cassandra_image_filename = "${basename(var.schema_loader_cassandra_image_name)}-${var.schema_loader_cassandra_image_tag}.tar.gz"
 }
 
 module "ansible" {

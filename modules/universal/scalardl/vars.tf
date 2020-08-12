@@ -42,6 +42,16 @@ variable "replication_factor" {
   description = "Set the replication factor for schema"
 }
 
+variable "schema_loader_cassandra_image_name" {
+  default     = "scalarlabs/scalardl-schema-loader-cassandra"
+  description = "The docker image name for the schema loader for Cassandra"
+}
+
+variable "schema_loader_cassandra_image_tag" {
+  default     = "1.0.0"
+  description = "The docker image tag for the schema loader for Cassandra"
+}
+
 variable "enable_tdagent" {
   default     = true
   description = "A flag to install td-agent that forwards logs to the monitor host"

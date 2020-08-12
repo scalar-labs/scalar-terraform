@@ -15,7 +15,7 @@ module "scalardl_blue" {
   resource_cluster_name         = "blue"
   resource_root_volume_size     = local.scalardl.resource_root_volume_size
   triggers                      = local.triggers
-  location                      = local.location
+  region                        = local.region
   private_key_path              = local.private_key_path
   public_key_path               = local.public_key_path
   user_name                     = local.user_name
@@ -44,7 +44,7 @@ module "scalardl_green" {
   resource_cluster_name         = "green"
   resource_root_volume_size     = local.scalardl.resource_root_volume_size
   triggers                      = local.triggers
-  location                      = local.location
+  region                        = local.region
   private_key_path              = local.private_key_path
   public_key_path               = local.public_key_path
   user_name                     = local.user_name
@@ -66,7 +66,7 @@ resource "azurerm_availability_set" "scalar_availability_set" {
   depends_on = [null_resource.wait_for]
 
   name                         = "scalardl-avset"
-  location                     = local.location
+  location                     = local.region
   resource_group_name          = local.network_name
   platform_fault_domain_count  = 2
   platform_update_domain_count = 2

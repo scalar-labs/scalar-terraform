@@ -4,7 +4,7 @@ module "cassy_cluster" {
   nb_instances                  = local.cassy.resource_count
   admin_username                = local.user_name
   resource_group_name           = local.network_name
-  location                      = local.location
+  location                      = local.region
   vm_hostname                   = "cassy"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id

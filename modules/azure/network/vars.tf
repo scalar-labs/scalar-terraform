@@ -3,8 +3,8 @@ variable "name" {
   description = "A short name to attach to resources"
 }
 
-variable "location" {
-  description = "The Azure location to deploy environment"
+variable "region" {
+  description = "The Azure region to deploy environment"
 }
 
 variable "public_key_path" {

@@ -1,5 +1,5 @@
 module "cassy_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=7200e68"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=6a2b26c"
 
   name           = "${local.network_name} Cassy Cluster"
   instance_count = local.cassy.resource_count

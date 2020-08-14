@@ -66,13 +66,41 @@ resource "azurerm_public_ip" "envoy_public_ip" {
   count      = local.envoy.enable_nlb && ! local.envoy.nlb_internal ? 1 : 0
   depends_on = [null_resource.envoy_wait_for]
 
-  name                = "PublicIPForEnvoy"
-  domain_name_label   = "envoy-${local.network_name}"
-  location            = local.location
-  sku                 = length(local.locations) > 0 ? "Standard" : "Basic"
-  zones               = length(local.locations) > 0 ? [local.locations[count.index]] : null
+  name              = "PublicIPForEnvoy"
+  domain_name_label = "envoy-${local.network_name}"
+  location          = local.location
+  sku               = length(local.locations) > 0 ? "Standard" : "Basic"
+  # zones               = length(local.locations) > 0 ? [local.locations[count.index]] : null
   resource_group_name = local.network_name
   allocation_method   = "Static"
+}
+
+resource "azurerm_public_ip" "envoy_nat_ip" {
+  count = local.envoy.enable_nlb && local.envoy.nlb_internal && length(local.locations) > 0 ? 1 : 0
+
+  name                = "envoy-natip"
+  location            = local.location
+  resource_group_name = local.network_name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_nat_gateway" "envoy_natgw" {
+  count = local.envoy.enable_nlb && local.envoy.nlb_internal && length(local.locations) > 0 ? 1 : 0
+
+  name                    = "envoy-natgw"
+  location                = local.location
+  resource_group_name     = local.network_name
+  public_ip_address_ids   = [azurerm_public_ip.envoy_nat_ip[count.index].id]
+  sku_name                = "Standard"
+  idle_timeout_in_minutes = 10
+}
+
+resource "azurerm_subnet_nat_gateway_association" "envoy_natgw_assoc" {
+  count = local.envoy.enable_nlb && local.envoy.nlb_internal && length(local.locations) > 0 ? 1 : 0
+
+  subnet_id      = local.envoy.subnet_id
+  nat_gateway_id = azurerm_nat_gateway.envoy_natgw[count.index].id
 }
 
 resource "azurerm_lb" "envoy_lb" {
@@ -88,7 +116,7 @@ resource "azurerm_lb" "envoy_lb" {
     public_ip_address_id          = local.envoy.nlb_internal ? "" : azurerm_public_ip.envoy_public_ip.*.id[count.index]
     subnet_id                     = local.envoy.nlb_internal ? local.envoy_nlb_subnet_id : ""
     private_ip_address_allocation = "dynamic"
-    zones                         = length(local.locations) > 0 ? [local.locations[count.index]] : null
+    # zones                         = length(local.locations) > 0 ? [local.locations[count.index]] : null
   }
 }
 

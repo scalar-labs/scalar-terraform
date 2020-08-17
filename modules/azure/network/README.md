@@ -8,7 +8,7 @@ The Network module creates a virtual network with subnets.
 |------|-------------|------|---------|:--------:|
 | additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `string` | `""` | no |
 | internal_domain | An internal DNS domain name to use for mapping IP addresses | `any` | n/a | yes |
-| location | The Azure location to deploy environment | `any` | n/a | yes |
+| region | The Azure region to deploy environment | `any` | n/a | yes |
 | name | A short name to attach to resources | `any` | n/a | yes |
 | network | Custom definition for network and bastion | `map` | `{}` | no |
 | private_key_path | The path to a private key file ~/.ssh/key.pem | `any` | n/a | yes |

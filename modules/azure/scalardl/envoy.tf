@@ -66,10 +66,10 @@ resource "azurerm_public_ip" "envoy_public_ip" {
   count      = local.envoy.enable_nlb && ! local.envoy.nlb_internal ? 1 : 0
   depends_on = [null_resource.envoy_wait_for]
 
-  name              = "PublicIPForEnvoy"
-  domain_name_label = "envoy-${local.network_name}"
-  location          = local.region
-  sku               = length(local.locations) > 0 ? "Standard" : "Basic"
+  name                = "PublicIPForEnvoy"
+  domain_name_label   = "envoy-${local.network_name}"
+  location            = local.region
+  sku                 = length(local.locations) > 0 ? "Standard" : "Basic"
   resource_group_name = local.network_name
   allocation_method   = "Static"
 }

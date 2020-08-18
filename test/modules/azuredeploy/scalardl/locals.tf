@@ -4,7 +4,7 @@ locals {
     name      = data.terraform_remote_state.network.outputs.network_name
     dns       = data.terraform_remote_state.network.outputs.dns_zone_id
     id        = data.terraform_remote_state.network.outputs.network_id
-    region = data.terraform_remote_state.network.outputs.region
+    region    = data.terraform_remote_state.network.outputs.region
     locations = data.terraform_remote_state.network.outputs.locations
 
     image_id = data.terraform_remote_state.network.outputs.image_id

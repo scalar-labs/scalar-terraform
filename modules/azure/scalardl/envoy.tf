@@ -68,7 +68,7 @@ resource "azurerm_public_ip" "envoy_public_ip" {
 
   name              = "PublicIPForEnvoy"
   domain_name_label = "envoy-${local.network_name}"
-  location          = local.location
+  location          = local.region
   sku               = length(local.locations) > 0 ? "Standard" : "Basic"
   resource_group_name = local.network_name
   allocation_method   = "Static"
@@ -78,7 +78,7 @@ resource "azurerm_public_ip" "envoy_nat_ip" {
   count = local.envoy.enable_nlb && local.envoy.nlb_internal && length(local.locations) > 0 ? 1 : 0
 
   name                = "envoy-natip"
-  location            = local.location
+  location            = local.region
   resource_group_name = local.network_name
   allocation_method   = "Static"
   sku                 = "Standard"
@@ -88,7 +88,7 @@ resource "azurerm_nat_gateway" "envoy_natgw" {
   count = local.envoy.enable_nlb && local.envoy.nlb_internal && length(local.locations) > 0 ? 1 : 0
 
   name                    = "envoy-natgw"
-  location                = local.location
+  location                = local.region
   resource_group_name     = local.network_name
   public_ip_address_ids   = [azurerm_public_ip.envoy_nat_ip[count.index].id]
   sku_name                = "Standard"

@@ -3,7 +3,7 @@ variable "name" {
   default = "Terratest"
 }
 
-variable "location" {
+variable "region" {
   default = "West US"
 }
 

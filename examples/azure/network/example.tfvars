@@ -1,6 +1,6 @@
 name = "example-azure" # maximum of 82 characters
 
-location = "japaneast"
+region = "japaneast"
 
 # locations = ["1","2","3"]
 

@@ -49,9 +49,9 @@ output "bastion_ip" {
   description = "Public IP address to bastion host"
 }
 
-output "location" {
-  value       = var.location
-  description = "The Azure location to deploy environment."
+output "region" {
+  value       = var.region
+  description = "The Azure region to deploy environment."
 }
 
 output "locations" {

@@ -4,7 +4,7 @@ locals {
   network_name     = var.network.name
   network_dns      = var.network.dns
   network_id       = var.network.id
-  location         = var.network.location
+  region           = var.network.region
   locations        = compact(split(",", var.network.locations))
   subnet_id        = var.network.subnet_id
   image_id         = var.network.image_id

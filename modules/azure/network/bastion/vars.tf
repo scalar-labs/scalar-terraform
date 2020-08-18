@@ -14,8 +14,8 @@ variable "network_dns" {
   description = "The ID for the internal DNS zone"
 }
 
-variable "location" {
-  description = "The Azure location to deploy environment"
+variable "region" {
+  description = "The Azure region to deploy environment"
 }
 
 variable "locations" {

@@ -119,7 +119,7 @@ locals {
   reaper_default = {
     resource_type             = "t3.medium"
     resource_root_volume_size = "64"
-    repliation_factor         = 3
+    replication_factor        = 3
     resource_count            = 1
     enable_tdagent            = true
     cassandra_username        = "cassandra"

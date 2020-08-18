@@ -10,7 +10,7 @@ module "monitor_cluster" {
   nb_instances                  = local.monitor.resource_count
   admin_username                = local.user_name
   resource_group_name           = local.network_name
-  location                      = local.location
+  location                      = local.region
   availability_zones            = local.locations
   vm_hostname                   = "monitor"
   nb_public_ip                  = local.monitor.set_public_access ? 1 : 0
@@ -29,7 +29,7 @@ resource "azurerm_managed_disk" "monitor_log_volume" {
   count = local.monitor.enable_log_volume ? local.monitor.resource_count : 0
 
   name                 = "log-${count.index + 1}"
-  location             = local.location
+  location             = local.region
   zones                = length(local.locations) > 0 ? [local.locations[count.index]] : null
   resource_group_name  = local.network_name
   storage_account_type = local.monitor.log_volume_type

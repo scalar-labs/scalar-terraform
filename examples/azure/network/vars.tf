@@ -1,7 +1,7 @@
 # General Settings
 variable "name" {}
 
-variable "location" {}
+variable "region" {}
 
 variable "locations" {
   type    = list(string)

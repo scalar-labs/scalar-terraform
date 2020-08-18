@@ -6,8 +6,8 @@ variable "bastion_ip" {
   description = "The IP to bastion host used for provisioning"
 }
 
-variable "location" {
-  description = "The Azure location to deploy environment"
+variable "region" {
+  description = "The Azure region to deploy environment"
 }
 
 variable "locations" {

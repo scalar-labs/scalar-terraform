@@ -4,7 +4,7 @@ module "bastion_cluster" {
   nb_instances                  = var.resource_count
   admin_username                = var.user_name
   resource_group_name           = var.network_name
-  location                      = var.location
+  location                      = var.region
   availability_zones            = var.locations
   vm_hostname                   = "bastion"
   vm_os_simple                  = var.image_id

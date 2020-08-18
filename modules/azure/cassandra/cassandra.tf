@@ -10,7 +10,7 @@ module "cassandra_cluster" {
   nb_instances                  = local.cassandra.resource_count
   admin_username                = local.user_name
   resource_group_name           = local.network_name
-  location                      = local.location
+  location                      = local.region
   vm_hostname                   = "cassandra"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id
@@ -26,7 +26,7 @@ resource "azurerm_managed_disk" "cassandra_data_volume" {
   depends_on = [null_resource.wait_for]
 
   name                 = "data-disk-cassandra${count.index}"
-  location             = local.location
+  location             = local.region
   resource_group_name  = local.network_name
   storage_account_type = local.cassandra.data_remote_volume_type
   create_option        = "Empty"
@@ -91,7 +91,7 @@ resource "azurerm_managed_disk" "cassandra_commitlog_volume" {
   depends_on = [null_resource.wait_for]
 
   name                 = "commitlog-cassandra${count.index}"
-  location             = local.location
+  location             = local.region
   resource_group_name  = local.network_name
   storage_account_type = local.cassandra.commitlog_remote_volume_type
   create_option        = "Empty"

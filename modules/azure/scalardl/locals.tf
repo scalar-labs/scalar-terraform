@@ -4,7 +4,7 @@ locals {
   network_name     = var.network.name
   network_dns      = var.network.dns
   network_id       = var.network.id
-  location         = var.network.location
+  region           = var.network.region
   image_id         = var.network.image_id
   bastion_ip       = var.network.bastion_ip
   private_key_path = var.network.private_key_path
@@ -21,13 +21,13 @@ locals {
     resource_type                       = "Standard_B2s"
     resource_root_volume_size           = 64
     blue_resource_count                 = 3
-    blue_image_tag                      = "2.0.4"
+    blue_image_tag                      = "2.0.7"
     blue_image_name                     = "scalarlabs/scalar-ledger"
     blue_subnet_id                      = var.network.blue_subnet_id
     blue_discoverable_by_envoy          = true
     blue_enable_accelerated_networking  = false
     green_resource_count                = 0
-    green_image_tag                     = "2.0.4"
+    green_image_tag                     = "2.0.7"
     replication_factor                  = 3
     green_image_name                    = "scalarlabs/scalar-ledger"
     green_subnet_id                     = var.network.green_subnet_id

@@ -11,7 +11,7 @@ The bastion module deploys a network bastion host used to access and configure t
 | enable_accelerated_networking | A flag to enable accelerated networking on network interface | `bool` | `false` | no |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `any` | n/a | yes |
 | image_id | The image id to initiate | `any` | n/a | yes |
-| location | The Azure location to deploy environment | `any` | n/a | yes |
+| region | The Azure region to deploy environment | `any` | n/a | yes |
 | network_cidr | The network cidr address space | `any` | n/a | yes |
 | network_dns | The ID for the internal DNS zone | `any` | n/a | yes |
 | network_id | The id of the cloud provider network ID resource | `any` | n/a | yes |

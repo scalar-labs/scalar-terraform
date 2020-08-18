@@ -1,5 +1,5 @@
 module "reaper_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=7200e68"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=6a2b26c"
 
   name           = "${local.network_name} Reaper Cluster"
   instance_count = local.reaper.resource_count
@@ -49,7 +49,7 @@ module "reaper_provision" {
   user_name          = local.user_name
   private_key_path   = local.private_key_path
   provision_count    = local.reaper.resource_count
-  replication_factor = local.reaper.repliation_factor
+  replication_factor = local.reaper.replication_factor
   enable_tdagent     = local.reaper.enable_tdagent
   internal_domain    = local.internal_domain
   cassandra_username = local.reaper.cassandra_username

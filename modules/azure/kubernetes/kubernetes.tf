@@ -82,7 +82,7 @@ resource "azurerm_role_assignment" "sp_role_assignment" {
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
   name                    = local.kubernetes_cluster.name
   resource_group_name     = local.kubernetes_cluster.resource_group_name
-  location                = local.kubernetes_cluster.location
+  location                = local.kubernetes_cluster.region
   dns_prefix              = local.kubernetes_cluster.dns_prefix
   kubernetes_version      = local.kubernetes_cluster.kubernetes_version
   node_resource_group     = "${local.kubernetes_cluster.resource_group_name}_MC"

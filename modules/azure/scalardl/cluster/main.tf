@@ -4,7 +4,7 @@ module "cluster" {
   nb_instances                  = var.resource_count
   admin_username                = var.user_name
   resource_group_name           = var.network_name
-  location                      = var.location
+  location                      = var.region
   vm_hostname                   = "scalardl-${var.resource_cluster_name}"
   nb_public_ip                  = "0"
   vm_os_simple                  = var.image_id

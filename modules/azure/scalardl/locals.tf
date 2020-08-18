@@ -4,7 +4,7 @@ locals {
   network_name     = var.network.name
   network_dns      = var.network.dns
   network_id       = var.network.id
-  location         = var.network.location
+  region           = var.network.region
   image_id         = var.network.image_id
   bastion_ip       = var.network.bastion_ip
   private_key_path = var.network.private_key_path

@@ -10,7 +10,7 @@ module "envoy_cluster" {
   nb_instances                  = local.envoy.resource_count
   admin_username                = local.user_name
   resource_group_name           = local.network_name
-  location                      = local.location
+  location                      = local.region
   vm_hostname                   = "envoy"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id
@@ -67,7 +67,7 @@ resource "azurerm_public_ip" "envoy_public_ip" {
 
   name                = "PublicIPForEnvoy"
   domain_name_label   = "envoy-${local.network_name}"
-  location            = local.location
+  location            = local.region
   resource_group_name = local.network_name
   allocation_method   = "Static"
 }
@@ -76,7 +76,7 @@ resource "azurerm_lb" "envoy_lb" {
   count = local.envoy.enable_nlb ? 1 : 0
 
   name                = "EnvoyLoadBalancer"
-  location            = local.location
+  location            = local.region
   resource_group_name = local.network_name
 
   frontend_ip_configuration {

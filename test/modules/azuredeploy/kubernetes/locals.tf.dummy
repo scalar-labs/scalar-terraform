@@ -3,7 +3,7 @@ locals {
     name     = "example-k8s-azure"
     dns      = "internal.scalar-labs.com"
     id       = "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/example-azure-6qkpmqe/providers/Microsoft.Network/virtualNetworks/example-azure-6qkpmqe"
-    location = "japaneast"
+    region   = "japaneast"
     cidr     = "10.42.0.0/16"
 
     bastion_ip = "bastion-example-azure-6qkpmqe.japaneast.cloudapp.azure.com"

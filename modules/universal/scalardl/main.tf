@@ -2,6 +2,9 @@ locals {
   scalar_image          = "${var.scalardl_image_name}:${var.scalardl_image_tag}"
   image_filename        = "${basename(var.scalardl_image_name)}-${var.scalardl_image_tag}.tar.gz"
   scalar_cassandra_host = "cassandra-lb.${var.internal_domain}"
+
+  schema_loader_cassandra_image          = "${var.schema_loader_cassandra_image_name}:${var.schema_loader_cassandra_image_tag}"
+  schema_loader_cassandra_image_filename = "${basename(var.schema_loader_cassandra_image_name)}-${var.schema_loader_cassandra_image_tag}.tar.gz"
 }
 
 module "ansible" {
@@ -13,6 +16,7 @@ resource "null_resource" "scalardl_image" {
 
   triggers = {
     scalar_tag = var.scalardl_image_tag
+    triggers   = join(",", var.triggers)
   }
 
   provisioner "local-exec" {
@@ -27,7 +31,6 @@ resource "null_resource" "scalardl_image_push" {
 
   triggers = {
     docker_image = null_resource.scalardl_image[0].id
-    triggers     = join(",", var.triggers)
   }
 
   connection {
@@ -40,6 +43,20 @@ resource "null_resource" "scalardl_image_push" {
   provisioner "file" {
     source      = "${path.module}/${local.image_filename}"
     destination = "${module.ansible.remote_playbook_path}/${local.image_filename}"
+  }
+}
+
+resource "null_resource" "schema_loader_cassandra_image" {
+  count = var.provision_count > 0 ? 1 : 0
+
+  triggers = {
+    triggers = join(",", var.triggers)
+  }
+
+  provisioner "local-exec" {
+    command     = "docker pull ${local.schema_loader_cassandra_image} && docker save ${local.schema_loader_cassandra_image} | gzip -1 > ${local.schema_loader_cassandra_image_filename}"
+    working_dir = path.module
+    interpreter = ["/bin/bash", "-c"]
   }
 }
 
@@ -131,11 +148,37 @@ resource "null_resource" "scalardl_load" {
   }
 }
 
+resource "null_resource" "schema_loader_cassandra_load" {
+  count = var.provision_count > 0 ? 1 : 0
+
+  triggers = {
+    triggers     = null_resource.docker_install[0].id,
+    scalar_image = null_resource.schema_loader_cassandra_image[0].id
+  }
+
+  connection {
+    bastion_host = var.bastion_host_ip
+    host         = var.host_list[count.index]
+    user         = var.user_name
+    agent        = true
+    private_key  = file(var.private_key_path)
+  }
+
+  provisioner "file" {
+    source      = "${path.module}/${local.schema_loader_cassandra_image_filename}"
+    destination = "/tmp/${local.schema_loader_cassandra_image_filename}"
+  }
+
+  provisioner "remote-exec" {
+    inline = ["gzip -cd /tmp/${local.schema_loader_cassandra_image_filename} | docker load"]
+  }
+}
+
 resource "null_resource" "scalardl_schema" {
   count = var.provision_count > 0 ? 1 : 0
 
   triggers = {
-    triggers = null_resource.scalardl_load[0].id
+    triggers = null_resource.schema_loader_cassandra_load[0].id
   }
 
   connection {
@@ -148,7 +191,7 @@ resource "null_resource" "scalardl_schema" {
 
   provisioner "remote-exec" {
     inline = [
-      "docker run -e CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} --rm ${local.scalar_image} dockerize -template create_schema.cql.tmpl:create_schema.cql -wait tcp://${local.scalar_cassandra_host}:9042 -timeout 30s cqlsh --cqlversion=3.4.4 ${local.scalar_cassandra_host} -u '${var.cassandra_username}' -p '${var.cassandra_password}' -f create_schema.cql"
+      "docker run -e CASSANDRA_HOST='${local.scalar_cassandra_host}' -e CASSANDRA_USERNAME='${var.cassandra_username}' -e CASSANDRA_PASSWORD='${var.cassandra_password}' -e CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} --rm ${local.schema_loader_cassandra_image}"
     ]
   }
 }

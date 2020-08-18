@@ -1,5 +1,5 @@
 module "zookeeper_cluster" {
-  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=7200e68"
+  source = "github.com/scalar-labs/terraform-aws-ec2-instance?ref=6a2b26c"
 
   name           = "${local.network_name} Zookeeper Cluster"
   instance_count = local.zookeeper.resource_count

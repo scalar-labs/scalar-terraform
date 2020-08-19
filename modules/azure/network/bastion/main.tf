@@ -9,7 +9,7 @@ module "bastion_cluster" {
   vm_hostname                   = "bastion"
   vm_os_simple                  = var.image_id
   vnet_subnet_id                = var.subnet_id
-  nb_public_ip                  = "1"
+  nb_public_ip                  = var.resource_count
   public_ip_dns                 = ["bastion-${var.network_name}"]
   vm_size                       = var.resource_type
   delete_os_disk_on_termination = true

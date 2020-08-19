@@ -10,7 +10,7 @@ module "bastion_cluster" {
   vm_os_simple                  = var.image_id
   vnet_subnet_id                = var.subnet_id
   nb_public_ip                  = var.resource_count
-  public_ip_dns                 = ["bastion-${var.network_name}"]
+  public_ip_dns                 = formatlist("bastion-%s-${var.network_name}", range(1, var.resource_count + 1))
   vm_size                       = var.resource_type
   delete_os_disk_on_termination = true
   ssh_key                       = var.public_key_path
@@ -25,7 +25,7 @@ module "bastion_provision" {
   user_name                   = var.user_name
   private_key_path            = var.private_key_path
   additional_public_keys_path = var.additional_public_keys_path
-  provision_count             = "1"
+  provision_count             = var.resource_count
   enable_tdagent              = var.enable_tdagent
   internal_domain             = var.network_dns
 }

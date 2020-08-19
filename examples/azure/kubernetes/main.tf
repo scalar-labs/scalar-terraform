@@ -6,7 +6,7 @@ module "kubernetes" {
   network = local.network
 
   # Required kubernetes variable for AZs
-  kubernetes_cluster_availability_zones = var.kubernetes_cluster_availability_zones
+  kubernetes_cluster_availability_zones = local.network.locations
 
   # Optional variables
   kubernetes_cluster           = var.kubernetes_cluster

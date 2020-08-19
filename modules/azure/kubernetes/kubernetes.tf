@@ -99,7 +99,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     name                  = substr(local.kubernetes_default_node_pool.name, 0, 12)
     node_count            = local.kubernetes_default_node_pool.node_count
     vm_size               = local.kubernetes_default_node_pool.vm_size
-    availability_zones    = var.kubernetes_cluster_availability_zones
+    availability_zones    = local.locations
     max_pods              = local.kubernetes_default_node_pool.max_pods
     os_disk_size_gb       = local.kubernetes_default_node_pool.os_disk_size_gb
     vnet_subnet_id        = azurerm_subnet.k8s_private["k8s_node_pod"].id
@@ -159,7 +159,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks_cluster_scalar_apps_node_po
   name                  = substr(local.kubernetes_scalar_apps_pool.name, 0, 12)
   node_count            = local.kubernetes_scalar_apps_pool.node_count
   vm_size               = local.kubernetes_scalar_apps_pool.vm_size
-  availability_zones    = var.kubernetes_cluster_availability_zones
+  availability_zones    = local.locations
   max_pods              = local.kubernetes_scalar_apps_pool.max_pods
   os_disk_size_gb       = local.kubernetes_scalar_apps_pool.os_disk_size_gb
   os_type               = local.kubernetes_scalar_apps_pool.node_os

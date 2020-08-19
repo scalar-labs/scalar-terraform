@@ -4,6 +4,7 @@ locals {
   network_cidr    = var.network.cidr
   network_id      = var.network.id
   public_key_path = var.network.public_key_path
+  locations       = compact(split(",", var.network.locations))
 }
 
 # Network subnet

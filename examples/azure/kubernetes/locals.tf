@@ -3,7 +3,7 @@ locals {
     name      = data.terraform_remote_state.network.outputs.network_name
     dns       = data.terraform_remote_state.network.outputs.dns_zone_id
     id        = data.terraform_remote_state.network.outputs.network_id
-    location  = data.terraform_remote_state.network.outputs.location
+    region    = data.terraform_remote_state.network.outputs.region
     cidr      = data.terraform_remote_state.network.outputs.network_cidr
     locations = join(",", data.terraform_remote_state.network.outputs.locations)
 

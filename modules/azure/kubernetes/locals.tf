@@ -19,7 +19,7 @@ locals {
   kubernetes_cluster_default = {
     name                      = "scalar-kubernetes"
     resource_group_name       = var.network.name
-    location                  = var.network.location
+    region                    = var.network.region
     dns_prefix                = "scalar-kubernetes"
     kubernetes_version        = "1.16.13"
     admin_username            = "azureuser"

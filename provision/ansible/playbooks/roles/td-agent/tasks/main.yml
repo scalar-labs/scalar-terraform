@@ -42,6 +42,7 @@
     dest: "{{ tdagent_conf_dir }}/td-agent.conf"
     owner: td-agent
     group: td-agent
+    mode: 0644
   notify: Reload td-agent
 
 - name: Add user defined templates
@@ -50,5 +51,6 @@
     dest: "{{ tdagent_confd_dir }}/{{ item.dest }}"
     owner: td-agent
     group: td-agent
+    mode: 0600
   loop: "{{ tdagent_confd_templates }}"
   notify: Reload td-agent

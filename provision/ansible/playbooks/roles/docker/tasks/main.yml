@@ -37,6 +37,7 @@
     - copy:
         src: daemon.json
         dest: /etc/docker/daemon.json
+        mode: 644
   when: "'td-agent' in ansible_facts.packages"
   become: yes
 

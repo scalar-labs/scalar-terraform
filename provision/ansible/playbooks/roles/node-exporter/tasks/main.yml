@@ -5,6 +5,7 @@
     url: "{{ node_exporter_download }}"
     checksum: sha256:{{ node_exporter_checksum }}
     dest: "/tmp/{{ node_exporter_archive  }}.tar.gz"
+    mode: 0600
   register: download_result
   until: download_result is succeeded
   retries: 3
@@ -35,6 +36,7 @@
   copy:
     src: node_exporter.service
     dest: /etc/systemd/system/node_exporter.service
+    mode: 0600
   notify: Restart node_exporter
 
 - name: Ensure node_exporter is started and enabled at boot

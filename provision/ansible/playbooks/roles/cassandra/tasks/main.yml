@@ -25,6 +25,7 @@
   template:
     src: tuned.conf.j2
     dest: /etc/tuned/cassandra/tuned.conf
+    mode: 0600
 
 - name: Set Active Tuned Profile to Cassandra
   command: "tuned-adm profile cassandra"
@@ -41,18 +42,19 @@
   copy:
     src: cassy
     dest: /opt/
-    mode: '755'
+    mode: 0755
 
 - name: Copy Drive Mount Script
   copy:
     src: drive_mount.sh
     dest: /usr/local/bin/
-    mode: '755'
+    mode: 0755
 
 - name: Copy Drive Mount Service
   copy:
     src: drivemount.service
     dest: /etc/systemd/system/drivemount.service
+    mode: 0600
 
 - name: Setup Drive Mount Service
   systemd:
@@ -80,6 +82,7 @@
   copy:
     src: cassandra.repo
     dest: /etc/yum.repos.d/cassandra.repo
+    mode: 0600
   when: ansible_facts['os_family'] == "RedHat"
 
 - name: Install jemalloc
@@ -127,11 +130,13 @@
   template:
     src: cassandra.yaml.j2
     dest: /etc/cassandra/conf/cassandra.yaml
+    mode: 0644
 
 - name: Copy cassandra-rackdc.properties
   template:
     src: cassandra-rackdc.properties.j2
     dest: /etc/cassandra/conf/cassandra-rackdc.properties
+    mode: 0644
 
 - name: Disable debug.log
   replace:
@@ -160,12 +165,15 @@
     - get_url:
         url: https://github.com/criteo/cassandra_exporter/releases/download/2.1.0/cassandra_exporter-2.1.0-all.jar
         dest: /etc/prometheus/cassandra_exporter.jar
+        mode: 0600
     - copy:
         src: cassandra_exporter_config.yml
         dest: /etc/prometheus/cassandra_exporter_config.yml
+        mode: 0600
     - copy:
         src: cassandra_exporter.service
         dest: /etc/systemd/system/cassandra_exporter.service
+        mode: 0600
     - systemd:
         name: cassandra_exporter
         enabled: yes

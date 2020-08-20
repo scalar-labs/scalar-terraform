@@ -5,7 +5,7 @@ resource "null_resource" "wait_for" {
 }
 
 module "cassandra_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=b48be04"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=f934b9d"
 
   nb_instances                  = local.cassandra.resource_count
   admin_username                = local.user_name

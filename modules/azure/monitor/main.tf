@@ -30,7 +30,7 @@ resource "azurerm_managed_disk" "monitor_log_volume" {
 
   name                 = "log-${count.index + 1}"
   location             = local.region
-  zones                = length(local.locations) > 0 ? [local.locations[count.index]] : null
+  zones                = length(local.locations) > 0 ? [element(local.locations, count.index)] : null
   resource_group_name  = local.network_name
   storage_account_type = local.monitor.log_volume_type
   create_option        = "Empty"

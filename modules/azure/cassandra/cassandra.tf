@@ -28,7 +28,7 @@ resource "azurerm_managed_disk" "cassandra_data_volume" {
 
   name                 = "data-disk-cassandra${count.index}"
   location             = local.region
-  zones                = length(local.locations) > 0 ? [local.locations[count.index]] : null
+  zones                = length(local.locations) > 0 ? [element(local.locations, count.index)] : null
   resource_group_name  = local.network_name
   storage_account_type = local.cassandra.data_remote_volume_type
   create_option        = "Empty"
@@ -94,7 +94,7 @@ resource "azurerm_managed_disk" "cassandra_commitlog_volume" {
 
   name                 = "commitlog-cassandra${count.index}"
   location             = local.region
-  zones                = length(local.locations) > 0 ? [local.locations[count.index]] : null
+  zones                = length(local.locations) > 0 ? [element(local.locations, count.index)] : null
   resource_group_name  = local.network_name
   storage_account_type = local.cassandra.commitlog_remote_volume_type
   create_option        = "Empty"

@@ -115,7 +115,6 @@ resource "azurerm_lb" "envoy_lb" {
     public_ip_address_id          = local.envoy.nlb_internal ? "" : azurerm_public_ip.envoy_public_ip.*.id[count.index]
     subnet_id                     = local.envoy.nlb_internal ? local.envoy_nlb_subnet_id : ""
     private_ip_address_allocation = "dynamic"
-    # zones                         = length(local.locations) > 0 ? [local.locations[count.index]] : null
   }
 }
 

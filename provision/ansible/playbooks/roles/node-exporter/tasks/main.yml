@@ -36,7 +36,7 @@
   copy:
     src: node_exporter.service
     dest: /etc/systemd/system/node_exporter.service
-    mode: 0600
+    mode: 0644
   notify: Restart node_exporter
 
 - name: Ensure node_exporter is started and enabled at boot

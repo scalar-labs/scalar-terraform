@@ -25,7 +25,7 @@
   template:
     src: tuned.conf.j2
     dest: /etc/tuned/cassandra/tuned.conf
-    mode: 0600
+    mode: 0644
 
 - name: Set Active Tuned Profile to Cassandra
   command: "tuned-adm profile cassandra"
@@ -54,7 +54,7 @@
   copy:
     src: drivemount.service
     dest: /etc/systemd/system/drivemount.service
-    mode: 0600
+    mode: 0644
 
 - name: Setup Drive Mount Service
   systemd:
@@ -82,7 +82,7 @@
   copy:
     src: cassandra.repo
     dest: /etc/yum.repos.d/cassandra.repo
-    mode: 0600
+    mode: 0644
   when: ansible_facts['os_family'] == "RedHat"
 
 - name: Install jemalloc
@@ -169,11 +169,11 @@
     - copy:
         src: cassandra_exporter_config.yml
         dest: /etc/prometheus/cassandra_exporter_config.yml
-        mode: 0600
+        mode: 0644
     - copy:
         src: cassandra_exporter.service
         dest: /etc/systemd/system/cassandra_exporter.service
-        mode: 0600
+        mode: 0644
     - systemd:
         name: cassandra_exporter
         enabled: yes

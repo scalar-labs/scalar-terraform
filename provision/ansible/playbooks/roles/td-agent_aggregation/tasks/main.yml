@@ -9,6 +9,7 @@
   copy:
     src: drivemount.service
     dest: /etc/systemd/system/drivemount.service
+    mode: 0644
 
 - name: Setup Drive Mount Service
   systemd:

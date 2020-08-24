@@ -24,6 +24,7 @@ The Network module creates a virtual network with subnets.
 | image_id | The image id to initiate. |
 | internal_domain | The internal domain for setting srv record. |
 | region | The Azure region to deploy environment. |
+| locations | The Azure availability zones to deploy environment |
 | network_cidr | The virtual network CIDR address space. |
 | network_id | The virtual network ID. |
 | network_name | Short name to identify environment. |

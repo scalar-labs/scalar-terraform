@@ -30,10 +30,6 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   resource_group_name  = azurerm_resource_group.resource_group.name
   address_prefix       = each.value
-
-  lifecycle {
-    ignore_changes = [network_security_group_id]
-  }
 }
 
 resource "azurerm_private_dns_zone" "dns" {
@@ -56,6 +52,7 @@ module "bastion" {
   network_cidr                  = local.network.cidr
   network_dns                   = basename(azurerm_private_dns_zone.dns.id)
   region                        = var.region
+  locations                     = local.locations
   resource_type                 = local.network.bastion_resource_type
   resource_count                = local.network.bastion_resource_count
   bastion_access_cidr           = local.network.bastion_access_cidr

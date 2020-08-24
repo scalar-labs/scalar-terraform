@@ -16,6 +16,7 @@ module "scalardl_blue" {
   resource_root_volume_size     = local.scalardl.resource_root_volume_size
   triggers                      = local.triggers
   region                        = local.region
+  locations                     = local.locations
   private_key_path              = local.private_key_path
   public_key_path               = local.public_key_path
   user_name                     = local.user_name
@@ -45,6 +46,7 @@ module "scalardl_green" {
   resource_root_volume_size     = local.scalardl.resource_root_volume_size
   triggers                      = local.triggers
   region                        = local.region
+  locations                     = local.locations
   private_key_path              = local.private_key_path
   public_key_path               = local.public_key_path
   user_name                     = local.user_name

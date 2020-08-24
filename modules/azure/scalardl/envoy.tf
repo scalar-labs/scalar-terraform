@@ -5,12 +5,13 @@ resource "null_resource" "envoy_wait_for" {
 }
 
 module "envoy_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=c122120"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=f934b9d"
 
   nb_instances                  = local.envoy.resource_count
   admin_username                = local.user_name
   resource_group_name           = local.network_name
   location                      = local.region
+  availability_zones            = local.locations
   vm_hostname                   = "envoy"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id
@@ -68,8 +69,37 @@ resource "azurerm_public_ip" "envoy_public_ip" {
   name                = "PublicIPForEnvoy"
   domain_name_label   = "envoy-${local.network_name}"
   location            = local.region
+  sku                 = length(local.locations) > 0 ? "Standard" : "Basic"
   resource_group_name = local.network_name
   allocation_method   = "Static"
+}
+
+resource "azurerm_public_ip" "envoy_nat_ip" {
+  count = local.envoy.enable_nlb && local.envoy.nlb_internal && length(local.locations) > 0 ? 1 : 0
+
+  name                = "envoy-natip"
+  location            = local.region
+  resource_group_name = local.network_name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_nat_gateway" "envoy_natgw" {
+  count = local.envoy.enable_nlb && local.envoy.nlb_internal && length(local.locations) > 0 ? 1 : 0
+
+  name                    = "envoy-natgw"
+  location                = local.region
+  resource_group_name     = local.network_name
+  public_ip_address_ids   = [azurerm_public_ip.envoy_nat_ip[count.index].id]
+  sku_name                = "Standard"
+  idle_timeout_in_minutes = 10
+}
+
+resource "azurerm_subnet_nat_gateway_association" "envoy_natgw_assoc" {
+  count = local.envoy.enable_nlb && local.envoy.nlb_internal && length(local.locations) > 0 ? 1 : 0
+
+  subnet_id      = local.envoy.subnet_id
+  nat_gateway_id = azurerm_nat_gateway.envoy_natgw[count.index].id
 }
 
 resource "azurerm_lb" "envoy_lb" {
@@ -78,6 +108,7 @@ resource "azurerm_lb" "envoy_lb" {
   name                = "EnvoyLoadBalancer"
   location            = local.region
   resource_group_name = local.network_name
+  sku                 = length(local.locations) > 0 ? "Standard" : "Basic"
 
   frontend_ip_configuration {
     name                          = "EnvoyLBAddress"

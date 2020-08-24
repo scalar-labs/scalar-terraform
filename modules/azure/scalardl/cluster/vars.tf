@@ -10,6 +10,11 @@ variable "region" {
   description = "The Azure region to deploy environment"
 }
 
+variable "locations" {
+  type        = list(string)
+  description = "The Azure availability zones to deploy environment"
+}
+
 variable "resource_type" {
   description = "The resource type of the bastion instance"
 }

@@ -54,6 +54,11 @@ output "region" {
   description = "The Azure region to deploy environment."
 }
 
+output "locations" {
+  value       = local.locations
+  description = "The Azure availability zones to deploy environment."
+}
+
 output "user_name" {
   value       = local.network.user_name
   description = "The user name of the remote hosts."

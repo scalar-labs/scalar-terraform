@@ -1,10 +1,11 @@
 module "cassy_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=c122120"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=f934b9d"
 
   nb_instances                  = local.cassy.resource_count
   admin_username                = local.user_name
   resource_group_name           = local.network_name
   location                      = local.region
+  availability_zones            = local.locations
   vm_hostname                   = "cassy"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id

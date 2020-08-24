@@ -7,6 +7,11 @@ variable "region" {
   default = "West US"
 }
 
+variable "locations" {
+  type    = list(string)
+  default = []
+}
+
 variable "public_key_path" {
   default = "../../test_key.pub"
 }

@@ -3,12 +3,13 @@
   copy:
     src: drive_mount.sh
     dest: /usr/local/bin/
-    mode: '755'
+    mode: 0755
 
 - name: Copy Drive Mount Service
   copy:
     src: drivemount.service
     dest: /etc/systemd/system/drivemount.service
+    mode: 0644
 
 - name: Setup Drive Mount Service
   systemd:

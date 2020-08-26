@@ -28,6 +28,7 @@
       copy:
         src: "{{ playbook_dir }}/{{ java_tar_gz_source }}"
         dest: /tmp
+        mode: 0600
     - name: Create Java Home Directory
       file:
         path: /usr/local/lib/java
@@ -41,7 +42,7 @@
         group: root
         remote_src: yes
         extra_opts:
-        - --strip-components=1
+          - --strip-components=1
     - name: Setup Java Link in /usr/bin/java
       file:
         src: /usr/local/lib/java/bin/java

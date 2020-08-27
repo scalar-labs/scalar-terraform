@@ -45,14 +45,11 @@
 <label @store>
   <match **>
     @type file
-    path /log/${hostname}/%Y/%m-%d/${tag[0]}
+    path /log/${hostname}/${tag[0]}
     append true
-    <buffer time,tag,hostname>
+    <buffer tag,hostname>
       @type file
       path /log/buffer
-      timekey 1d
-      timekey_wait 5m
-      timekey_use_utc true
       flush_mode immediate
       flush_thread_count 8
       flush_at_shutdown true

@@ -65,3 +65,8 @@ variable "targets" {
   default     = []
   description = "A list of targets to be monitored"
 }
+
+variable "log_retention_period_days" {
+  default     = 30
+  description = "Set the retention period of the aggregated log to the monitor server"
+}

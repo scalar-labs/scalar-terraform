@@ -113,6 +113,7 @@ module "monitor_provision" {
   enable_tdagent                = local.monitor.enable_tdagent
   internal_domain               = local.internal_domain
   targets                       = var.targets
+  log_retention_period_days     = local.monitor.log_retention_period_days
 }
 
 resource "aws_security_group" "monitor" {

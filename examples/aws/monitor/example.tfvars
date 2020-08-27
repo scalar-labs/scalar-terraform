@@ -12,6 +12,7 @@ monitor = {
   # log_volume_size           = "500"
   # log_volume_type           = "sc1"
   # enable_tdagent            = "true"
+  # log_retention_period_days = "30"
 }
 
 # targets = [

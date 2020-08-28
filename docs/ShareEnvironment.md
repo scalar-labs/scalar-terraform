@@ -16,7 +16,7 @@ This explanation is for multiple person operating in the same environment.
   private_key_path = "./example_key"
   ```
 
-- Update the output value `private_key_path` of tfsate
+- Update the output value `private_key_path` and `public_key_path` of tfsate
 
   ```
   cd example/[aws|azure]/network
@@ -26,7 +26,7 @@ This explanation is for multiple person operating in the same environment.
 
 ## Update the tfstate of the cassandra, scalardl and monitor modules
 
-- Update the `private_key_path` of `data.terraform_remote_state.network` in each tfstate
+- Update the value `private_key_path` and `public_key_path` of `data.terraform_remote_state.network` in each tfstate
 
   ```
   cd example/[aws|azure]/[cassandra|scalardl|monitor]

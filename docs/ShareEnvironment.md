@@ -18,7 +18,7 @@ This explanation is for multiple person operating in the same environment.
 
 - Update tfsatte
 
-  ```sh
+  ```
   cd example/aws/network
   terraform init
   terraform refresh -var-file=example.tfvars
@@ -26,10 +26,10 @@ This explanation is for multiple person operating in the same environment.
 
 ## Update the tfstate of the cassandra, scalardl and monitor modules
 
-Update `private_key_path` in `data.terraform_remote_state.network`
+- Update `private_key_path` in `data.terraform_remote_state.network`
 
-```
-cd example/aws/[cassandra|scalardl|monitor]
-terraform init
-terraform refresh -var-file=example.tfvars
-```
+  ```
+  cd example/aws/[cassandra|scalardl|monitor]
+  terraform init
+  terraform refresh -var-file=example.tfvars
+  ```

@@ -1,0 +1,9 @@
+/log/**/*.log
+{
+  daily
+  rotate {{ log_retention_period_days }}
+  missingok
+  compress
+  dateext
+  create 644 td-agent td-agent
+}

@@ -17,3 +17,11 @@
     enabled: yes
     daemon_reload: yes
     state: started
+
+- name: Setup logrotate.d
+  template:
+    src: monitor.logrotate.j2
+    dest: /etc/logrotate.d/monitor
+    mode: 0644
+    owner: root
+    group: root

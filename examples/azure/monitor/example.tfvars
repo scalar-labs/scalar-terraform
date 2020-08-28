@@ -12,6 +12,7 @@ monitor = {
   # set_public_access             = "false"
   # remote_port                   = 9090
   # enable_accelerated_networking = "false"
+  # log_retention_period_days     = "30"
 }
 
 # targets = [

@@ -4,7 +4,7 @@ This explanation is for multiple person operating in the same environment.
 
 ## Get a public/private key-pair from the person who built the environment
 
-:memo: Also need all the tfsatte files when using `local` backend
+:memo: Also need all the tfstate files when using `local` backend
 
 ## Update the tfstate of the network module
 
@@ -16,7 +16,7 @@ This explanation is for multiple person operating in the same environment.
   private_key_path = "./example_key"
   ```
 
-- Update the output value `private_key_path` and `public_key_path` of tfsate
+- Update the output value `private_key_path` and `public_key_path` of tfstate
 
   ```
   cd example/[aws|azure]/network

@@ -1,35 +1,38 @@
-# How to share environment with others
+# How to share environments with others
 
-This explanation is for multiple person operating in the same environment.
+Non-testing environments tend to be shared and operated with multiple DevOps engineers.
+This document explains how to do it properly.
 
-## Get a public/private key-pair from the person who built the environment
+## Get a private key from the person who has built an environment.
 
-:memo: Also need all the tfstate files when using `local` backend
+You can generate a corresponding public key with `ssh-keygen -yf ~/.ssh/privatekey.pem > publickey.pem`.
+
+If an environment is created with `local` backend, you need all the tfstate files additionally. But, as a best practice, it's better to use cloud storage backends such as AWS S3 or Azure Blob Storage for an environment that is shared among multiple engineers.
 
 ## Update the tfstate of the network module
 
-- Fix key_path of `example.tfvars` in your local
+Update the key paths of `tfvars` file in your local such as `example.tfvars` in the example.
 
-  ```
-  public_key_path = "./example_key.pub"
+```
+public_key_path = "./publickey.pem"
 
-  private_key_path = "./example_key"
-  ```
+private_key_path = "./privatekey.pem"
+```
 
-- Update the output value `private_key_path` and `public_key_path` of tfstate
+Then, update tfstate file as follows.
 
-  ```
-  cd example/[aws|azure]/network
-  terraform init
-  terraform refresh -var-file=example.tfvars
-  ```
+```
+cd /path/to/network
+terraform init
+terraform refresh -var-file=example.tfvars
+```
 
-## Update the tfstate of the cassandra, scalardl and monitor modules
+## Update the tfstate of the cassandra, scalardl, and monitor modules
 
-- Update the value `private_key_path` and `public_key_path` of `data.terraform_remote_state.network` in each tfstate
+Update the values of `private_key_path` and `public_key_path` of `data.terraform_remote_state.network` in each tfstate and do as follows.
 
-  ```
-  cd example/[aws|azure]/[cassandra|scalardl|monitor]
-  terraform init
-  terraform refresh -var-file=example.tfvars
-  ```
+```
+cd /path/to/[cassandra|scalardl|monitor]
+terraform init
+terraform refresh -var-file=example.tfvars
+```

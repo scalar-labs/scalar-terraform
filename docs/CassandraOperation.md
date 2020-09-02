@@ -99,6 +99,30 @@ terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
 terraform apply
 ```
 
+### Taint Volume with Existing Node
+Another option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume. Be sure you can recover the data from a backup first. It will attach the new volume to the existing node so the IP address does not change.
+
+The following section is useful when you need to replace a EBS volume.
+* Match the volume_id of the EBS to the state file using the command below.
+* You may want to add `-A 10` to the grep command to help find the correct node.
+```console
+terraform show | grep module.cassandra
+```
+
+##### Azure
+```console
+terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
+
+terraform apply
+```
+
+##### AWS
+```console
+terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
+
+terraform apply
+```
+
 ### Post Recovery Steps
 After the Cassandra node is replaced you will need to perform manual steps to get the node back in cluster.
 
@@ -118,6 +142,40 @@ chown cassandra:cassandra /data
 sudo /bin/bash -c "echo 'UUID=af767839-b23d-4d1f-8a19-debbcfd6413c /data xfs defaults,nofail 0 2' >> /etc/fstab"
 sudo mount -a
 ```
+
+#### Using Taint Volume with Existing Node
+Following commands will help you to mount the newly created EBS volume in the existing node.
+
+```console
+# Stop the EBS volume crashed Cassandra Node
+sudo systemctl stop cassandra
+
+# Find the name of newly attached EBS data volume
+lsblk -p -P -d -o name,serial,SIZE
+NAME="/dev/nvme2n1" SERIAL="vol018d1871d19da76f1" HCTL="" SIZE="1T"
+...
+
+# Create a file system in the newly created volume
+sudo mkfs -t xfs <name of volume>
+
+# Find the UUID of the data volume and update in `/etc/fstab`
+lsblk -p -P -d -o name,serial,UUID,SIZE
+NAME="/dev/nvme2n1" SERIAL="vol018d1871d19da76f1" UUID="af767839-b23d-4d1f-8a19-debbcfd6413c" HCTL="" SIZE="1T"
+...
+
+sudo vi /etc/fstab
+
+sudo mount -a
+
+sudo rm -r /commitlog/*
+
+# Clear the `/data` directory if any file exists
+sudo rm -r /data/*
+
+# Change ownership of `/data` directory while the owner is not Cassandra
+sudo chown cassandra:cassandra /data
+```
+You should execute *Modify Cassandra config* section also, but do not need to modify any seeds.
 
 #### Modify Cassandra config
 You need to modify the file `/etc/cassandra/conf/cassandra-env.sh` to add the line below.

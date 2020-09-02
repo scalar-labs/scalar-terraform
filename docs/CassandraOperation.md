@@ -137,7 +137,10 @@ JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead_node_ip>"
 sudo systemctl start cassandra
 ```
 
-* After a successful restart of the newly created Cassandra node, you should replace the seeds of all Cassandra nodes with newly created Cassandra node IP.
+* After a successful restart of the newly created Cassandra node, you should replace the seeds of all Cassandra nodes with newly created Cassandra node IP and restart the Cassandra nodes.
+```console
+sudo systemctl restart cassandra
+```
 
 # Related Documents
 

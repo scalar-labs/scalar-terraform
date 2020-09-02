@@ -13,6 +13,11 @@ Note that when tainting a resource, you need to go to the directory where the re
 
 The following sections will show what to taint with the `terraform taint` command.
 
+## Shared Environment
+If you use the environment shared with multiple DevOps engineers, please check the following guidelines.
+
+See [ShareEnvironment](ShareEnvironment.md).
+
 ## Refresh Ansible Playbooks
 
 When you try to replace a node of any kind, the first thing you need to do is refresh Ansible playbooks that are kept on the bastion host, in case any playbook files are updated since the last deployment.

@@ -9,7 +9,6 @@ With the following steps, you actually update tfstate files based on your enviro
 
 Note that if you update shared tfstate files in Cloud storage based on your environment, others can not use the tfstate files and they have to do the same steps again to make it be able to work for them. So, it is more like a delegation of the operator in such case.
 
-Note that if you update shared tfstate files in Cloud storage based on your environment, others can not use the tfstate files and they have to do the same steps again to make it be able to work for them. So, it is more like a delegation of the operator in such case.
 
 ## Get a private key from the person who has built an environment.
 

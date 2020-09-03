@@ -8,7 +8,6 @@ When we build an environment with scalar-terraform, the paths of a specified key
 With the following steps, you actually update tfstate files based on your environment to make it work for you.
 
 Note that if you update shared tfstate files in Cloud storage based on your environment, others can not use the tfstate files and they have to do the same steps again to make it be able to work for them. So, it is more like a delegation of the operator in such case.
-## Why we need the following steps
 
 When we build an environment with scalar-terraform, the paths of a specified key pair are stored in tfstate files. Those paths are expanded to the full paths even if they are specified with relative paths, so the paths can be operator dependent variables unless all the operators agree on the same full paths beforehand.
 With the following steps, you actually update tfstate files based on your environment to make it work for you.

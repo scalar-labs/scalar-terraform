@@ -24,6 +24,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: ${{ env.TF_VERSION }}
+          terraform_wrapper: true
 
       - name: Docker login
         run: echo ${DOCKER_PASSWORD} | docker login -u scalartest --password-stdin docker.io

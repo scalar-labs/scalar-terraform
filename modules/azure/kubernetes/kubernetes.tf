@@ -5,7 +5,8 @@ resource "azurerm_subnet" "k8s_private" {
   name                 = each.key
   virtual_network_name = local.network_name
   resource_group_name  = local.network_name
-  address_prefixes     = [each.value]
+  address_prefixes     = each.value["address_prefixes"]
+  service_endpoints    = lookup(each.value, "service_endpoints", [])
 
   lifecycle {
     ignore_changes = [

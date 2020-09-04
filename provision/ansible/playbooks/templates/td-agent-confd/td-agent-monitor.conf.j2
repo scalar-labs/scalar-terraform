@@ -87,7 +87,7 @@
         @type json
       </format>
       <inject>
-        time_key log_time
+        time_key time
         time_type string
         time_format %Y-%m-%dT%H:%M:%S.%NZ
       </inject>
@@ -102,7 +102,7 @@
       azure_token_refresh_interval      60
       azure_container                   {{ storage_info[2] }}
       auto_create_container             true
-      path                              logs/%Y/%m/%d/
+      path                              logs/${hostname}/%Y/%m/%d/
       azure_object_key_format           %{path}${tag[0]}_%{time_slice}_%{index}.%{file_extension}
       time_slice_format                 %Y%m%d%H
       <buffer tag,hostname,time>
@@ -118,7 +118,7 @@
         @type json
       </format>
       <inject>
-        time_key log_time
+        time_key time
         time_type string
         time_format %Y-%m-%dT%H:%M:%S.%NZ
       </inject>

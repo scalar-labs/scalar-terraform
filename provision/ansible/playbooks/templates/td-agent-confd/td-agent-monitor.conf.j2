@@ -1,3 +1,5 @@
+{% set storage_info = log_archive_storage_info.split(':') %}
+
 <source>
   @type syslog
   port 5140
@@ -44,18 +46,83 @@
 
 <label @store>
   <match **>
-    @type file
-    path /log/${hostname}/${tag[0]}
-    append true
-    <buffer tag,hostname>
+    @type copy
+    <store>
       @type file
-      path /log/buffer
-      flush_mode immediate
-      flush_thread_count 8
-      flush_at_shutdown true
-    </buffer>
-    <format>
-      @type out_file
-    </format>
+      path /log/${hostname}/${tag[0]}
+      append true
+      <buffer tag,hostname>
+        @type file
+        path /log/buffer
+        flush_mode immediate
+        flush_thread_count 8
+        flush_at_shutdown true
+      </buffer>
+      <format>
+        @type out_file
+      </format>
+    </store>
+{% if storage_info|length > 1 and storage_info[0] == 'aws_s3' %}
+    <store>
+      @type s3
+      s3_bucket {{ storage_info[1] }}
+      s3_region {{ storage_info[2] }}
+      path logs/${hostname}/%Y/%m/%d/
+      s3_object_key_format %{path}${tag[0]}_%{time_slice}_%{index}.%{file_extension}
+      time_slice_format %Y%m%d%H
+      <instance_profile_credentials>
+        ip_address 169.254.169.254
+        port 80
+      </instance_profile_credentials>
+      <buffer tag,hostname,time>
+        @type file
+        path /log/buffer_s3
+        timekey 1h
+        timekey_wait 10m
+        timekey_use_utc true
+        chunk_limit_size 50m
+        flush_at_shutdown true
+      </buffer>
+      <format>
+        @type json
+      </format>
+      <inject>
+        time_key log_time
+        time_type string
+        time_format %Y-%m-%dT%H:%M:%S.%NZ
+      </inject>
+    </store>
+{% elif storage_info|length > 1 and storage_info[0] == 'azure_blob' %}
+    <store>
+      @type azure-storage-append-blob
+      azure_storage_account             {{ storage_info[1] }}
+      azure_storage_access_key          ""
+      azure_storage_sas_token           ""
+      azure_imds_api_version            "2019-08-15"
+      azure_token_refresh_interval      60
+      azure_container                   {{ storage_info[2] }}
+      auto_create_container             true
+      path                              logs/%Y/%m/%d/
+      azure_object_key_format           %{path}${tag[0]}_%{time_slice}_%{index}.%{file_extension}
+      time_slice_format                 %Y%m%d%H
+      <buffer tag,hostname,time>
+        @type file
+        path /log/buffer_blob
+        timekey 1h
+        timekey_wait 10m
+        timekey_use_utc true
+        chunk_limit_size 50m
+        flush_at_shutdown true
+      </buffer>
+      <format>
+        @type json
+      </format>
+      <inject>
+        time_key log_time
+        time_type string
+        time_format %Y-%m-%dT%H:%M:%S.%NZ
+      </inject>
+    </store>
+{% endif %}
   </match>
 </label>

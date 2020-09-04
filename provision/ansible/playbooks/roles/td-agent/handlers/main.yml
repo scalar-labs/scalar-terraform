@@ -4,6 +4,11 @@
     name: td-agent
     state: reloaded
 
+- name: Restart td-agent
+  systemd:
+    name: td-agent
+    state: restarted
+
 - name: Restart rsyslog
   systemd:
     name: rsyslog

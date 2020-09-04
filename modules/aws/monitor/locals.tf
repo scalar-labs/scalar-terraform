@@ -4,6 +4,7 @@ locals {
   network_name     = var.network.name
   network_dns      = var.network.dns
   network_id       = var.network.id
+  region           = var.network.region
   locations        = split(",", var.network.locations)
   subnet_ids       = split(",", var.network.subnet_ids)
   image_id         = var.network.image_id
@@ -23,16 +24,18 @@ locals {
 ### default
 locals {
   monitor_default = {
-    resource_type             = "t3.small"
-    resource_root_volume_size = 64
-    resource_count            = 1
-    active_offset             = 0
-    encrypt_volume            = true
-    enable_log_volume         = true
-    log_volume_size           = 500
-    log_volume_type           = "sc1"
-    enable_tdagent            = true
-    log_retention_period_days = 30
+    resource_type                = "t3.small"
+    resource_root_volume_size    = 64
+    resource_count               = 1
+    active_offset                = 0
+    encrypt_volume               = true
+    enable_log_volume            = true
+    log_volume_size              = 500
+    log_volume_type              = "sc1"
+    enable_tdagent               = true
+    log_retention_period_days    = 30
+    log_archive_storage_type     = "aws_s3"
+    log_archive_storage_base_uri = ""
   }
 }
 
@@ -60,4 +63,8 @@ locals {
     local.monitor_base[var.base],
     var.monitor
   )
+
+  log_archive_storage_bucket = trimprefix(local.monitor.log_archive_storage_base_uri, "s3://")
+  enable_log_archive_storage = local.log_archive_storage_bucket != ""
+  log_archive_storage_info   = local.enable_log_archive_storage ? "aws_s3:${local.log_archive_storage_bucket}:${local.region}" : ""
 }

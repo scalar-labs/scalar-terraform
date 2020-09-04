@@ -5,5 +5,7 @@ tdagent_conf_dir: /etc/td-agent
 tdagent_confd_dir: "{{ tdagent_conf_dir }}/conf.d"
 tdagent_gpg_key: https://packages.treasuredata.com/GPG-KEY-td-agent
 tdagent_confd_templates: []
-td_agent_plugins: []
+td_agent_plugins:
+  - { name: fluent-plugin-s3, version: 1.4.0 }
+  - { name: fluent-plugin-azure-storage-append-blob, version: 0.2.1 }
 tdagent_forward_enabled: "{% if tdagent_confd_templates |length > 0 %}false{% else %}true{% endif %}"

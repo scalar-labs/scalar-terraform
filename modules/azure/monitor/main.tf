@@ -93,6 +93,7 @@ module "monitor_provision" {
   internal_domain               = local.internal_domain
   targets                       = var.targets
   log_retention_period_days     = local.monitor.log_retention_period_days
+  log_archive_storage_info      = local.log_archive_storage_info
 }
 
 resource "azurerm_private_dns_a_record" "monitor_cluster_dns" {

@@ -68,5 +68,10 @@ variable "targets" {
 
 variable "log_retention_period_days" {
   default     = 30
-  description = "Set the retention period of the aggregated log to the monitor server"
+  description = "Set the retention period of the aggregated log to the monitor host"
+}
+
+variable "log_archive_storage_info" {
+  default     = ""
+  description = "A info to set archive storage of the aggregated log to the monitor host"
 }

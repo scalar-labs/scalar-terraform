@@ -34,6 +34,10 @@ output "key_name" {
   value = module.network.key_name
 }
 
+output "region" {
+  value = var.region
+}
+
 output "locations" {
   value = module.network.locations
 }

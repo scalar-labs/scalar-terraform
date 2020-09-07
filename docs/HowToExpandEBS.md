@@ -50,7 +50,6 @@ cassandra = {
 Second, do `terraform plan` to check if Cloud resources' states are the same as what you are planning to apply.
 
 ```console
-$ terraform plan  # if you use terraform.tfvars
 or
 $ terraform plan -var-file=your.tfvars
 ```

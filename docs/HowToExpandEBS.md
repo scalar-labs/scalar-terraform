@@ -4,8 +4,8 @@ This guide explains how to expand EBS volumes in AWS.
 
 ## Stop processes 
 
-Stop the processes of a node which you want to expand the volume of.
-For example in a Cassandra node, do the following.
+Stop the processes of a node that you want to expand the volume of.
+For example in a Cassandra node, do as follows.
 ```console
 $ sudo systemctl stop cassandra
 ```
@@ -18,13 +18,13 @@ Follow [the guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/requestin
 
 Follow [the guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html#extend-linux-volume-partition).
 
-Please note that, if you use C* deployed with `scalar-terraform`, this step is probably not required since it doesn't create a partition on the C* data volume and creates a filesystem directly on the volume.
+Please note that if you use Cassandra deployed with `scalar-terraform`, this step is probably not required since it doesn't create a partition on the Cassandra data volume and creates a filesystem directly on the volume.
 
 ## Extend the filesystem of the partition
 
 Follow [the guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html#extend-linux-file-system).
 
-As of writing, `scalar-terraform` uses XFS so please use `xfs_growfs` to extend a filesystem.
+As of writing, `scalar-terraform` chooses XFS for a filesystem, so please use `xfs_growfs` to extend a filesystem.
 
 ## Do the above operations on each node in the same cluster
 
@@ -35,13 +35,13 @@ For example, if you update the volume size of a Cassandra node from 1TB to 2TB, 
 
 Since the above operations are done manually without using terraform, the actual states of cloud resources and tfstate are not consistent after the above steps. Please do the following to update tfstate to make it consistent with the actual resources.
 
-First, update the tfvars of a terraform module of a resource that you made a change of.
+First, update the tfvars of a terraform module of a resource that you updated to match with the actual states of the resource.
 For example, if you update the size of a data volume of Casssandra node to 2TB, please do as follows.
 
 ```console
-$ vim terraform.tfvars  # the filename is environment dependent
+$ vim your.tfvars  # the filename is environment dependent
 
-## add the `data_remote_volume_size = "2048"` if there is already cassandra block.
+## add only the `data_remote_volume_size = "2048"` line  if there is already a cassandra block.
 cassandra = {
     data_remote_volume_size = "2048"
 }
@@ -50,8 +50,6 @@ cassandra = {
 Second, do `terraform plan` to check if Cloud resources' states are the same as what you are planning to apply.
 
 ```console
-$ terraform plan  # if you use terraform.tfvars
-or
 $ terraform plan -var-file=your.tfvars
 ```
 

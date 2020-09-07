@@ -18,7 +18,7 @@ Follow [the guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/requestin
 
 Follow [the guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html#extend-linux-volume-partition).
 
-Please note that, if you use C* deployed with `scalar-terraform`, this step is probably not required since it doesn't create a partition on the C* data volume and creates a filesystem directly on the volume.
+Please note that if you use Cassandra deployed with `scalar-terraform`, this step is probably not required since it doesn't create a partition on the Cassandra data volume and creates a filesystem directly on the volume.
 
 ## Extend the filesystem of the partition
 

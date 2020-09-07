@@ -41,7 +41,7 @@ For example, if you update the size of a data volume of Casssandra node to 2TB, 
 ```console
 $ vim your.tfvars  # the filename is environment dependent
 
-## add the `data_remote_volume_size = "2048"` if there is already cassandra block.
+## add only the `data_remote_volume_size = "2048"` line  if there is already a cassandra block.
 cassandra = {
     data_remote_volume_size = "2048"
 }

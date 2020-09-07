@@ -27,6 +27,15 @@ Follow [the guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize
 
 As of writing, `scalar-terraform` chooses XFS for a filesystem, so please use `xfs_growfs` to extend a filesystem.
 
+## Start the processes
+
+Start the processes of a node that you expanded the volume of.
+
+For example in a Cassandra node, do as follows.
+```console
+$ sudo systemctl start cassandra
+```
+
 ## Do the above operations on each node in the same cluster
 
 Since `scalar-terraform` manages a set of nodes in a cluster (e.g. Cassandra cluster) in the same way, it is not allowed to change the resource configuration of only part of the nodes. So please update all the nodes in the same cluster in the same way.

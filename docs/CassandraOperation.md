@@ -136,6 +136,7 @@ sudo systemctl start cassandra
 
 # Related Documents
 
+* [How to Expand EBS volumes in AWS](./HowToExpandEBS.md)
 * [Drive Mount Script](./DrivemountScript.md)
 * [Cassandra Cluster Down Alert](./CassandraClusterDown.md)
 * [Cassandra Drive Space Low Alert](./CassandraDriveSpaceLow.md)

@@ -34,7 +34,6 @@ locals {
     log_volume_type              = "sc1"
     enable_tdagent               = true
     log_retention_period_days    = 30
-    log_archive_storage_type     = "aws_s3"
     log_archive_storage_base_uri = ""
   }
 }

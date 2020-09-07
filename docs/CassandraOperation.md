@@ -137,7 +137,7 @@ Finally you can start the Cassandra service.
 sudo systemctl start cassandra
 ```
 
-If you replaced a seed node, you should replace the seeds of all Cassandra nodes with newly created Cassandra node IP.
+If you replaced a seed node (old seed node), you should replace the old seed node's IP of all Cassandra nodes with newly created Cassandra node IP.
 
 # Related Documents
 

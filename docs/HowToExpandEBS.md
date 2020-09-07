@@ -39,7 +39,7 @@ First, update the tfvars of a terraform module of a resource that you updated to
 For example, if you update the size of a data volume of Casssandra node to 2TB, please do as follows.
 
 ```console
-$ vim terraform.tfvars  # the filename is environment dependent
+$ vim your.tfvars  # the filename is environment dependent
 
 ## add the `data_remote_volume_size = "2048"` if there is already cassandra block.
 cassandra = {

@@ -21,10 +21,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: autero1/action-terraform@v0.1.0
         with:
-          terraform_version: ${{ env.TF_VERSION }}
-          terraform_wrapper: true
+          terraform_version: 0.12.26
 
       - name: Docker login
         run: echo ${DOCKER_PASSWORD} | docker login -u scalartest --password-stdin docker.io

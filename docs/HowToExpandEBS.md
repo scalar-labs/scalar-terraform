@@ -5,6 +5,7 @@ This guide explains how to expand EBS volumes in AWS.
 ## Stop processes 
 
 Stop the processes of a node that you want to expand the volume of.
+
 For example in a Cassandra node, do as follows.
 ```console
 $ sudo systemctl stop cassandra

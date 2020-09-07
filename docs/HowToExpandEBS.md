@@ -24,7 +24,7 @@ Please note that if you use Cassandra deployed with `scalar-terraform`, this ste
 
 Follow [the guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html#extend-linux-file-system).
 
-As of writing, `scalar-terraform` uses XFS so please use `xfs_growfs` to extend a filesystem.
+As of writing, `scalar-terraform` chooses XFS for a filesystem, so please use `xfs_growfs` to extend a filesystem.
 
 ## Do the above operations on each node in the same cluster
 

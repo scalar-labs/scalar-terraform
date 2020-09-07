@@ -128,7 +128,7 @@ You need to modify the file `/etc/cassandra/conf/cassandra-env.sh` to add the li
 JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead_node_ip>"
 ```
 
-You also need to modify the file `/etc/cassandra/conf/cassandra.yaml` If you replaced a seed node and a volume.
+You also need to modify the file `/etc/cassandra/conf/cassandra.yaml` if you replaced a seed node and a volume.
 * Remove the newly created Cassandra node IP from the seeds of the node.
 
 Finally you can start the Cassandra service.

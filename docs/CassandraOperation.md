@@ -141,6 +141,7 @@ If you replaced a seed node (old seed node), you should replace the old seed nod
 
 # Related Documents
 
+* [How to Expand EBS volumes in AWS](./HowToExpandEBS.md)
 * [Drive Mount Script](./DrivemountScript.md)
 * [Cassandra Cluster Down Alert](./CassandraClusterDown.md)
 * [Cassandra Drive Space Low Alert](./CassandraDriveSpaceLow.md)

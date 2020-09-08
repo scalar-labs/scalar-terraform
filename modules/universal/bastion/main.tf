@@ -19,7 +19,7 @@ resource "null_resource" "ansible_playbooks_copy" {
     command = <<EOT
 # add addtional public keys to tmp file
 rm -f ${module.ansible.local_playbook_path}/files/ssh/additional_public_keys
-if [[ -s "${var.additional_public_keys_path}" ]]; then
+if [ -s "${var.additional_public_keys_path}" ]; then
   cp ${var.additional_public_keys_path} ${module.ansible.local_playbook_path}/files/ssh/additional_public_keys
 fi;
   EOT

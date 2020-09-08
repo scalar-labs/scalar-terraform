@@ -19,6 +19,8 @@
     user_install: no
     state: present
   loop: "{{ td_agent_plugins }}"
+  notify: Restart td-agent
+  when: log_archive_storage_info is defined and log_archive_storage_info != ''
 
 - name: Create conf.d directory
   file:

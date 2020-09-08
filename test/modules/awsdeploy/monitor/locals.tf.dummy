@@ -1,9 +1,10 @@
 locals {
   network = {
-    cidr = "10.42.0.0/16"
-    name = "example-aws"
-    dns  = "Z1234567890ABCDEFGHIJ"
-    id   = "vpc-1234567890abcdefg"
+    cidr       = "10.42.0.0/16"
+    name       = "example-aws"
+    dns        = "Z1234567890ABCDEFGHIJ"
+    id         = "vpc-1234567890abcdefg"
+    region     = "ap-northeast-1"
     locations  = "ap-northeast-1c,ap-northeast-1a"
 
     subnet_ids = "subnet-1234567890abcdefg,subnet-1234567890hijklmn"

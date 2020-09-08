@@ -36,6 +36,7 @@ locals {
     remote_port                   = 9090
     enable_accelerated_networking = false
     log_retention_period_days     = 30
+    log_archive_storage_base_uri  = ""
   }
 }
 
@@ -57,4 +58,8 @@ locals {
     local.monitor_base[var.base],
     var.monitor
   )
+
+  log_archive_storage        = regex("^(?:https://(?P<storage_account>[^.]+)[^/]+(?:/(?P<container_name>[^.]+)))?", local.monitor.log_archive_storage_base_uri)
+  enable_log_archive_storage = local.log_archive_storage.storage_account != null
+  log_archive_storage_info   = local.enable_log_archive_storage ? "azure_blob:${local.log_archive_storage.storage_account}:${local.log_archive_storage.container_name}" : ""
 }

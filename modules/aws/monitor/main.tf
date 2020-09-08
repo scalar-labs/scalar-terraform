@@ -13,6 +13,7 @@ module "monitor_cluster" {
   associate_public_ip_address = false
   hostname_prefix             = "monitor"
   use_num_suffix              = true
+  iam_instance_profile        = aws_iam_instance_profile.monitor.name
 
   tags = merge(
     var.custom_tags,
@@ -114,6 +115,7 @@ module "monitor_provision" {
   internal_domain               = local.internal_domain
   targets                       = var.targets
   log_retention_period_days     = local.monitor.log_retention_period_days
+  log_archive_storage_info      = local.log_archive_storage_info
 }
 
 resource "aws_security_group" "monitor" {

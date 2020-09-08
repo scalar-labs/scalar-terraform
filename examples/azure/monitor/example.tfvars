@@ -13,6 +13,7 @@ monitor = {
   # remote_port                   = 9090
   # enable_accelerated_networking = "false"
   # log_retention_period_days     = "30"
+  # log_archive_storage_base_uri  = "https://yourstorageaccountname.blob.core.windows.net/your-container-name"
 }
 
 # targets = [

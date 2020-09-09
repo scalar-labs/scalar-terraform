@@ -75,7 +75,9 @@ terraform taint "module.cassandra.azurerm_virtual_machine_data_disk_attachment.c
 terraform apply
 ```
 
-If the crashed node is not listed in the resource group
+If you face an error or accidentally terminated the node, please try the following.
+* Remove an OS disk if attached to the node.
+* Do `terraform state rm` as follows.
 
 * Remove os-disk of crashed node If it is available.
 

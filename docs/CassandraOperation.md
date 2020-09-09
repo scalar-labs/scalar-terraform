@@ -78,7 +78,6 @@ If you face an error or accidentally terminated the node, please try the followi
 * Remove an OS disk if attached to the node.
 * Do `terraform state rm` as follows.
 
-* Remove os-disk of crashed node If it is available.
 
 ```console
 terraform state rm module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]

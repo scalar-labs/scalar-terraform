@@ -9,7 +9,7 @@ The process of replacement is as follows.
 1. `terraform taint` for a node instance resource
 2. `terraform apply`
 
-For Azure, Remove the os-disk of the crashed node If os-disk is available without the crashed node in the resource group.
+For Azure, You will need to remove os-disk of terminated node when the node is terminated accidentally.
 
 Note that when tainting a resource, you need to go to the directory where the resource was created. The second part of the resource name represents the module name. For example, if you need to taint a resource `module.scalardl.module.foo.aws_instance.this[0]`, you need to go to `scalardl` directory first.
 

@@ -66,7 +66,6 @@ terraform show | grep module.cassandra
 When you taint the volume attachment terraform will try to attach the same data or commit log volume to the new instance. This is the ideal situation as it is the quickest way to replace a node.
 
 ##### Azure
-If the crashed node is listed in the resource group
 
 ```console
 terraform taint "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"

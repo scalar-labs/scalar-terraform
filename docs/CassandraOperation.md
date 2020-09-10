@@ -74,7 +74,7 @@ terraform taint "module.cassandra.azurerm_virtual_machine_data_disk_attachment.c
 terraform apply
 ```
 
-If you face an error or accidentally terminated the node, please try the following.
+If you face an error or accidentally terminated the node or deleted the OS disk manually, please try the following.
 * Remove an OS disk if attached to the node.
 * Do `terraform state rm` as follows.
 

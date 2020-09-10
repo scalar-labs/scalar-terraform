@@ -75,7 +75,7 @@ terraform apply
 ```
 
 If you face an error or accidentally terminated the node or deleted the OS disk manually, please try the following.
-* Remove an OS disk if attached to the node.
+* Terminate the node and remove the OS disk if it is attached to the node.
 * Do `terraform state rm` as follows.
 
 

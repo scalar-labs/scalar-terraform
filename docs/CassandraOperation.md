@@ -32,31 +32,31 @@ The following section is useful when you need to replace a Cassandra node.
 #### Azure Output
 ```console
 terraform state list
-# module.cassandra.module.reaper_cluster.azurerm_virtual_machine.vm-linux[0]:
-# module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[2]:
-# module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]:
-# module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[1]:
-# module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]:
-# module.cassandra.azurerm_managed_disk.cassandra_data_volume[1]:
-# module.cassandra.azurerm_managed_disk.cassandra_data_volume[2]:
-# module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[0]:
-# module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[1]:
-# module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[2]:
-# module.cassandra.null_resource.volume_data_local[0]:
+module.cassandra.module.reaper_cluster.azurerm_virtual_machine.vm-linux[0]:
+module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[2]:
+module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]:
+module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[1]:
+module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]:
+module.cassandra.azurerm_managed_disk.cassandra_data_volume[1]:
+module.cassandra.azurerm_managed_disk.cassandra_data_volume[2]:
+module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[0]:
+module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[1]:
+module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[2]:
+module.cassandra.null_resource.volume_data_local[0]:
 ```
 
 #### AWS Output
 ```console
 terraform state list
-# module.cassandra.module.cassandra_cluster.aws_instance.this[0]:
-# module.cassandra.module.cassandra_cluster.aws_instance.this[1]:
-# module.cassandra.module.cassandra_cluster.aws_instance.this[2]:
-# module.cassandra.aws_ebs_volume.cassandra_data_volume[0]:
-# module.cassandra.aws_ebs_volume.cassandra_data_volume[1]:
-# module.cassandra.aws_ebs_volume.cassandra_data_volume[2]:
-# module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[0]:
-# module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[1]:
-# module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[2]:
+module.cassandra.module.cassandra_cluster.aws_instance.this[0]:
+module.cassandra.module.cassandra_cluster.aws_instance.this[1]:
+module.cassandra.module.cassandra_cluster.aws_instance.this[2]:
+module.cassandra.aws_ebs_volume.cassandra_data_volume[0]:
+module.cassandra.aws_ebs_volume.cassandra_data_volume[1]:
+module.cassandra.aws_ebs_volume.cassandra_data_volume[2]:
+module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[0]:
+module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[1]:
+module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[2]:
 ```
 
 * Find the `instance` or `vm` you wish to replace and copy the line.

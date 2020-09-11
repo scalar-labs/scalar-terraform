@@ -8,6 +8,8 @@ data "azurerm_storage_account" "monitor" {
 }
 
 resource "azurerm_role_definition" "monitor" {
+  count = local.enable_log_archive_storage && local.monitor.resource_count > 0 ? 1 : 0
+
   name  = "${local.network_name}-monitor"
   scope = data.azurerm_subscription.subscription.id
 
@@ -27,6 +29,6 @@ resource "azurerm_role_assignment" "monitor" {
   count = local.enable_log_archive_storage && local.monitor.resource_count > 0 ? local.monitor.resource_count : 0
 
   scope              = data.azurerm_storage_account.monitor[0].id
-  role_definition_id = azurerm_role_definition.monitor.id
+  role_definition_id = azurerm_role_definition.monitor[0].id
   principal_id       = module.monitor_cluster.vm_identities[count.index][0]["principal_id"]
 }

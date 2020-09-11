@@ -31,7 +31,7 @@ The following section is useful when you need to replace a Cassandra node.
 
 #### Azure Output
 ```console
-terraform show | grep module.cassandra
+terraform state list
 # module.cassandra.module.reaper_cluster.azurerm_virtual_machine.vm-linux[0]:
 # module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[2]:
 # module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]:
@@ -47,7 +47,7 @@ terraform show | grep module.cassandra
 
 #### AWS Output
 ```console
-terraform show | grep module.cassandra
+terraform state list
 # module.cassandra.module.cassandra_cluster.aws_instance.this[0]:
 # module.cassandra.module.cassandra_cluster.aws_instance.this[1]:
 # module.cassandra.module.cassandra_cluster.aws_instance.this[2]:

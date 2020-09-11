@@ -13,7 +13,8 @@ module "vpc" {
     local.subnet_map.private,
     local.subnet_map.cassandra,
     local.subnet_map.scalardl_blue,
-    local.subnet_map.scalardl_green
+    local.subnet_map.scalardl_green,
+    local.subnet_map.pulsar
   )
   public_subnets = local.subnet_map.public
 

@@ -1,0 +1,7 @@
+terraform {
+  backend "s3" {
+    bucket = "example-scalar-tfstate"
+    key    = "pulsar/terraform.tfstate"
+    region = "ap-northeast-1"
+  }
+}

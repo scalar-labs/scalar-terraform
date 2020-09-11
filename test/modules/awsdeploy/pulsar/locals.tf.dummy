@@ -1,0 +1,15 @@
+locals {
+  network = {
+    cidr = "10.42.0.0/16"
+    name = "example-aws"
+    dns  = "Z08111302BU37G0O8OMMY"
+    id   = "vpc-08f36c547a1aca222"
+
+    locations  = "ap-northeast-1c,ap-northeast-1a"
+    subnet_ids = "subnet-1234567890abcdefg,subnet-1234567890hijklmn"
+    image_id   = "ami-0d9d854feeddeef21"
+    key_name   = "example-aws-xxxxxxx-key"
+
+    internal_domain = "internal.scalar-labs.com"
+  }
+}

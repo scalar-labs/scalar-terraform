@@ -25,6 +25,7 @@ output "subnet_map" {
     cassandra      = list(module.vpc.private_subnets[3], module.vpc.private_subnets[4], module.vpc.private_subnets[5])
     scalardl_blue  = list(module.vpc.private_subnets[6], module.vpc.private_subnets[7], module.vpc.private_subnets[8])
     scalardl_green = list(module.vpc.private_subnets[9], module.vpc.private_subnets[10], module.vpc.private_subnets[11])
+    pulsar         = list(module.vpc.private_subnets[12], module.vpc.private_subnets[13], module.vpc.private_subnets[14])
   }
   description = "The subnet map of VPC network."
 }

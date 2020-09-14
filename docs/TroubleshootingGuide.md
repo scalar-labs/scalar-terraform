@@ -7,21 +7,21 @@ Use this Troubleshooting Guide to:
 - Replace accidentally removed cassandra node or os-disk with existing data disk
 
 ## Replace accidentally removed node or os-disk
-The following process helps to replace accidentally terminated node or os-disk, but that node should not have an additional data disk.
+The following process helps to replace accidentally terminated node or os-disk, but the node should not have an additional data disk.
 
 Note: Mainly applicable for scalardl, envoy, cassy, reaper, monitor and ca nodes.
  
 Please try the following
-- Remove the os-disk If the node is not available in the resource group.
-- Remove the node If the os-disk is not available in the resource group.
-- Then you can follow [Node Replacement](NodeReplacement.md)
+* Delete the os-disk If the node is terminated.
+* Terminate the node If the os-disk is deleted.
+* Follow [Node Replacement](NodeReplacement.md)
 
 ## Replace accidentally removed cassandra node or os-disk with existing data disk
 This documentation helps to replace accidentally terminated node or os-disk with existing data disk (taint volume attachment).
 
 Please try the following
-* Remove the os-disk If the node is not available in the resource group.
-* Remove the node If the os-disk is not available in the resource group.
+* Delete the os-disk If the node is terminated.
+* Terminate the node If the os-disk is deleted.
 * Do `terraform state rm` as follows.
   
 ```console
@@ -31,4 +31,4 @@ terraform state rm "module.cassandra.azurerm_virtual_machine_data_disk_attachmen
 terraform apply
 ```
 
-Then you can follow [Cassandra Post Recovery Steps](CassandraOperation.md#post-recovery-steps)
+Follow [Cassandra Post Recovery Steps](CassandraOperation.md#post-recovery-steps)

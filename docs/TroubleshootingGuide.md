@@ -25,7 +25,7 @@ Please try the following
 * Do `terraform state rm` as follows.
   
 ```console
-terraform taint "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
+terraform state rm "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
 terraform state rm "module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[0]"
 
 terraform apply

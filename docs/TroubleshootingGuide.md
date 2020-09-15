@@ -1,4 +1,4 @@
-# Troubleshoot Guide
+# Troubleshooting Guide
 
 This guide explains how to replace a node when the node cannot be replaced with normal procedures. This is especially useful when the node or os-disk is accidentally terminated in the **Azure** environment.
 

@@ -153,7 +153,7 @@ resource "null_resource" "volume_commitlog_local" {
 
 module "cassandra_provision" {
   source                = "../../universal/cassandra"
-  triggers              = local.triggers
+  triggers              = concat(local.triggers, [local.cassandra.resource_type])
   vm_ids                = module.cassandra_cluster.vm_ids
   bastion_host_ip       = local.bastion_ip
   host_list             = module.cassandra_cluster.network_interface_private_ip

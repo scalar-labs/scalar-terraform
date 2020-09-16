@@ -5,7 +5,7 @@ This is a guide for troubleshooting scalar-terraform environment.
 Use this Troubleshooting Guide to:
 - Node Replacement
 
-## Node Replacement
+## Accidental deletion of resources
 These troubleshooting steps can be used when the node cannot be replaced with normal procedures. This is especially useful when the node or os-disk is accidentally terminated in the **Azure** environment.
 - Replace accidentally removed node or os-disk
 - Replace accidentally removed cassandra node or os-disk with existing data disk

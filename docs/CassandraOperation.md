@@ -123,7 +123,7 @@ sudo mount -a
 As the last step of Cassandra node replacement, you need to configure Cassandra appropriately before starting it. What needs to be done depends on the following cases.
 
 * Case1: Node (Instance/VM) is replaced (but the volume is not replaced)
-* Case2: Volume is repalced (but the node is not replaced)
+* Case2: Volume is replaced (but the node is not replaced)
 * Case3: Node and the volume are both replaced
 
 Here are the steps for each case.

@@ -21,6 +21,12 @@
     path: /etc/tuned/cassandra
     state: directory
 
+- name: Replace plugin_disk.py of tuned for support nvme disk
+  replace:
+    path: /usr/lib/python2.7/site-packages/tuned/plugins/plugin_disk.py
+    regexp: '^(\s*device.parent.subsystem in \["scsi", "virtio", "xen")\]\)$'
+    replace: '\1, "nvme"])'
+
 - name: Add Cassandra Tuned Profile
   template:
     src: tuned.conf.j2

@@ -141,7 +141,7 @@ Here are the steps for each case.
 
 #### Case3: Node and the volume are both replaced
 * Restore data from Cassy
-  * You need to manually update the IP of an entry of `backup_history` table to match with the new IP
+  * You need to manually update the IP of the entry of `backup_history` table to match with the new IP
 * Remove the IP of the new node from seeds in `casssandra.yaml`
 * Set `auto_bootstrap` to `false` in `cassandra.yaml`
     * this might not be needed. need to verify.

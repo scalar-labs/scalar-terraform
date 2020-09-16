@@ -1,7 +1,7 @@
-## Cassandra
+# Cassandra Operations
 The Cassandra cluster can be expanded using terraform but due to the sensitive nature of Cassandra it requires additional steps.
 
-### Scale up the Cassandra cluster
+## Scale up the Cassandra cluster
 By setting the `cassandra.resource_count` variable you can control the number of Cassandra nodes to create. All Cassandra nodes will be created in a stopped state and will need an operator to manually start the service.
 
 [ [Azure example.tfvars](../examples/azure/cassandra/example.tfvars) ]
@@ -21,7 +21,7 @@ cassandra = {
 * It is only possible to add 1 node to a cluster at a time.
 * Also when adding a new node to a cluster it will slow down the system.
 
-### Replace a Cassandra Node
+## Replace a Cassandra Node
 The following section is useful when you need to replace a Cassandra node.
 
 * The first thing to do is to match the Terraform state file to the actual resource you want to replace.
@@ -29,7 +29,7 @@ The following section is useful when you need to replace a Cassandra node.
 * Match the private_ip address of the VM to the state file using the command below.
 * You may want to add `-A 10` to the grep command to help find the correct node.
 
-#### Azure Output
+### Azure Output
 ```console
 terraform show | grep module.cassandra
 # module.cassandra.module.reaper_cluster.azurerm_virtual_machine.vm-linux[0]:
@@ -45,7 +45,7 @@ terraform show | grep module.cassandra
 # module.cassandra.null_resource.volume_data_local[0]:
 ```
 
-#### AWS Output
+### AWS Output
 ```console
 terraform show | grep module.cassandra
 # module.cassandra.module.cassandra_cluster.aws_instance.this[0]:
@@ -62,17 +62,17 @@ terraform show | grep module.cassandra
 * Find the `instance` or `vm` you wish to replace and copy the line.
 * You also need to decide to taint either the *drive attachment* or the *volume* directly.
 
-#### Taint volume attachment
+### Taint volume attachment
 When you taint the volume attachment terraform will try to attach the same data or commit log volume to the new instance. This is the ideal situation as it is the quickest way to replace a node.
 
-##### Azure
+#### Azure
 ```console
 terraform taint "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
 terraform taint "module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[0]"
 
 terraform apply
 ```
-##### AWS
+#### AWS
 ```console
 terraform taint "module.cassandra.module.cassandra_cluster.aws_instance.this[0]"
 terraform taint "module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[0]"
@@ -80,10 +80,10 @@ terraform taint "module.cassandra.aws_volume_attachment.cassandra_data_volume_at
 terraform apply
 ```
 
-#### Taint Volume
+### Taint Volume
 The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume. Be sure you can recover the data from a backup first.
 
-##### Azure
+#### Azure
 ```console
 terraform taint "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
 terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
@@ -91,7 +91,7 @@ terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
 terraform apply
 ```
 
-##### AWS
+#### AWS
 ```console
 terraform taint "module.cassandra.module.cassandra_cluster.aws_instance.this[0]"
 terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
@@ -119,25 +119,37 @@ sudo /bin/bash -c "echo 'UUID=af767839-b23d-4d1f-8a19-debbcfd6413c /data xfs def
 sudo mount -a
 ```
 
-#### Modify Cassandra config
-You need to modify the file `/etc/cassandra/conf/cassandra-env.sh` to add the line below.
+### Restart Cassandra
+As a last step of Cassandra node replacement, you need to configure Cassandra appropriately before start it. What needs to be done depends on the following cases.
 
-* The IP address should be the same as the node you are replacing, even if the IP happens to be the same as the replacement node.
+* Case1: Node (Instance/VM) is repalced (but the volume is not replaced)
+* Case2: Volume is repalced (but the node is not replaced)
+* Case3: Node and the volume are both replaced
 
-```
-JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead_node_ip>"
-```
+Here are the steps for each case.
 
-You also need to modify the file `/etc/cassandra/conf/cassandra.yaml` if you replaced a seed node and a volume.
-* Remove the newly created Cassandra node IP from the seeds of the node.
+#### Case1: Node (Instance/VM) is repalced (but the volume is not replaced)
+* Remove the IP of the new node from seeds in `casssandra.yaml`
+* Add `JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead node ip>"` to the bottom of `cassandra-env.sh`
+* `sudo systemctl start cassandra`
+* Repair with Reaper at some later point 
 
-Finally you can start the Cassandra service.
+#### Case2: Volume is repalced (but the node is not replaced)
+* Restore data from Cassy
+* `sudo systemctl start cassandra`
+* Repair with Reaper at some later point 
 
-```console
-sudo systemctl start cassandra
-```
+#### Case3: Node and the volume are both replaced
+* Restore data from Cassy
+  * You need to manually update the IP of an entry of `backup_history` table to match with the new IP
+* Remove the IP of the new node from seeds in `casssandra.yaml`
+* Set `auto_bootstrap` to `false` in `cassandra.yaml`
+    * this might not be needed. need to verify.
+* Add `JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead node ip>"` to the bottom of `cassandra-env.sh`
+* sudo systemctl start cassandra
+* Repair with Reaper at some later point 
 
-If you replaced a seed node (old seed node), you should replace the old seed node's IP of all Cassandra nodes with newly created Cassandra node IP.
+Please note that, if you replace a seed node (IP-A), you should replace IP-A from seeds with a newly created Cassandra node IP in all the Cassandra nodes.
 
 # Related Documents
 

@@ -120,7 +120,7 @@ sudo mount -a
 ```
 
 ### Restart Cassandra
-As a last step of Cassandra node replacement, you need to configure Cassandra appropriately before start it. What needs to be done depends on the following cases.
+As the last step of Cassandra node replacement, you need to configure Cassandra appropriately before starting it. What needs to be done depends on the following cases.
 
 * Case1: Node (Instance/VM) is repalced (but the volume is not replaced)
 * Case2: Volume is repalced (but the node is not replaced)

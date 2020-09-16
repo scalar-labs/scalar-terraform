@@ -134,7 +134,7 @@ Here are the steps for each case.
 * `sudo systemctl start cassandra`
 * Repair with Reaper at some later point 
 
-#### Case2: Volume is repalced (but the node is not replaced)
+#### Case2: Volume is replaced (but the node is not replaced)
 * Restore data from Cassy
 * `sudo systemctl start cassandra`
 * Repair with Reaper at some later point 

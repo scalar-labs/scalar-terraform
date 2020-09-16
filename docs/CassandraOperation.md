@@ -128,7 +128,7 @@ As the last step of Cassandra node replacement, you need to configure Cassandra 
 
 Here are the steps for each case.
 
-#### Case1: Node (Instance/VM) is repalced (but the volume is not replaced)
+#### Case1: Node (Instance/VM) is replaced (but the volume is not replaced)
 * Remove the IP of the new node from seeds in `casssandra.yaml`
 * Add `JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead node ip>"` to the bottom of `cassandra-env.sh`
 * `sudo systemctl start cassandra`

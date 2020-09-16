@@ -3,7 +3,7 @@
 This is a guide for troubleshooting scalar-terraform environment. 
 
 Use this Troubleshooting Guide to:
-- Node Replacement
+- Accidental deletion of resources
 
 ## Accidental deletion of resources
 These troubleshooting steps can be used when the node cannot be replaced with normal procedures. This is especially useful when the node or os-disk is accidentally terminated in the **Azure** environment.

@@ -17,8 +17,6 @@ The Cosmos DB Azure module deploys a Cosmos DB account.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| base | The base of Cosmos DB | `string` | `"default"` | no |
-| cosmosdb | The custom settings of Cosmos DB | `map` | `{}` | no |
 | kubernetes | The kubernetes settings of Cosmos DB | `map` | n/a | yes |
 | network | The network settings of Cosmos DB | `map` | n/a | yes |
 

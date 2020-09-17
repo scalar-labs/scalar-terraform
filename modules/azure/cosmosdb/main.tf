@@ -1,5 +1,5 @@
 resource "azurerm_cosmosdb_account" "db" {
-  name                = "${local.network_name}-cosmos-db"
+  name                = "${local.network_name}-cosmosdb"
   location            = local.region
   resource_group_name = local.network_name
   offer_type          = "Standard"

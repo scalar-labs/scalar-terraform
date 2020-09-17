@@ -146,7 +146,7 @@ Here are the steps for each case.
 * Set `auto_bootstrap` to `false` in `cassandra.yaml`
     * this might not be needed. need to verify.
 * Add `JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead node ip>"` to the bottom of `cassandra-env.sh`
-* sudo systemctl start cassandra
+* `sudo systemctl start cassandra`
 * Repair with Reaper at some later point 
 
 Please note that, if you replace a seed node (IP-A), you should replace IP-A from seeds with a newly created Cassandra node IP in all the Cassandra nodes.

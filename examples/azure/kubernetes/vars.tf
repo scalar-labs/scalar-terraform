@@ -25,7 +25,7 @@ variable "kubernetes_scalar_apps_pool" {
 variable "use_cosmosdb" {
   type        = bool
   default     = false
-  description = "Whether to enable the Cosmos DB service endpoint"
+  description = "Whether to use Cosmos DB. If true, a service endpoint for Cosmos DB is enabled."
 }
 
 variable "custom_tags" {

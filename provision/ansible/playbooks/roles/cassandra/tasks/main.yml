@@ -21,6 +21,15 @@
     path: /etc/tuned/cassandra
     state: directory
 
+# Tuned does not yet support nvme disk
+# https://github.com/redhat-performance/tuned/issues/101
+- name: Replace plugin_disk.py of tuned for supporting nvme disk
+  replace:
+    path: /usr/lib/python2.7/site-packages/tuned/plugins/plugin_disk.py
+    regexp: '^(\s*device.parent.subsystem in \["scsi", "virtio", "xen")\]\)$'
+    replace: '\1, "nvme"])'
+  notify: restart tuned
+
 - name: Add Cassandra Tuned Profile
   template:
     src: tuned.conf.j2

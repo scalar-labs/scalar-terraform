@@ -4,11 +4,11 @@ tuned_profile: virtual-guest
 # In AWS, sda and xvda are used depending on virtualization types.
 # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html#available-ec2-device-names
 # In Azure, sda is used for OS.
-tuned_disk_devices: '!sda, !xvda'
+tuned_disk_devices: "!sda, !xvda, !nvme0n1"
 disk_read_ahead: 8
 CASSANDRA_MEMTABLE_THRESHOLD: 0.33
 CASSANDRA_STATE: stopped
 cassandra_dc_id: dc1
 cassandra_rack_id: rack1
 endpoint_snitch: GossipingPropertyFileSnitch
-vm_max_map_count: '1048575'
+vm_max_map_count: "1048575"

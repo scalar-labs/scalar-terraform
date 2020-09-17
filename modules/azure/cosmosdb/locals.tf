@@ -10,37 +10,3 @@ locals {
   internal_domain     = var.network.internal_domain
   triggers            = [var.network.bastion_provision_id]
 }
-
-### Cosmos DB
-locals {
-  cosmosdb_default = {
-  }
-}
-
-locals {
-  cosmosdb_base = {
-    default = local.cosmosdb_default
-
-    bai = merge(local.cosmosdb_default,
-      {
-      }
-    )
-
-    chiku = merge(local.cosmosdb_default,
-      {
-      }
-    )
-
-    sho = merge(local.cosmosdb_default,
-      {
-      }
-    )
-  }
-}
-
-locals {
-  cosmosdb = merge(
-    local.cosmosdb_base[var.base],
-    var.cosmosdb
-  )
-}

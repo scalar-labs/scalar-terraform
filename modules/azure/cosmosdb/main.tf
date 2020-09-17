@@ -4,7 +4,7 @@ resource "azurerm_cosmosdb_account" "db" {
   resource_group_name = local.network_name
   offer_type          = "Standard"
 
-  enable_automatic_failover = true
+  enable_automatic_failover = false
 
   is_virtual_network_filter_enabled = true
 

@@ -26,6 +26,7 @@
     path: /usr/lib/python2.7/site-packages/tuned/plugins/plugin_disk.py
     regexp: '^(\s*device.parent.subsystem in \["scsi", "virtio", "xen")\]\)$'
     replace: '\1, "nvme"])'
+  notify: restart tuned
 
 - name: Add Cassandra Tuned Profile
   template:

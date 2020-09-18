@@ -40,5 +40,5 @@ output "cosmosdb_account_secondary_readonly_master_key" {
 
 output "cosmosdb_account_connection_strings" {
   value       = azurerm_cosmosdb_account.db.connection_strings
-  description = "A list of connection strings available for this CosmosDB account."
+  description = "A list of connection strings available for the CosmosDB account."
 }

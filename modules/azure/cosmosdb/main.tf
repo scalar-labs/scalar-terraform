@@ -3,6 +3,7 @@ resource "azurerm_cosmosdb_account" "db" {
   location            = local.region
   resource_group_name = local.network_name
   offer_type          = "Standard"
+  kind                = "GlobalDocumentDB"
 
   enable_automatic_failover = false
 

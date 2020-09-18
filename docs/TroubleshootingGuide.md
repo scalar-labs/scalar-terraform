@@ -2,30 +2,24 @@
 
 This is a guide for troubleshooting scalar-terraform environment. 
 
-Use this Troubleshooting Guide to:
-- Accidental deletion of resources
-
 ## Accidental deletion of resources
-These troubleshooting steps can be used when the node cannot be replaced with normal procedures. This is especially useful when the node or os-disk is accidentally terminated in the **Azure** environment.
-- Replace accidentally removed node or os-disk
-- Replace accidentally removed cassandra node or os-disk with existing data disk
+When you accidentally delete a resource manually without terraform, it causes some inconsistencies between the actual state of resources and the state that terraform knows. Thus, you might need to take some extra actions to recover from such situations depending on the Cloud you use. The following explains how to recover from such cases.
 
-### Replace accidentally removed node or os-disk
-The following process helps to replace accidentally terminated node or os-disk, but the node should not have an additional data disk.
+- Recover from accidental deletion of a node
+- Recover a node with existing data disk from accidental deletion of a node
 
-Note: Mainly applicable for scalardl, envoy, cassy, reaper, monitor and ca nodes.
- 
+### Recover from accidental deletion of a node
+If you accidentally delete a node that does not have an additional data disk, you can recover it in the following steps. It is mainly applicable for scalardl, envoy, cassy, reaper, monitor and ca nodes.
+
 Please try the following
 * Delete the os-disk If the node is terminated.
-* Terminate the node If the os-disk is deleted.
 * Follow [Node Replacement](NodeReplacement.md)
 
-### Replace accidentally removed cassandra node or os-disk with existing data disk
-This documentation helps to replace accidentally terminated node or os-disk with existing data disk (taint volume attachment).
+### Recover a node with existing data disk from accidental deletion of a node
+If you accidentally delete a node that contains an additional data disk, you can recover that node with an existing data disk using the following steps.
 
 Please try the following
 * Delete the os-disk If the node is terminated.
-* Terminate the node If the os-disk is deleted.
 * Do `terraform state rm` as follows.
   
 ```console

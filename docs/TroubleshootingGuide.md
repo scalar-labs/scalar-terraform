@@ -3,7 +3,7 @@
 This is a guide for troubleshooting scalar-terraform environment. 
 
 ## Accidental deletion of resources
-When you accidentally delete a resource manually without terraform, it causes some inconsistencies between the actual state of resources and the state that terraform knows. Thus, you might need to take some extra actions to recover from such situations depending on the Cloud you use. The following explains how to recover from such cases.
+When you accidentally delete a resource manually without terraform, it causes some inconsistencies between the actual state of resources and the state that terraform knows. Thus, you might need to take some extra actions to recover from such situations depending on the Cloud you use. The following explains how to recover from such cases in the AZURE scalar-terraform environment.
 
 - Recover from accidental deletion of a node
 - Recover a node with existing data disk from accidental deletion of a node

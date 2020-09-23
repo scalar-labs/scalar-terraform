@@ -3,20 +3,17 @@
 This is a guide for troubleshooting scalar-terraform environment. 
 
 ## Accidental deletion of resources
-When you accidentally delete a resource manually without terraform, it causes some inconsistencies between the actual state of resources and the state that terraform knows. Thus, you might need to take some extra actions to recover from such situations depending on the Cloud you use. The following explains how to recover from such cases in the AZURE scalar-terraform environment.
+When you accidentally delete a resource manually without terraform, it causes some inconsistencies between the actual state of resources and the state that terraform knows. Thus, you might need to take some extra actions to recover from such situations depending on the Cloud you use.
 
-- Recover from accidental deletion of a node
-- Recover a node with existing data disk from accidental deletion of a node
-
-### Recover from accidental deletion of a node
-If you accidentally delete a node that does not have an additional data disk, you can recover it in the following steps. It is mainly applicable for scalardl, envoy, cassy, reaper, monitor and ca nodes.
+### Recover from accidental deletion of a node in Azure
+If you accidentally delete a node that does not have an additional data disk in Azure, you can recover it in the following steps. It is mainly applicable for scalardl, envoy, cassy, reaper, monitor and ca nodes.
 
 Please try the following
 * Delete the os-disk If the node is terminated.
 * Follow [Node Replacement](NodeReplacement.md)
 
-### Recover a node with existing data disk from accidental deletion of a node
-If you accidentally delete a node that contains an additional data disk, you can recover that node with an existing data disk using the following steps.
+### Recover a node with existing data disk from accidental deletion of a node in Azure
+If you accidentally delete a node that contains an additional data disk in Azure, you can recover that node with an existing data disk using the following steps.
 
 Please try the following
 * Delete the os-disk If the node is terminated.

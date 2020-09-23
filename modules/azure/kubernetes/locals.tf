@@ -10,8 +10,13 @@ locals {
 # Network subnet
 locals {
   kubernetes_cluster_network = {
-    k8s_node_pod = cidrsubnet(local.network_cidr, 6, 10)
-    k8s_ingress  = cidrsubnet(local.network_cidr, 6, 11)
+    k8s_node_pod = {
+      address_prefixes  = [cidrsubnet(local.network_cidr, 6, 10)]
+      service_endpoints = var.use_cosmosdb ? ["Microsoft.AzureCosmosDB"] : []
+    }
+    k8s_ingress  = {
+      address_prefixes = [cidrsubnet(local.network_cidr, 6, 11)]
+    }
   }
 }
 

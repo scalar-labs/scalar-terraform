@@ -1,3 +1,7 @@
+output "node_pool_subnet_id" {
+  value = azurerm_subnet.k8s_private["k8s_node_pod"].id
+}
+
 output "kube_config" {
   value       = azurerm_kubernetes_cluster.aks_cluster.kube_config_raw
   description = "kubectl configuration e.g: ~/.kube/config"

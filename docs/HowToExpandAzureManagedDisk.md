@@ -58,7 +58,7 @@ For example, if you update the volume size of a Cassandra node from 1TB to 2TB, 
 Since the above operations are done manually without using terraform, the actual states of cloud resources and tfstate are not consistent after the above steps. Please do the following to update tfstate to make it consistent with the actual resources.
 
 First, update the tfvars of a terraform module of a resource that you updated to match with the actual states of the resource.
-For example, if you update the size of a data volume of Casssandra node to 2TB, please do as follows.
+For example, if you update the size of a data volume of Cassandra node to 2TB, please do as follows.
 
 ```console
 $ vim your.tfvars  # the filename is environment dependent

@@ -1,4 +1,4 @@
-# A Guide on How to Expand Managed disk in Azure
+# A Guide on How to Expand Managed Disk in Azure
 
 This guide explains how to expand managed disk in Azure.
 

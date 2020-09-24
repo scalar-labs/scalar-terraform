@@ -24,7 +24,7 @@ Follow [the guide](https://docs.microsoft.com/en-us/azure/virtual-machines/linux
 
 Follow [the guide](https://docs.microsoft.com/en-us/azure/devtest-labs/devtest-lab-attach-detach-data-disk#attach-a-data-disk)
 
-Note that the `LUN` must be chosen with appropriate value when using `Atttach disk`
+Note that the `LUN` must be chosen with appropriate value when using `Attach disk`
 
 - `5` is for Cassandra data disk or Monitor log disk.
 - `6` is for Cassandra commitlog disk.

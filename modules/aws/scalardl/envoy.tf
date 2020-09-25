@@ -273,7 +273,7 @@ resource "aws_lb_target_group_attachment" "envoy_privileged_target_group_attachm
 }
 
 resource "aws_route53_record" "envoy_dns_lb" {
-  count = local.envoy.enable_nlb ? 1 : 0
+  count = local.envoy.enable_nlb && local.envoy.nlb_internal ? 1 : 0
 
   zone_id = local.network_dns
   name    = "envoy-lb"

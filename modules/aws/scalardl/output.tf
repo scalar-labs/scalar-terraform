@@ -39,7 +39,7 @@ output "scalardl_replication_factor" {
 }
 
 output "envoy_dns" {
-  value       = aws_lb.envoy_lb.*.dns_name
+  value       = local.envoy.enable_nlb ? (local.envoy.nlb_internal ? [aws_route53_record.envoy_dns_lb[0].fqdn] : aws_lb.envoy_lb.*.dns_name) : []
   description = "A list of DNS URLs to access an envoy cluster."
 }
 

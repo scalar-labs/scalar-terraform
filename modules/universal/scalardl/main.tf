@@ -188,6 +188,7 @@ resource "null_resource" "scalardl_container" {
       "echo export SCALAR_CASSANDRA_USERNAME=${var.cassandra_username} >> env",
       "echo export SCALAR_CASSANDRA_PASSWORD=${var.cassandra_password} >> env",
       "echo export CASSANDRA_REPLICATION_FACTOR=${var.replication_factor} >> env",
+      "echo export SCALAR_IMAGE_TAG=${var.scalardl_image_tag} >> env",
       "source ./env",
       "docker-compose up -d",
     ]

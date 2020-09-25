@@ -75,3 +75,8 @@ variable "log_archive_storage_info" {
   default     = ""
   description = "An info to set archive storage of the accumulated logs in the monitor host"
 }
+
+variable "prometheus_data_retention_period_time" {
+  default     = "90d"
+  description = "Set the retention period of the prometheus data in the monitor host"
+}

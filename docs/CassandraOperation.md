@@ -141,7 +141,7 @@ If you attached the new volume to the existing instance, you need to follow the 
 
 * Replace the UUID of the `data` volume in `fstab`.
 
-```
+```console 
 ssh -F ssh.cfg cassandra-[].internal.scalar-labs.com
 
 # Find the name of newly attached EBS data volume

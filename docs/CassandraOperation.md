@@ -80,8 +80,8 @@ terraform taint "module.cassandra.aws_volume_attachment.cassandra_data_volume_at
 terraform apply
 ```
 
-### Taint Volume
-The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume. Be sure you can recover the data from a backup first.
+### Taint Volume (with node replacement)
+The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and it will recreate data volume along with node. Be sure you can recover the data from a backup first.
 
 #### Azure
 ```console
@@ -94,6 +94,23 @@ terraform apply
 #### AWS
 ```console
 terraform taint "module.cassandra.module.cassandra_cluster.aws_instance.this[0]"
+terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
+
+terraform apply
+```
+
+### Taint Volume (without node replacement)
+The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and attach recreated volume with existing node. Be sure you can recover the data from a backup first.
+
+#### Azure
+```console
+terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
+
+terraform apply
+```
+
+#### AWS
+```console
 terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
 
 terraform apply
@@ -119,6 +136,37 @@ sudo /bin/bash -c "echo 'UUID=af767839-b23d-4d1f-8a19-debbcfd6413c /data xfs def
 sudo mount -a
 ```
 
+#### Replacing the data volume without node replacement
+If you attached the new volume to the existing instance, you need to follow the these steps before starting Cassandra.
+
+* Replace the UUID of the `data` volume in `fstab`.
+
+```
+ssh -F ssh.cfg cassandra-[].internal.scalar-labs.com
+
+# Find the name of newly attached EBS data volume
+lsblk -p -P -d -o name,serial,SIZE
+NAME="/dev/nvme2n1" SERIAL="vol018d1871d19da76f1" HCTL="" SIZE="1T"
+...
+
+# Create a file system in the newly created volume
+sudo mkfs -t xfs <name of volume>
+
+# Find the `UUID` of the data volume
+lsblk -p -P -d -o name,serial,UUID,SIZE
+NAME="/dev/nvme2n1" SERIAL="vol018d1871d19da76f1" UUID="af767839-b23d-4d1f-8a19-debbcfd6413c" HCTL="" SIZE="1T"
+...
+
+# Update the UUID of `/data` directory 
+sudo vi /etc/fstab
+
+sudo systemctl daemon-reload
+
+sudo mount -a
+
+# Change ownership of `/data` directory 
+sudo chown cassandra:cassandra /data
+```
 ### Restart Cassandra
 As the last step of Cassandra node replacement, you need to configure Cassandra appropriately before starting it. What needs to be done depends on the following cases.
 
@@ -142,6 +190,7 @@ Here are the steps for each case.
 #### Case3: Node and the volume are both replaced
 * Restore data from Cassy
   * You need to manually update the IP of the entry of `backup_history` table to match with the new IP
+  * You need to manually update the IP address of Cassy backup with new IP in the cloud storage
 * Remove the IP of the new node from seeds in `casssandra.yaml`
 * Set `auto_bootstrap` to `false` in `cassandra.yaml`
     * this might not be needed. need to verify.

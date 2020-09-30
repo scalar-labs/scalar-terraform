@@ -104,18 +104,19 @@ module "monitor_provision" {
   private_key_path = local.private_key_path
   provision_count  = local.monitor.resource_count
 
-  slack_webhook_url             = var.slack_webhook_url
-  network_id                    = local.network_id
-  scalardl_blue_resource_count  = local.scalardl_blue_resource_count
-  scalardl_green_resource_count = local.scalardl_green_resource_count
-  cassandra_resource_count      = local.cassandra_resource_count
-  replication_factor            = local.scalardl_replication_factor
-  network_name                  = local.network_name
-  enable_tdagent                = local.monitor.enable_tdagent
-  internal_domain               = local.internal_domain
-  targets                       = var.targets
-  log_retention_period_days     = local.monitor.log_retention_period_days
-  log_archive_storage_info      = local.log_archive_storage_info
+  slack_webhook_url                     = var.slack_webhook_url
+  network_id                            = local.network_id
+  scalardl_blue_resource_count          = local.scalardl_blue_resource_count
+  scalardl_green_resource_count         = local.scalardl_green_resource_count
+  cassandra_resource_count              = local.cassandra_resource_count
+  replication_factor                    = local.scalardl_replication_factor
+  network_name                          = local.network_name
+  enable_tdagent                        = local.monitor.enable_tdagent
+  internal_domain                       = local.internal_domain
+  targets                               = var.targets
+  log_retention_period_days             = local.monitor.log_retention_period_days
+  log_archive_storage_info              = local.log_archive_storage_info
+  prometheus_data_retention_period_days = local.monitor.prometheus_data_retention_period_days
 }
 
 resource "aws_security_group" "monitor" {

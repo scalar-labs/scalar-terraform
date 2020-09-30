@@ -14,7 +14,7 @@ monitor = {
   # enable_accelerated_networking         = "false"
   # log_retention_period_days             = "30"
   # log_archive_storage_base_uri          = "https://yourstorageaccountname.blob.core.windows.net/your-container-name"
-  # prometheus_data_retention_period_time = "90d"
+  # prometheus_data_retention_period_days = "90"
 }
 
 # targets = [

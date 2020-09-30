@@ -14,7 +14,7 @@ monitor = {
   # enable_tdagent                        = "true"
   # log_retention_period_days             = "30"
   # log_archive_storage_base_uri          = "s3://your-bucket-name"
-  # prometheus_data_retention_period_time = "90d"
+  # prometheus_data_retention_period_days = "90"
 }
 
 # targets = [

@@ -116,7 +116,7 @@ module "monitor_provision" {
   targets                               = var.targets
   log_retention_period_days             = local.monitor.log_retention_period_days
   log_archive_storage_info              = local.log_archive_storage_info
-  prometheus_data_retention_period_time = local.monitor.prometheus_data_retention_period_time
+  prometheus_data_retention_period_days = local.monitor.prometheus_data_retention_period_days
 }
 
 resource "aws_security_group" "monitor" {

@@ -35,7 +35,7 @@ locals {
     enable_tdagent                        = true
     log_retention_period_days             = 30
     log_archive_storage_base_uri          = ""
-    prometheus_data_retention_period_time = "90d"
+    prometheus_data_retention_period_days = "90"
   }
 }
 

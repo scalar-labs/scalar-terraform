@@ -16,5 +16,6 @@ additional_public_keys_path = "./additional_public_keys"
 internal_domain = "internal.scalar-labs.com"
 
 network = {
-  bastion_resource_count = 1
+  bastion_resource_count = "1"
+  bastion_resource_type  = "t3.large"
 }

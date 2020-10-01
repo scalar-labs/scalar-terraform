@@ -338,7 +338,7 @@ Base: _bai_
 | Network | 1 | $94.17 | $11.74 | $0 | $0 | $105.91 |
 | Cassandra | 3 | $350.4 ($116.80 per node) | $35.22 ($11.74 per disk) | $466.32 ($155.44 per disk) | $0 | $851.94 |
 | Node pool - Scalar Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 | $0 | $317.73 |
-| Node pool - Other Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 |$0.75 |$317.73 |
+| Node pool - Other Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 |$0.75 |$318.48 |
 | Cassy | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |
 | Monitor | 1 | $39.71 | $11.74 | $21.76 (For 10000 transactions) | $0 |$73.25 |
 | Reaper | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |

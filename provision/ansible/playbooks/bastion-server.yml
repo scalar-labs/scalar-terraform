@@ -4,12 +4,15 @@
   roles:
     - common
     - node-exporter
-    - ansible
+    # - ansible
     - role: td-agent
       when: enable_tdagent is undefined or enable_tdagent == '1'
   vars:
     tdagent_confd_templates:
-      - { src: "templates/td-agent-confd/td-agent-bastion.conf.j2", dest: "bastion.conf" }
+      - {
+          src: "templates/td-agent-confd/td-agent-bastion.conf.j2",
+          dest: "bastion.conf",
+        }
   gather_facts: yes
   become: yes
 

@@ -6,7 +6,7 @@ Scalar-terraform and scalar-k8s resource usage and price details available here.
 
 ### Azure
 
-#### chiku
+#### **chiku**
  
 **vCPU**
 
@@ -25,7 +25,7 @@ Scalar-terraform and scalar-k8s resource usage and price details available here.
 | Data Disk (Premium SSD / Standard HDD) | 0 | 3072 GB (1024 GB per disk) (Premium SSD) | 0 | 0 | 500 GB (Standard HDD) | 0 | 0 | 3572 GB|
 | Total | 64 GB | 3264 GB | 192 GB | 192 GB | 564 GB | 64 GB | 64 GB | 4404 GB |
 
-**Resource Price for Tokyo Region** 
+**Resource Price for Japan East Region** 
 
 Base: _chiku_
 
@@ -65,9 +65,9 @@ Note:
 * Load balancer cost will change according to network traffic.
 * Blob storage cost for cassy backup :- $0.15 (Assuming 1GB data and 10,000 operations)
 
-#### Bai
+#### **Bai**
 
-##### vCPU 
+**vCPU** 
 
 | scalar-terraform (bai) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
 |:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
@@ -76,7 +76,7 @@ Note:
 | B2s | 0 | 0 | 6 (2 vCPU per node) | 6 (2 vCPU per node) | 2 | 2 | 2 | 18 |
 | Total | 2 | 6 | 6 | 6 | 2 | 2 | 2 | 26 |
 
-##### Disk Usage
+**Disk Usage**
 
 | scalar-terraform (bai) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
 |:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
@@ -84,7 +84,7 @@ Note:
 | Data Disk (Premium SSD / Standard HDD) | 0 | 3072 GB (1024 GB per disk) (Premium SSD) | 0 | 0 | 500 GB (Standard HDD) | 0 | 0 | 3572 GB|
 | Total | 64 GB | 3264 GB | 192 GB | 192 GB | 564 GB | 64 GB | 64 GB | 4404 GB |
 
-**Resource Price for Tokyo Region**
+**Resource Price for Japan East Region**
 
 Base: _bai_
 
@@ -127,7 +127,7 @@ Note:
 
 ### AWS
 
-#### chiku
+#### **chiku**
  
 **vCPU**
  
@@ -165,7 +165,7 @@ Base: _chiku_
 
 Note: 
 * Load balancer cost will change according to network traffic.
-* Blob storage cost for cassy backup :- $0.025 per GB (For first 50 TB)
+* S3 storage cost for cassy backup :- $0.025 per GB (For first 50 TB)
 
 **Resource Price for West US 2 Region**
 
@@ -185,9 +185,9 @@ Base: _chiku_
 
 Note: 
 * Load balancer cost will change according to network traffic.
-* Blob storage cost for cassy backup :- $0.023 per GB (For first 50 TB)
+* S3 storage cost for cassy backup :- $0.023 per GB (For first 50 TB)
 
-#### Bai
+#### **Bai**
 
 **vCPU** 
 
@@ -224,7 +224,7 @@ Base: _bai_
 
 Note: 
 * Load balancer cost will change according to network traffic.
-* Blob storage cost for cassy backup :- $0.025 per GB (For first 50 TB)
+* S3 storage cost for cassy backup :- $0.025 per GB (For first 50 TB)
 
 **Resource Price for West US 2 Region**
 
@@ -244,14 +244,14 @@ Base: _bai_
 
 Note: 
 * Load balancer cost will change according to network traffic.
-* Blob storage cost for cassy backup :- $0.023 per GB (For first 50 TB)
+* S3 storage cost for cassy backup :- $0.023 per GB (For first 50 TB)
 
 
 ## Scalar-k8s resource usage
 
 ### Azure
 
-#### chiku
+#### **chiku**
  
 **vCPU**
  
@@ -270,7 +270,7 @@ Note:
 | Data Disk (Premium SSD / Standard HDD) | 0 | 3072 GB(1024 GB per node) (Premium SSD) | 0 | 0 | 500 GB (Standard HDD) | 0 | 0 | 3572 GB |
 | Total | 64 GB | 3264 GB | 192 GB | 192 GB | 564 GB | 64 GB | 64 GB | 4404 GB |
 
-**Resource Price for Tokyo Region**
+**Resource Price for Japan East Region**
 
 Base: _chiku_
 
@@ -310,7 +310,7 @@ Note:
 * Load balancer cost will change according to network traffic.
 * Blob storage cost for cassy backup :- $0.15 (Assuming 1GB data and 10,000 operations)
 
-#### Bai
+#### **Bai**
 
 **vCPU** 
 
@@ -329,7 +329,7 @@ Note:
 | Data Disk (Premium SSD / Standard HDD) | 0 | 3072 GB (1024 GB per disk) (Premium SSD) | 0 | 0 | 500 GB (Standard HDD) | 0 | 0 | 3572 GB|
 | Total | 64 GB | 3264 GB | 192 GB | 192 GB | 564 GB | 64 GB | 64 GB | 4404 GB |
 
-**Resource Price for Tokyo Region**
+**Resource Price for Japan East Region**
 
 Base: _bai_
 

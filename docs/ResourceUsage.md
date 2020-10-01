@@ -6,7 +6,7 @@ Scalar-terraform and scalar-k8s resource usage and price details available here.
 
 ### Azure
 
-#### **chiku**
+#### **Chiku**
  
 **vCPU**
 
@@ -106,7 +106,7 @@ Note:
 
 **Resource Price for West US 2 Region**
 
-**Base**: _**bai**_
+Base: _bai_
 
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
@@ -127,7 +127,7 @@ Note:
 
 ### AWS
 
-#### **chiku**
+#### **Chiku**
  
 **vCPU**
  
@@ -251,7 +251,7 @@ Note:
 
 ### Azure
 
-#### **chiku**
+#### **Chiku**
  
 **vCPU**
  

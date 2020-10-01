@@ -11,7 +11,7 @@ Scalar-terraform and scalar-k8s resource usage and price details available here.
 **vCPU**
 
 | scalar-terraform (chiku) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:------|
 | D2s v3 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
 | E4s v3| 0 | 12 (4 vCPU per node) | 0 | 0 | 0 | 0 | 0 | 12 |
 | B2s | 0 | 0 | 6 (2 vCPU per node)| 6 (2 vCPU per node) | 2 | 2 | 2 | 18 |
@@ -20,7 +20,7 @@ Scalar-terraform and scalar-k8s resource usage and price details available here.
 **Disk Usage**
 
 | scalar-terraform (chiku) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:------|
 | OS Disk (Premium SSD) | 64 GB |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) | 64 GB | 64 GB | 64 GB | 832 GB |
 | Data Disk (Premium SSD / Standard HDD) | 0 | 3072 GB (1024 GB per disk) (Premium SSD) | 0 | 0 | 500 GB (Standard HDD) | 0 | 0 | 3572 GB|
 | Total | 64 GB | 3264 GB | 192 GB | 192 GB | 564 GB | 64 GB | 64 GB | 4404 GB |
@@ -36,10 +36,10 @@ Base: _chiku_
 | Scalardl | 3 | $119.14 ($39.71 per node) | $35.22 ($11.74 per disk) | $0 | $0 | $154.36 |
 | Envoy | 3 | $119.14 ($39.71 per node) | $35.22 ($11.74 per disk) | $0 | $0 | $154.36 |
 | Cassy | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |
-| Monitor | 1 | $39.71 | $11.74 | $21.81 (transaction unit 100units) | $0 | $73.26 | 
+| Monitor | 1 | $39.71 | $11.74 | $21.76 (For 10000 transactions) | $0 | $73.21 | 
 | Reaper | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 | 
 | Envoy LB | 1 | $0 | $0 | $0 | $18.26 (Assuming 1Gb data processed) | $18.26 |
-| Total | 14 | $1152.38 | $152.62 | $488.13 | $18.26 | $1811.39 |
+| Total | 14 | $1152.38 | $152.62 | $488.08 | $18.26 | $1811.34 |
 
 Note: 
 * _Load balancer cost will change according to network traffic._
@@ -56,10 +56,10 @@ Base: _chiku_
 | Scalardl | 3 | $91.10 ($30.37 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $118.94 |
 | Envoy | 3 | $91.10 ($30.37 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $118.94 |
 | Cassy | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
-| Monitor | 1 | $30.37 | $9.28 | $21.81 (transaction unit 100units) | $0 | $61.46 |
+| Monitor | 1 | $30.37 | $9.28 | $21.76 (For 10000 transactions) | $0 | $61.41 |
 | Reaper | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
 | Envoy LB | 1 | $0 | $0 | $0 | $18.26 (Assuming 1Gb data processed) | $18.26 |
-| Total | 14 | $895.27 | $120.64 | $390.45 | $18.26 | $1424.62 |
+| Total | 14 | $895.27 | $120.64 | $390.4 | $18.26 | $1424.57 |
 
 Note: 
 * _Load balancer cost will change according to network traffic._
@@ -70,7 +70,7 @@ Note:
 **vCPU** 
 
 | scalar-terraform (bai) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-----------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:------|
 | D2s v3 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
 | E2s_v3 | 0 | 6 (2 vCPU per node) | 0 | 0 |0 | 0 | 0 | 6 |
 | B2s | 0 | 0 | 6 (2 vCPU per node) | 6 (2 vCPU per node) | 2 | 2 | 2 | 18 |
@@ -79,7 +79,7 @@ Note:
 **Disk Usage**
 
 | scalar-terraform (bai) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-----------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:------|
 | OS Disk (Premium SSD) | 64 GB |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) | 64 GB | 64 GB | 64 GB | 832 GB |
 | Data Disk (Premium SSD / Standard HDD) | 0 | 3072 GB (1024 GB per disk) (Premium SSD) | 0 | 0 | 500 GB (Standard HDD) | 0 | 0 | 3572 GB|
 | Total | 64 GB | 3264 GB | 192 GB | 192 GB | 564 GB | 64 GB | 64 GB | 4404 GB |
@@ -94,11 +94,11 @@ Base: _bai_
 | Cassandra | 3 | $350.4 ($116.80 per node) | $35.22 ($11.74 per disk) | $466.32 ($155.44 per disk) | $0 | $851.94 |
 | Scalardl | 3 | $119.14 ($39.71 per node) | $35.22 ($11.74 per disk) | $0 | $0 | $154.36 |
 | Envoy | 3 | $119.14 ($39.71 per node) | $35.22 ($11.74 per disk) | $0 | $0 | $154.36 |
-| Cassy | 1 | $39.71 | $11.74 | $0 | $51.45 |
-| Monitor | 1 | $39.71 | $11.74 | $21.81 (transaction unit 100units) | $0 | $73.26 |
+| Cassy | 1 | $39.71 | $11.74 | $0 | $0 |$51.45 |
+| Monitor | 1 | $39.71 | $11.74 | $21.76 (For 10000 transactions) | $0 | $73.21 |
 | Reaper | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |
 | Envoy LB | 1 | $0 | $0 | $0 | $18.26 (Assuming 1Gb data processed) | $18.26 |
-| Total | 14 | $801.98 | $152.62 | $488.13 | $18.26 | $1460.99 |
+| Total | 14 | $801.98 | $152.62 | $488.08 | $18.26 | $1460.94 |
 
 Note: 
 * _Load balancer cost will change according to network traffic._
@@ -115,10 +115,10 @@ Base: _bai_
 | Scalardl | 3 | $91.1 ($30.37 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $118.94 |
 | Envoy | 3 | $91.1 ($30.37 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $118.94 |
 | Cassy | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
-| Monitor | 1 | $30.37 | $9.28 | $21.81 (transaction unit 100units) | $0 | $61.46 |
+| Monitor | 1 | $30.37 | $9.28 | $21.76 (For 10000 transactions) | $0 | $61.41 |
 | Reaper | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
 | Envoy LB | 1 | $0 | $0 | $0 | $18.26 (Assuming 1Gb data processed) | $18.26 |
-| Total | 14 | $619.33 | $120.64 | $390.45 | $18.26 | $1148.68 |
+| Total | 14 | $619.33 | $120.64 | $390.4 | $18.26 | $1148.63 |
 
 Note: 
 * _Load balancer cost will change according to network traffic._
@@ -132,7 +132,7 @@ Note:
 **vCPU**
  
 | scalar-terraform (chiku) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:------|
 | t3.micro (vCPU) | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
 | t3.medium (vCPU) | 0 | 0 | 0 | 6 (2 vCPU per node | 0 | 2 | 2 | 10 |
 | t3.large (vCPU) | 0 | 0 | 6 (2 vCPU per node) | 0 | 2 | 0 | 0 | 8 |
@@ -142,7 +142,7 @@ Note:
 **Disk Usage**
 
 | scalar-terraform (chiku) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:------|
 | OS Disk (gp2) | 16 GB |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) | 64 GB | 64 GB | 64 GB | 784 GB |
 | Data Disk (gp2 / sc1) | 0 | 3072 GB (1024 GB per disk) (gp2) | 0 | 0 | 500 GB (sc1) | 0 | 0 | 3572 GB|
 | Total | 16 GB | 3264 GB | 192 GB | 192 GB | 564 GB | 64 GB | 64 GB | 4356 GB |
@@ -192,7 +192,7 @@ Note:
 **vCPU** 
 
 | scalar-terraform (bai) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-----------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:------|
 | t3.micro (vCPU) | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
 | t3.medium (vCPU) | 0 | 0 | 6 (2 vCPU per node) | 6 (2 vCPU per node) | 2 | 2 | 2 | 18 |
 | r5d.large (vCPU) | 0 | 6 (2 vCPU per node) | 0 | 0 | 0 | 0 | 0 | 6 |
@@ -201,7 +201,7 @@ Note:
 **Disk Usage**
 
 | scalar-terraform (bai) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-----------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:------|
 | OS Disk (gp2) | 16 GB |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) | 64 GB | 64 GB | 64 GB | 784 GB |
 | Data Disk (gp2 / sc1) | 0 | 3072 GB (1024 GB per disk) (gp2) | 0 | 0 | 500 GB (sc1) | 0 | 0 | 3572 GB|
 | Total | 16 GB | 3264 GB | 192 GB | 192 GB | 564 GB | 64 GB | 64 GB | 4356 GB |
@@ -256,7 +256,7 @@ Note:
 **vCPU**
  
 | scalar-terraform (chiku) | Network | Cassandra | Node pool - Scalar Apps | Node pool - Other Apps | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-------------------------|:--------|:----------|:------------------------|:-----------------------|:--------|:------|:-------|:------|
 | D2s v3 | 2 | 0 | 6 (2 vCPU per node) | 6 (2 vCPU per node) | 0 | 0 | 0 | 14 |
 | E4s v3| 0 | 12 (4 vCPU per node) | 0 | 0 | 0 | 0| 0 | 12 |
 | B2s | 0 | 0 | 0 | 0 | 2 | 2 | 2 | 6 |
@@ -265,10 +265,10 @@ Note:
 **Disk Usage**
 
 | scalar-terraform (chiku) | Network | Cassandra | Node pool - Scalar Apps | Node pool - Other Apps | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-------------------------|:--------|:----------|:------------------------|:-----------------------|:--------|:------|:-------|:------|
 | OS Disk (Premium SSD) | 64 GB | 192 GB(64 GB per node) | 192 GB(64 GB per node) | 192 GB(64 GB per node) | 64 GB | 64 GB | 64 GB | 832 GB |
-| Data Disk (Premium SSD / Standard HDD) | 0 | 3072 GB(1024 GB per node) (Premium SSD) | 0 | 0 | 500 GB (Standard HDD) | 0 | 0 | 3572 GB |
-| Total | 64 GB | 3264 GB | 192 GB | 192 GB | 564 GB | 64 GB | 64 GB | 4404 GB |
+| Data Disk (Premium SSD / Standard HDD) | 0 | 3072 GB(1024 GB per node) (Premium SSD) | 0 | 10 GB (Standard SSD) | 500 GB (Standard HDD) | 0 | 0 | 3582 GB |
+| Total | 64 GB | 3264 GB | 192 GB | 202 GB | 564 GB | 64 GB | 64 GB | 4414 GB |
 
 **Resource Price for Japan East Region**
 
@@ -279,12 +279,12 @@ Base: _chiku_
 | Network | 1 | $94.17 | $11.74 | $0 | $0 | $105.91|
 | Cassandra | 3 | $700.80 ($233.60 per node) | $35.22 ($11.74 per disk) | $466.32 ($155.44 per disk) | $0 | $1,202.34 |
 | Node pool - Scalar Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74  per disk) | $0 | $0 | $317.73 |
-| Node pool - Other Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74  per disk) | $0 | $0 | $317.73 |
+| Node pool - Other Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74  per disk) | $0.75 | $0 | $318.48 |
 | Cassy | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |
-| Monitor | 1 | $39.71 | $11.74 | $21.81 (transaction unit 100units) | $0 | $73.26 | 
+| Monitor | 1 | $39.71 | $11.74 | $21.76 (For 10000 transactions) | $0 | $73.21 | 
 | Reaper | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 | 
 | Envoy LB | 1 | $0 | $0 | $0 | $0.01(Assuming 1Gb data processed) | $0.01 |
-| Total | 14 | $1479.12 | $152.62 | $488.13 | $0.01 | $2119.88 |
+| Total | 14 | $1479.12 | $152.62 | $488.83 | $0.01 | $2120.58 |
 
 Note: 
 * _Load balancer cost will change according to network traffic._
@@ -299,12 +299,12 @@ Base: _chiku_
 | Network | 1 | $70.08 | $9.28 | $0 | $0 | $79.36 |
 | Cassandra | 3 | $551.88 ($183.96 per node) | $27.84 ($9.28 per disk) | $368.64 ($122.88 per disk) | $0 | $948.36 |
 | Node pool - Scalar Apps | 3 | $210.24 ($70.08 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $238.08 |
-| Node pool - Other Apps | 3 | $210.24 ($70.08 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $238.08 |
+| Node pool - Other Apps | 3 | $210.24 ($70.08 per node) | $27.84 ($9.28 per disk) | $0.75 | $0 | $238.83 |
 | Cassy | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
-| Monitor | 1 | $30.37 | $9.28 | $21.76 (transaction unit 100units) | $0 | $61.46 |
+| Monitor | 1 | $30.37 | $9.28 | $21.76 (For 10000 transactions) | $0 | $61.41 |
 | Reaper | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
 | Envoy LB | 1 | $0 | $0 | $0 | $0.01(Assuming 1GB processed bytes) | $0.01 |
-| Total | 14 | $1133.55 | $120.64 | $390.4 | $0.01 | $1644.65 |
+| Total | 14 | $1133.55 | $120.64 | $391.15 | $0.01 | $1645.35 |
 
 Note: 
 * _Load balancer cost will change according to network traffic._
@@ -315,7 +315,7 @@ Note:
 **vCPU** 
 
 | scalar-terraform (bai) | Network | Cassandra | Node pool - Scalar Apps | Node pool - Other Apps | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-----------------------|:--------|:----------|:------------------------|:-----------------------|:--------|:------|:-------|:------|
 | D2s v3 | 2 | 0 | 6 (2 vCPU per node) | 6 (2 vCPU per node) | 0 | 0 | 0 | 14 |
 | E2s_v3 | 0 | 6 (2 vCPU per node) | 0 | 0 |0 | 0 | 0 | 6 |
 | B2s | 0 | 0 | 0 | 0 | 2 | 2 | 2 | 6 |
@@ -324,7 +324,7 @@ Note:
 **Disk Usage**
 
 | scalar-terraform (bai) | Network | Cassandra | Node pool - Scalar Apps | Node pool - Other Apps | Monitor | Cassy | Reaper | Total |
-|:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
+|:-----------------------|:--------|:----------|:------------------------|:-----------------------|:--------|:------|:-------|:------|
 | OS Disk (Premium SSD) | 64 GB |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) | 64 GB | 64 GB | 64 GB | 832 GB |
 | Data Disk (Premium SSD / Standard HDD) | 0 | 3072 GB (1024 GB per disk) (Premium SSD) | 0 | 0 | 500 GB (Standard HDD) | 0 | 0 | 3572 GB|
 | Total | 64 GB | 3264 GB | 192 GB | 192 GB | 564 GB | 64 GB | 64 GB | 4404 GB |
@@ -338,12 +338,12 @@ Base: _bai_
 | Network | 1 | $94.17 | $11.74 | $0 | $0 | $105.91 |
 | Cassandra | 3 | $350.4 ($116.80 per node) | $35.22 ($11.74 per disk) | $466.32 ($155.44 per disk) | $0 | $851.94 |
 | Node pool - Scalar Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 | $0 | $317.73 |
-| Node pool - Other Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 |$0 |$317.73 |
+| Node pool - Other Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 |$0.75 |$317.73 |
 | Cassy | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |
-| Monitor | 1 | $39.71 | $11.74 | $21.81 (transaction unit 100 units) | $0 |$73.26 |
+| Monitor | 1 | $39.71 | $11.74 | $21.76 (For 10000 transactions) | $0 |$73.25 |
 | Reaper | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |
 | Envoy LB | 1 | $0 | $0 | $0 | $0.01(Assuming 1Gb data processed) | $0.01 |
-| Total | 14 | $1128.72 | $152.62 | $488.13 | $0.01 | $1769.48 |
+| Total | 14 | $1128.72 | $152.62 | $488.83 | $0.01 | $1770.18 |
 
 Note: 
 * _Load balancer cost will change according to network traffic._
@@ -358,12 +358,12 @@ Base: _bai_
 | Network | 1 | $70.08 | $9.28 | $0 | $0 | $79.36 |
 | Cassandra | 3 | $275.94 ($91.98 per node) | $27.84 ($9.28 per disk) | $368.64 ($122.88 per disk) | $0 | $672.42 |
 | Node pool - Scalar Apps | 3 | $210.24 ($70.08 per node) | $27.84($9.28 per node) | $0 | $0 | $238.08 |
-| Node pool - Other Apps | 3 | $210.24 ($70.08 per node) | $27.84($9.28 per node) | $0 | $0 | $238.08 |
+| Node pool - Other Apps | 3 | $210.24 ($70.08 per node) | $27.84($9.28 per node) | $0.75 | $0 | $238.83 |
 | Cassy | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
-| Monitor | 1 | $30.37 | $9.28 | $21.81 (transaction unit 100units) | $0 | $61.46 |
+| Monitor | 1 | $30.37 | $9.28 | $21.76 (For 10000 transactions) | $0 | $61.41 |
 | Reaper | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
 | Envoy LB | 1 | $0 | $0 | $0 | $0.01 (Assuming 1Gb data processed) | $0.01 |
-| Total | 14 | $857.61 | $120.64| $390.45 | $0.01 | $1368.71 |
+| Total | 14 | $857.61 | $120.64| $391.15 | $0.01 | $1369.41 |
 
 Note: 
 * _Load balancer cost will change according to network traffic._

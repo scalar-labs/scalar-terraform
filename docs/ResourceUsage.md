@@ -59,11 +59,11 @@ Base: _chiku_
 | Monitor | 1 | $30.37 | $9.28 | $21.81 (transaction unit 100units) | $0 | $61.46 |
 | Reaper | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
 | Envoy LB | 1 | $0 | $0 | $0 | $18.26 (Assuming 1Gb data processed) | $18.26 |
-| Total | 14 | $895.27 | $120.64 | $390.4 | $0 | $1424.62 |
+| Total | 14 | $895.27 | $120.64 | $390.45 | $18.26 | $1424.62 |
 
 Note: 
-* Load balancer cost will change according to network traffic.
-* Blob storage cost for cassy backup :- $0.15 (Assuming 1GB data and 10,000 operations)
+* _Load balancer cost will change according to network traffic._
+* _Blob storage cost for cassy backup :- $0.15 (Assuming 1GB data and 10,000 operations)_
 
 #### **Bai**
 
@@ -101,8 +101,8 @@ Base: _bai_
 | Total | 14 | $801.98 | $152.62 | $488.13 | $18.26 | $1460.99 |
 
 Note: 
-* Load balancer cost will change according to network traffic.
-* Blob storage cost for cassy backup :- $0.22 (Assuming 1GB data and 10,000 operations)
+* _Load balancer cost will change according to network traffic._
+* _Blob storage cost for cassy backup :- $0.22 (Assuming 1GB data and 10,000 operations)_
 
 **Resource Price for West US 2 Region**
 
@@ -121,8 +121,8 @@ Base: _bai_
 | Total | 14 | $619.33 | $120.64 | $390.45 | $18.26 | $1148.68 |
 
 Note: 
-* Load balancer cost will change according to network traffic.
-* Blob storage cost for cassy backup :- $0.15 (Assuming 1GB data and 10,000 operations)
+* _Load balancer cost will change according to network traffic._
+* _Blob storage cost for cassy backup :- $0.15 (Assuming 1GB data and 10,000 operations)_
 
 
 ### AWS
@@ -134,7 +134,7 @@ Note:
 | scalar-terraform (chiku) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
 |:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
 | t3.micro (vCPU) | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
-| t3.medium (vCPU) | 0 | 0 | 0 | 6 (2 vCPU per node | 0 | 2 | 2 |
+| t3.medium (vCPU) | 0 | 0 | 0 | 6 (2 vCPU per node | 0 | 2 | 2 | 10 |
 | t3.large (vCPU) | 0 | 0 | 6 (2 vCPU per node) | 0 | 2 | 0 | 0 | 8 |
 | r5d.xlarge (vCPU) | 0 | 12 (4 vCPU per node) | 0 | 0 | 0 | 0 | 0 | 12 |
 | Total | 2 | 12 | 6 | 6 | 2 | 2 | 2  | 32 |
@@ -164,8 +164,8 @@ Base: _chiku_
 | Total | 14 | $1288.3 | $94.08 | $383.64 | $22.12 | $1788.14 |
 
 Note: 
-* Load balancer cost will change according to network traffic.
-* S3 storage cost for cassy backup :- $0.025 per GB (For first 50 TB)
+* _Load balancer cost will change according to network traffic._
+* _S3 storage cost for cassy backup :- $0.025 per GB (For first 50 TB)_
 
 **Resource Price for West US 2 Region**
 
@@ -184,8 +184,8 @@ Base: _chiku_
 | Total | 14 | $1033.1 | $78.4 | $319.7 | $20.81 | $1452.01 | 
 
 Note: 
-* Load balancer cost will change according to network traffic.
-* S3 storage cost for cassy backup :- $0.023 per GB (For first 50 TB)
+* _Load balancer cost will change according to network traffic._
+* _S3 storage cost for cassy backup :- $0.023 per GB (For first 50 TB)_
 
 #### **Bai**
 
@@ -220,11 +220,11 @@ Base: _bai_
 | Monitor | 1 | $39.71 | $7.68 | $15 | $0 | $62.39 |
 | Reaper | 1 | $39.71 | $7.68 | $0 | $0 | $47.39 |
 | Envoy LB | 1 | $0 | $0 | $0 | $22.12 (Assuming 1 Gb processed bytes per hour) | $20.81 |
-| Total | 14 | $748.4 | $94.08 | 4383.64 | $22.12 | $1248.24 |
+| Total | 14 | $748.4 | $94.08 | 383.64 | $22.12 | $1248.24 |
 
 Note: 
-* Load balancer cost will change according to network traffic.
-* S3 storage cost for cassy backup :- $0.025 per GB (For first 50 TB)
+* _Load balancer cost will change according to network traffic._
+* _S3 storage cost for cassy backup :- $0.025 per GB (For first 50 TB)_
 
 **Resource Price for West US 2 Region**
 
@@ -243,8 +243,8 @@ Base: _bai_
 | Total | 14 | $596.26 | $78.4 | $319.7 | $20.81 | $1015.17 |
 
 Note: 
-* Load balancer cost will change according to network traffic.
-* S3 storage cost for cassy backup :- $0.023 per GB (For first 50 TB)
+* _Load balancer cost will change according to network traffic._
+* _S3 storage cost for cassy backup :- $0.023 per GB (For first 50 TB)_
 
 
 ## Scalar-k8s resource usage
@@ -287,8 +287,8 @@ Base: _chiku_
 | Total | 14 | $1479.12 | $152.62 | $488.13 | $0.01 | $2119.88 |
 
 Note: 
-* Load balancer cost will change according to network traffic.
-* Blob storage cost for cassy backup :- $0.22 (Assuming 1GB data and 10,000 operations)
+* _Load balancer cost will change according to network traffic._
+* _Blob storage cost for cassy backup :- $0.22 (Assuming 1GB data and 10,000 operations)_
 
 **Resource Price for West US 2 Region**
 
@@ -296,19 +296,19 @@ Base: _chiku_
 
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
-| Network | 1 | $70.08 | $9.28 | $0 | $79.36 |
-| Cassandra | 3 | $551.88 ($183.96 per node) | $27.84 ($9.28 per disk) | $368.64 ($122.88 per disk) | $948.36 |
-| Scalardl | 3 | $210.24 ($70.08 per node) | $27.84 ($9.28 per disk) | $0 | $238.08 |
-| Envoy | 3 | $210.24 ($70.08 per node) | $27.84 ($9.28 per disk) | $0 | $238.08 |
-| Cassy | 1 | $30.37 | $9.28 | $0 | $39.65 |
-| Monitor | 1 | $30.37 | $9.28 | $21.76 (transaction unit 100units) | $61.46 |
-| Reaper | 1 | $30.37 | $9.28 | $0 | $39.65 |
-| Envoy LB | 1 | $0 | $0 | $0.01(Assuming 1GB processed bytes) | $0.01 |
+| Network | 1 | $70.08 | $9.28 | $0 | $0 | $79.36 |
+| Cassandra | 3 | $551.88 ($183.96 per node) | $27.84 ($9.28 per disk) | $368.64 ($122.88 per disk) | $0 | $948.36 |
+| Scalardl | 3 | $210.24 ($70.08 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $238.08 |
+| Envoy | 3 | $210.24 ($70.08 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $238.08 |
+| Cassy | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
+| Monitor | 1 | $30.37 | $9.28 | $21.76 (transaction unit 100units) | $0 | $61.46 |
+| Reaper | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
+| Envoy LB | 1 | $0 | $0 | $0 | $0.01(Assuming 1GB processed bytes) | $0.01 |
 | Total | 14 | $1133.55 | $120.64 | $390.4 | $0.01 | $1644.65 |
 
 Note: 
-* Load balancer cost will change according to network traffic.
-* Blob storage cost for cassy backup :- $0.15 (Assuming 1GB data and 10,000 operations)
+* _Load balancer cost will change according to network traffic._
+* _Blob storage cost for cassy backup :- $0.15 (Assuming 1GB data and 10,000 operations)_
 
 #### **Bai**
 
@@ -335,19 +335,19 @@ Base: _bai_
 
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
-| Network | 1 | $94.17 | $11.74 | $0 | $105.91 |
-| Cassandra | 3 | $350.4 ($116.80 per node) | $35.22 ($11.74 per disk) | $466.32 ($155.44 per disk) | $851.94 |
-| Scalardl | 3 | $282.51($94.17 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $310.35 |
-| Envoy | 3 | $119.14 ($39.71 per node) | $35.22 ($11.74 per disk) | $0 |$0 |$310.35 |
-| Cassy | 1 | $39.71 | $11.74 | $0 | $51.45 |
-| Monitor | 1 | $39.71 | $11.74 | $21.81 (transaction unit 100 units) | $73.26 |
+| Network | 1 | $94.17 | $11.74 | $0 | $0 | $105.91 |
+| Cassandra | 3 | $350.4 ($116.80 per node) | $35.22 ($11.74 per disk) | $466.32 ($155.44 per disk) | $0 | $851.94 |
+| Scalardl | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 | $0 | $317.73 |
+| Envoy | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 |$0 |$317.73 |
+| Cassy | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |
+| Monitor | 1 | $39.71 | $11.74 | $21.81 (transaction unit 100 units) | $0 |$73.26 |
 | Reaper | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |
 | Envoy LB | 1 | $0 | $0 | $0 | $0.01(Assuming 1Gb data processed) | $0.01 |
-| Total | 14 | $1128.72 | $137.86 | $488.13 | $0.01 | $1754.72 |
+| Total | 14 | $1128.72 | $152.62 | $488.13 | $0.01 | $1769.48 |
 
 Note: 
-* Load balancer cost will change according to network traffic.
-* Blob storage cost for cassy backup :- $0.22 (Assuming 1GB data and 10,000 operations)
+* _Load balancer cost will change according to network traffic._
+* _Blob storage cost for cassy backup :- $0.22 (Assuming 1GB data and 10,000 operations)_
 
 **Resource Price for West US 2 Region**
 
@@ -357,14 +357,14 @@ Base: _bai_
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
 | Network | 1 | $70.08 | $9.28 | $0 | $0 | $79.36 |
 | Cassandra | 3 | $275.94 ($91.98 per node) | $27.84 ($9.28 per disk) | $368.64 ($122.88 per disk) | $0 | $672.42 |
-| Scalardl | 3 | $210.24($70.08 per node) | $27.84($9.28 per node) | $0 | $0 | $238.08 |
-| Envoy | 3 | $210.24($70.08 per node) | $27.84($9.28 per node) | $0 | $0 | $238.08 |
+| Scalardl | 3 | $210.24 ($70.08 per node) | $27.84($9.28 per node) | $0 | $0 | $238.08 |
+| Envoy | 3 | $210.24 ($70.08 per node) | $27.84($9.28 per node) | $0 | $0 | $238.08 |
 | Cassy | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
 | Monitor | 1 | $30.37 | $9.28 | $21.81 (transaction unit 100units) | $0 | $61.46 |
 | Reaper | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
 | Envoy LB | 1 | $0 | $0 | $0 | $0.01 (Assuming 1Gb data processed) | $0.01 |
-| Total | 14 | $857.61 | $120.64| $390.4 | $0.01 | $1368.69 |
+| Total | 14 | $857.61 | $120.64| $390.45 | $0.01 | $1368.71 |
 
 Note: 
-* Load balancer cost will change according to network traffic.
-* Blob storage cost for cassy backup:- $0.15 (Assuming 1GB data and 10,000 operations)
+* _Load balancer cost will change according to network traffic._
+* _Blob storage cost for cassy backup:- $0.15 (Assuming 1GB data and 10,000 operations)_

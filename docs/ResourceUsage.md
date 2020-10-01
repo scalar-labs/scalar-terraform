@@ -43,7 +43,7 @@ Base: _chiku_
 
 Note: 
 * _Load balancer cost will change according to network traffic._
-* _Blob storage cost for cassy backup :- $0.22 (Assuming 1GB data and 10,000 operations)_
+* _Blob storage cost for cassy backup :- $0.02 per GB (For first 50 TB)_
  
 **Resource Price for West US 2 Region** 
 
@@ -63,7 +63,7 @@ Base: _chiku_
 
 Note: 
 * _Load balancer cost will change according to network traffic._
-* _Blob storage cost for cassy backup :- $0.15 (Assuming 1GB data and 10,000 operations)_
+* _Blob storage cost for cassy backup :- $0.0184 per GB (For first 50 TB)_
 
 #### **Bai**
 
@@ -102,7 +102,7 @@ Base: _bai_
 
 Note: 
 * _Load balancer cost will change according to network traffic._
-* _Blob storage cost for cassy backup :- $0.22 (Assuming 1GB data and 10,000 operations)_
+* _Blob storage cost for cassy backup :- $0.02 per GB (For first 50 TB)_
 
 **Resource Price for West US 2 Region**
 
@@ -122,7 +122,7 @@ Base: _bai_
 
 Note: 
 * _Load balancer cost will change according to network traffic._
-* _Blob storage cost for cassy backup :- $0.15 (Assuming 1GB data and 10,000 operations)_
+* _Blob storage cost for cassy backup :- $0.0184 per GB (For first 50 TB)_
 
 
 ### AWS
@@ -288,7 +288,7 @@ Base: _chiku_
 
 Note: 
 * _Load balancer cost will change according to network traffic._
-* _Blob storage cost for cassy backup :- $0.22 (Assuming 1GB data and 10,000 operations)_
+* _Blob storage cost for cassy backup :- $0.02 per GB (For first 50 TB)_
 
 **Resource Price for West US 2 Region**
 
@@ -308,7 +308,7 @@ Base: _chiku_
 
 Note: 
 * _Load balancer cost will change according to network traffic._
-* _Blob storage cost for cassy backup :- $0.15 (Assuming 1GB data and 10,000 operations)_
+* _Blob storage cost for cassy backup :- $0.0184 per GB (For first 50 TB)_
 
 #### **Bai**
 
@@ -347,7 +347,7 @@ Base: _bai_
 
 Note: 
 * _Load balancer cost will change according to network traffic._
-* _Blob storage cost for cassy backup :- $0.22 (Assuming 1GB data and 10,000 operations)_
+* _Blob storage cost for cassy backup :- $0.02 per GB (For first 50 GB)_
 
 **Resource Price for West US 2 Region**
 
@@ -367,4 +367,4 @@ Base: _bai_
 
 Note: 
 * _Load balancer cost will change according to network traffic._
-* _Blob storage cost for cassy backup:- $0.15 (Assuming 1GB data and 10,000 operations)_
+* _Blob storage cost for cassy backup:- $0.0184 per GB (For first 50 TB)_

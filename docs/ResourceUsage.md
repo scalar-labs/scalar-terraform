@@ -255,16 +255,16 @@ Note:
  
 **vCPU**
  
-| scalar-terraform (chiku) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
+| scalar-terraform (chiku) | Network | Cassandra | Node pool - Scalar Apps | Node pool - Other Apps | Monitor | Cassy | Reaper | Total |
 |:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
-| D2s v3 | 2 | 0 | 6 (vCPU per node) | 6 (vCPU per node) | 0 | 0 | 0 | 14 |
+| D2s v3 | 2 | 0 | 6 (2 vCPU per node) | 6 (2 vCPU per node) | 0 | 0 | 0 | 14 |
 | E4s v3| 0 | 12 (4 vCPU per node) | 0 | 0 | 0 | 0| 0 | 12 |
 | B2s | 0 | 0 | 0 | 0 | 2 | 2 | 2 | 6 |
 | Total | 2 | 12 | 6 | 6 | 2 | 2 | 2 | 32 
  
 **Disk Usage**
 
-| scalar-terraform (chiku) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
+| scalar-terraform (chiku) | Network | Cassandra | Node pool - Scalar Apps | Node pool - Other Apps | Monitor | Cassy | Reaper | Total |
 |:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
 | OS Disk (Premium SSD) | 64 GB | 192 GB(64 GB per node) | 192 GB(64 GB per node) | 192 GB(64 GB per node) | 64 GB | 64 GB | 64 GB | 832 GB |
 | Data Disk (Premium SSD / Standard HDD) | 0 | 3072 GB(1024 GB per node) (Premium SSD) | 0 | 0 | 500 GB (Standard HDD) | 0 | 0 | 3572 GB |
@@ -278,8 +278,8 @@ Base: _chiku_
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
 | Network | 1 | $94.17 | $11.74 | $0 | $0 | $105.91|
 | Cassandra | 3 | $700.80 ($233.60 per node) | $35.22 ($11.74 per disk) | $466.32 ($155.44 per disk) | $0 | $1,202.34 |
-| Scalardl | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74  per disk) | $0 | $0 | $317.73 |
-| Envoy | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74  per disk) | $0 | $0 | $317.73 |
+| Node pool - Scalar Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74  per disk) | $0 | $0 | $317.73 |
+| Node pool - Other Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74  per disk) | $0 | $0 | $317.73 |
 | Cassy | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |
 | Monitor | 1 | $39.71 | $11.74 | $21.81 (transaction unit 100units) | $0 | $73.26 | 
 | Reaper | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 | 
@@ -298,8 +298,8 @@ Base: _chiku_
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
 | Network | 1 | $70.08 | $9.28 | $0 | $0 | $79.36 |
 | Cassandra | 3 | $551.88 ($183.96 per node) | $27.84 ($9.28 per disk) | $368.64 ($122.88 per disk) | $0 | $948.36 |
-| Scalardl | 3 | $210.24 ($70.08 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $238.08 |
-| Envoy | 3 | $210.24 ($70.08 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $238.08 |
+| Node pool - Scalar Apps | 3 | $210.24 ($70.08 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $238.08 |
+| Node pool - Other Apps | 3 | $210.24 ($70.08 per node) | $27.84 ($9.28 per disk) | $0 | $0 | $238.08 |
 | Cassy | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
 | Monitor | 1 | $30.37 | $9.28 | $21.76 (transaction unit 100units) | $0 | $61.46 |
 | Reaper | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
@@ -314,16 +314,16 @@ Note:
 
 **vCPU** 
 
-| scalar-terraform (bai) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
+| scalar-terraform (bai) | Network | Cassandra | Node pool - Scalar Apps | Node pool - Other Apps | Monitor | Cassy | Reaper | Total |
 |:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
-| D2s v3 | 2 | 0 | 6 (vCPU per node) | 6 (vCPU per node) | 0 | 0 | 0 | 14 |
+| D2s v3 | 2 | 0 | 6 (2 vCPU per node) | 6 (2 vCPU per node) | 0 | 0 | 0 | 14 |
 | E2s_v3 | 0 | 6 (2 vCPU per node) | 0 | 0 |0 | 0 | 0 | 6 |
 | B2s | 0 | 0 | 0 | 0 | 2 | 2 | 2 | 6 |
 | Total | 2 | 6 | 6 | 6 | 2 | 2 | 2 | 26 |
 
 **Disk Usage**
 
-| scalar-terraform (bai) | Network | Cassandra | Scalardl | Envoy | Monitor | Cassy | Reaper | Total |
+| scalar-terraform (bai) | Network | Cassandra | Node pool - Scalar Apps | Node pool - Other Apps | Monitor | Cassy | Reaper | Total |
 |:-------------------------|:--------|:----------|:---------|:------|:--------|:------|:-------|:---------|
 | OS Disk (Premium SSD) | 64 GB |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) |  192 GB (64 GB per disk) | 64 GB | 64 GB | 64 GB | 832 GB |
 | Data Disk (Premium SSD / Standard HDD) | 0 | 3072 GB (1024 GB per disk) (Premium SSD) | 0 | 0 | 500 GB (Standard HDD) | 0 | 0 | 3572 GB|
@@ -337,8 +337,8 @@ Base: _bai_
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
 | Network | 1 | $94.17 | $11.74 | $0 | $0 | $105.91 |
 | Cassandra | 3 | $350.4 ($116.80 per node) | $35.22 ($11.74 per disk) | $466.32 ($155.44 per disk) | $0 | $851.94 |
-| Scalardl | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 | $0 | $317.73 |
-| Envoy | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 |$0 |$317.73 |
+| Node pool - Scalar Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 | $0 | $317.73 |
+| Node pool - Other Apps | 3 | $282.51 ($94.17 per node) | $35.22 ($11.74 per disk) | $0 |$0 |$317.73 |
 | Cassy | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |
 | Monitor | 1 | $39.71 | $11.74 | $21.81 (transaction unit 100 units) | $0 |$73.26 |
 | Reaper | 1 | $39.71 | $11.74 | $0 | $0 | $51.45 |
@@ -357,8 +357,8 @@ Base: _bai_
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
 | Network | 1 | $70.08 | $9.28 | $0 | $0 | $79.36 |
 | Cassandra | 3 | $275.94 ($91.98 per node) | $27.84 ($9.28 per disk) | $368.64 ($122.88 per disk) | $0 | $672.42 |
-| Scalardl | 3 | $210.24 ($70.08 per node) | $27.84($9.28 per node) | $0 | $0 | $238.08 |
-| Envoy | 3 | $210.24 ($70.08 per node) | $27.84($9.28 per node) | $0 | $0 | $238.08 |
+| Node pool - Scalar Apps | 3 | $210.24 ($70.08 per node) | $27.84($9.28 per node) | $0 | $0 | $238.08 |
+| Node pool - Other Apps | 3 | $210.24 ($70.08 per node) | $27.84($9.28 per node) | $0 | $0 | $238.08 |
 | Cassy | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |
 | Monitor | 1 | $30.37 | $9.28 | $21.81 (transaction unit 100units) | $0 | $61.46 |
 | Reaper | 1 | $30.37 | $9.28 | $0 | $0 | $39.65 |

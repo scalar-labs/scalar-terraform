@@ -1,3 +1,6 @@
 ---
 - name: Install Ansible
-  command: python3 -m pip install ansible
+  pip:
+    name: ansible
+    state: present
+    executable: pip3

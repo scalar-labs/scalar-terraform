@@ -1,0 +1,11 @@
+data "terraform_remote_state" "network" {
+  backend = "azurerm"
+
+  config = {
+    resource_group_name  = "example-tfstate"
+    storage_account_name = "exampletfstate"
+    container_name       = "tfstate"
+    key                  = "network/terraform.tfstate"
+
+  }
+}

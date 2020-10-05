@@ -30,9 +30,9 @@ Follow [Cassandra Post Recovery Steps](CassandraOperation.md#post-recovery-steps
 
 ## Replace accidentally deleted node or disk after initial configuration of shared environment
 
-When an error is faced like `module does not exist` while configuring shared environment in local system after a node or data disk was accidentally removed from scalar-terraform environment, following workaround
+When an error is faced like `module does not exist` while recreating the accidentally deleted node or disk using `terraform state rm` or `terraform taint` command after configuring share environment in the local system, following workaround
 
-There is no need to execute `terraform state rm` or `terraform state taint` command for node or disk replacement.
+There is no need to execute `terraform state rm` or `terraform taint` command for node or disk replacement.
 Because terminated node or disk modules will be removed from `tfstate` file while executing `terraform refresh` command for replacing the keys in `tfstate` file as part of [ShareEnvironment](ShareEnvironment.md).
 
 So terminated node can be simply replaced with `terraform apply` command.

@@ -11,8 +11,9 @@
   tag cassandra.system
   emit_unmatched_lines true
   <parse>
-    @type regexp
-    expression /^(?<level>[^ ]*) +\[(?<thread>[^\]]*)\] (?<time>[^ ]+ [^ ]+) (?<message>.*)$/
+    @type multiline
+    format_firstline /^(?<level>[^ ]*) +\[(?<thread>[^\]]*)\] (?<time>[^ ]+ [^ ]+)/
+    format1 /^(?<level>[^ ]*) +\[(?<thread>[^\]]*)\] (?<time>[^ ]+ [^ ]+) (?<message>.*)$/
     time_format %Y-%m-%d %H:%M:%S,%N
   </parse>
 </source>

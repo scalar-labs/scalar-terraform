@@ -12,7 +12,7 @@
   emit_unmatched_lines true
   <parse>
     @type multiline
-    format_firstline /^(?<level>[^ ]*) +\[(?<thread>[^\]]*)\] (?<time>[^ ]+ [^ ]+)/
+    format_firstline /^[^ ]* +\[[^\]]*\] [^ ]+ [^ ]+/
     format1 /^(?<level>[^ ]*) +\[(?<thread>[^\]]*)\] (?<time>[^ ]+ [^ ]+) (?<message>.*)$/
     time_format %Y-%m-%d %H:%M:%S,%N
   </parse>

@@ -81,7 +81,7 @@ terraform apply
 ```
 
 ### Taint Volume (with node replacement)
-The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and it will recreate data volume along with node. Be sure you can recover the data from a backup first.
+The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and it will recreate the node along with data or commit log volume. Be sure you can recover the data from a backup first.
 
 #### Azure
 ```console
@@ -100,7 +100,7 @@ terraform apply
 ```
 
 ### Taint Volume (without node replacement)
-The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and attach recreated volume with existing node. Be sure you can recover the data from a backup first.
+The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and attach the recreated data or commit log volume to the already existing instance. Be sure you can recover the data from a backup first.
 
 #### Azure
 ```console
@@ -136,15 +136,15 @@ sudo /bin/bash -c "echo 'UUID=af767839-b23d-4d1f-8a19-debbcfd6413c /data xfs def
 sudo mount -a
 ```
 
-#### Replacing the data volume without node replacement
+#### Replacing the taint volume without node replacement
 If you attached the new volume to the existing instance, you need to follow the these steps before starting Cassandra.
 
-* Replace the UUID of the `data` volume in `fstab`.
+* Replace the UUID of the `data` or `commitlog` volume in `fstab`.
 
 ```console 
 ssh -F ssh.cfg cassandra-[].internal.scalar-labs.com
 
-# Find the name of newly attached EBS data volume
+# Find the name of newly attached EBS volume
 lsblk -p -P -d -o name,serial,SIZE
 NAME="/dev/nvme2n1" SERIAL="vol018d1871d19da76f1" HCTL="" SIZE="1T"
 ...
@@ -152,12 +152,12 @@ NAME="/dev/nvme2n1" SERIAL="vol018d1871d19da76f1" HCTL="" SIZE="1T"
 # Create a file system in the newly created volume
 sudo mkfs -t xfs <name of volume>
 
-# Find the `UUID` of the data volume
+# Find the `UUID` of the data or commit log volume
 lsblk -p -P -d -o name,serial,UUID,SIZE
 NAME="/dev/nvme2n1" SERIAL="vol018d1871d19da76f1" UUID="af767839-b23d-4d1f-8a19-debbcfd6413c" HCTL="" SIZE="1T"
 ...
 
-# Update the UUID of `/data` directory 
+# Update the UUID of `/data` or `/commitlog` directory 
 sudo vi /etc/fstab
 
 sudo systemctl daemon-reload

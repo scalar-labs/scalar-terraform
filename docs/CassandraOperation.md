@@ -80,10 +80,15 @@ terraform taint "module.cassandra.aws_volume_attachment.cassandra_data_volume_at
 terraform apply
 ```
 
-### Taint Volume (with node replacement)
-The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and it will recreate the node along with data or commit log volume. Be sure you can recover the data from a backup first.
+### Taint Volume
 
-#### Azure
+There are two other options for replacing the taint volume as a last resort.
+
+#### Replacing the node along with taint volume replacement
+
+This *will permanently delete data* on that volume and it will recreate the node along with data or commit log volume. Be sure you can recover the data from a backup first.
+
+##### Azure
 ```console
 terraform taint "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
 terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
@@ -91,7 +96,7 @@ terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
 terraform apply
 ```
 
-#### AWS
+##### AWS
 ```console
 terraform taint "module.cassandra.module.cassandra_cluster.aws_instance.this[0]"
 terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
@@ -99,17 +104,18 @@ terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
 terraform apply
 ```
 
-### Taint Volume (without node replacement)
-The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and attach the recreated data or commit log volume to the already existing instance. Be sure you can recover the data from a backup first.
+#### Replacing the taint volume without node replacement
 
-#### Azure
+This *will permanently delete data* on that volume and attach the recreated data or commit log volume to the already existing instance. Be sure you can recover the data from a backup first.
+
+##### Azure
 ```console
 terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
 
 terraform apply
 ```
 
-#### AWS
+##### AWS
 ```console
 terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
 

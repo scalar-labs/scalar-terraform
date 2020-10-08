@@ -1,6 +1,6 @@
 # Resource Usage
 
-Scalar-terraform and scalar-k8s resource usage and price details available here. Resource usage price calculated on monthly basis.
+This document shows the resource usage and the monthly prices for the resources used by scalar-terraform and scalar-k8s.
 
 ## Scalar-terraform resource usage
 
@@ -27,8 +27,6 @@ Scalar-terraform and scalar-k8s resource usage and price details available here.
 
 **Resource Price for Japan East Region** 
 
-Base: _chiku_
-
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
 | Network | 1 | $94.17 | $11.74 | $0 | $0 | $105.91|
@@ -46,8 +44,6 @@ Note:
 * _Blob storage cost for cassy backup :- $0.02 per GB (For first 50 TB)_
  
 **Resource Price for West US 2 Region** 
-
-Base: _chiku_
 
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
@@ -86,8 +82,6 @@ Note:
 
 **Resource Price for Japan East Region**
 
-Base: _bai_
-
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
 | Network | 1 | $94.17 | $11.74 | $0 | $0 | $105.91 |
@@ -105,8 +99,6 @@ Note:
 * _Blob storage cost for cassy backup :- $0.02 per GB (For first 50 TB)_
 
 **Resource Price for West US 2 Region**
-
-Base: _bai_
 
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
@@ -149,8 +141,6 @@ Note:
 
 **Resource Price for Tokyo Region**
 
-Base: _chiku_
-
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
 | Network | 1 | $9.93 | $1.92 | $0 | $0 | $11.85 |
@@ -168,8 +158,6 @@ Note:
 * _S3 storage cost for cassy backup :- $0.025 per GB (For first 50 TB)_
 
 **Resource Price for West US 2 Region**
-
-Base: _chiku_
 
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
@@ -208,8 +196,6 @@ Note:
 
 **Resource Price for Tokyo Region**
 
-Base: _bai_
-
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
 | Network | 1 | $9.93 | $1.92 | $0 | $0 | $11.85 |
@@ -227,8 +213,6 @@ Note:
 * _S3 storage cost for cassy backup :- $0.025 per GB (For first 50 TB)_
 
 **Resource Price for West US 2 Region**
-
-Base: _bai_
 
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
@@ -272,8 +256,6 @@ Note:
 
 **Resource Price for Japan East Region**
 
-Base: _chiku_
-
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
 | Network | 1 | $94.17 | $11.74 | $0 | $0 | $105.91|
@@ -291,8 +273,6 @@ Note:
 * _Blob storage cost for cassy backup :- $0.02 per GB (For first 50 TB)_
 
 **Resource Price for West US 2 Region**
-
-Base: _chiku_
 
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
@@ -331,8 +311,6 @@ Note:
 
 **Resource Price for Japan East Region**
 
-Base: _bai_
-
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|
 | Network | 1 | $94.17 | $11.74 | $0 | $0 | $105.91 |
@@ -350,8 +328,6 @@ Note:
 * _Blob storage cost for cassy backup :- $0.02 per GB (For first 50 GB)_
 
 **Resource Price for West US 2 Region**
-
-Base: _bai_
 
 | Resource | Number of Instance | Virtual Machine | OS Disk | Data Disk | Load Balancer | Total |
 |:---------|:-------------------|:----------------|:--------|:----------|:--------------|:------|

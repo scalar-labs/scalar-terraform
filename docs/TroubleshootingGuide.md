@@ -17,13 +17,12 @@ If you accidentally delete a node that contains an additional data disk in Azure
 
 Please try the following
 * Delete the os-disk If the node is terminated.
-* Do `terraform state rm` as follows.
-  
+* Do `terraform refresh` or `terraform state rm` as follows.
 ```console
 terraform state rm "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
 terraform state rm "module.cassandra.azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[0]"
-
-terraform apply
 ```
+* Do `terraform apply`
 
 Follow [Cassandra Post Recovery Steps](CassandraOperation.md#post-recovery-steps)
+

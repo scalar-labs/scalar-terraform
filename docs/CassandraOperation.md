@@ -62,7 +62,7 @@ module.cassandra.aws_volume_attachment.cassandra_data_volume_attachment[2]:
 * Find the `instance` or `vm` you wish to replace and copy the line.
 * You also need to decide to taint either the *drive attachment* or the *volume* directly.
 
-### Taint volume attachment
+### Case 1: Taint volume attachment
 When you taint the volume attachment terraform will try to attach the same data or commit log volume to the new instance. This is the ideal situation as it is the quickest way to replace a node.
 
 #### Azure
@@ -79,54 +79,8 @@ terraform taint "module.cassandra.aws_volume_attachment.cassandra_data_volume_at
 
 terraform apply
 ```
-
-### Taint Volume
-
-There are two other options for replacing the taint volume as a last resort.
-
-#### Replacing the node along with taint volume replacement
-
-This *will permanently delete data* on that volume and it will recreate the node along with data or commit log volume. Be sure you can recover the data from a backup first.
-
-##### Azure
-```console
-terraform taint "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
-terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
-
-terraform apply
-```
-
-##### AWS
-```console
-terraform taint "module.cassandra.module.cassandra_cluster.aws_instance.this[0]"
-terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
-
-terraform apply
-```
-
-#### Replacing the taint volume without node replacement
-
-This *will permanently delete data* on that volume and attach the recreated data or commit log volume to the already existing instance. Be sure you can recover the data from a backup first.
-
-##### Azure
-```console
-terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
-
-terraform apply
-```
-
-##### AWS
-```console
-terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
-
-terraform apply
-```
-
-### Post Recovery Steps
-After the Cassandra node is replaced you will need to perform manual steps to get the node back in cluster.
-
-#### Using the same volume
-If you attached the same volume to the new instance, you need to follow the these steps before starting Cassandra.
+#### Post Recovery Steps
+After the Cassandra node is replaced, you will need to perform the following manual steps to get the node back in the cluster.
 
 * Find the UUID of the `data` or `commitlog` volume and add it to `fstab`.
 
@@ -142,8 +96,68 @@ sudo /bin/bash -c "echo 'UUID=af767839-b23d-4d1f-8a19-debbcfd6413c /data xfs def
 sudo mount -a
 ```
 
-#### Replacing the taint volume without node replacement
-If you attached the new volume to the existing instance, you need to follow the these steps before starting Cassandra.
+* Remove the IP of the new node from seeds in `casssandra.yaml`
+* Add `JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead node ip>"` to the bottom of `cassandra-env.sh`
+* `sudo systemctl start cassandra`
+* Repair with Reaper at some later point 
+
+Please note that, if you replace a seed node (IP-A), you should replace IP-A from seeds with a newly created Cassandra node IP in all the Cassandra nodes.
+
+### Case 2: Taint Volume with node replacement
+
+The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and it will recreate the node along with data or commit log volume. Be sure you can recover the data from a backup first.
+
+#### Azure
+```console
+terraform taint "module.cassandra.module.cassandra_cluster.azurerm_virtual_machine.vm-linux[0]"
+terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
+
+terraform apply
+```
+
+#### AWS
+```console
+terraform taint "module.cassandra.module.cassandra_cluster.aws_instance.this[0]"
+terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
+
+terraform apply
+```
+
+#### Post Recovery Steps
+After the Cassandra node and volume are replaced, you will need to perform the following manual steps to get the node back in the cluster.
+
+* Restore data from Cassy
+  * You need to manually update the IP of the entry of `backup_history` table to match with the new IP
+  * You need to manually update the IP address of Cassy backup with new IP in the cloud storage
+* Remove the IP of the new node from seeds in `casssandra.yaml`
+* Set `auto_bootstrap` to `false` in `cassandra.yaml`
+    * this might not be needed. need to verify.
+* Add `JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead node ip>"` to the bottom of `cassandra-env.sh`
+* `sudo systemctl start cassandra`
+* Repair with Reaper at some later point 
+
+Please note that, if you replace a seed node (IP-A), you should replace IP-A from seeds with a newly created Cassandra node IP in all the Cassandra nodes.
+
+### Case 3: Taint Volume without node replacement
+
+Another option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and attach the recreated data or commit log volume to the already existing instance. Be sure you can recover the data from a backup first.
+
+#### Azure
+```console
+terraform taint "module.cassandra.azurerm_managed_disk.cassandra_data_volume[0]"
+
+terraform apply
+```
+
+#### AWS
+```console
+terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
+
+terraform apply
+```
+
+#### Post Recovery Steps
+After the volume is replaced, you will need to perform the following manual steps to get the volume back in the node.
 
 * Replace the UUID of the `data` or `commitlog` volume in `fstab`.
 
@@ -173,38 +187,10 @@ sudo mount -a
 # Change ownership of `/data` directory 
 sudo chown cassandra:cassandra /data
 ```
-### Restart Cassandra
-As the last step of Cassandra node replacement, you need to configure Cassandra appropriately before starting it. What needs to be done depends on the following cases.
-
-* Case1: Node (Instance/VM) is replaced (but the volume is not replaced)
-* Case2: Volume is replaced (but the node is not replaced)
-* Case3: Node and the volume are both replaced
-
-Here are the steps for each case.
-
-#### Case1: Node (Instance/VM) is replaced (but the volume is not replaced)
-* Remove the IP of the new node from seeds in `casssandra.yaml`
-* Add `JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead node ip>"` to the bottom of `cassandra-env.sh`
-* `sudo systemctl start cassandra`
-* Repair with Reaper at some later point 
-
-#### Case2: Volume is replaced (but the node is not replaced)
 * Restore data from Cassy
 * `sudo systemctl start cassandra`
 * Repair with Reaper at some later point 
 
-#### Case3: Node and the volume are both replaced
-* Restore data from Cassy
-  * You need to manually update the IP of the entry of `backup_history` table to match with the new IP
-  * You need to manually update the IP address of Cassy backup with new IP in the cloud storage
-* Remove the IP of the new node from seeds in `casssandra.yaml`
-* Set `auto_bootstrap` to `false` in `cassandra.yaml`
-    * this might not be needed. need to verify.
-* Add `JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address_first_boot=<dead node ip>"` to the bottom of `cassandra-env.sh`
-* `sudo systemctl start cassandra`
-* Repair with Reaper at some later point 
-
-Please note that, if you replace a seed node (IP-A), you should replace IP-A from seeds with a newly created Cassandra node IP in all the Cassandra nodes.
 
 # Related Documents
 

@@ -1,0 +1,12 @@
+---
+dataSource: "prs"
+prefix: ""
+onlyMilestones: false
+template: { issue: "- [{{text}}]({{url}}) {{name}}" }
+groupBy:
+  {
+    "Enhancements": ["enhancement", "internal", "feature"],
+    "Bug Fixes:": ["bug"],
+    "Documentation:": ["documentation"],
+  }
+changelogFilename: "CHANGELOG.md"

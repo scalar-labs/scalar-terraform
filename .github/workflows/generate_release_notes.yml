@@ -1,0 +1,22 @@
+name: Generate release notes
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    name: Generate release notes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Generate release notes
+        uses: ./.github/actions/generate-release-notes
+        with:
+          tag_name: ${{ github.ref }}
+        env:
+          GREN_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

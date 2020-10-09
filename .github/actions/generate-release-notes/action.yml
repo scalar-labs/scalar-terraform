@@ -1,0 +1,12 @@
+name: "generate-release-notes"
+description: "GitHub Action for github-tools/github-release-notes"
+author: "Kun Tei"
+inputs:
+  tag_name:
+    description: "a tag name to create release notes."
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.tag_name }}

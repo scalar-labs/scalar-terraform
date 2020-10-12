@@ -103,7 +103,7 @@ sudo mount -a
 
 Please note that, if you replace a seed node (IP-A), you should replace IP-A from seeds with a newly created Cassandra node IP in all the Cassandra nodes.
 
-### Case 2: Taint Volume with node replacement
+### Case 2: Taint volume with node replacement
 
 The other option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and it will recreate the node along with data or commit log volume. Be sure you can recover the data from a backup first.
 
@@ -138,7 +138,7 @@ After the Cassandra node and volume are replaced, you will need to perform the f
 
 Please note that, if you replace a seed node (IP-A), you should replace IP-A from seeds with a newly created Cassandra node IP in all the Cassandra nodes.
 
-### Case 3: Taint Volume without node replacement
+### Case 3: Taint volume without node replacement
 
 Another option is to taint the volume which should be used as a last resort. This *will permanently delete data* on that volume and attach the recreated data or commit log volume to the already existing instance. Be sure you can recover the data from a backup first.
 

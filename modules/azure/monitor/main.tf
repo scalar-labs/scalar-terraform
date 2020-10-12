@@ -26,7 +26,7 @@ module "monitor_cluster" {
 }
 
 resource "azurerm_managed_disk" "monitor_log_volume" {
-  count = local.monitor.resource_count
+  count = local.monitor.enable_tdagent ? local.monitor.resource_count : 0
 
   name                 = "log-${count.index + 1}"
   location             = local.region
@@ -38,7 +38,7 @@ resource "azurerm_managed_disk" "monitor_log_volume" {
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "monitor_log_volume_attachment" {
-  count = local.monitor.resource_count
+  count = local.monitor.enable_tdagent ? local.monitor.resource_count : 0
 
   managed_disk_id    = azurerm_managed_disk.monitor_log_volume[count.index].id
   virtual_machine_id = module.monitor_cluster.vm_ids[count.index]
@@ -47,7 +47,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "monitor_log_volume_atta
 }
 
 resource "null_resource" "volume_data" {
-  count = local.monitor.resource_count
+  count = local.monitor.enable_tdagent ? local.monitor.resource_count : 0
 
   triggers = {
     volume_attachment_ids = join(

@@ -186,7 +186,7 @@ resource "null_resource" "volume_commitlog_local" {
 module "cassandra_provision" {
   source                = "../../universal/cassandra"
   vm_ids                = module.cassandra_cluster.id
-  triggers              = local.triggers
+  triggers              = concat(local.triggers, [local.cassandra.resource_type])
   bastion_host_ip       = local.bastion_ip
   host_list             = module.cassandra_cluster.private_ip
   host_seed_list        = local.cassandra.resource_count > 0 ? slice(module.cassandra_cluster.private_ip, 0, min(local.cassandra.resource_count, 3)) : []

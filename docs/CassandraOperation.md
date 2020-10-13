@@ -37,7 +37,7 @@ This section explains what needs to be done for each case.
 
 When a node (VM or instance) is not working properly for some reason but the volume is fully functioning, only the node should be replaced with a new one.
 You can replace the node by tainting the VM or the instance and the volume attachment as described below.
-Note that, when you taint the volume attachment terraform will try to attach the same data or commit log volume to the new instance.
+Note that, when you taint the volume attachment, terraform will try to attach the same data or commit log volume to the new instance.
 
 #### Azure
 ```console
@@ -53,7 +53,7 @@ terraform taint "module.cassandra.aws_volume_attachment.cassandra_data_volume_at
 
 terraform apply
 ```
-#### Post Recovery Steps
+#### Post Terraform Steps
 After the Cassandra node is replaced, you will need to perform the following manual steps to get the node back in the cluster.
 
 * Find the UUID of the `data` or `commitlog` volume and add it to `fstab`.
@@ -81,7 +81,7 @@ Please note that, if you replace a seed node (IP-A), you should replace IP-A fro
 
 When the volume is not functioning properly for some reason but the node is alive, only the volume should be replaced with a new one.
 You can replace the volume by tainting the volume as described below.
-Note that this *will permanently delete data* on that volume and attach the recreated data or commit log volume to the already existing node. 
+Note that this *will permanently delete data* on that volume and attach the recreated data or commit log volume to the existing node.  
 When you do this, it is recommended to recover data from backup.
 
 #### Azure
@@ -98,7 +98,7 @@ terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
 terraform apply
 ```
 
-#### Post Recovery Steps
+#### Post Terraform Steps
 After the volume is replaced, you will need to perform the following manual steps to get the volume back in the node.
 
 * Replace the UUID of the `data` or `commitlog` volume in `fstab`.
@@ -137,7 +137,7 @@ sudo chown cassandra:cassandra /data
 
 When both a node and the volume are not working properly, both resources should be replaced with new ones.
 You can do it by tainting both resources as described below.
-Since the volume is replaced as the 2nd option, this *will permanently delete data* on that volume.
+Since the volume is replaced in the same manner as the 2nd option, the data on that volume will be permanently deleted.
 
 #### Azure
 ```console
@@ -155,7 +155,7 @@ terraform taint "module.cassandra.aws_ebs_volume.cassandra_data_volume[0]"
 terraform apply
 ```
 
-#### Post Recovery Steps
+#### Post Terraform Steps
 After the Cassandra node and volume are replaced, you will need to perform the following manual steps to get the node back in the cluster.
 
 * Restore data from Cassy

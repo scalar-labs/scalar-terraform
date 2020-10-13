@@ -42,7 +42,7 @@ module "monitor_cluster" {
 }
 
 resource "aws_ebs_volume" "monitor_log_volume" {
-  count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
+  count = local.monitor.enable_tdagent ? local.monitor.resource_count : 0
 
   availability_zone = local.locations[count.index % length(local.locations)]
   size              = local.monitor.log_volume_size
@@ -60,7 +60,7 @@ resource "aws_ebs_volume" "monitor_log_volume" {
 }
 
 resource "aws_volume_attachment" "monitor_log_volume_attachment" {
-  count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
+  count = local.monitor.enable_tdagent ? local.monitor.resource_count : 0
 
   device_name = "/dev/xvdh"
   volume_id   = aws_ebs_volume.monitor_log_volume[count.index].id
@@ -70,7 +70,7 @@ resource "aws_volume_attachment" "monitor_log_volume_attachment" {
 }
 
 resource "null_resource" "volume_data" {
-  count = local.monitor.enable_tdagent && local.monitor.enable_log_volume ? local.monitor.resource_count : 0
+  count = local.monitor.enable_tdagent ? local.monitor.resource_count : 0
 
   triggers = {
     volume_attachment_ids = join(

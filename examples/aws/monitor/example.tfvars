@@ -8,7 +8,6 @@ monitor = {
   # resource_count                        = "1"
   # active_offset                         = "0"
   # encrypt_volume                        = "true"
-  # enable_log_volume                     = "true"
   # log_volume_size                       = "500"
   # log_volume_type                       = "sc1"
   # enable_tdagent                        = "true"

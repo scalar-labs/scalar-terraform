@@ -28,7 +28,6 @@ locals {
     resource_root_volume_size             = 64
     resource_count                        = 1
     active_offset                         = 0
-    enable_log_volume                     = true
     log_volume_size                       = 500
     log_volume_type                       = "Standard_LRS"
     enable_tdagent                        = true

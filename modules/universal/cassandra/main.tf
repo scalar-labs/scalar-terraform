@@ -24,11 +24,10 @@ resource "null_resource" "cassandra_waitfor" {
 }
 
 resource "null_resource" "cassandra" {
-  count      = var.provision_count
-  depends_on = [null_resource.cassandra_waitfor]
+  count = var.provision_count
 
   triggers = {
-    triggers = var.vm_ids[count.index]
+    triggers = null_resource.cassandra_waitfor[count.index].id
   }
 
   connection {

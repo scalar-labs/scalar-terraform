@@ -12,7 +12,7 @@ cassandra = {
   resource_type             = "t3.large"
   resource_count            = 3
   resource_root_volume_size = 64
-  enable_data_volume        = true  
+  enable_data_volume        = true
   data_remote_volume_size   = 64
 }
 ```
@@ -103,7 +103,7 @@ After the volume is replaced, you will need to perform the following manual step
 
 * Replace the UUID of the `data` or `commitlog` volume in `fstab`.
 
-```console 
+```console
 ssh -F ssh.cfg cassandra-[].internal.scalar-labs.com
 
 # Find the name of newly attached EBS volume
@@ -119,14 +119,14 @@ lsblk -p -P -d -o name,serial,UUID,SIZE
 NAME="/dev/nvme2n1" SERIAL="vol018d1871d19da76f1" UUID="af767839-b23d-4d1f-8a19-debbcfd6413c" HCTL="" SIZE="1T"
 ...
 
-# Update the UUID of `/data` or `/commitlog` directory 
+# Update the UUID of `/data` or `/commitlog` directory
 sudo vi /etc/fstab
 
 sudo systemctl daemon-reload
 
 sudo mount -a
 
-# Change ownership of `/data` directory 
+# Change ownership of `/data` directory
 sudo chown cassandra:cassandra /data
 ```
 * Restore data from Cassy

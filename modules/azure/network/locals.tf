@@ -1,7 +1,7 @@
 ### default
 locals {
   network_default = {
-    bastion_resource_type                 = "Standard_D2s_v3"
+    bastion_resource_type                 = "Standard_B1s"
     bastion_resource_count                = 1
     bastion_access_cidr                   = "0.0.0.0/0"
     bastion_resource_root_volume_size     = 16

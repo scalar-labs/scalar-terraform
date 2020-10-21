@@ -12,6 +12,7 @@ module "bastion_cluster" {
   nb_public_ip                  = var.resource_count
   public_ip_dns                 = formatlist("bastion-%s-${var.network_name}", range(1, var.resource_count + 1))
   vm_size                       = var.resource_type
+  storage_os_disk_size          = var.resource_root_volume_size
   delete_os_disk_on_termination = true
   ssh_key                       = var.public_key_path
   enable_accelerated_networking = var.enable_accelerated_networking

@@ -11,6 +11,7 @@ module "bastion_cluster" {
 
   ami                         = var.image_id
   instance_type               = var.resource_type
+  iam_instance_profile        = aws_iam_instance_profile.bastion.name
   key_name                    = aws_key_pair.deploy_key.key_name
   monitoring                  = false
   vpc_security_group_ids      = [aws_security_group.bastion.id]

@@ -214,9 +214,9 @@ resource "null_resource" "scalardl_container" {
     inline = [
       "cd $HOME/provision",
       "echo export SCALAR_IMAGE=${local.scalar_image} > env",
-      "echo export SCALAR_CASSANDRA_HOST=${local.scalar_cassandra_host} >> env",
-      "echo export SCALAR_CASSANDRA_USERNAME=${var.cassandra_username} >> env",
-      "echo export SCALAR_CASSANDRA_PASSWORD=${var.cassandra_password} >> env",
+      "echo export SCALAR_DB_CONTACT_POINTS=${local.scalar_cassandra_host} >> env",
+      "echo export SCALAR_DB_USERNAME=${var.cassandra_username} >> env",
+      "echo export SCALAR_DB_PASSWORD=${var.cassandra_password} >> env",
       "source ./env",
       "docker-compose up -d",
     ]

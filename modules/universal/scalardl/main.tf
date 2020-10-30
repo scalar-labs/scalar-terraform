@@ -1,7 +1,6 @@
 locals {
-  scalar_image          = "${var.scalardl_image_name}:${var.scalardl_image_tag}"
-  image_filename        = "${basename(var.scalardl_image_name)}-${var.scalardl_image_tag}.tar.gz"
-  scalar_cassandra_host = "cassandra-lb.${var.internal_domain}"
+  scalar_image   = "${var.scalardl_image_name}:${var.scalardl_image_tag}"
+  image_filename = "${basename(var.scalardl_image_name)}-${var.scalardl_image_tag}.tar.gz"
 
   schema_loader_image_filename = format("%s%s", replace(basename(var.schema_loader_image), ":", "-"), ".tar.gz")
 }
@@ -190,7 +189,7 @@ resource "null_resource" "scalardl_schema" {
 
   provisioner "remote-exec" {
     inline = [
-      "docker run --rm ${var.schema_loader_image} --cassandra -h ${local.scalar_cassandra_host} -u ${var.cassandra_username} -p ${var.cassandra_password} -n NetworkTopologyStrategy -R ${var.replication_factor}"
+      "docker run --rm ${var.schema_loader_image} --cassandra -h ${var.database_contact_points} -u ${var.database_username} -p ${var.database_password} -n NetworkTopologyStrategy -R ${var.cassandra_replication_factor}"
     ]
   }
 }
@@ -214,9 +213,9 @@ resource "null_resource" "scalardl_container" {
     inline = [
       "cd $HOME/provision",
       "echo export SCALAR_IMAGE=${local.scalar_image} > env",
-      "echo export SCALAR_DB_CONTACT_POINTS=${local.scalar_cassandra_host} >> env",
-      "echo export SCALAR_DB_USERNAME=${var.cassandra_username} >> env",
-      "echo export SCALAR_DB_PASSWORD=${var.cassandra_password} >> env",
+      "echo export SCALAR_DB_CONTACT_POINTS=${var.database_contact_points} >> env",
+      "echo export SCALAR_DB_USERNAME=${var.database_username} >> env",
+      "echo export SCALAR_DB_PASSWORD=${var.database_password} >> env",
       "source ./env",
       "docker-compose up -d",
     ]

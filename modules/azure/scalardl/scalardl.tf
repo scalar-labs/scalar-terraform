@@ -25,12 +25,12 @@ module "scalardl_blue" {
   network_dns                   = local.network_dns
   scalardl_image_name           = local.scalardl.blue_image_name
   scalardl_image_tag            = local.scalardl.blue_image_tag
-  replication_factor            = local.scalardl.replication_factor
   enable_tdagent                = local.scalardl.enable_tdagent
   availability_set_id           = azurerm_availability_set.scalar_availability_set.id
   internal_domain               = local.internal_domain
-  cassandra_username            = local.scalardl.cassandra_username
-  cassandra_password            = local.scalardl.cassandra_password
+  database_username             = local.scalardl.database_username
+  database_password             = local.scalardl.database_password
+  replication_factor            = local.scalardl.replication_factor
   enable_accelerated_networking = local.scalardl.blue_enable_accelerated_networking
 }
 
@@ -55,12 +55,12 @@ module "scalardl_green" {
   network_dns                   = local.network_dns
   scalardl_image_name           = local.scalardl.green_image_name
   scalardl_image_tag            = local.scalardl.green_image_tag
-  replication_factor            = local.scalardl.replication_factor
   enable_tdagent                = local.scalardl.enable_tdagent
   availability_set_id           = azurerm_availability_set.scalar_availability_set.id
   internal_domain               = local.internal_domain
-  cassandra_username            = local.scalardl.cassandra_username
-  cassandra_password            = local.scalardl.cassandra_password
+  database_username             = local.scalardl.database_username
+  database_password             = local.scalardl.database_password
+  replication_factor            = local.scalardl.replication_factor
   enable_accelerated_networking = local.scalardl.green_enable_accelerated_networking
 }
 

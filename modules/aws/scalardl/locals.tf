@@ -30,7 +30,6 @@ locals {
     blue_discoverable_by_envoy  = true
     green_resource_count        = 0
     green_image_tag             = "2.0.7"
-    replication_factor          = 3
     green_image_name            = "scalarlabs/scalar-ledger"
     green_discoverable_by_envoy = false
     target_port                 = 50051
@@ -38,8 +37,9 @@ locals {
     listen_port                 = 50051
     privileged_listen_port      = 50052
     enable_tdagent              = true
-    cassandra_username          = "cassandra"
-    cassandra_password          = "cassandra"
+    database_username           = "cassandra"
+    database_password           = "cassandra"
+    replication_factor          = 3
   }
 }
 

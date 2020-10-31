@@ -64,11 +64,6 @@ variable "scalardl_image_tag" {
   description = "The docker image tag for Scalar DL"
 }
 
-variable "replication_factor" {
-  default     = 3
-  description = "Set the replication factor for schema"
-}
-
 variable "enable_tdagent" {
   default     = true
   description = "A flag to install td-agent that forwards logs to the monitor host"
@@ -78,16 +73,21 @@ variable "internal_domain" {
   description = "Internal domain"
 }
 
+variable "database_username" {
+  description = "The database username"
+}
+
+variable "database_password" {
+  description = "The database password"
+}
+
+variable "replication_factor" {
+  default     = 3
+  description = "The replication factor for the Cassandra schema"
+}
+
 variable "custom_tags" {
   type        = map(string)
   default     = {}
   description = "The map of custom tags"
-}
-
-variable "cassandra_username" {
-  description = "The username of cassandra cluster"
-}
-
-variable "cassandra_password" {
-  description = "The password of cassandra cluster"
 }

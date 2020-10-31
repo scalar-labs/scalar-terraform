@@ -16,7 +16,7 @@ scalardl = {
   # enable_tdagent                      = "true"
   # database_username                   = "cassandra"
   # database_password                   = "cassandra"
-  # replication_factor                  = "3"
+  # cassandra_replication_factor        = "3"
 }
 
 envoy = {

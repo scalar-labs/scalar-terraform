@@ -89,7 +89,7 @@ variable "database_password" {
   description = "The database password"
 }
 
-variable "replication_factor" {
+variable "cassandra_replication_factor" {
   default     = 3
   description = "The replication factor for the Cassandra schema"
 }

@@ -53,11 +53,11 @@ module "scalardl_provision" {
   provision_count  = var.resource_count
   enable_tdagent   = var.enable_tdagent
 
-  scalardl_image_name     = var.scalardl_image_name
-  scalardl_image_tag      = var.scalardl_image_tag
-  internal_domain         = var.internal_domain
-  database_contact_points = "cassandra-lb.${var.internal_domain}" # TODO: add to variables
-  database_username       = var.database_username
-  database_password       = var.database_password
-  replication_factor      = var.replication_factor
+  scalardl_image_name          = var.scalardl_image_name
+  scalardl_image_tag           = var.scalardl_image_tag
+  internal_domain              = var.internal_domain
+  database_contact_points      = "cassandra-lb.${var.internal_domain}" # TODO: add to variables
+  database_username            = var.database_username
+  database_password            = var.database_password
+  cassandra_replication_factor = var.cassandra_replication_factor
 }

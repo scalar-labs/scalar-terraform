@@ -30,7 +30,7 @@ module "scalardl_blue" {
   internal_domain               = local.internal_domain
   database_username             = local.scalardl.database_username
   database_password             = local.scalardl.database_password
-  replication_factor            = local.scalardl.replication_factor
+  cassandra_replication_factor  = local.scalardl.cassandra_replication_factor
   enable_accelerated_networking = local.scalardl.blue_enable_accelerated_networking
 }
 
@@ -60,7 +60,7 @@ module "scalardl_green" {
   internal_domain               = local.internal_domain
   database_username             = local.scalardl.database_username
   database_password             = local.scalardl.database_password
-  replication_factor            = local.scalardl.replication_factor
+  cassandra_replication_factor  = local.scalardl.cassandra_replication_factor
   enable_accelerated_networking = local.scalardl.green_enable_accelerated_networking
 }
 

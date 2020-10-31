@@ -34,7 +34,7 @@ output "scalardl_green_resource_count" {
 }
 
 output "scalardl_replication_factor" {
-  value       = local.scalardl.replication_factor
+  value       = local.scalardl.cassandra_replication_factor
   description = "The replication factor for the schema of scalardl."
 }
 

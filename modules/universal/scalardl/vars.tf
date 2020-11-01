@@ -51,8 +51,18 @@ variable "internal_domain" {
   description = "Internal domain"
 }
 
+variable "database" {
+  default     = "cassandra"
+  description = "The database. This should be \"cassandra\" or \"dynamo\""
+}
+
 variable "database_contact_points" {
   description = "The database contact points"
+}
+
+variable "database_contact_port" {
+  default     = 9042
+  description = "The database contact port"
 }
 
 variable "database_username" {
@@ -66,4 +76,9 @@ variable "database_password" {
 variable "cassandra_replication_factor" {
   default     = 3
   description = "The replication factor for the Cassandra schema"
+}
+
+variable "dynamo_region" {
+  default     = ""
+  description = "The AWS region name where DynamoDB tables are created"
 }

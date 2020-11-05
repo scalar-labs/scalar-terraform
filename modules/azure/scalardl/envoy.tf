@@ -18,7 +18,7 @@ module "envoy_cluster" {
   vnet_subnet_id                = local.envoy.subnet_id
   vm_size                       = local.envoy.resource_type
   ssh_key                       = local.public_key_path
-  storage_account_type          = "Standard_LRS"
+  storage_account_type          = "StandardSSD_LRS"
   storage_os_disk_size          = local.envoy.resource_root_volume_size
   delete_os_disk_on_termination = true
   remote_port                   = local.envoy.target_port

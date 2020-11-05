@@ -12,6 +12,7 @@ module "cluster" {
   vnet_subnet_id                = var.subnet_id
   vm_size                       = var.resource_type
   ssh_key                       = var.public_key_path
+  storage_account_type          = "Standard_LRS"
   storage_os_disk_size          = var.resource_root_volume_size
   availability_set_id           = var.availability_set_id
   delete_os_disk_on_termination = true

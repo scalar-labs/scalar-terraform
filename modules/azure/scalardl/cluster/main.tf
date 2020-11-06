@@ -29,11 +29,12 @@ module "scalardl_provision" {
   private_key_path = var.private_key_path
   provision_count  = var.resource_count
   enable_tdagent   = var.enable_tdagent
-  internal_domain  = var.internal_domain
 
-  scalardl_image_name = var.scalardl_image_name
-  scalardl_image_tag  = var.scalardl_image_tag
-  replication_factor  = var.replication_factor
-  cassandra_username  = var.cassandra_username
-  cassandra_password  = var.cassandra_password
+  scalardl_image_name          = var.scalardl_image_name
+  scalardl_image_tag           = var.scalardl_image_tag
+  internal_domain              = var.internal_domain
+  database_contact_points      = "cassandra-lb.${var.internal_domain}" # TODO: add to variables
+  database_username            = var.database_username
+  database_password            = var.database_password
+  cassandra_replication_factor = var.cassandra_replication_factor
 }

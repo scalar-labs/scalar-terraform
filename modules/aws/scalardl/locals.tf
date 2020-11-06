@@ -22,24 +22,24 @@ locals {
 ### default
 locals {
   scalardl_default = {
-    resource_type               = "t3.medium"
-    resource_root_volume_size   = 64
-    blue_resource_count         = 3
-    blue_image_tag              = "2.0.7"
-    blue_image_name             = "scalarlabs/scalar-ledger"
-    blue_discoverable_by_envoy  = true
-    green_resource_count        = 0
-    green_image_tag             = "2.0.7"
-    replication_factor          = 3
-    green_image_name            = "scalarlabs/scalar-ledger"
-    green_discoverable_by_envoy = false
-    target_port                 = 50051
-    privileged_target_port      = 50052
-    listen_port                 = 50051
-    privileged_listen_port      = 50052
-    enable_tdagent              = true
-    cassandra_username          = "cassandra"
-    cassandra_password          = "cassandra"
+    resource_type                = "t3.medium"
+    resource_root_volume_size    = 64
+    blue_resource_count          = 3
+    blue_image_tag               = "2.0.7"
+    blue_image_name              = "scalarlabs/scalar-ledger"
+    blue_discoverable_by_envoy   = true
+    green_resource_count         = 0
+    green_image_tag              = "2.0.7"
+    green_image_name             = "scalarlabs/scalar-ledger"
+    green_discoverable_by_envoy  = false
+    target_port                  = 50051
+    privileged_target_port       = 50052
+    listen_port                  = 50051
+    privileged_listen_port       = 50052
+    enable_tdagent               = true
+    database_username            = "cassandra"
+    database_password            = "cassandra"
+    cassandra_replication_factor = 3
   }
 }
 

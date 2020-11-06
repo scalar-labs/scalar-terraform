@@ -68,11 +68,6 @@ variable "scalardl_image_tag" {
   description = "The docker image tag for Scalar DL"
 }
 
-variable "replication_factor" {
-  default     = 3
-  description = "Set the replication factor for schema"
-}
-
 variable "availability_set_id" {
   default = ""
 }
@@ -86,12 +81,17 @@ variable "internal_domain" {
   description = "Internal domain"
 }
 
-variable "cassandra_username" {
-  description = "The username of cassandra cluster"
+variable "database_username" {
+  description = "The database username"
 }
 
-variable "cassandra_password" {
-  description = "The password of cassandra cluster"
+variable "database_password" {
+  description = "The database password"
+}
+
+variable "cassandra_replication_factor" {
+  default     = 3
+  description = "The replication factor for the Cassandra schema"
 }
 
 variable "enable_accelerated_networking" {

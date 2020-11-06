@@ -1,55 +1,55 @@
 module "scalardl_blue" {
   source = "./cluster"
 
-  security_group_ids        = aws_security_group.scalardl.*.id
-  bastion_ip                = local.bastion_ip
-  network_name              = local.network_name
-  resource_type             = local.scalardl.resource_type
-  resource_count            = local.scalardl.blue_resource_count
-  resource_cluster_name     = "blue"
-  resource_root_volume_size = local.scalardl.resource_root_volume_size
-  triggers                  = local.triggers
-  private_key_path          = local.private_key_path
-  user_name                 = local.user_name
-  subnet_ids                = local.blue_subnet_ids
-  image_id                  = local.image_id
-  key_name                  = local.key_name
-  network_dns               = local.network_dns
-  scalardl_image_name       = local.scalardl.blue_image_name
-  scalardl_image_tag        = local.scalardl.blue_image_tag
-  replication_factor        = local.scalardl.replication_factor
-  enable_tdagent            = local.scalardl.enable_tdagent
-  internal_domain           = local.internal_domain
-  custom_tags               = var.custom_tags
-  cassandra_username        = local.scalardl.cassandra_username
-  cassandra_password        = local.scalardl.cassandra_password
+  security_group_ids           = aws_security_group.scalardl.*.id
+  bastion_ip                   = local.bastion_ip
+  network_name                 = local.network_name
+  resource_type                = local.scalardl.resource_type
+  resource_count               = local.scalardl.blue_resource_count
+  resource_cluster_name        = "blue"
+  resource_root_volume_size    = local.scalardl.resource_root_volume_size
+  triggers                     = local.triggers
+  private_key_path             = local.private_key_path
+  user_name                    = local.user_name
+  subnet_ids                   = local.blue_subnet_ids
+  image_id                     = local.image_id
+  key_name                     = local.key_name
+  network_dns                  = local.network_dns
+  scalardl_image_name          = local.scalardl.blue_image_name
+  scalardl_image_tag           = local.scalardl.blue_image_tag
+  enable_tdagent               = local.scalardl.enable_tdagent
+  internal_domain              = local.internal_domain
+  database_username            = local.scalardl.database_username
+  database_password            = local.scalardl.database_password
+  cassandra_replication_factor = local.scalardl.cassandra_replication_factor
+  custom_tags                  = var.custom_tags
 }
 
 module "scalardl_green" {
   source = "./cluster"
 
-  security_group_ids        = aws_security_group.scalardl.*.id
-  bastion_ip                = local.bastion_ip
-  network_name              = local.network_name
-  resource_type             = local.scalardl.resource_type
-  resource_count            = local.scalardl.green_resource_count
-  resource_cluster_name     = "green"
-  resource_root_volume_size = local.scalardl.resource_root_volume_size
-  triggers                  = local.triggers
-  private_key_path          = local.private_key_path
-  user_name                 = local.user_name
-  subnet_ids                = local.green_subnet_ids
-  image_id                  = local.image_id
-  key_name                  = local.key_name
-  network_dns               = local.network_dns
-  scalardl_image_name       = local.scalardl.green_image_name
-  scalardl_image_tag        = local.scalardl.green_image_tag
-  replication_factor        = local.scalardl.replication_factor
-  enable_tdagent            = local.scalardl.enable_tdagent
-  internal_domain           = local.internal_domain
-  custom_tags               = var.custom_tags
-  cassandra_username        = local.scalardl.cassandra_username
-  cassandra_password        = local.scalardl.cassandra_password
+  security_group_ids           = aws_security_group.scalardl.*.id
+  bastion_ip                   = local.bastion_ip
+  network_name                 = local.network_name
+  resource_type                = local.scalardl.resource_type
+  resource_count               = local.scalardl.green_resource_count
+  resource_cluster_name        = "green"
+  resource_root_volume_size    = local.scalardl.resource_root_volume_size
+  triggers                     = local.triggers
+  private_key_path             = local.private_key_path
+  user_name                    = local.user_name
+  subnet_ids                   = local.green_subnet_ids
+  image_id                     = local.image_id
+  key_name                     = local.key_name
+  network_dns                  = local.network_dns
+  scalardl_image_name          = local.scalardl.green_image_name
+  scalardl_image_tag           = local.scalardl.green_image_tag
+  enable_tdagent               = local.scalardl.enable_tdagent
+  internal_domain              = local.internal_domain
+  database_username            = local.scalardl.database_username
+  database_password            = local.scalardl.database_password
+  cassandra_replication_factor = local.scalardl.cassandra_replication_factor
+  custom_tags                  = var.custom_tags
 }
 
 resource "aws_security_group" "scalardl" {

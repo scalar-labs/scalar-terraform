@@ -29,15 +29,14 @@ locals {
     blue_enable_accelerated_networking  = false
     green_resource_count                = 0
     green_image_tag                     = "2.0.7"
-    replication_factor                  = 3
     green_image_name                    = "scalarlabs/scalar-ledger"
     green_subnet_id                     = var.network.green_subnet_id
     green_discoverable_by_envoy         = false
     green_enable_accelerated_networking = false
     enable_tdagent                      = true
-    cassandra_username                  = "cassandra"
-    cassandra_password                  = "cassandra"
-
+    database_username                   = "cassandra"
+    database_password                   = "cassandra"
+    cassandra_replication_factor        = 3
   }
 }
 

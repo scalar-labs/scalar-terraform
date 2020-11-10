@@ -37,6 +37,9 @@ locals {
     listen_port                  = 50051
     privileged_listen_port       = 50052
     enable_tdagent               = true
+    database                     = "cassandra"
+    database_contact_points      = "cassandra-lb.${local.internal_domain}"
+    database_contact_port        = 9042
     database_username            = "cassandra"
     database_password            = "cassandra"
     cassandra_replication_factor = 3

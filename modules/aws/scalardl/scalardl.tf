@@ -19,6 +19,9 @@ module "scalardl_blue" {
   scalardl_image_tag           = local.scalardl.blue_image_tag
   enable_tdagent               = local.scalardl.enable_tdagent
   internal_domain              = local.internal_domain
+  database                     = local.scalardl.database
+  database_contact_points      = local.scalardl.database_contact_points
+  database_contact_port        = local.scalardl.database_contact_port
   database_username            = local.scalardl.database_username
   database_password            = local.scalardl.database_password
   cassandra_replication_factor = local.scalardl.cassandra_replication_factor
@@ -46,6 +49,9 @@ module "scalardl_green" {
   scalardl_image_tag           = local.scalardl.green_image_tag
   enable_tdagent               = local.scalardl.enable_tdagent
   internal_domain              = local.internal_domain
+  database                     = local.scalardl.database
+  database_contact_points      = local.scalardl.database_contact_points
+  database_contact_port        = local.scalardl.database_contact_port
   database_username            = local.scalardl.database_username
   database_password            = local.scalardl.database_password
   cassandra_replication_factor = local.scalardl.cassandra_replication_factor

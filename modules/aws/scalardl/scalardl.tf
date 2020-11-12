@@ -25,6 +25,7 @@ module "scalardl_blue" {
   database_username            = local.scalardl.database_username
   database_password            = local.scalardl.database_password
   cassandra_replication_factor = local.scalardl.cassandra_replication_factor
+  dynamo_region                = local.region
   custom_tags                  = var.custom_tags
 }
 
@@ -55,6 +56,7 @@ module "scalardl_green" {
   database_username            = local.scalardl.database_username
   database_password            = local.scalardl.database_password
   cassandra_replication_factor = local.scalardl.cassandra_replication_factor
+  dynamo_region                = local.region
   custom_tags                  = var.custom_tags
 }
 

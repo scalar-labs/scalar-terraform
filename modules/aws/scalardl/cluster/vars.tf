@@ -98,6 +98,11 @@ variable "cassandra_replication_factor" {
   description = "The replication factor for the Cassandra schema"
 }
 
+variable "dynamo_region" {
+  default     = ""
+  description = "The region for DynamoDB"
+}
+
 variable "custom_tags" {
   type        = map(string)
   default     = {}

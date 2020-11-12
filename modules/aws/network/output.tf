@@ -61,11 +61,6 @@ output "user_name" {
   description = "The user name of the remote hosts."
 }
 
-output "public_key_path" {
-  value       = abspath(pathexpand(var.public_key_path))
-  description = "The path to the Public key for SSH access."
-}
-
 output "private_key_path" {
   value       = abspath(pathexpand(var.private_key_path))
   description = "The path to the private key for SSH access."

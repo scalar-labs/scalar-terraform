@@ -46,10 +46,6 @@ output "user_name" {
   value = module.network.user_name
 }
 
-output "public_key_path" {
-  value = module.network.public_key_path
-}
-
 output "private_key_path" {
   value = module.network.private_key_path
 }

@@ -48,7 +48,8 @@ resource "null_resource" "schema_loader_image" {
   count = var.provision_count > 0 ? 1 : 0
 
   triggers = {
-    triggers = join(",", var.triggers)
+    triggers            = join(",", var.triggers)
+    schema_loader_image = var.schema_loader_image
   }
 
   provisioner "local-exec" {

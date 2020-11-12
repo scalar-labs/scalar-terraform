@@ -27,6 +27,8 @@ locals {
     cluster_encryption_config            = []
     aws_auth_system_master_role          = data.aws_iam_role.bastion.arn
     subnet_ids                           = concat(local.subnet_ids, local.public_subnet_ids, local.private_subnet_ids)
+    use_node_group_type                  = true
+    use_fargate_type                     = false
   }
 
   kubernetes_cluster = merge(
@@ -71,6 +73,31 @@ locals {
   kubernetes_scalar_apps_pool = merge(
     local.scalar_apps_pool,
     var.kubernetes_scalar_apps_pool
+  )
+}
+
+locals {
+  kubernetes_fargate = {
+    subnet_ids = local.private_subnet_ids
+
+  }
+
+  kubernetes_default_fargate = merge(
+    local.kubernetes_fargate,
+    var.kubernetes_default_fargate
+  )
+
+  scalar_apps_fargate = {
+    subnet_ids = local.subnet_ids
+
+    kubernetes_labels = {
+      agentpool = "scalardlpool"
+    }
+  }
+
+  kubernetes_scalar_apps_fargate = merge(
+    local.scalar_apps_fargate,
+    var.kubernetes_scalar_apps_fargate
   )
 }
 

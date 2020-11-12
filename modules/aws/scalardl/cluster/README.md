@@ -14,6 +14,9 @@ The Cluster module deploys a Scalar DL cluster.
 | bastion_ip | The IP to bastion host used for provisioning | `any` | n/a | yes |
 | cassandra_replication_factor | The replication factor for the Cassandra schema | `number` | `3` | no |
 | custom_tags | The map of custom tags | `map(string)` | `{}` | no |
+| database | The database | `any` | n/a | yes |
+| database_contact_points | The database contact points | `any` | n/a | yes |
+| database_contact_port | The database contact port | `any` | n/a | yes |
 | database_password | The database password | `any` | n/a | yes |
 | database_username | The database username | `any` | n/a | yes |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `bool` | `true` | no |

@@ -1,5 +1,5 @@
 output "kube_config" {
-  description = "kubectl config"
+  description = "kubectl configuration e.g: ~/.kube/config"
   value       = local.kubeconfig
 }
 

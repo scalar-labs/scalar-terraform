@@ -24,7 +24,9 @@ locals {
     cluster_endpoint_public_access_cidrs = "0.0.0.0/0"
     cluster_create_timeout               = "30m"
     cluster_delete_timeout               = "15m"
-    cluster_encryption_config            = ""
+    cluster_encryption_config_enabled    = false
+    cluster_encryption_config_resources  = ""
+    cluster_encryption_config_kms_key_id = ""
     aws_auth_system_master_role          = data.aws_iam_role.bastion.arn
     subnet_ids                           = concat(local.subnet_ids, local.public_subnet_ids, local.private_subnet_ids)
     use_fargate_profile                  = false
@@ -116,8 +118,6 @@ locals {
 
 locals {
   policy_arn_prefix = "arn:${data.aws_partition.current.partition}:iam::aws:policy"
-
-  ec2_principal = "ec2.${data.aws_partition.current.dns_suffix}"
 
   kubeconfig_name = "${local.network_name}_kubeconfig"
 

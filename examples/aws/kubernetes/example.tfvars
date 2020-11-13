@@ -9,7 +9,9 @@ kubernetes_cluster = {
   # cluster_endpoint_public_access_cidrs = "0.0.0.0/0"
   # cluster_create_timeout               = "30m"
   # cluster_delete_timeout               = "15m"
-  # cluster_encryption_config            = ""
+  # cluster_encryption_config_enabled    = "false"
+  # cluster_encryption_config_resources  = ""
+  # cluster_encryption_config_kms_key_id = ""
   # use_fargate_profile                  = "false"
 }
 

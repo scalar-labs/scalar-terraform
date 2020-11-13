@@ -37,7 +37,7 @@ variable "eks_depends_on" {
   default     = null
 }
 
-variable "create_fargate" {
+variable "create_enable" {
   description = "Flag for create fargate resources."
   type        = bool
   default     = false

@@ -6,7 +6,7 @@ module "scalardl_apps_fargate" {
   subnets          = local.kubernetes_scalar_apps_fargate.subnet_ids
   namespace        = local.kubernetes_scalar_apps_fargate.namespace
   kubernetes_labes = local.kubernetes_scalar_apps_fargate.kubernetes_labels
-  create_fargate   = local.kubernetes_cluster.use_fargate_profile
+  create_enable    = local.kubernetes_cluster.use_fargate_profile
 
   tags = var.custom_tags
 
@@ -24,6 +24,7 @@ module "default_fargate" {
   subnets          = local.kubernetes_default_fargate.subnet_ids
   namespace        = local.kubernetes_default_fargate.namespace
   kubernetes_labes = local.kubernetes_default_fargate.kubernetes_labels
+  create_enable    = local.kubernetes_cluster.use_fargate_profile
 
   tags = var.custom_tags
 
@@ -42,6 +43,7 @@ module "monitoring_fargate" {
   subnets          = local.kubernetes_monitoring_fargate.subnet_ids
   namespace        = local.kubernetes_monitoring_fargate.namespace
   kubernetes_labes = local.kubernetes_monitoring_fargate.kubernetes_labels
+  create_enable    = local.kubernetes_cluster.use_fargate_profile
 
   tags = var.custom_tags
 

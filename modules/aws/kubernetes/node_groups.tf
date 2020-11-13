@@ -1,9 +1,9 @@
 module "scalardl_apps_pool" {
   source = "./node_group"
 
-  cluster_name = aws_eks_cluster.eks_cluster.name
-  iam_role_arn = aws_iam_role.eks_node.arn
-  node_group   = local.kubernetes_scalar_apps_pool
+  cluster_name  = aws_eks_cluster.eks_cluster.name
+  node_group    = local.kubernetes_scalar_apps_pool
+  create_enable = ! local.kubernetes_cluster.use_fargate_profile
 
   kubernetes_labels = local.kubernetes_scalar_apps_pool.kubernetes_labels
 
@@ -23,9 +23,9 @@ module "scalardl_apps_pool" {
 module "default_node_pool" {
   source = "./node_group"
 
-  cluster_name = aws_eks_cluster.eks_cluster.name
-  iam_role_arn = aws_iam_role.eks_node.arn
-  node_group   = local.kubernetes_default_node_pool
+  cluster_name  = aws_eks_cluster.eks_cluster.name
+  node_group    = local.kubernetes_default_node_pool
+  create_enable = ! local.kubernetes_cluster.use_fargate_profile
 
   tags = merge(
     var.custom_tags,

@@ -3,11 +3,6 @@ variable "cluster_name" {
   type        = string
 }
 
-variable "iam_role_arn" {
-  description = "ARN of the default IAM worker role to use if one is not specified in `var.node_groups` or `var.node_groups_defaults`"
-  type        = string
-}
-
 variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
@@ -29,4 +24,10 @@ variable "kubernetes_labels" {
   description = "List of kubernetes labels"
   type        = map(string)
   default     = {}
+}
+
+variable "create_enable" {
+  description = "Flag for create node group resources."
+  type        = bool
+  default     = false
 }

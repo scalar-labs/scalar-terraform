@@ -62,5 +62,4 @@ module "scalardl_provision" {
   database_username            = var.database_username
   database_password            = var.database_password
   cassandra_replication_factor = var.cassandra_replication_factor
-  dynamo_region                = var.dynamo_region
 }

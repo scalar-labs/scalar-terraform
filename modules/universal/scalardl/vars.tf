@@ -77,8 +77,3 @@ variable "cassandra_replication_factor" {
   default     = 3
   description = "The replication factor for the Cassandra schema"
 }
-
-variable "dynamo_region" {
-  default     = ""
-  description = "The AWS region name where DynamoDB tables are created"
-}

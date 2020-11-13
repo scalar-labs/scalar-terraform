@@ -19,7 +19,6 @@ The Cluster module deploys a Scalar DL cluster.
 | database_contact_port | The database contact port | `any` | n/a | yes |
 | database_password | The database password | `any` | n/a | yes |
 | database_username | The database username | `any` | n/a | yes |
-| dynamo_region | The region for DynamoDB | `string` | `""` | no |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `bool` | `true` | no |
 | image_id | The image id to initiate | `any` | n/a | yes |
 | internal_domain | Internal domain | `any` | n/a | yes |

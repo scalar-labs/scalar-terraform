@@ -2,14 +2,15 @@
 kubernetes_cluster = {
   # name                                 = "scalar-kubernetes"
   # kubernetes_version                   = "1.16"
-  # kube_dashboard                       = true
-  # cluster_enabled_log_types            = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  # kube_dashboard                       = "true"
+  # cluster_enabled_log_types            = ""
   # cluster_endpoint_private_access      = true
   # cluster_endpoint_public_access       = false
-  # cluster_endpoint_public_access_cidrs = ["0.0.0.0/0"]
+  # cluster_endpoint_public_access_cidrs = "0.0.0.0/0"
   # cluster_create_timeout               = "30m"
   # cluster_delete_timeout               = "15m"
-  # cluster_encryption_config            = []
+  # cluster_encryption_config            = ""
+  # use_fargate_profile                  = "false"
 }
 
 kubernetes_default_node_pool = {

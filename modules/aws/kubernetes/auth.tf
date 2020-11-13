@@ -1,9 +1,9 @@
 locals {
   configmap_roles = [
-    for arn in [aws_iam_role.eks_cluster.arn, aws_iam_role.eks_node.arn] :
+    for arn in [aws_iam_role.eks_cluster.arn, aws_iam_role.eks_node.arn, module.scalardl_apps_fargate.iam_role_arn, module.default_fargate.iam_role_arn, module.monitoring_fargate.iam_role_arn] :
     {
       rolearn  = arn
-      username = "system:node:{{EC2PrivateDNSName}}"
+      username = local.kubernetes_cluster.use_fargate_profile ? "system:node:{{SessionName}}" : "system:node:{{EC2PrivateDNSName}}"
       groups = [
         "system:bootstrappers",
         "system:nodes",

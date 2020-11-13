@@ -17,18 +17,17 @@ locals {
     name                                 = "scalar-kubernetes"
     kubernetes_version                   = "1.16"
     kube_dashboard                       = true
-    cluster_enabled_log_types            = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+    cluster_enabled_log_types            = "" # api,audit,authenticator,controllerManager,scheduler
     cluster_log_retention_in_days        = 90
     cluster_endpoint_private_access      = true
     cluster_endpoint_public_access       = false
-    cluster_endpoint_public_access_cidrs = ["0.0.0.0/0"]
+    cluster_endpoint_public_access_cidrs = "0.0.0.0/0"
     cluster_create_timeout               = "30m"
     cluster_delete_timeout               = "15m"
-    cluster_encryption_config            = []
+    cluster_encryption_config            = ""
     aws_auth_system_master_role          = data.aws_iam_role.bastion.arn
     subnet_ids                           = concat(local.subnet_ids, local.public_subnet_ids, local.private_subnet_ids)
-    use_node_group_type                  = true
-    use_fargate_type                     = false
+    use_fargate_profile                  = false
   }
 
   kubernetes_cluster = merge(

@@ -18,7 +18,7 @@ resource "aws_eks_cluster" "eks_cluster" {
   role_arn = aws_iam_role.eks_cluster.arn
   version  = local.kubernetes_cluster.kubernetes_version
 
-  enabled_cluster_log_types = local.kubernetes_cluster.cluster_enabled_log_types
+  enabled_cluster_log_types = split(",", local.kubernetes_cluster.cluster_enabled_log_types)
 
   tags = merge(
     var.custom_tags,
@@ -33,7 +33,7 @@ resource "aws_eks_cluster" "eks_cluster" {
     subnet_ids              = local.kubernetes_cluster.subnet_ids
     endpoint_private_access = local.kubernetes_cluster.cluster_endpoint_private_access
     endpoint_public_access  = local.kubernetes_cluster.cluster_endpoint_public_access
-    public_access_cidrs     = local.kubernetes_cluster.cluster_endpoint_public_access_cidrs
+    public_access_cidrs     = split(",", local.kubernetes_cluster.cluster_endpoint_public_access_cidrs)
   }
 
   timeouts {
@@ -41,16 +41,16 @@ resource "aws_eks_cluster" "eks_cluster" {
     delete = local.kubernetes_cluster.cluster_delete_timeout
   }
 
-  dynamic encryption_config {
-    for_each = toset(local.kubernetes_cluster.cluster_encryption_config)
+  # dynamic encryption_config {
+  #   for_each = toset(local.kubernetes_cluster.cluster_encryption_config)
 
-    content {
-      provider {
-        key_arn = encryption_config.value["provider_key_arn"]
-      }
-      resources = encryption_config.value["resources"]
-    }
-  }
+  #   content {
+  #     provider {
+  #       key_arn = encryption_config.value["provider_key_arn"]
+  #     }
+  #     resources = encryption_config.value["resources"]
+  #   }
+  # }
 
   depends_on = [
   ]

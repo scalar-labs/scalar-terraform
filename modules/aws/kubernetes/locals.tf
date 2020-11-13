@@ -78,8 +78,9 @@ locals {
 
 locals {
   kubernetes_fargate = {
-    subnet_ids = local.private_subnet_ids
-    namespace  = "default"
+    subnet_ids        = local.private_subnet_ids
+    namespace         = "default"
+    kubernetes_labels = {}
 
   }
 
@@ -90,7 +91,7 @@ locals {
 
   scalar_apps_fargate = {
     subnet_ids = local.subnet_ids
-    namespace  = "scalardl"
+    namespace  = "default"
 
     kubernetes_labels = {
       agentpool = "scalardlpool"
@@ -103,8 +104,9 @@ locals {
   )
 
   monitoring_fargate = {
-    subnet_ids = local.private_subnet_ids
-    namespace  = "monitoring"
+    subnet_ids        = local.private_subnet_ids
+    namespace         = "monitoring"
+    kubernetes_labels = {}
   }
 
   kubernetes_monitoring_fargate = merge(

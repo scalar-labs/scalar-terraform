@@ -33,6 +33,8 @@ provider "kubernetes" {
 }
 
 resource "null_resource" "wait_for_cluster" {
+  count = local.kubernetes_cluster.cluster_endpoint_public_access ? 1 : 0
+
   depends_on = [
     aws_eks_cluster.eks_cluster,
   ]
@@ -47,7 +49,9 @@ resource "null_resource" "wait_for_cluster" {
 }
 
 resource "kubernetes_config_map" "aws_auth" {
-  depends_on = [null_resource.wait_for_cluster]
+  count = local.kubernetes_cluster.cluster_endpoint_public_access ? 1 : 0
+
+  depends_on = [null_resource.wait_for_cluster[0]]
 
   metadata {
     name      = "aws-auth"

@@ -204,7 +204,13 @@ resource "null_resource" "scalardl_container" {
   count = var.provision_count
 
   triggers = {
-    triggers = "${null_resource.scalardl_load[count.index].id}${null_resource.scalardl_schema[0].id}"
+    scalardl_load           = null_resource.scalardl_load[count.index].id
+    scalardl_schema         = null_resource.scalardl_schema[0].id
+    database                = var.database
+    database_contact_points = var.database_contact_points
+    database_contact_port   = var.database_contact_port
+    database_username       = var.database_username
+    database_password       = var.database_password
   }
 
   connection {

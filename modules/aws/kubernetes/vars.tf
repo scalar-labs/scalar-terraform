@@ -34,6 +34,12 @@ variable "kubernetes_scalar_apps_fargate" {
   description = "Custom definition kubernetes scalar apps fargate profile"
 }
 
+variable "kubernetes_monitoring_fargate" {
+  type        = map
+  default     = {}
+  description = "Custom definition kubernetes monitoring fargate profile"
+}
+
 variable "custom_tags" {
   type        = map
   default     = {}

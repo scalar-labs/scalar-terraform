@@ -9,11 +9,11 @@ output "fargate_profile_arn" {
 }
 
 output "iam_role_name" {
-  description = "IAM role name for EKS Fargate pod"
+  description = "IAM role name for EKS Fargate pods"
   value       = aws_iam_role.fargate_pod.name
 }
 
 output "iam_role_arn" {
   description = "IAM role ARN for EKS Fargate pods"
-  value       = aws_iam_role.fargate_pod.name.arn
+  value       = aws_iam_role.fargate_pod.arn
 }

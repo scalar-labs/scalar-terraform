@@ -16,7 +16,7 @@ locals {
   green_subnet_ids   = split(",", var.network.green_subnet_ids)
   internal_domain    = var.network.internal_domain
 
-  triggers = [var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id]
+  triggers = [var.scalardl.database == "cassandra" && var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id]
 }
 
 ### default

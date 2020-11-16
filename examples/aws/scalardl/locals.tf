@@ -23,8 +23,8 @@ locals {
   }
 
   cassandra = {
-    start_on_initial_boot = data.terraform_remote_state.cassandra.outputs.cassandra_start_on_initial_boot
-    provision_ids         = join(",", data.terraform_remote_state.cassandra.outputs.cassandra_provision_ids)
+    start_on_initial_boot = var.scalardl.database == "cassandra" ? data.terraform_remote_state.cassandra.outputs.cassandra_start_on_initial_boot : false
+    provision_ids         = var.scalardl.database == "cassandra" ? join(",", data.terraform_remote_state.cassandra.outputs.cassandra_provision_ids) : ""
   }
 
   custom_tags = data.terraform_remote_state.network.outputs.custom_tags

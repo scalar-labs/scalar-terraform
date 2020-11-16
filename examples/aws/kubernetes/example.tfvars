@@ -16,22 +16,24 @@ kubernetes_cluster = {
   # cluster_encryption_config_kms_key_id = ""
 }
 
-kubernetes_default_node_pool = {
-  # name                           = "default"
-  # node_count                     = "3"
-  # vm_size                        = "m5.large"
-  # os_disk_size_gb                = "64"
-  # cluster_auto_scaling_min_count = "3"
-  # cluster_auto_scaling_max_count = "6"
-}
+kubernetes_node_groups = {
+  default_node_pool = {
+    # name                           = "default"
+    # node_count                     = "3"
+    # vm_size                        = "m5.large"
+    # os_disk_size_gb                = "64"
+    # cluster_auto_scaling_min_count = "3"
+    # cluster_auto_scaling_max_count = "6"
+  }
 
-kubernetes_scalar_apps_pool = {
-  # name                           = "scalardlpool"
-  # node_count                     = "3"
-  # vm_size                        = "m5.large"
-  # os_disk_size_gb                = "64"
-  # cluster_auto_scaling_min_count = "3"
-  # cluster_auto_scaling_max_count = "6"
+  scalar_apps_pool = {
+    # name                           = "scalardlpool"
+    # node_count                     = "3"
+    # vm_size                        = "m5.large"
+    # os_disk_size_gb                = "64"
+    # cluster_auto_scaling_min_count = "3"
+    # cluster_auto_scaling_max_count = "6"
+  }
 }
 
 custom_tags = {

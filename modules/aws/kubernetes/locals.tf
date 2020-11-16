@@ -53,7 +53,7 @@ locals {
 
   kubernetes_default_node_pool = merge(
     local.kubernetes_node_pool,
-    var.kubernetes_default_node_pool
+    var.kubernetes_node_groups.default_node_pool
   )
 }
 
@@ -74,7 +74,7 @@ locals {
 
   kubernetes_scalar_apps_pool = merge(
     local.scalar_apps_pool,
-    var.kubernetes_scalar_apps_pool
+    var.kubernetes_node_groups.scalar_apps_pool
   )
 }
 
@@ -87,7 +87,7 @@ locals {
 
   kubernetes_default_fargate = merge(
     local.kubernetes_fargate,
-    var.kubernetes_fargate_profiles.default
+    var.kubernetes_fargate_profiles.default_node_pool
   )
 
   scalar_apps_fargate = {
@@ -101,7 +101,7 @@ locals {
 
   kubernetes_scalar_apps_fargate = merge(
     local.scalar_apps_fargate,
-    var.kubernetes_fargate_profiles.scalar_apps
+    var.kubernetes_fargate_profiles.scalar_apps_pool
   )
 
   monitoring_fargate = {
@@ -112,7 +112,7 @@ locals {
 
   kubernetes_monitoring_fargate = merge(
     local.monitoring_fargate,
-    var.kubernetes_fargate_profiles.monitoring
+    var.kubernetes_fargate_profiles.monitoring_pool
   )
 }
 

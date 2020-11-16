@@ -10,9 +10,7 @@ module "kubernetes" {
   kubernetes_default_node_pool = var.kubernetes_default_node_pool
   kubernetes_scalar_apps_pool  = var.kubernetes_scalar_apps_pool
 
-  kubernetes_default_fargate     = var.kubernetes_default_fargate
-  kubernetes_scalar_apps_fargate = var.kubernetes_scalar_apps_fargate
-  kubernetes_monitoring_fargate  = var.kubernetes_monitoring_fargate
+  kubernetes_fargate_profiles = var.kubernetes_fargate_profiles
 
   custom_tags = var.custom_tags
 }

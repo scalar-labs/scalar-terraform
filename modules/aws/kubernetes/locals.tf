@@ -87,7 +87,7 @@ locals {
 
   kubernetes_default_fargate = merge(
     local.kubernetes_fargate,
-    var.kubernetes_default_fargate
+    var.kubernetes_fargate_profiles.default
   )
 
   scalar_apps_fargate = {
@@ -101,7 +101,7 @@ locals {
 
   kubernetes_scalar_apps_fargate = merge(
     local.scalar_apps_fargate,
-    var.kubernetes_scalar_apps_fargate
+    var.kubernetes_fargate_profiles.scalar_apps
   )
 
   monitoring_fargate = {
@@ -112,7 +112,7 @@ locals {
 
   kubernetes_monitoring_fargate = merge(
     local.monitoring_fargate,
-    var.kubernetes_monitoring_fargate
+    var.kubernetes_fargate_profiles.monitoring
   )
 }
 

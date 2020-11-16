@@ -28,22 +28,10 @@ variable "kubernetes_scalar_apps_pool" {
   description = "Custom definition kubernetes scalar apps node pool, same as default_node_pool"
 }
 
-variable "kubernetes_default_fargate" {
-  type        = map
+variable "kubernetes_fargate_profiles" {
+  description = "Fargate profiles to create"
+  type        = any
   default     = {}
-  description = "Custom definition kubernetes default fargate profile"
-}
-
-variable "kubernetes_scalar_apps_fargate" {
-  type        = map
-  default     = {}
-  description = "Custom definition kubernetes scalar apps fargate profile"
-}
-
-variable "kubernetes_monitoring_fargate" {
-  type        = map
-  default     = {}
-  description = "Custom definition kubernetes monitoring fargate profile"
 }
 
 variable "custom_tags" {

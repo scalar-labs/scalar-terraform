@@ -1,3 +1,23 @@
+module "kube_system" {
+  source = "./fargate"
+
+  name         = "coredns"
+  cluster_name = aws_eks_cluster.eks_cluster.name
+  subnets      = local.subnet_ids
+  namespace    = "kube-system"
+  kubernetes_labes = {
+    "k8s-app"                     = "kube-dns",
+    "eks.amazonaws.com/component" = "coredns"
+  }
+  create_enable = local.use_fargate_profile
+
+  tags = var.custom_tags
+
+  eks_depends_on = [
+    aws_eks_cluster.eks_cluster,
+  ]
+}
+
 module "default_fargate" {
   source = "./fargate"
 
@@ -11,27 +31,7 @@ module "default_fargate" {
   tags = var.custom_tags
 
   eks_depends_on = [
-    aws_eks_cluster.eks_cluster,
-    kubernetes_config_map.aws_auth,
-  ]
-}
-
-module "kube_system" {
-  source = "./fargate"
-
-  name             = "kube-system"
-  cluster_name     = aws_eks_cluster.eks_cluster.name
-  subnets          = local.subnet_ids
-  namespace        = "kube-system"
-  kubernetes_labes = { infrastructure = "fargate" }
-  create_enable    = local.use_fargate_profile
-
-  tags = var.custom_tags
-
-  eks_depends_on = [
-    aws_eks_cluster.eks_cluster,
-    kubernetes_config_map.aws_auth,
-    module.default_fargate
+    module.kube_system
   ]
 }
 
@@ -48,9 +48,7 @@ module "scalardl_apps_fargate" {
   tags = var.custom_tags
 
   eks_depends_on = [
-    aws_eks_cluster.eks_cluster,
-    kubernetes_config_map.aws_auth,
-    module.kube_system
+    module.default_fargate
   ]
 }
 
@@ -67,8 +65,6 @@ module "monitoring_fargate" {
   tags = var.custom_tags
 
   eks_depends_on = [
-    aws_eks_cluster.eks_cluster,
-    kubernetes_config_map.aws_auth,
-    module.scalardl_apps_fargate,
+    module.scalardl_apps_fargate
   ]
 }

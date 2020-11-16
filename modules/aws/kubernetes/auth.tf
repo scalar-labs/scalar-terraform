@@ -14,7 +14,7 @@ locals {
     ) :
     {
       rolearn  = arn
-      username = local.kubernetes_cluster.use_fargate_profile ? "system:node:{{SessionName}}" : "system:node:{{EC2PrivateDNSName}}"
+      username = local.use_fargate_profile ? "system:node:{{SessionName}}" : "system:node:{{EC2PrivateDNSName}}"
       groups = [
         "system:bootstrappers",
         "system:nodes",

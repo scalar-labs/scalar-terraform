@@ -4,6 +4,12 @@ variable "network" {
   description = "Custom definition for network and bastion"
 }
 
+variable "use_fargate_profile" {
+  type        = bool
+  default     = false
+  description = "Custom definition kubernetes node pool that use fargate profile flag"
+}
+
 variable "kubernetes_cluster" {
   type        = map
   default     = {}

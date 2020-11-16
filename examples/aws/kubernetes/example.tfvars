@@ -1,4 +1,6 @@
 # Optional
+use_fargate_profile = false
+
 kubernetes_cluster = {
   # name                                 = "scalar-kubernetes"
   # kubernetes_version                   = "1.16"
@@ -12,7 +14,6 @@ kubernetes_cluster = {
   # cluster_encryption_config_enabled    = "false"
   # cluster_encryption_config_resources  = ""
   # cluster_encryption_config_kms_key_id = ""
-  # use_fargate_profile                  = "false"
 }
 
 kubernetes_default_node_pool = {

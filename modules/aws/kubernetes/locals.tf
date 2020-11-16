@@ -10,6 +10,8 @@ locals {
   bastion_ip         = var.network.bastion_ip
   user_name          = var.network.user_name
   region             = var.network.region
+
+  use_fargate_profile = var.use_fargate_profile
 }
 
 locals {
@@ -29,7 +31,6 @@ locals {
     cluster_encryption_config_kms_key_id = ""
     aws_auth_system_master_role          = data.aws_iam_role.bastion.arn
     subnet_ids                           = concat(local.subnet_ids, local.public_subnet_ids, local.private_subnet_ids)
-    use_fargate_profile                  = false
   }
 
   kubernetes_cluster = merge(
@@ -82,7 +83,6 @@ locals {
     subnet_ids        = local.private_subnet_ids
     namespace         = "default"
     kubernetes_labels = {}
-
   }
 
   kubernetes_default_fargate = merge(

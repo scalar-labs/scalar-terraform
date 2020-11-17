@@ -42,3 +42,15 @@ variable "create_enable" {
   type        = bool
   default     = false
 }
+
+variable "fargate_create_timeout" {
+  description = "Timeout for create fargate resources."
+  type        = string
+  default     = "15m"
+}
+
+variable "fargate_delete_timeout" {
+  description = "Timeout for delete fargate resources."
+  type        = string
+  default     = "15m"
+}

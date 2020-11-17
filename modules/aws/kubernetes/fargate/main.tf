@@ -27,6 +27,11 @@ resource "aws_eks_fargate_profile" "fargate_profile" {
     labels    = var.kubernetes_labes
   }
 
+  timeouts {
+    create = var.fargate_create_timeout
+    delete = var.fargate_delete_timeout
+  }
+
   depends_on = [var.eks_depends_on]
 
   tags = var.tags

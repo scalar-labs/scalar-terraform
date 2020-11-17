@@ -18,21 +18,21 @@ kubernetes_cluster = {
 
 kubernetes_fargate_profiles = {
   default_node_pool = {
-#     namespace         = "default"
-#     kubernetes_labels = {}
+    # namespace         = "default"
+    # kubernetes_labels = {}
   }
 
   scalar_apps_pool = {
-#     namespace  = "default"
+    # namespace  = "default"
 
-#     kubernetes_labels = {
-#       agentpool = "scalardlpool"
-#     }
+    # kubernetes_labels = {
+    #   agentpool = "scalardlpool"
+    # }
   }
 
   monitoring_pool = {
-#     namespace         = "monitoring"
-#     kubernetes_labels = {}
+    # namespace         = "monitoring"
+    # kubernetes_labels = {}
   }
 }
 

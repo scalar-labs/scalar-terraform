@@ -72,28 +72,6 @@
     daemon_reload: yes
     state: started
 
-- name: Add Cassandra Repo Debian
-  lineinfile:
-    line: "deb https://downloads.apache.org/cassandra/debian 311x main"
-    path: /etc/apt/sources.list.d/cassandra.sources.list
-    create: yes
-  when: ansible_facts['os_family'] == "Debian"
-
-- name: Add Keys
-  shell: curl https://downloads.apache.org/cassandra/KEYS | apt-key add -
-  when: ansible_facts['os_family'] == "Debian"
-
-- name: Apt Update
-  shell: apt update
-  when: ansible_facts['os_family'] == "Debian"
-
-- name: Add Cassandra Repo
-  copy:
-    src: cassandra.repo
-    dest: /etc/yum.repos.d/cassandra.repo
-    mode: 0644
-  when: ansible_facts['os_family'] == "RedHat"
-
 - name: Install jemalloc
   package:
     name: jemalloc
@@ -105,7 +83,7 @@
 
 - name: Install Cassandra
   package:
-    name: cassandra
+    name: "{{ cassandra_rpm_url }}"
     state: present
   register: install_cassandra_result
   until: install_cassandra_result is succeeded

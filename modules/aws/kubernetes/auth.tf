@@ -6,23 +6,18 @@ locals {
         concat(
           module.scalardl_apps_pool.iam_role_arn,
           module.default_node_pool.iam_role_arn,
-          module.scalardl_apps_fargate.iam_role_arn,
-          module.kube_system.iam_role_arn,
-          module.default_fargate.iam_role_arn,
-          module.scalardl_apps_fargate.iam_role_arn,
-          module.monitoring_fargate.iam_role_arn
         )
       )
     ) :
     {
       rolearn  = arn
-      username = local.use_fargate_profile ? "system:node:{{SessionName}}" : "system:node:{{EC2PrivateDNSName}}"
+      username = local.kubernetes_cluster.use_fargate_profile ? "system:node:{{SessionName}}" : "system:node:{{EC2PrivateDNSName}}"
       groups = compact(concat(
         [
           "system:bootstrappers",
           "system:nodes",
         ],
-        local.use_fargate_profile ? ["system:node-proxier"] : []
+        local.kubernetes_cluster.use_fargate_profile ? ["system:node-proxier"] : []
       ))
     }
   ]
@@ -30,7 +25,7 @@ locals {
   map_roles = length(local.kubernetes_cluster.aws_auth_system_master_role) > 0 ? [
     {
       rolearn  = local.kubernetes_cluster.aws_auth_system_master_role
-      username = local.use_fargate_profile ? "system:node:{{SessionName}}" : "system:node:{{EC2PrivateDNSName}}"
+      username = local.kubernetes_cluster.use_fargate_profile ? "system:node:{{SessionName}}" : "system:node:{{EC2PrivateDNSName}}"
       groups   = ["system:masters"]
     },
   ] : []

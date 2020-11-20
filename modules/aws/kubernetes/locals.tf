@@ -10,8 +10,6 @@ locals {
   bastion_ip         = var.network.bastion_ip
   user_name          = var.network.user_name
   region             = var.network.region
-
-  use_fargate_profile = var.use_fargate_profile
 }
 
 locals {
@@ -31,6 +29,7 @@ locals {
     cluster_encryption_config_kms_key_id = ""
     aws_auth_system_master_role          = data.aws_iam_role.bastion.arn
     subnet_ids                           = concat(local.subnet_ids, local.public_subnet_ids, local.private_subnet_ids)
+    use_fargate_profile                  = false
   }
 
   kubernetes_cluster = merge(
@@ -75,44 +74,6 @@ locals {
   kubernetes_scalar_apps_pool = merge(
     local.scalar_apps_pool,
     var.kubernetes_node_groups.scalar_apps_pool
-  )
-}
-
-locals {
-  kubernetes_fargate = {
-    subnet_ids        = local.private_subnet_ids
-    namespace         = "default"
-    kubernetes_labels = {}
-  }
-
-  kubernetes_default_fargate = merge(
-    local.kubernetes_fargate,
-    var.kubernetes_fargate_profiles.default_node_pool
-  )
-
-  scalar_apps_fargate = {
-    subnet_ids = local.subnet_ids
-    namespace  = "default"
-
-    kubernetes_labels = {
-      agentpool = "scalardlpool"
-    }
-  }
-
-  kubernetes_scalar_apps_fargate = merge(
-    local.scalar_apps_fargate,
-    var.kubernetes_fargate_profiles.scalar_apps_pool
-  )
-
-  monitoring_fargate = {
-    subnet_ids        = local.private_subnet_ids
-    namespace         = "monitoring"
-    kubernetes_labels = {}
-  }
-
-  kubernetes_monitoring_fargate = merge(
-    local.monitoring_fargate,
-    var.kubernetes_fargate_profiles.monitoring_pool
   )
 }
 

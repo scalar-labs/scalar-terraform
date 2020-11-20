@@ -3,7 +3,7 @@ module "scalardl_apps_pool" {
 
   cluster_name  = aws_eks_cluster.eks_cluster.name
   node_group    = local.kubernetes_scalar_apps_pool
-  create_enable = ! local.use_fargate_profile
+  create_enable = ! local.kubernetes_cluster.use_fargate_profile
 
   kubernetes_labels = local.kubernetes_scalar_apps_pool.kubernetes_labels
 
@@ -25,7 +25,7 @@ module "default_node_pool" {
 
   cluster_name  = aws_eks_cluster.eks_cluster.name
   node_group    = local.kubernetes_default_node_pool
-  create_enable = ! local.use_fargate_profile
+  create_enable = ! local.kubernetes_cluster.use_fargate_profile
 
   tags = merge(
     var.custom_tags,

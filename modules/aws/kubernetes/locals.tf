@@ -6,9 +6,6 @@ locals {
   subnet_ids         = split(",", var.network.subnet_ids)
   public_subnet_ids  = split(",", var.network.public_subnet_ids)
   private_subnet_ids = split(",", var.network.private_subnet_ids)
-  key_name           = var.network.key_name
-  bastion_ip         = var.network.bastion_ip
-  user_name          = var.network.user_name
   region             = var.network.region
 }
 

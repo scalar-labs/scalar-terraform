@@ -27,6 +27,10 @@ module "default_node_pool" {
   node_group    = local.kubernetes_default_node_pool
   create_enable = ! local.kubernetes_cluster.use_fargate_profile
 
+  ng_depends_on = [
+    module.scalardl_apps_pool,
+  ]
+
   tags = merge(
     var.custom_tags,
     {

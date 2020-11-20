@@ -2,7 +2,6 @@
 kubernetes_cluster = {
   # name                                 = "scalar-kubernetes"
   # kubernetes_version                   = "1.16"
-  # kube_dashboard                       = "true"
   # cluster_enabled_log_types            = ""
   # cluster_log_retention_in_days        = "90"
   # cluster_log_kms_key_id               = ""

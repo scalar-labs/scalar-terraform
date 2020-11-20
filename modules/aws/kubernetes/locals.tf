@@ -6,7 +6,6 @@ locals {
   subnet_ids         = split(",", var.network.subnet_ids)
   public_subnet_ids  = split(",", var.network.public_subnet_ids)
   private_subnet_ids = split(",", var.network.private_subnet_ids)
-  key_name           = var.network.key_name
   bastion_ip         = var.network.bastion_ip
   user_name          = var.network.user_name
   region             = var.network.region
@@ -16,7 +15,6 @@ locals {
   kubernetes_cluster_default = {
     name                                 = "scalar-kubernetes"
     kubernetes_version                   = "1.16"
-    kube_dashboard                       = true
     cluster_enabled_log_types            = "" # api,audit,authenticator,controllerManager,scheduler
     cluster_log_retention_in_days        = 90
     cluster_log_kms_key_id               = ""

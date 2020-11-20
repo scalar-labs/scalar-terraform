@@ -1,5 +1,5 @@
 ---
-cassandra_version: 3.11.8
+cassandra_version: 3.11.9
 cassandra_rpm_url: http://archive.apache.org/dist/cassandra/redhat/311x/cassandra-{{ cassandra_version }}-1.noarch.rpm
 tuned_profile: virtual-guest
 # Only Cassandra disks are tuned and OS disks are not tuned.

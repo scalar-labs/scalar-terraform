@@ -7,7 +7,7 @@ variable "network" {
 variable "kubernetes_cluster" {
   type        = map
   default     = {}
-  description = "Custom definition kubernetes properties that include name of the cluster, kubernetes version, etc.."
+  description = "Custom definition kubernetes properties that include the name of the cluster, kubernetes version, etc.."
 }
 
 variable "kubernetes_node_groups" {

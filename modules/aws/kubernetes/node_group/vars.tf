@@ -9,7 +9,7 @@ variable "tags" {
 }
 
 variable "node_group" {
-  description = "Map of maps of `eks_node_groups` to create. See \"`node_groups` and `node_groups_defaults` keys\" section in README.md for more details"
+  description = "A map of `eks_node_group` to create."
   type        = any
   default     = {}
 }

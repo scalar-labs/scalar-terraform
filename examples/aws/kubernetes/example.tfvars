@@ -24,6 +24,7 @@ kubernetes_node_groups = {
     # os_disk_size_gb                = "64"
     # cluster_auto_scaling_min_count = "3"
     # cluster_auto_scaling_max_count = "6"
+    # kubernetes_labels = {}
   }
 
   scalar_apps_pool = {
@@ -33,6 +34,9 @@ kubernetes_node_groups = {
     # os_disk_size_gb                = "64"
     # cluster_auto_scaling_min_count = "3"
     # cluster_auto_scaling_max_count = "6"
+    # kubernetes_labels = {
+      # agentpool = "scalardlpool"
+    # }
   }
 }
 

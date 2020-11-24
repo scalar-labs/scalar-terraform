@@ -47,6 +47,7 @@ locals {
     cluster_auto_scaling_min_count = "3"
     cluster_auto_scaling_max_count = "6"
     subnet_ids                     = local.private_subnet_ids
+    kubernetes_labels              = {}
   }
 
   kubernetes_default_node_pool = merge(

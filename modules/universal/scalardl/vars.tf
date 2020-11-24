@@ -51,8 +51,18 @@ variable "internal_domain" {
   description = "Internal domain"
 }
 
+variable "database" {
+  default     = "cassandra"
+  description = "The database. This should be \"cassandra\" or \"dynamo\""
+}
+
 variable "database_contact_points" {
   description = "The database contact points"
+}
+
+variable "database_contact_port" {
+  default     = 9042
+  description = "The database contact port"
 }
 
 variable "database_username" {

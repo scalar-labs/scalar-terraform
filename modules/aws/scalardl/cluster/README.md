@@ -14,8 +14,11 @@ The Cluster module deploys a Scalar DL cluster.
 | bastion_ip | The IP to bastion host used for provisioning | `any` | n/a | yes |
 | cassandra_replication_factor | The replication factor for the Cassandra schema | `number` | `3` | no |
 | custom_tags | The map of custom tags | `map(string)` | `{}` | no |
-| database_password | The database password | `any` | n/a | yes |
-| database_username | The database username | `any` | n/a | yes |
+| database | The database. cassandra and dynamo are supported. | `any` | n/a | yes |
+| database_contact_points | The database contact points. Specify the region name if the database is dynamo. | `any` | n/a | yes |
+| database_contact_port | The database contact port. Ignored if the database is dynamo. | `any` | n/a | yes |
+| database_password | The database password. Specify AWS_SECRET_ACCESS_KEY if the database is dynamo. | `any` | n/a | yes |
+| database_username | The database username. Specify AWS_ACCESS_KEY_ID if the database is dynamo. | `any` | n/a | yes |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `bool` | `true` | no |
 | image_id | The image id to initiate | `any` | n/a | yes |
 | internal_domain | Internal domain | `any` | n/a | yes |

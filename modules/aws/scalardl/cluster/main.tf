@@ -56,7 +56,9 @@ module "scalardl_provision" {
   scalardl_image_name          = var.scalardl_image_name
   scalardl_image_tag           = var.scalardl_image_tag
   internal_domain              = var.internal_domain
-  database_contact_points      = "cassandra-lb.${var.internal_domain}" # TODO: add to variables
+  database                     = var.database
+  database_contact_points      = var.database_contact_points
+  database_contact_port        = var.database_contact_port
   database_username            = var.database_username
   database_password            = var.database_password
   cassandra_replication_factor = var.cassandra_replication_factor

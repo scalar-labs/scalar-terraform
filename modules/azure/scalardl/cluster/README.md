@@ -15,6 +15,9 @@ The Cluster module deploys a Scalar DL cluster on Azure.
 | availability_set_id | n/a | `string` | `""` | no |
 | bastion_ip | The IP to bastion host used for provisioning | `any` | n/a | yes |
 | cassandra_replication_factor | The replication factor for the Cassandra schema | `number` | `3` | no |
+| database | The database | `any` | n/a | yes |
+| database_contact_points | The database contact points | `any` | n/a | yes |
+| database_contact_port | The database contact port | `any` | n/a | yes |
 | database_password | The database password | `any` | n/a | yes |
 | database_username | The database username | `any` | n/a | yes |
 | enable_accelerated_networking | A flag to enable accelerated networking on network interface | `bool` | `false` | no |

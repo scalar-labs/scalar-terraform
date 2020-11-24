@@ -81,6 +81,18 @@ variable "internal_domain" {
   description = "Internal domain"
 }
 
+variable "database" {
+  description = "The database"
+}
+
+variable "database_contact_points" {
+  description = "The database contact points"
+}
+
+variable "database_contact_port" {
+  description = "The database contact port"
+}
+
 variable "database_username" {
   description = "The database username"
 }

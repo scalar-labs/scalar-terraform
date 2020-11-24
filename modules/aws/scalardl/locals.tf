@@ -16,7 +16,7 @@ locals {
   green_subnet_ids   = split(",", var.network.green_subnet_ids)
   internal_domain    = var.network.internal_domain
 
-  triggers = [var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id]
+  triggers = [var.scalardl.database == "cassandra" && var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id]
 }
 
 ### default
@@ -37,6 +37,9 @@ locals {
     listen_port                  = 50051
     privileged_listen_port       = 50052
     enable_tdagent               = true
+    database                     = "cassandra"
+    database_contact_points      = "cassandra-lb.${local.internal_domain}"
+    database_contact_port        = 9042
     database_username            = "cassandra"
     database_password            = "cassandra"
     cassandra_replication_factor = 3

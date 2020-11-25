@@ -1,4 +1,5 @@
-# Optional
+region = "ap-northeast-1"
+
 kubernetes_cluster = {
   # name                                 = "scalar-kubernetes"
   # kubernetes_version                   = "1.16"

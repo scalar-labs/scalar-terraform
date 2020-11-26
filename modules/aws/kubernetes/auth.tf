@@ -44,10 +44,11 @@ provider "kubernetes" {
 }
 
 resource "null_resource" "wait_for_cluster" {
-  count = local.kubernetes_cluster.cluster_endpoint_public_access ? 1 : 0
+  count = local.kubernetes_cluster.manage_aws_auth ? 1 : 0
 
   depends_on = [
     aws_eks_cluster.eks_cluster,
+    aws_security_group.eks_cluster
   ]
 
   provisioner "local-exec" {
@@ -60,7 +61,7 @@ resource "null_resource" "wait_for_cluster" {
 }
 
 resource "kubernetes_config_map" "aws_auth" {
-  count = local.kubernetes_cluster.cluster_endpoint_public_access ? 1 : 0
+  count = local.kubernetes_cluster.manage_aws_auth ? 1 : 0
 
   depends_on = [null_resource.wait_for_cluster[0]]
 

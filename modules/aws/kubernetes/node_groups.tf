@@ -9,6 +9,7 @@ module "scalardl_apps_pool" {
 
   ng_depends_on = [
     aws_eks_cluster.eks_cluster,
+    kubernetes_config_map.aws_auth
   ]
 
   tags = merge(

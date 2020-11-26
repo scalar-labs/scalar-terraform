@@ -15,6 +15,7 @@ kubernetes_cluster = {
   # cluster_encryption_config_resources  = ""
   # cluster_encryption_config_kms_key_id = ""
   # use_fargate_profile                  = "false"
+  # manage_aws_auth                      = "true"
 }
 
 kubernetes_node_groups = {

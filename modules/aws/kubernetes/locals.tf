@@ -29,6 +29,7 @@ locals {
     aws_auth_system_master_role          = data.aws_iam_role.bastion.arn
     subnet_ids                           = concat(local.subnet_ids, local.public_subnet_ids, local.private_subnet_ids)
     use_fargate_profile                  = false
+    manage_aws_auth                      = true
   }
 
   kubernetes_cluster = merge(

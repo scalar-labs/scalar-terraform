@@ -14,68 +14,90 @@ To create a policy in the AWS console, open IAM > Policies and choose Create pol
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ec2:*Address",
-                "ec2:*InternetGateway",
-                "ec2:*Ipv6Addresses",
-                "ec2:*KeyPair",
-                "ec2:*NatGateway",
-                "ec2:*PrivateIpAddresses",
-                "ec2:*RouteTable",
-                "ec2:*SecurityGroup*",
-                "ec2:*Subnet*",
-                "ec2:*SubnetCidrBlock",
-                "ec2:*Tags",
-                "ec2:*Volume",
-                "ec2:*VpcCidrBlock",
-                "ec2:CreateRoute",
-                "ec2:CreateVpc",
-                "ec2:DeleteRoute",
-                "ec2:DeleteVpc",
-                "ec2:Describe*",
-                "ec2:Get*",
-                "ec2:ModifyVpcAttribute",
-                "ec2:ReplaceRouteTableAssociation",
-                "ec2:RunInstances",
-                "ec2:StartInstances",
-                "ec2:StopInstances",
-                "ec2:TerminateInstances",
-                "elasticloadbalancing:*",
-                "iam:AddRoleToInstanceProfile",
-                "iam:AttachRolePolicy",
-                "iam:CreateInstanceProfile",
-                "iam:CreatePolicy",
-                "iam:CreateRole",
-                "iam:DeleteInstanceProfile",
-                "iam:DeletePolicy",
-                "iam:DeleteRole",
-                "iam:DetachRolePolicy",
-                "iam:GetInstanceProfile",
-                "iam:GetPolicy",
-                "iam:GetPolicyVersion",
-                "iam:GetRole",
-                "iam:ListAttachedRolePolicies",
-                "iam:ListInstanceProfilesForRole",
-                "iam:ListPolicyVersions",
-                "iam:PassRole",
-                "iam:RemoveRoleFromInstanceProfile",
-                "iam:TagRole",
-                "route53:*HostedZone*",
-                "route53:ChangeResourceRecordSets",
-                "route53:ChangeTagsForResource",
-                "route53:Get*",
-                "route53:List*",
-                "s3:GetBucketLocation",
-                "s3:GetObject",
-                "s3:ListBucket"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:*Address",
+        "ec2:*InternetGateway",
+        "ec2:*Ipv6Addresses",
+        "ec2:*KeyPair",
+        "ec2:*NatGateway",
+        "ec2:*PrivateIpAddresses",
+        "ec2:*RouteTable",
+        "ec2:*SecurityGroup*",
+        "ec2:*Subnet*",
+        "ec2:*SubnetCidrBlock",
+        "ec2:*Tags",
+        "ec2:*Volume",
+        "ec2:*VpcCidrBlock",
+        "ec2:CreateRoute",
+        "ec2:CreateVpc",
+        "ec2:DeleteRoute",
+        "ec2:DeleteVpc",
+        "ec2:Describe*",
+        "ec2:Get*",
+        "ec2:ModifyVpcAttribute",
+        "ec2:ReplaceRouteTableAssociation",
+        "ec2:RunInstances",
+        "ec2:StartInstances",
+        "ec2:StopInstances",
+        "ec2:TerminateInstances",
+        "elasticloadbalancing:*",
+        "iam:AddRoleToInstanceProfile",
+        "iam:AttachRolePolicy",
+        "iam:CreateInstanceProfile",
+        "iam:CreatePolicy",
+        "iam:CreateRole",
+        "iam:DeleteInstanceProfile",
+        "iam:DeletePolicy",
+        "iam:DeleteRole",
+        "iam:DetachRolePolicy",
+        "iam:GetInstanceProfile",
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion",
+        "iam:GetRole",
+        "iam:ListAttachedRolePolicies",
+        "iam:ListInstanceProfilesForRole",
+        "iam:ListPolicyVersions",
+        "iam:PassRole",
+        "iam:RemoveRoleFromInstanceProfile",
+        "iam:TagRole",
+        "route53:*HostedZone*",
+        "route53:ChangeResourceRecordSets",
+        "route53:ChangeTagsForResource",
+        "route53:Get*",
+        "route53:List*",
+        "s3:GetBucketLocation",
+        "s3:GetObject",
+        "s3:ListBucket",
+        // Following permissions are needed when using kubernetes module
+        "eks:*",
+        "autoscaling:*",
+        "ec2:Associate*",
+        "ec2:AttachInternetGateway",
+        "ec2:AttachNetworkInterface",
+        "ec2:DetachInternetGateway",
+        "ec2:DetachNetworkInterface",
+        "ec2:*LaunchTemplate*",
+        "iam:CreateServiceLinkedRole",
+        "iam:CreatePolicyVersion",
+        "iam:DeleteServiceLinkedRole",
+        "iam:PutRolePolicy",
+        "iam:TagRole",
+        "iam:UntagRole",
+        "iam:UpdateAssumeRolePolicy",
+        // Following permissions are needed if cluster_enabled_log_types is enabled in kubernetes module
+        "logs:CreateLogGroup",
+        "logs:DescribeLogGroups",
+        "logs:DeleteLogGroup",
+        "logs:ListTagsLogGroup",
+        "logs:PutRetentionPolicy"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
 ```
 
@@ -95,33 +117,31 @@ Please keep your subscription ID in the `assignableScopes` array.
 
 ```json
 {
-    "properties": {
-        "roleName": "Scalar Terraform Runner",
-        "description": "",
-        "assignableScopes": [
-            "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+  "properties": {
+    "roleName": "Scalar Terraform Runner",
+    "description": "",
+    "assignableScopes": ["/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"],
+    "permissions": [
+      {
+        "actions": [
+          "Microsoft.Authorization/roleAssignments/*",
+          "Microsoft.Compute/availabilitySets/*",
+          "Microsoft.Compute/disks/*",
+          "Microsoft.Compute/virtualMachines/*",
+          "Microsoft.Network/loadBalancers/*",
+          "Microsoft.Network/networkInterfaces/*",
+          "Microsoft.Network/networkSecurityGroups/*",
+          "Microsoft.Network/privateDnsZones/*",
+          "Microsoft.Network/publicIPAddresses/*",
+          "Microsoft.Network/virtualNetworks/*",
+          "Microsoft.Resources/subscriptions/resourceGroups/*"
         ],
-        "permissions": [
-            {
-                "actions": [
-                    "Microsoft.Authorization/roleAssignments/*",
-                    "Microsoft.Compute/availabilitySets/*",
-                    "Microsoft.Compute/disks/*",
-                    "Microsoft.Compute/virtualMachines/*",
-                    "Microsoft.Network/loadBalancers/*",
-                    "Microsoft.Network/networkInterfaces/*",
-                    "Microsoft.Network/networkSecurityGroups/*",
-                    "Microsoft.Network/privateDnsZones/*",
-                    "Microsoft.Network/publicIPAddresses/*",
-                    "Microsoft.Network/virtualNetworks/*",
-                    "Microsoft.Resources/subscriptions/resourceGroups/*"
-                ],
-                "notActions": [],
-                "dataActions": [],
-                "notDataActions": []
-            }
-        ]
-    }
+        "notActions": [],
+        "dataActions": [],
+        "notDataActions": []
+      }
+    ]
+  }
 }
 ```
 

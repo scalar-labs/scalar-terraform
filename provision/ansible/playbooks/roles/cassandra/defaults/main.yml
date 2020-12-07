@@ -1,4 +1,6 @@
 ---
+cassandra_version: 3.11.9
+cassandra_rpm_url: http://archive.apache.org/dist/cassandra/redhat/311x/cassandra-{{ cassandra_version }}-1.noarch.rpm
 tuned_profile: virtual-guest
 # Only Cassandra disks are tuned and OS disks are not tuned.
 # In AWS, sda and xvda are used depending on virtualization types.
@@ -11,4 +13,4 @@ CASSANDRA_STATE: stopped
 cassandra_dc_id: dc1
 cassandra_rack_id: rack1
 endpoint_snitch: GossipingPropertyFileSnitch
-vm_max_map_count: 1048575
+vm_max_map_count: "1048575"

@@ -8,7 +8,7 @@ on:
       - modules/aws/network/**
       - modules/universal/bastion/**
       - modules/universal/name-generator/**
-      - test/modules/awsdeploy/network/**
+      - examples/aws/network/**
       - provision/**
   push:
     branches:
@@ -17,7 +17,7 @@ on:
       - modules/aws/network/**
       - modules/universal/bastion/**
       - modules/universal/name-generator/**
-      - test/modules/awsdeploy/network/**
+      - examples/aws/network/**
       - provision/**
 
 jobs:
@@ -25,12 +25,10 @@ jobs:
     name: Terraform
     runs-on: ubuntu-latest
     env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TF_VERSION: 0.12.29
     defaults:
       run:
-        working-directory: ./test/modules/awsdeploy/network
+        working-directory: ./examples/aws/network/**
 
     steps:
       - name: Checkout
@@ -50,6 +48,3 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate -no-color
-
-      - name: Terraform Plan
-        run: terraform plan -no-color

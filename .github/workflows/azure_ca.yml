@@ -7,7 +7,7 @@ on:
     paths:
       - modules/azure/ca/**
       - modules/universal/ca/**
-      - test/modules/azuredeploy/ca/**
+      - example/azure/ca/**
       - provision/ansible/**
   push:
     branches:
@@ -15,7 +15,7 @@ on:
     paths:
       - modules/azure/ca/**
       - modules/universal/ca/**
-      - test/modules/azuredeploy/ca/**
+      - example/azure/ca/**
       - provision/ansible/**
 
 jobs:
@@ -23,14 +23,10 @@ jobs:
     name: Terraform
     runs-on: ubuntu-latest
     env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       TF_VERSION: 0.12.29
     defaults:
       run:
-        working-directory: ./test/modules/azuredeploy/ca
+        working-directory: ./example/azure/ca
 
     steps:
       - name: Checkout
@@ -41,11 +37,6 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Set up to using dummy local variables
-        run: |
-          rm -f remote.tf locals.tf
-          mv locals.tf.dummy locals.tf
-
       - name: Terraform Format
         run: terraform fmt -check -recursive
         working-directory: ./modules/azure/ca
@@ -55,6 +46,3 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate -no-color
-
-      - name: Terraform Plan
-        run: terraform plan -no-color

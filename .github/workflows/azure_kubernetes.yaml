@@ -5,25 +5,21 @@ on:
       - master
     paths:
       - modules/azure/kubernetes/**
-      - test/modules/azuredeploy/kubernetes/**
+      - example/azure/kubernetes/**
   push:
     branches:
       - master
     paths:
       - modules/azure/kubernetes/**
-      - test/modules/azuredeploy/kubernetes/**
+      - example/azure/kubernetes/**
 defaults:
   run:
-    working-directory: ./test/modules/azuredeploy/kubernetes
+    working-directory: ./example/azure/kubernetes
 jobs:
   terraform:
     name: Terraform
     runs-on: ubuntu-latest
     env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       TF_VERSION: 0.12.29
 
     steps:
@@ -35,11 +31,6 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Set up to using dummy local variables
-        run: |
-          rm -f remote.tf locals.tf
-          mv locals.tf.dummy locals.tf
-
       - name: Terraform Format
         run: terraform fmt -check
 
@@ -48,6 +39,3 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate -no-color
-
-      - name: Terraform Plan
-        run: terraform plan --var-file=terraform.tfvars

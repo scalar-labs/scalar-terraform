@@ -8,7 +8,7 @@ on:
       - modules/azure/network/**
       - modules/universal/bastion/**
       - modules/universal/name-generator/**
-      - test/modules/azuredeploy/network/**
+      - example/azure/network/**
       - provision/**
   push:
     branches:
@@ -17,7 +17,7 @@ on:
       - modules/azure/network/**
       - modules/universal/bastion/**
       - modules/universal/name-generator/**
-      - test/modules/azuredeploy/network/**
+      - example/azure/network/**
       - provision/**
 
 jobs:
@@ -25,14 +25,10 @@ jobs:
     name: Terraform
     runs-on: ubuntu-latest
     env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       TF_VERSION: 0.12.29
     defaults:
       run:
-        working-directory: ./test/modules/azuredeploy/network
+        working-directory: ./example/azure/network
 
     steps:
       - name: Checkout
@@ -52,6 +48,3 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate -no-color
-
-      - name: Terraform Plan
-        run: terraform plan -no-color

@@ -40,8 +40,7 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
 
       - name: Terraform Format
-        run: terraform fmt -check -recursive
-        working-directory: ./modules/aws/scalardl
+        run: for d in . ../../../modules/azure/scalardl ; do cd ${d} && terraform fmt -check -recursive ;done
 
       - name: Terraform Init
         run: terraform init

@@ -22,7 +22,7 @@ jobs:
       TF_VERSION: 0.12.29
     defaults:
       run:
-        working-directory: ./test/modules/awsdeploy/pulsar
+        working-directory: ./examples/aws/pulsar
 
     steps:
       - name: Checkout
@@ -34,8 +34,7 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
 
       - name: Terraform Format
-        run: terraform fmt -check -recursive
-        working-directory: ./modules/aws/pulsar
+        run: for d in . ../../../modules/aws/pulsar ; do cd ${d} && terraform fmt -check -recursive ;done
 
       - name: Terraform Init
         run: terraform init

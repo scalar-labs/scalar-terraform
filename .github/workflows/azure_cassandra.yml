@@ -42,8 +42,7 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
 
       - name: Terraform Format
-        run: terraform fmt -check -recursive
-        working-directory: ./modules/azure/cassandra
+        run: for d in . ../../../modules/azure/cassandra ; do cd ${d} && terraform fmt -check -recursive ;done
 
       - name: Terraform Init
         run: terraform init

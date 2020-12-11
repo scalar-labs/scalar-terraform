@@ -177,7 +177,12 @@ resource "null_resource" "scalardl_schema" {
   count = var.provision_count > 0 ? 1 : 0
 
   triggers = {
-    triggers = null_resource.schema_loader_image_load[0].id
+    schema_loader_image_load = null_resource.schema_loader_image_load[0].id
+    database                 = var.database
+    database_contact_points  = var.database_contact_points
+    database_contact_port    = var.database_contact_port
+    database_username        = var.database_username
+    database_password        = var.database_password
   }
 
   connection {

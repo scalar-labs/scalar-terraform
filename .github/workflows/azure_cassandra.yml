@@ -9,7 +9,7 @@ on:
       - modules/universal/cassandra/**
       - modules/universal/cassy/**
       - modules/universal/reaper/**
-      - example/azure/cassandra/**
+      - examples/azure/cassandra/**
       - provision/**
   push:
     branches:
@@ -19,7 +19,7 @@ on:
       - modules/universal/cassandra/**
       - modules/universal/cassy/**
       - modules/universal/reaper/**
-      - example/azure/cassandra/**
+      - examples/azure/cassandra/**
       - provision/**
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
       TF_VERSION: 0.12.29
     defaults:
       run:
-        working-directory: ./example/azure/cassandra
+        working-directory: ./examples/azure/cassandra
 
     steps:
       - name: Checkout

@@ -7,7 +7,7 @@ on:
     paths:
       - modules/aws/ca/**
       - modules/universal/ca/**
-      - example/aws/ca/**
+      - examples/aws/ca/**
       - provision/ansible/**
   push:
     branches:
@@ -15,7 +15,7 @@ on:
     paths:
       - modules/aws/ca/**
       - modules/universal/ca/**
-      - example/aws/ca/**
+      - examples/aws/ca/**
       - provision/ansible/**
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
       TF_VERSION: 0.12.29
     defaults:
       run:
-        working-directory: ./example/aws/ca
+        working-directory: ./examples/aws/ca
 
     steps:
       - name: Checkout

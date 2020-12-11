@@ -18,7 +18,7 @@ resource "null_resource" "scalardl_image" {
   }
 
   provisioner "local-exec" {
-    command = "docker pull ${local.scalar_image} && docker save ${local.scalar_image} | gzip -1 > ${local.image_filename}"
+    command     = "docker pull ${local.scalar_image} && docker save ${local.scalar_image} | gzip -1 > ${local.image_filename}"
     working_dir = path.module
     interpreter = ["/bin/bash", "-c"]
   }
@@ -210,8 +210,8 @@ resource "null_resource" "scalardl_container" {
   count = var.provision_count
 
   triggers = {
-    scalardl_load           = null_resource.scalardl_load[count.index].id
-    scalardl_schema         = null_resource.scalardl_schema[0].id
+    scalardl_load   = null_resource.scalardl_load[count.index].id
+    scalardl_schema = null_resource.scalardl_schema[0].id
   }
 
   connection {

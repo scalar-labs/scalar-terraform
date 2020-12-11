@@ -26,6 +26,7 @@ output "subnet_map" {
     scalardl_blue  = list(module.vpc.private_subnets[6], module.vpc.private_subnets[7], module.vpc.private_subnets[8])
     scalardl_green = list(module.vpc.private_subnets[9], module.vpc.private_subnets[10], module.vpc.private_subnets[11])
     pulsar         = list(module.vpc.private_subnets[12], module.vpc.private_subnets[13], module.vpc.private_subnets[14])
+    kubernetes     = list(module.vpc.private_subnets[15], module.vpc.private_subnets[16], module.vpc.private_subnets[17])
   }
   description = "The subnet map of VPC network."
 }

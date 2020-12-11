@@ -7,7 +7,7 @@ on:
     paths:
       - modules/aws/monitor/**
       - modules/universal/monitor/**
-      - example/aws/monitor/**
+      - examples/aws/monitor/**
       - provision/**
   push:
     branches:
@@ -15,7 +15,7 @@ on:
     paths:
       - modules/aws/monitor/**
       - modules/universal/monitor/**
-      - example/aws/monitor/**
+      - examples/aws/monitor/**
       - provision/**
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
       TF_VERSION: 0.12.29
     defaults:
       run:
-        working-directory: ./example/aws/monitor
+        working-directory: ./examples/aws/monitor
 
     steps:
       - name: Checkout

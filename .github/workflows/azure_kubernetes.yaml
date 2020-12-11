@@ -5,16 +5,16 @@ on:
       - master
     paths:
       - modules/azure/kubernetes/**
-      - example/azure/kubernetes/**
+      - examples/azure/kubernetes/**
   push:
     branches:
       - master
     paths:
       - modules/azure/kubernetes/**
-      - example/azure/kubernetes/**
+      - examples/azure/kubernetes/**
 defaults:
   run:
-    working-directory: ./example/azure/kubernetes
+    working-directory: ./examples/azure/kubernetes
 jobs:
   terraform:
     name: Terraform

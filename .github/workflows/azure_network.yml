@@ -8,7 +8,7 @@ on:
       - modules/azure/network/**
       - modules/universal/bastion/**
       - modules/universal/name-generator/**
-      - example/azure/network/**
+      - examples/azure/network/**
       - provision/**
   push:
     branches:
@@ -17,7 +17,7 @@ on:
       - modules/azure/network/**
       - modules/universal/bastion/**
       - modules/universal/name-generator/**
-      - example/azure/network/**
+      - examples/azure/network/**
       - provision/**
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
       TF_VERSION: 0.12.29
     defaults:
       run:
-        working-directory: ./example/azure/network
+        working-directory: ./examples/azure/network
 
     steps:
       - name: Checkout

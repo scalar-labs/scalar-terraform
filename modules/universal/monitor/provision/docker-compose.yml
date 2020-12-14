@@ -45,14 +45,25 @@ services:
     restart: always
 
   nginx:
-    image: nginx:1.15.9
+    image: nginx:1.19.5
     ports:
       - "80:80"
     volumes:
       - ./nginx/proxies.conf:/etc/nginx/conf.d/proxies.conf
       - ./nginx/html:/usr/share/nginx/html
+      - /log:/log
     restart: always
     depends_on:
       - prometheus
       - alertmanager
       - grafana
+
+  logs:
+    image: gvalkov/tailon:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - /log:/log
+    command:
+      - "/log/*/*.log"
+    restart: always

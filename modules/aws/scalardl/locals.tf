@@ -15,12 +15,6 @@ locals {
   blue_subnet_ids    = split(",", var.network.blue_subnet_ids)
   green_subnet_ids   = split(",", var.network.green_subnet_ids)
   internal_domain    = var.network.internal_domain
-
-  triggers = [
-    (lookup(var.scalardl, "database", "cassandra") == "cassandra" && var.cassandra.start_on_initial_boot) ?
-    var.cassandra.provision_ids :
-    var.network.bastion_provision_id
-  ]
 }
 
 ### default
@@ -119,4 +113,10 @@ locals {
   envoy_create_count     = local.envoy.resource_count > 0 ? 1 : 0
   envoy_nlb_create_count = local.envoy.enable_nlb ? 1 : 0
   envoy_nlb_subnet_ids   = local.envoy.nlb_internal ? slice(local.private_subnet_ids, 0, length(distinct(local.locations))) : slice(local.public_subnet_ids, 0, length(distinct(local.locations)))
+}
+
+locals {
+  triggers = [
+    local.scalardl.database == "cassandra" && var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id
+  ]
 }

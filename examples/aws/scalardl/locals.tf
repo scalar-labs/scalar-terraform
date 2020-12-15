@@ -22,9 +22,11 @@ locals {
     green_subnet_ids   = join(",", data.terraform_remote_state.network.outputs.subnet_map["scalardl_green"])
   }
 
+  database = lookup(var.scalardl, "database", "cassandra")
+
   cassandra = {
-    start_on_initial_boot = lookup(var.scalardl, "database", "cassandra") == "cassandra" ? data.terraform_remote_state.cassandra.outputs.cassandra_start_on_initial_boot : false
-    provision_ids         = lookup(var.scalardl, "database", "cassandra") == "cassandra" ? join(",", data.terraform_remote_state.cassandra.outputs.cassandra_provision_ids) : ""
+    start_on_initial_boot = local.database == "cassandra" ? data.terraform_remote_state.cassandra[0].outputs.cassandra_start_on_initial_boot : false
+    provision_ids         = local.database == "cassandra" ? join(",", data.terraform_remote_state.cassandra[0].outputs.cassandra_provision_ids) : ""
   }
 
   custom_tags = data.terraform_remote_state.network.outputs.custom_tags

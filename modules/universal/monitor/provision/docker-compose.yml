@@ -58,12 +58,15 @@ services:
       - alertmanager
       - grafana
 
-  logs:
+  tailon:
     image: gvalkov/tailon:latest
     ports:
       - 8080:8080
     volumes:
       - /log:/log
+      - ./tailon/config.toml:/tailon/config.toml
     command:
+      - "-c"
+      - "/tailon/config.toml"
       - "/log/*/*.log"
     restart: always

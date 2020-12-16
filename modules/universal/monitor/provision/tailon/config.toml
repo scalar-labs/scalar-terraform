@@ -1,0 +1,10 @@
+title = "Tailon file viewer"
+relative-root = "/"
+listen-addr = ":8088"
+allow-download = true
+allow-commands = ["tail"]
+
+[commands]
+
+	[commands.tail]
+	action = ["tail", "-n", "$lines", "-F", "$path"]

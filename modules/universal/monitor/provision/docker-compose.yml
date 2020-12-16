@@ -51,7 +51,6 @@ services:
     volumes:
       - ./nginx/proxies.conf:/etc/nginx/conf.d/proxies.conf
       - ./nginx/html:/usr/share/nginx/html
-      - /log:/log
     restart: always
     depends_on:
       - prometheus

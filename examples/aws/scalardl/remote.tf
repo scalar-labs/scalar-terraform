@@ -7,6 +7,8 @@ data "terraform_remote_state" "network" {
 }
 
 data "terraform_remote_state" "cassandra" {
+  count = local.database == "cassandra" ? 1 : 0
+
   backend = "local"
 
   config = {

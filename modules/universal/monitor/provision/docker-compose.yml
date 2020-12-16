@@ -62,10 +62,10 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - /log:/log
+      - /log:/tailon/log
       - ./tailon/config.toml:/tailon/config.toml
     command:
       - "-c"
       - "/tailon/config.toml"
-      - "/log/*/*.log"
+      - "/tailon/log/*/*.log"
     restart: always

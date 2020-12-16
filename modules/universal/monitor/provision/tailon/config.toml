@@ -6,5 +6,5 @@ allow-commands = ["tail"]
 
 [commands]
 
-	[commands.tail]
-	action = ["tail", "-n", "$lines", "-F", "$path"]
+  [commands.tail]
+  action = ["tail", "-n", "$lines", "-F", "$path"]

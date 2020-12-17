@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.7"
 
 volumes:
   prometheus_data: {}
@@ -58,14 +58,21 @@ services:
       - grafana
 
   tailon:
-    image: gvalkov/tailon:latest
+    image: port22/tailon:latest
     ports:
       - 8080:8080
     volumes:
-      - /log:/tailon/log
-      - ./tailon/config.toml:/tailon/config.toml
+      - /log:/log
+      - ./tailon/config.yaml:/tailon/config.yaml
     command:
-      - "-c"
-      - "/tailon/config.toml"
-      - "/tailon/log/*/*.log"
+      - "/usr/local/bin/tailon"
+      - "-b"
+      - "0.0.0.0:8080"
+      - "-t"
+      - "9999"
+      - "-a"
+      - "-f"
+      - "/log/*/*.log"
+      - "-m"
+      - "tail"
     restart: always

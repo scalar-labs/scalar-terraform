@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.1"
 
 volumes:
   prometheus_data: {}
@@ -45,7 +45,7 @@ services:
     restart: always
 
   nginx:
-    image: nginx:1.19.5
+    image: nginx:1.15.9
     ports:
       - "80:80"
     volumes:

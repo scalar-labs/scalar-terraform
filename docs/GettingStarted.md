@@ -60,9 +60,9 @@ az login
 
 ## Setting up workspace
 
-### [AWS Scalar DL Example](../examples/aws/README.md)
+### [AWS Scalar DL Example](https://github.com/scalar-labs/scalar-terraform-examples/blob/master/aws/README.md)
 
-### [Azure Scalar DL Example](../examples/azure/README.md)
+### [Azure Scalar DL Example](https://github.com/scalar-labs/scalar-terraform-examples/blob/master/azure/README.md)
 
 ## Next Steps
 

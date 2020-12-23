@@ -9,8 +9,12 @@ resource "azurerm_cosmosdb_account" "db" {
 
   is_virtual_network_filter_enabled = true
 
-  virtual_network_rule {
-    id = local.node_pool_subnet_id
+  dynamic "virtual_network_rule" {
+    for_each = var.allowed_subnet_ids
+    iterator = subnet_id
+    content {
+      id = subnet_id.value
+    }
   }
 
   consistency_policy {

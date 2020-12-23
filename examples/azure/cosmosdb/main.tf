@@ -3,6 +3,6 @@ module "cosmosdb" {
   source = "../../../modules/azure/cosmosdb"
 
   # Required Variables
-  network    = local.network
-  kubernetes = local.kubernetes
+  network            = local.network
+  allowed_subnet_ids = local.allowed_subnet_ids
 }

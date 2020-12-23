@@ -4,7 +4,8 @@ locals {
     region = data.terraform_remote_state.network.outputs.region
   }
 
-  kubernetes = {
-    node_pool_subnet_id = data.terraform_remote_state.kubernetes.outputs.node_pool_subnet_id
-  }
+  allowed_subnet_ids = [
+    data.terraform_remote_state.network.outputs.subnet_map["scalardl_blue"],
+    data.terraform_remote_state.network.outputs.subnet_map["scalardl_green"]
+  ]
 }

@@ -10,6 +10,8 @@ data "terraform_remote_state" "network" {
 }
 
 data "terraform_remote_state" "cassandra" {
+  count = local.database == "cassandra" ? 1 : 0
+
   backend = "azurerm"
 
   config = {
@@ -17,5 +19,18 @@ data "terraform_remote_state" "cassandra" {
     storage_account_name = "exampletfstate"
     container_name       = "tfstate"
     key                  = "cassandra/terraform.tfstate"
+  }
+}
+
+data "terraform_remote_state" "cosmosdb" {
+  count = local.database == "cosmos" ? 1 : 0
+
+  backend = "azurerm"
+
+  config = {
+    resource_group_name  = "example-tfstate"
+    storage_account_name = "exampletfstate"
+    container_name       = "tfstate"
+    key                  = "cosmosdb/terraform.tfstate"
   }
 }

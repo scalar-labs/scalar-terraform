@@ -14,11 +14,15 @@ scalardl = {
   # green_discoverable_by_envoy         = "false"
   # green_enable_accelerated_networking = "false"
   # enable_tdagent                      = "true"
+
   # database                            = "cassandra"
   # database_contact_points             = "cassandra-lb.internal.scalar-labs.com"
   # database_contact_port               = 9042
   # database_username                   = "cassandra"
   # database_password                   = "cassandra"
+
+  # database                            = "cosmos"
+
   # cassandra_replication_factor        = "3"
 }
 

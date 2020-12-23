@@ -200,6 +200,7 @@ resource "null_resource" "scalardl_schema" {
         "docker run --rm ${var.schema_loader_image} -h ${var.database_contact_points} -u ${var.database_username} -p ${var.database_password}",
         var.database == "cassandra" ? "--cassandra -P ${var.database_contact_port} -n NetworkTopologyStrategy -R ${var.cassandra_replication_factor}" :
         var.database == "dynamo" ? "--dynamo --region ${var.database_contact_points}" :
+        var.database == "cosmos" ? "--cosmos -h ${var.database_contact_points} -p ${var.database_password}" :
         ""
       )
     ]

@@ -13,9 +13,12 @@ This example will deploy a simple Scalar DL environment in the Japaneast region 
 * An Azure VPC with Resource Group
 * DNS Zone for internal host lookup
 * 3 Scalar DL instances
-* 3 Cassandra instances
-* 1 Cassy instance
-* 1 Reaper instance
+* With Cassandra option (default):
+  * 3 Cassandra instances
+  * 1 Cassy instance
+  * 1 Reaper instance
+* With Cosmos DB option:
+  * 1 Cosmos DB account
 * 3 Envoy instances with a network load balancer (public)
 * 1 Bastion instance with a public IP
 * 1 Monitor instance
@@ -29,6 +32,17 @@ $ az login
 ```
 
 ### Create network resources
+
+First you need to choose what database you use as a backend. This example supports two options: Cassandra and Cosmos DB.
+
+If you choose Cosmos DB, please update `examples/azure/network/example.tfvars` before creating network resources.
+This enables Cosmos DB endpoints in the subnets where Scalar DL will be deployed to.
+
+```terraform
+use_cosmosdb = true
+```
+
+Then, follow the steps below.
 
 ```console
 $ cd examples/azure/network
@@ -54,8 +68,6 @@ $ terraform apply -var-file example.tfvars
 ```
 
 ### Create database resources
-
-This example supports two database options: Cassandra and Cosmos DB.
 
 #### Cassandra
 

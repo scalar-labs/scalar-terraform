@@ -22,3 +22,4 @@ network = {
 }
 
 # additional_public_keys_path = "./additional_public_keys"
+# use_cosmosdb                = false

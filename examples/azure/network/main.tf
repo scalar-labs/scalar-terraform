@@ -13,4 +13,5 @@ module "network" {
   # Optional Variables
   network                     = var.network
   additional_public_keys_path = var.additional_public_keys_path
+  use_cosmosdb                = var.use_cosmosdb
 }

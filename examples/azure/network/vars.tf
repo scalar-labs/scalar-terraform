@@ -22,3 +22,9 @@ variable "network" {
   type    = map
   default = {}
 }
+
+variable "use_cosmosdb" {
+  type        = bool
+  default     = false
+  description = "Whether to use Cosmos DB. If true, a service endpoint for Cosmos DB is enabled."
+}

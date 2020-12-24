@@ -20,11 +20,26 @@ locals {
 
 locals {
   subnet = {
-    public         = cidrsubnet(local.network.cidr, 8, 0)
-    private        = cidrsubnet(local.network.cidr, 8, 1)
-    cassandra      = cidrsubnet(local.network.cidr, 8, 2)
-    scalardl_blue  = cidrsubnet(local.network.cidr, 8, 3)
-    scalardl_green = cidrsubnet(local.network.cidr, 8, 4)
+    public         = {
+      address_prefix    = cidrsubnet(local.network.cidr, 8, 0)
+      service_endpoints = []
+    }
+    private        = {
+      address_prefix    = cidrsubnet(local.network.cidr, 8, 1)
+      service_endpoints = []
+    }
+    cassandra      = {
+      address_prefix    = cidrsubnet(local.network.cidr, 8, 2)
+      service_endpoints = []
+    }
+    scalardl_blue  = {
+      address_prefix    = cidrsubnet(local.network.cidr, 8, 3)
+      service_endpoints = var.use_cosmosdb ? ["Microsoft.AzureCosmosDB"] : []
+    }
+    scalardl_green = {
+      address_prefix    = cidrsubnet(local.network.cidr, 8, 4)
+      service_endpoints = var.use_cosmosdb ? ["Microsoft.AzureCosmosDB"] : []
+    }
   }
 
   locations = compact(var.locations)

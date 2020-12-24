@@ -20,19 +20,19 @@ locals {
 
 locals {
   subnet = {
-    public         = {
+    public = {
       address_prefix    = cidrsubnet(local.network.cidr, 8, 0)
       service_endpoints = []
     }
-    private        = {
+    private = {
       address_prefix    = cidrsubnet(local.network.cidr, 8, 1)
       service_endpoints = []
     }
-    cassandra      = {
+    cassandra = {
       address_prefix    = cidrsubnet(local.network.cidr, 8, 2)
       service_endpoints = []
     }
-    scalardl_blue  = {
+    scalardl_blue = {
       address_prefix    = cidrsubnet(local.network.cidr, 8, 3)
       service_endpoints = var.use_cosmosdb ? ["Microsoft.AzureCosmosDB"] : []
     }

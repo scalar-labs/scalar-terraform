@@ -53,7 +53,11 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
-### Create Cassandra resources
+### Create database resources
+
+This example supports two database options: Cassandra and Cosmos DB.
+
+#### Cassandra
 
 Before creating Cassandra resources with `terraform apply`, you probably need to configure for Cassy to manage backups of Cassandra data. 
 
@@ -89,7 +93,25 @@ $ terraform apply -var-file example.tfvars
 
 Please make sure to start all the Cassandra nodes since Cassandra doesn't start on the initial boot by default.
 
+#### Cosmos DB
+
+To create a Cosmos DB account on your Azure account, please just run the follwoing command.
+
+```console
+$ cd examples/azure/cosmosdb
+$ terraform apply
+```
+
 ### Create Scalar DL resources
+
+If you chose Cosmos DB, please uncomment the following line in `examples/azure/scalardl/example.tfvars`.
+The information needed to connect to the Cosmos DB is fetched from the state in `examples/azure/cosmosdb`.
+
+```terraform
+  # database = "cosmos"
+```
+
+If you use Cassandra, you don't have to update the tfvars file unless you have changed the credentials or other information.
 
 ```console
 $ cd examples/azure/scalardl

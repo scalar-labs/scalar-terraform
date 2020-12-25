@@ -29,4 +29,11 @@ locals {
     start_on_initial_boot = local.database == "cassandra" ? data.terraform_remote_state.cassandra[0].outputs.cassandra_start_on_initial_boot : false
     provision_ids         = local.database == "cassandra" ? join(",", data.terraform_remote_state.cassandra[0].outputs.cassandra_provision_ids) : ""
   }
+
+  scalardl = (local.database == "cosmos" ? merge(var.scalardl, {
+    database_contact_points = data.terraform_remote_state.cosmosdb[0].outputs.cosmosdb_account_endpoint
+    database_contact_port   = ""
+    database_username       = ""
+    database_password       = data.terraform_remote_state.cosmosdb[0].outputs.cosmosdb_account_primary_master_key
+  }) : var.scalardl)
 }

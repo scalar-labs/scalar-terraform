@@ -7,13 +7,7 @@ module "scalardl" {
   cassandra = local.cassandra
 
   # Optional Variables
-  base = var.base
-  scalardl = (local.database == "cosmos" ? merge(var.scalardl, {
-    database_contact_points = data.terraform_remote_state.cosmosdb[0].outputs.cosmosdb_account_endpoint
-    database_contact_port   = ""
-    database_username       = ""
-    database_password       = data.terraform_remote_state.cosmosdb[0].outputs.cosmosdb_account_primary_master_key
-  }) : var.scalardl)
-
-  envoy = var.envoy
+  base     = var.base
+  envoy    = var.envoy
+  scalardl = local.scalardl
 }

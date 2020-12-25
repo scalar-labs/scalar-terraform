@@ -26,7 +26,7 @@ locals {
   database = lookup(var.scalardl, "database", "cassandra")
 
   cassandra = {
-    start_on_initial_boot = local.database == "cassandra" ? lookup(data.terraform_remote_state.cassandra[0].outputs, "cassandra_start_on_initial_boot", false) : false
-    provision_ids         = local.database == "cassandra" ? join(",", lookup(data.terraform_remote_state.cassandra[0].outputs, "cassandra_provision_ids", [])) : ""
+    start_on_initial_boot = local.database == "cassandra" ? data.terraform_remote_state.cassandra[0].outputs.cassandra_start_on_initial_boot : false
+    provision_ids         = local.database == "cassandra" ? join(",", data.terraform_remote_state.cassandra[0].outputs.cassandra_provision_ids) : ""
   }
 }

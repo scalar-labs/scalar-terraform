@@ -1,26 +1,24 @@
 name: Terraform test for Kubernetes module of Azure
+
 on:
   pull_request:
     branches:
       - master
     paths:
       - modules/azure/kubernetes/**
-      - examples/azure/kubernetes/**
   push:
     branches:
       - master
     paths:
       - modules/azure/kubernetes/**
-      - examples/azure/kubernetes/**
-defaults:
-  run:
-    working-directory: ./examples/azure/kubernetes
+
 jobs:
   terraform:
     name: Terraform
     runs-on: ubuntu-latest
     env:
       TF_VERSION: 0.12.29
+      AWS_DEFAULT_REGION: ap-northeast-1
 
     steps:
       - name: Checkout
@@ -31,11 +29,7 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Terraform Format
-        run: for d in . ../../../modules/azure/kubernetes ; do cd ${d} && terraform fmt -check -recursive ;done
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Validate
-        run: terraform validate -no-color
+      - name: Terraform Validate and Format
+        run: |
+          paths=(${GITHUB_WORKSPACE}/modules/azure/kubernetes)
+          for d in "${paths[@]}"; do cd ${d} && terraform init -backend=false && terraform validate -no-color && terraform fmt -check -recursive; done

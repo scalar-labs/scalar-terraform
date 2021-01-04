@@ -9,8 +9,7 @@ on:
       - modules/universal/cassandra/**
       - modules/universal/cassy/**
       - modules/universal/reaper/**
-      - examples/azure/cassandra/**
-      - provision/**
+      - provision/ansible/**.tf
   push:
     branches:
       - master
@@ -19,8 +18,7 @@ on:
       - modules/universal/cassandra/**
       - modules/universal/cassy/**
       - modules/universal/reaper/**
-      - examples/azure/cassandra/**
-      - provision/**
+      - provision/ansible/**.tf
 
 jobs:
   terraform:
@@ -28,9 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TF_VERSION: 0.12.29
-    defaults:
-      run:
-        working-directory: ./examples/azure/cassandra
+      AWS_DEFAULT_REGION: ap-northeast-1
 
     steps:
       - name: Checkout
@@ -41,11 +37,7 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Terraform Format
-        run: for d in . ../../../modules/azure/cassandra ; do cd ${d} && terraform fmt -check -recursive ;done
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Validate
-        run: terraform validate -no-color
+      - name: Terraform Validate and Format
+        run: |
+          paths=(${GITHUB_WORKSPACE}/modules/azure/cassandra ${GITHUB_WORKSPACE}/modules/universal/cassandra ${GITHUB_WORKSPACE}/modules/universal/cassy ${GITHUB_WORKSPACE}/modules/universal/reaper)
+          for d in "${paths[@]}"; do cd ${d} && terraform init -backend=false && terraform validate -no-color && terraform fmt -check -recursive; done

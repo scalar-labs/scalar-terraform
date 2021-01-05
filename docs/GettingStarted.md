@@ -39,7 +39,7 @@ pip install --user ansible
 
 #### Post Install Steps (Make sure you connect to GitHub Container Registry)
 ```console
-docker login ghcr.io
+echo $GITHUB_PAT | docker login ghcr.io -u $GITHUB_USER --password-stdin
 ```
 
 ### AWS CLI (If using AWS)

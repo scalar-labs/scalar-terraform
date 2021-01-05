@@ -49,6 +49,8 @@ module "envoy_provision" {
 }
 
 resource "azurerm_network_security_rule" "envoy_privileged_nsg" {
+  count = local.envoy.resource_count > 0 ? 1 : 0
+
   name                        = "allow_remote_${local.envoy.privileged_target_port}_in_all"
   description                 = "Allow remote protocol in from all locations"
   priority                    = 200

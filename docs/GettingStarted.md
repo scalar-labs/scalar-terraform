@@ -37,9 +37,9 @@ pip install --user ansible
 ### Docker
 * Docker install instructions can be found here: https://docs.docker.com/install/
 
-#### Post Install Steps (Make sure you connect to DockerHub)
+#### Post Install Steps (Make sure you connect to GitHub Container Registry)
 ```console
-docker login
+docker login ghcr.io
 ```
 
 ### AWS CLI (If using AWS)

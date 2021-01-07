@@ -53,7 +53,7 @@ variable "internal_domain" {
 
 variable "database" {
   default     = "cassandra"
-  description = "The database. This should be \"cassandra\" or \"dynamo\""
+  description = "The database. This should be \"cassandra\", \"dynamo\", or \"cosmos\""
 }
 
 variable "database_contact_points" {

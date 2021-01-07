@@ -82,23 +82,23 @@ variable "internal_domain" {
 }
 
 variable "database" {
-  description = "The database"
+  description = "The database. cassandra and cosmos are supported."
 }
 
 variable "database_contact_points" {
-  description = "The database contact points"
+  description = "The database contact points. Specify the account endpoint if the database is cosmos."
 }
 
 variable "database_contact_port" {
-  description = "The database contact port"
+  description = "The database contact port. Ignored if the database is cosmos."
 }
 
 variable "database_username" {
-  description = "The database username"
+  description = "The database username. Ignored if the database is cosmos."
 }
 
 variable "database_password" {
-  description = "The database password"
+  description = "The database password. Specify the master key if the database is cosmos."
 }
 
 variable "cassandra_replication_factor" {

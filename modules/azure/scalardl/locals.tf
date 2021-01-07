@@ -13,7 +13,9 @@ locals {
   user_name        = var.network.user_name
   internal_domain  = var.network.internal_domain
 
-  triggers = [var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id]
+  triggers = [
+    local.scalardl.database == "cassandra" && var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id
+  ]
 }
 
 ### default

@@ -38,7 +38,7 @@ variable "scalardl_image_tag" {
 }
 
 variable "schema_loader_image" {
-  default     = "scalarlabs/scalardl-schema-loader:1.2.0"
+  default     = "ghcr.io/scalar-labs/scalardl-schema-loader:1.2.0"
   description = "The docker image for the schema loader"
 }
 

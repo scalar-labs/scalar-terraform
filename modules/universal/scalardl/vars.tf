@@ -43,7 +43,7 @@ variable "replication_factor" {
 }
 
 variable "schema_loader_cassandra_image_name" {
-  default     = "scalarlabs/scalardl-schema-loader-cassandra"
+  default     = "ghcr.io/scalar-labs/scalardl-schema-loader-cassandra"
   description = "The docker image name for the schema loader for Cassandra"
 }
 

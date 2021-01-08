@@ -1,8 +1,8 @@
-version: '3.7'
+version: "3.7"
 
 services:
   cassy:
-    image: scalarlabs/cassy:${IMAGE_TAG}
+    image: ghcr.io/scalar-labs/cassy:${IMAGE_TAG}
     ports:
       - "20051:20051"
     volumes:

@@ -1,4 +1,4 @@
-ARG FROM_SCALAR_IMAGE=scalarlabs/scalar-ledger:2.0.4
+ARG FROM_SCALAR_IMAGE=ghcr.io/scalar-labs/scalar-ledger:2.0.4
 FROM ${FROM_SCALAR_IMAGE}
 
 #Install cqlsh tool

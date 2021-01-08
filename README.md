@@ -10,7 +10,7 @@ Scalar Terraform is a set of terraform modules and provisioing scritps that can 
 * [Terraform >= 0.12.x](https://www.terraform.io/downloads.html)
 * [Ansible >= 2.8.x](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 * Cloud provider CLI tools such as `aws` and `az` (they need to be configured with credentials)
-* Docker Engine (with access to `scalarlabs/scalar-ledger` docker registry)
+* Docker Engine (with access to `ghcr.io/scalar-labs/scalar-ledger` docker registry)
   * `scalar-ledger` is available to only our partners and customers at the moment.
 
 ## Getting Started
@@ -26,7 +26,7 @@ The modules directory is where the terraform modules are located. The provider s
 #### [Provision](provision)
 The provision directory is where Ansible Playbooks are located. The Ansible Playbooks are designed to run on the most common Linux distributions.
 
-## Contributing 
+## Contributing
 This repo is mainly maintained by the Scalar Engineering Team, but of course we appreciate any help.
 
 * For asking questions, finding answers and helping other users, please go to [scalardl-user](https://groups.google.com/forum/#!forum/scalardl-user).

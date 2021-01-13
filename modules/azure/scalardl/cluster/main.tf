@@ -12,6 +12,7 @@ module "cluster" {
   vnet_subnet_id                = var.subnet_id
   vm_size                       = var.resource_type
   ssh_key                       = var.public_key_path
+  storage_account_type          = "StandardSSD_LRS"
   storage_os_disk_size          = var.resource_root_volume_size
   availability_set_id           = var.availability_set_id
   delete_os_disk_on_termination = true
@@ -29,11 +30,14 @@ module "scalardl_provision" {
   private_key_path = var.private_key_path
   provision_count  = var.resource_count
   enable_tdagent   = var.enable_tdagent
-  internal_domain  = var.internal_domain
 
-  scalardl_image_name = var.scalardl_image_name
-  scalardl_image_tag  = var.scalardl_image_tag
-  replication_factor  = var.replication_factor
-  cassandra_username  = var.cassandra_username
-  cassandra_password  = var.cassandra_password
+  scalardl_image_name          = var.scalardl_image_name
+  scalardl_image_tag           = var.scalardl_image_tag
+  internal_domain              = var.internal_domain
+  database                     = var.database
+  database_contact_points      = var.database_contact_points
+  database_contact_port        = var.database_contact_port
+  database_username            = var.database_username
+  database_password            = var.database_password
+  cassandra_replication_factor = var.cassandra_replication_factor
 }

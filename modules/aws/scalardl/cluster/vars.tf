@@ -64,11 +64,6 @@ variable "scalardl_image_tag" {
   description = "The docker image tag for Scalar DL"
 }
 
-variable "replication_factor" {
-  default     = 3
-  description = "Set the replication factor for schema"
-}
-
 variable "enable_tdagent" {
   default     = true
   description = "A flag to install td-agent that forwards logs to the monitor host"
@@ -78,16 +73,33 @@ variable "internal_domain" {
   description = "Internal domain"
 }
 
+variable "database" {
+  description = "The database. cassandra and dynamo are supported."
+}
+
+variable "database_contact_points" {
+  description = "The database contact points. Specify the region name if the database is dynamo."
+}
+
+variable "database_contact_port" {
+  description = "The database contact port. Ignored if the database is dynamo."
+}
+
+variable "database_username" {
+  description = "The database username. Specify AWS_ACCESS_KEY_ID if the database is dynamo."
+}
+
+variable "database_password" {
+  description = "The database password. Specify AWS_SECRET_ACCESS_KEY if the database is dynamo."
+}
+
+variable "cassandra_replication_factor" {
+  default     = 3
+  description = "The replication factor for the Cassandra schema"
+}
+
 variable "custom_tags" {
   type        = map(string)
   default     = {}
   description = "The map of custom tags"
-}
-
-variable "cassandra_username" {
-  description = "The username of cassandra cluster"
-}
-
-variable "cassandra_password" {
-  description = "The password of cassandra cluster"
 }

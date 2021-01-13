@@ -9,8 +9,7 @@ on:
       - modules/universal/cassandra/**
       - modules/universal/cassy/**
       - modules/universal/reaper/**
-      - test/modules/azuredeploy/cassandra/**
-      - provision/**
+      - provision/ansible/**.tf
   push:
     branches:
       - master
@@ -19,22 +18,15 @@ on:
       - modules/universal/cassandra/**
       - modules/universal/cassy/**
       - modules/universal/reaper/**
-      - test/modules/azuredeploy/cassandra/**
-      - provision/**
+      - provision/ansible/**.tf
 
 jobs:
   terraform:
     name: Terraform
     runs-on: ubuntu-latest
     env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-      TF_VERSION: 0.12.25
-    defaults:
-      run:
-        working-directory: ./test/modules/azuredeploy/cassandra
+      TF_VERSION: 0.12.29
+      AWS_DEFAULT_REGION: ap-northeast-1
 
     steps:
       - name: Checkout
@@ -45,20 +37,7 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Set up to using dummy local variables
+      - name: Terraform Validate and Format
         run: |
-          rm -f remote.tf locals.tf
-          mv locals.tf.dummy locals.tf
-
-      - name: Terraform Format
-        run: terraform fmt -check -recursive
-        working-directory: ./modules/azure/cassandra
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Validate
-        run: terraform validate -no-color
-
-      - name: Terraform Plan
-        run: terraform plan -no-color
+          paths=(${GITHUB_WORKSPACE}/modules/azure/cassandra ${GITHUB_WORKSPACE}/modules/universal/cassandra ${GITHUB_WORKSPACE}/modules/universal/cassy ${GITHUB_WORKSPACE}/modules/universal/reaper)
+          for d in "${paths[@]}"; do cd ${d} && terraform init -backend=false && terraform validate -no-color && terraform fmt -check -recursive; done

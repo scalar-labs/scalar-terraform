@@ -18,6 +18,7 @@ module "envoy_cluster" {
   vnet_subnet_id                = local.envoy.subnet_id
   vm_size                       = local.envoy.resource_type
   ssh_key                       = local.public_key_path
+  storage_account_type          = "StandardSSD_LRS"
   storage_os_disk_size          = local.envoy.resource_root_volume_size
   delete_os_disk_on_termination = true
   remote_port                   = local.envoy.target_port
@@ -48,6 +49,8 @@ module "envoy_provision" {
 }
 
 resource "azurerm_network_security_rule" "envoy_privileged_nsg" {
+  count = local.envoy.resource_count > 0 ? 1 : 0
+
   name                        = "allow_remote_${local.envoy.privileged_target_port}_in_all"
   description                 = "Allow remote protocol in from all locations"
   priority                    = 200

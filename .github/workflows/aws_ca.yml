@@ -7,28 +7,22 @@ on:
     paths:
       - modules/aws/ca/**
       - modules/universal/ca/**
-      - test/modules/awsdeploy/ca/**
-      - provision/ansible/**
+      - provision/ansible/**.tf
   push:
     branches:
       - master
     paths:
       - modules/aws/ca/**
       - modules/universal/ca/**
-      - test/modules/awsdeploy/ca/**
-      - provision/ansible/**
+      - provision/ansible/**.tf
 
 jobs:
   terraform:
     name: Terraform
     runs-on: ubuntu-latest
     env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      TF_VERSION: 0.12.25
-    defaults:
-      run:
-        working-directory: ./test/modules/awsdeploy/ca
+      TF_VERSION: 0.12.29
+      AWS_DEFAULT_REGION: ap-northeast-1
 
     steps:
       - name: Checkout
@@ -39,20 +33,7 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Set up to using dummy local variables
+      - name: Terraform Validate and Format
         run: |
-          rm -f remote.tf locals.tf
-          mv locals.tf.dummy locals.tf
-
-      - name: Terraform Format
-        run: terraform fmt -check -recursive
-        working-directory: ./modules/aws/ca
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Validate
-        run: terraform validate -no-color
-
-      - name: Terraform Plan
-        run: terraform plan -no-color
+          paths=(${GITHUB_WORKSPACE}/modules/aws/ca ${GITHUB_WORKSPACE}/modules/universal/ca)
+          for d in "${paths[@]}"; do cd ${d} && terraform init -backend=false && terraform validate -no-color && terraform fmt -check -recursive; done

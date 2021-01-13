@@ -1,0 +1,35 @@
+name: Terraform test for Kubernetes module of AWS
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - modules/aws/kubernetes/**
+  push:
+    branches:
+      - master
+    paths:
+      - modules/aws/kubernetes/**
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    env:
+      TF_VERSION: 0.12.29
+      AWS_DEFAULT_REGION: ap-northeast-1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Terraform Validate and Format
+        run: |
+          paths=(${GITHUB_WORKSPACE}/modules/aws/kubernetes)
+          for d in "${paths[@]}"; do cd ${d} && terraform init -backend=false && terraform validate -no-color && terraform fmt -check -recursive; done

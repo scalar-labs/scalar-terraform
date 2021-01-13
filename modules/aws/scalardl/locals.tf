@@ -15,31 +15,32 @@ locals {
   blue_subnet_ids    = split(",", var.network.blue_subnet_ids)
   green_subnet_ids   = split(",", var.network.green_subnet_ids)
   internal_domain    = var.network.internal_domain
-
-  triggers = [var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id]
 }
 
 ### default
 locals {
   scalardl_default = {
-    resource_type               = "t3.medium"
-    resource_root_volume_size   = 64
-    blue_resource_count         = 3
-    blue_image_tag              = "2.0.7"
-    blue_image_name             = "scalarlabs/scalar-ledger"
-    blue_discoverable_by_envoy  = true
-    green_resource_count        = 0
-    green_image_tag             = "2.0.7"
-    replication_factor          = 3
-    green_image_name            = "scalarlabs/scalar-ledger"
-    green_discoverable_by_envoy = false
-    target_port                 = 50051
-    privileged_target_port      = 50052
-    listen_port                 = 50051
-    privileged_listen_port      = 50052
-    enable_tdagent              = true
-    cassandra_username          = "cassandra"
-    cassandra_password          = "cassandra"
+    resource_type                = "t3.medium"
+    resource_root_volume_size    = 64
+    blue_resource_count          = 3
+    blue_image_tag               = "2.1.0"
+    blue_image_name              = "ghcr.io/scalar-labs/scalar-ledger"
+    blue_discoverable_by_envoy   = true
+    green_resource_count         = 0
+    green_image_tag              = "2.1.0"
+    green_image_name             = "ghcr.io/scalar-labs/scalar-ledger"
+    green_discoverable_by_envoy  = false
+    target_port                  = 50051
+    privileged_target_port       = 50052
+    listen_port                  = 50051
+    privileged_listen_port       = 50052
+    enable_tdagent               = true
+    database                     = "cassandra"
+    database_contact_points      = "cassandra-lb.${local.internal_domain}"
+    database_contact_port        = 9042
+    database_username            = "cassandra"
+    database_password            = "cassandra"
+    cassandra_replication_factor = 3
   }
 }
 
@@ -112,4 +113,10 @@ locals {
   envoy_create_count     = local.envoy.resource_count > 0 ? 1 : 0
   envoy_nlb_create_count = local.envoy.enable_nlb ? 1 : 0
   envoy_nlb_subnet_ids   = local.envoy.nlb_internal ? slice(local.private_subnet_ids, 0, length(distinct(local.locations))) : slice(local.public_subnet_ids, 0, length(distinct(local.locations)))
+}
+
+locals {
+  triggers = [
+    local.scalardl.database == "cassandra" && var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id
+  ]
 }

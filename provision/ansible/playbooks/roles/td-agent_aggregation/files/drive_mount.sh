@@ -7,13 +7,10 @@ if mountpoint -q /log; then
   exit 0
 fi
 
-# Use root volume if LOG_STORE is not set
+# Fail if LOG_STORE is not set
 if [[ -z "$LOG_STORE" ]]; then
-  # Create /log directory at the root
-  echo "LOG_STORE is not set: Using Root Volume"
-  mkdir -p /log
-  chown td-agent:td-agent /log
-  exit 0
+  echo "ERROR: LOG_STORE is not set"
+  exit 1
 fi
 
 mount_log_volume () {

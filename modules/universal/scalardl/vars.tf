@@ -37,19 +37,9 @@ variable "scalardl_image_tag" {
   description = "The docker image tag for Scalar DL"
 }
 
-variable "replication_factor" {
-  default     = 3
-  description = "Set the replication factor for schema"
-}
-
-variable "schema_loader_cassandra_image_name" {
-  default     = "scalarlabs/scalardl-schema-loader-cassandra"
-  description = "The docker image name for the schema loader for Cassandra"
-}
-
-variable "schema_loader_cassandra_image_tag" {
-  default     = "1.0.0"
-  description = "The docker image tag for the schema loader for Cassandra"
+variable "schema_loader_image" {
+  default     = "ghcr.io/scalar-labs/scalardl-schema-loader:1.3.0"
+  description = "The docker image for the schema loader"
 }
 
 variable "enable_tdagent" {
@@ -61,10 +51,29 @@ variable "internal_domain" {
   description = "Internal domain"
 }
 
-variable "cassandra_username" {
-  description = "The username of cassandra cluster"
+variable "database" {
+  default     = "cassandra"
+  description = "The database. This should be \"cassandra\", \"dynamo\", or \"cosmos\""
 }
 
-variable "cassandra_password" {
-  description = "The password of cassandra cluster"
+variable "database_contact_points" {
+  description = "The database contact points"
+}
+
+variable "database_contact_port" {
+  default     = 9042
+  description = "The database contact port"
+}
+
+variable "database_username" {
+  description = "The database username"
+}
+
+variable "database_password" {
+  description = "The database password"
+}
+
+variable "cassandra_replication_factor" {
+  default     = 3
+  description = "The replication factor for the Cassandra schema"
 }

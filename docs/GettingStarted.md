@@ -37,9 +37,9 @@ pip install --user ansible
 ### Docker
 * Docker install instructions can be found here: https://docs.docker.com/install/
 
-#### Post Install Steps (Make sure you connect to DockerHub)
+#### Post Install Steps (Make sure you connect to GitHub Container Registry)
 ```console
-docker login
+echo $GITHUB_PAT | docker login ghcr.io -u $GITHUB_USER --password-stdin
 ```
 
 ### AWS CLI (If using AWS)
@@ -60,9 +60,9 @@ az login
 
 ## Setting up workspace
 
-### [AWS Scalar DL Example](../examples/aws/README.md)
+### [AWS Scalar DL Example](https://github.com/scalar-labs/scalar-terraform-examples/blob/master/aws/README.md)
 
-### [Azure Scalar DL Example](../examples/azure/README.md)
+### [Azure Scalar DL Example](https://github.com/scalar-labs/scalar-terraform-examples/blob/master/azure/README.md)
 
 ## Next Steps
 

@@ -11,8 +11,8 @@ This module manages two Scalar DL clusters, blue and green. At any given time on
 * Make a new terraform plan and apply it to the environment
 
 ## Example Config
-[ [Azure example.tfvars](../examples/azure/scalardl/example.tfvars) ]
-[ [AWS example.tfvars](../examples/aws/scalardl/example.tfvars) ]
+[ [Azure example.tfvars](https://github.com/scalar-labs/scalar-terraform-examples/blob/master/azure/scalardl/example.tfvars) ]
+[ [AWS example.tfvars](https://github.com/scalar-labs/scalar-terraform-examples/blob/master/aws/scalardl/example.tfvars) ]
 
 * Blue cluster is in an active state (initial state)
 ```
@@ -20,11 +20,11 @@ This module manages two Scalar DL clusters, blue and green. At any given time on
 scalardl = {
   blue_resource_count         = "3"
   blue_image_tag              = "2.0.1"
-  blue_image_name             = "scalarlabs/scalar-ledger"
+  blue_image_name             = "ghcr.io/scalar-labs/scalar-ledger"
   blue_discoverable_by_envoy  = "true"
   green_resource_count        = "0"
   green_image_tag             = "2.0.1"
-  green_image_name            = "scalarlabs/scalar-ledger"
+  green_image_name            = "ghcr.io/scalar-labs/scalar-ledger"
   green_discoverable_by_envoy = "false"
 }
 ```
@@ -34,11 +34,11 @@ scalardl = {
 scalardl = {
   blue_resource_count         = "3"
   blue_image_tag              = "2.0.1"
-  blue_image_name             = "scalarlabs/scalar-ledger"
+  blue_image_name             = "ghcr.io/scalar-labs/scalar-ledger"
   blue_discoverable_by_envoy  = "true"
   green_resource_count        = "3"
   green_image_tag             = "2.1.0"
-  green_image_name            = "scalarlabs/scalar-ledger"
+  green_image_name            = "ghcr.io/scalar-labs/scalar-ledger"
   green_discoverable_by_envoy = "true" # <- this is set to `true`
 }
 ```
@@ -49,11 +49,11 @@ This makes all the requests from Envoy will go to green eventually.
 scalardl = {
   blue_resource_count         = "3"
   blue_image_tag              = "2.0.1"
-  blue_image_name             = "scalarlabs/scalar-ledger"
+  blue_image_name             = "ghcr.io/scalar-labs/scalar-ledger"
   blue_discoverable_by_envoy  = "false" # <- this is set to `false`
   green_resource_count        = "3"
   green_image_tag             = "2.1.0"
-  green_image_name            = "scalarlabs/scalar-ledger"
+  green_image_name            = "ghcr.io/scalar-labs/scalar-ledger"
   green_discoverable_by_envoy = "true"
 }
 ```
@@ -64,11 +64,11 @@ It should be done after making sure that requests from Envoy are not going to bl
 scalardl = {
   blue_resource_count         = "0" # <- this is set to 0
   blue_image_tag              = "2.0.1"
-  blue_image_name             = "scalarlabs/scalar-ledger"
+  blue_image_name             = "ghcr.io/scalar-labs/scalar-ledger"
   blue_discoverable_by_envoy  = "false"
   green_resource_count        = "3"
   green_image_tag             = "2.1.0"
-  green_image_name            = "scalarlabs/scalar-ledger"
+  green_image_name            = "ghcr.io/scalar-labs/scalar-ledger"
   green_discoverable_by_envoy = "true"
 }
 ```

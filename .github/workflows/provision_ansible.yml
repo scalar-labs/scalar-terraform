@@ -1,0 +1,35 @@
+name: Terraform test for provision ansible
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - provision/ansible/**
+  push:
+    branches:
+      - master
+    paths:
+      - provision/ansible/**
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    env:
+      TF_VERSION: 0.12.29
+      AWS_DEFAULT_REGION: ap-northeast-1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Terraform Validate and Format
+        run: |
+          paths=(${GITHUB_WORKSPACE}/provision/ansible)
+          for d in "${paths[@]}"; do cd ${d} && terraform init -backend=false && terraform validate -no-color && terraform fmt -check -recursive; done

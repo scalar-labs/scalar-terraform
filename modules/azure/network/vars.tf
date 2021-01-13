@@ -35,3 +35,9 @@ variable "additional_public_keys_path" {
   default     = ""
   description = "The path to a file that contains multiple public keys for SSH access."
 }
+
+variable "use_cosmosdb" {
+  type        = bool
+  default     = false
+  description = "Whether to use Cosmos DB. If true, a service endpoint for Cosmos DB is enabled."
+}

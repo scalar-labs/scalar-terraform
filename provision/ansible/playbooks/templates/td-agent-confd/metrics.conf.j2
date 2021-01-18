@@ -1,0 +1,21 @@
+# input plugin that exports metrics
+<source>
+  @type prometheus
+  bind 0.0.0.0
+  port 24231
+  metrics_path /metrics
+</source>
+
+<source>
+  @type monitor_agent
+  bind 0.0.0.0
+  port 24220
+</source>
+
+# input plugin that collects metrics from MonitorAgent
+<source>
+  @type prometheus_monitor
+  <labels>
+    host ${hostname}
+  </labels>
+</source>

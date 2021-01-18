@@ -9,6 +9,7 @@
   vars:
     tdagent_confd_templates:
       - { src: "templates/td-agent-confd/td-agent-cassandra.conf.j2", dest: "cassandra.conf" }
+      - { src: "templates/td-agent-confd/metrics.conf.j2", dest: "metrics.conf" }
   gather_facts: yes
   become: yes
 

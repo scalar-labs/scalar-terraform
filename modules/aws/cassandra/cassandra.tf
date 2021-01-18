@@ -324,6 +324,19 @@ resource "aws_security_group_rule" "cassandra_node_exporter" {
   security_group_id = aws_security_group.cassandra[count.index].id
 }
 
+resource "aws_security_group_rule" "cassandra_fluentd_prometheus" {
+  count = local.cassandra.resource_count > 0 && local.cassandra.enable_tdagent ? 1 : 0
+
+  type        = "ingress"
+  from_port   = 24231
+  to_port     = 24231
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Cassandra fluentd-plugin-prometheus"
+
+  security_group_id = aws_security_group.cassandra[count.index].id
+}
+
 resource "aws_security_group_rule" "cassandra_egress" {
   count = local.cassandra.resource_count > 0 ? 1 : 0
 
@@ -379,6 +392,20 @@ resource "aws_route53_record" "node_exporter_dns_srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 9100 %s.%s",
+    aws_route53_record.cassandra_dns.*.name,
+    "${local.internal_domain}.",
+  )
+}
+
+resource "aws_route53_record" "fluentd_prometheus_dns_srv" {
+  count = local.cassandra.resource_count > 0 && local.cassandra.enable_tdagent ? 1 : 0
+
+  zone_id = local.network_dns
+  name    = "_fluentd._tcp.cassandra"
+  type    = "SRV"
+  ttl     = "300"
+  records = formatlist(
+    "0 0 24231 %s.%s",
     aws_route53_record.cassandra_dns.*.name,
     "${local.internal_domain}.",
   )

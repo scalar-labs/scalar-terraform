@@ -52,13 +52,13 @@ locals {
 locals {
   kubernetes_node_pool = {
     name                           = "default"
-    node_count                     = "3"
+    node_count                     = 3
     vm_size                        = "Standard_D2s_v3"
-    max_pods                       = "100"
-    os_disk_size_gb                = "64"
-    cluster_auto_scaling           = "true"
-    cluster_auto_scaling_min_count = "3"
-    cluster_auto_scaling_max_count = "6"
+    max_pods                       = 10
+    os_disk_size_gb                = 64
+    cluster_auto_scaling           = true
+    cluster_auto_scaling_min_count = 3
+    cluster_auto_scaling_max_count = 6
   }
 }
 
@@ -74,15 +74,15 @@ locals {
 locals {
   scalar_apps_pool = {
     name                           = "scalardlpool"
-    node_count                     = "3"
+    node_count                     = 3
     vm_size                        = "Standard_D2s_v3"
-    max_pods                       = "100"
-    os_disk_size_gb                = "64"
+    max_pods                       = 10
+    os_disk_size_gb                = 64
     node_os                        = "Linux"
     taints                         = "kubernetes.io/app=scalardlpool:NoSchedule"
-    cluster_auto_scaling           = "true"
-    cluster_auto_scaling_min_count = "3"
-    cluster_auto_scaling_max_count = "6"
+    cluster_auto_scaling           = true
+    cluster_auto_scaling_min_count = 3
+    cluster_auto_scaling_max_count = 6
   }
 }
 

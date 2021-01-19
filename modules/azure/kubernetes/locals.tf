@@ -14,7 +14,7 @@ locals {
       address_prefixes  = [cidrsubnet(local.network_cidr, 6, 10)]
       service_endpoints = var.use_cosmosdb ? ["Microsoft.AzureCosmosDB"] : []
     }
-    k8s_ingress  = {
+    k8s_ingress = {
       address_prefixes = [cidrsubnet(local.network_cidr, 6, 11)]
     }
   }

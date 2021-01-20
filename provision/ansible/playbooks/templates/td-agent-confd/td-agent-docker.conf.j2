@@ -17,6 +17,20 @@
   </record>
 </filter>
 
+# count the number of incoming records per tag
+<filter **>
+  @type prometheus
+  <metric>
+    name fluentd_input_status_num_records_total
+    type counter
+    desc The total number of incoming records
+    <labels>
+      tag ${tag}
+      hostname ${hostname}
+    </labels>
+  </metric>
+</filter>
+
 <match **>
   @type forward
   send_timeout 60s

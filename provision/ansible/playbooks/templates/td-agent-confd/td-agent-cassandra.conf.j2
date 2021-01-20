@@ -40,27 +40,44 @@
 </filter>
 
 <match **>
-  @type forward
-  send_timeout 60s
-  recover_wait 10s
-  hard_timeout 60s
+  @type copy
 
-  # Start up even if monitor host is not present
-  ignore_network_errors_at_startup true
+  <store>
+    @type forward
+    send_timeout 60s
+    recover_wait 10s
+    hard_timeout 60s
 
-  <server>
-    host {{ monitor_host }}
-  </server>
+    # Start up even if monitor host is not present
+    ignore_network_errors_at_startup true
 
-  <secondary>
-    @type file
-    path /var/log/td-agent/forward-failed
-  </secondary>
+    <server>
+      host {{ monitor_host }}
+    </server>
 
-  <buffer>
-    flush_mode interval
-    flush_interval 20s
-    flush_thread_count 8
-    chunk_limit_size 8M
-  </buffer>
+    <secondary>
+      @type file
+      path /var/log/td-agent/forward-failed
+    </secondary>
+
+    <buffer>
+      flush_mode interval
+      flush_interval 20s
+      flush_thread_count 8
+      chunk_limit_size 8M
+    </buffer>
+  </store>
+
+  <store>
+    @type prometheus
+    <metric>
+      name fluentd_output_status_num_records_total
+      type counter
+      desc The total number of outgoing records
+      <labels>
+        tag ${tag}
+        hostname ${hostname}
+      </labels>
+    </metric>
+  </store>
 </match>

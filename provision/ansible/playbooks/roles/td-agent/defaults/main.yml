@@ -8,4 +8,5 @@ tdagent_confd_templates: []
 td_agent_plugins:
   - { name: fluent-plugin-s3, version: 1.4.0 }
   - { name: fluent-plugin-azure-storage-append-blob, version: 0.2.1 }
+  - { name: fluent-plugin-prometheus, version: 1.8.5 }
 tdagent_forward_enabled: "{% if tdagent_confd_templates |length > 0 %}false{% else %}true{% endif %}"

@@ -7,6 +7,7 @@ global:
 {%- set service_list = service_targets.split(',') -%}
 {%- set node_list = node_targets.split(',') -%}
 {%- set cadvisor_list = cadvisor_targets.split(',') %}
+{%- set fluentd_list = fluentd_targets.split(',') %}
 
 rule_files:
   - general_alert.rules.yml
@@ -81,6 +82,16 @@ scrape_configs:
     - names:
     {%- for s in cadvisor_list %}
       - _cadvisor._tcp.{{ s }}.{{ internal_domain }}
+    {%- endfor %}
+    relabel_configs:
+    - *relabel_role
+
+  - job_name: fluentd
+    metrics_path: /metrics
+    dns_sd_configs:
+    - names:
+    {%- for s in fluentd_list %}
+      - _fluentd._tcp.{{ s }}.{{ internal_domain }}
     {%- endfor %}
     relabel_configs:
     - *relabel_role

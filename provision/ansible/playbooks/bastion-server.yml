@@ -10,6 +10,7 @@
   vars:
     tdagent_confd_templates:
       - { src: "templates/td-agent-confd/td-agent-bastion.conf.j2", dest: "bastion.conf" }
+      - { src: "templates/td-agent-confd/metrics.conf.j2", dest: "metrics.conf" }
   gather_facts: yes
   become: yes
 

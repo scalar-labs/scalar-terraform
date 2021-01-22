@@ -234,3 +234,23 @@ resource "azurerm_private_dns_srv_record" "cassanda_exporter_dns_srv" {
     }
   }
 }
+
+resource "azurerm_private_dns_srv_record" "cassandra_fluentd_prometheus_dns_srv" {
+  count = local.cassandra.resource_count > 0 && local.cassandra.enable_tdagent ? 1 : 0
+
+  name                = "_fluentd._tcp.cassandra"
+  zone_name           = local.network_dns
+  resource_group_name = local.network_name
+  ttl                 = 300
+
+  dynamic record {
+    for_each = azurerm_private_dns_a_record.cassandra_dns.*.name
+
+    content {
+      priority = 0
+      weight   = 0
+      port     = 24231
+      target   = "${record.value}.${local.internal_domain}"
+    }
+  }
+}

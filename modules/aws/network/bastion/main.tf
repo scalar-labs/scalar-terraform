@@ -89,6 +89,14 @@ resource "aws_security_group" "bastion" {
     cidr_blocks = [var.network_cidr]
   }
 
+  # fluent-plugin-prometheus
+  ingress {
+    from_port   = 24231
+    to_port     = 24231
+    protocol    = "tcp"
+    cidr_blocks = [var.network_cidr]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -116,6 +124,20 @@ resource "aws_route53_record" "node_exporter_dns_srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 9100 %s.%s",
+    aws_route53_record.bastion_dns.*.name,
+    "${var.internal_domain}.",
+  )
+}
+
+resource "aws_route53_record" "fluentd_prometheus_dns_srv" {
+  count = var.resource_count > 0 && var.enable_tdagent ? 1 : 0
+
+  zone_id = var.network_dns
+  name    = "_fluentd._tcp.bastion"
+  type    = "SRV"
+  ttl     = "300"
+  records = formatlist(
+    "0 0 24231 %s.%s",
     aws_route53_record.bastion_dns.*.name,
     "${var.internal_domain}.",
   )

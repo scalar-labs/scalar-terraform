@@ -88,6 +88,7 @@ resource "null_resource" "monitor_container" {
       "export node_targets=${join(",", local.node_targets)}",
       "export monitor_targets=${join(",", local.monitor_targets)}",
       "export cadvisor_targets=${join(",", local.cadvisor_targets)}",
+      "export fluentd_targets=${join(",", local.fluentd_targets)}",
       "export prometheus_data_retention_period_time=${var.prometheus_data_retention_period_days}d",
       "j2 ./prometheus/prometheus.yml.j2 > ./prometheus/prometheus.yml",
       "j2 ./prometheus/general_alert.rules.yml.j2 > ./prometheus/general_alert.rules.yml",

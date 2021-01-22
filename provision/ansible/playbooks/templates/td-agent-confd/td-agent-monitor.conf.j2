@@ -38,6 +38,21 @@
       hostname "#{Socket.gethostname}"
     </record>
   </filter>
+
+  # count the number of incoming records per tag
+  <filter **>
+    @type prometheus
+    <metric>
+      name fluentd_input_status_num_records_total
+      type counter
+      desc The total number of incoming records
+      <labels>
+        tag ${tag}
+        hostname ${hostname}
+      </labels>
+    </metric>
+  </filter>
+
   <match **>
     @type relabel
     @label @store
@@ -62,6 +77,20 @@
         @type out_file
       </format>
     </store>
+
+    <store>
+      @type prometheus
+      <metric>
+        name fluentd_output_status_num_records_total
+        type counter
+        desc The total number of outgoing records
+        <labels>
+          tag ${tag}
+          hostname ${hostname}
+        </labels>
+      </metric>
+    </store>
+
 {% if storage_info|length > 1 and storage_info[0] == 'aws_s3' %}
     <store>
       @type s3

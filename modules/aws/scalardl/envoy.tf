@@ -157,6 +157,19 @@ resource "aws_security_group_rule" "envoy_cadvisor" {
   security_group_id = aws_security_group.envoy[count.index].id
 }
 
+resource "aws_security_group_rule" "envoy_fluentd_prometheus" {
+  count = local.envoy.resource_count > 0 && local.envoy.enable_tdagent ? 1 : 0
+
+  type        = "ingress"
+  from_port   = 24231
+  to_port     = 24231
+  protocol    = "tcp"
+  cidr_blocks = [local.network_cidr]
+  description = "Envoy fluentd-plugin-prometheus"
+
+  security_group_id = aws_security_group.envoy[count.index].id
+}
+
 resource "aws_security_group_rule" "envoy_egress" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
@@ -333,6 +346,20 @@ resource "aws_route53_record" "envoy_cadvisor_dns_srv" {
   ttl     = "300"
   records = formatlist(
     "0 0 18080 %s.%s",
+    aws_route53_record.envoy_dns.*.name,
+    "${local.internal_domain}.",
+  )
+}
+
+resource "aws_route53_record" "envoy_fluentd_prometheus_dns_srv" {
+  count = local.envoy.resource_count > 0 && local.envoy.enable_tdagent ? 1 : 0
+
+  zone_id = local.network_dns
+  name    = "_fluentd._tcp.envoy"
+  type    = "SRV"
+  ttl     = "300"
+  records = formatlist(
+    "0 0 24231 %s.%s",
     aws_route53_record.envoy_dns.*.name,
     "${local.internal_domain}.",
   )

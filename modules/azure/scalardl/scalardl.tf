@@ -197,6 +197,46 @@ resource "azurerm_private_dns_srv_record" "cadvisor_green_dns_srv" {
   }
 }
 
+resource "azurerm_private_dns_srv_record" "fluentd_prometheus_blue_dns_srv" {
+  count = local.scalardl.blue_resource_count > 0 ? 1 : 0
+
+  name                = "_fluentd._tcp.scalardl-blue"
+  zone_name           = local.network_dns
+  resource_group_name = local.network_name
+  ttl                 = 300
+
+  dynamic record {
+    for_each = azurerm_private_dns_a_record.scalardl_blue_dns.*.name
+
+    content {
+      priority = 0
+      weight   = 0
+      port     = 24231
+      target   = "${record.value}.${local.internal_domain}"
+    }
+  }
+}
+
+resource "azurerm_private_dns_srv_record" "fluentd_prometheus_green_dns_srv" {
+  count = local.scalardl.green_resource_count > 0 ? 1 : 0
+
+  name                = "_fluentd._tcp.scalardl-green"
+  zone_name           = local.network_dns
+  resource_group_name = local.network_name
+  ttl                 = 300
+
+  dynamic record {
+    for_each = azurerm_private_dns_a_record.scalardl_green_dns.*.name
+
+    content {
+      priority = 0
+      weight   = 0
+      port     = 24231
+      target   = "${record.value}.${local.internal_domain}"
+    }
+  }
+}
+
 resource "azurerm_private_dns_srv_record" "scalardl_dns_srv" {
   count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 

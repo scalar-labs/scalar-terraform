@@ -59,7 +59,7 @@ resource "azuread_service_principal_password" "sp_password" {
   }
 }
 
-# Retrieve scope id for assignment 
+# Retrieve scope id for assignment
 data "azurerm_subscription" "current" {
 }
 
@@ -104,7 +104,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     max_pods              = local.kubernetes_default_node_pool.max_pods
     os_disk_size_gb       = local.kubernetes_default_node_pool.os_disk_size_gb
     vnet_subnet_id        = azurerm_subnet.k8s_private["k8s_node_pod"].id
-    enable_node_public_ip = "false"
+    enable_node_public_ip = false
     enable_auto_scaling   = local.kubernetes_default_node_pool.cluster_auto_scaling
     min_count             = local.kubernetes_default_node_pool.cluster_auto_scaling_min_count
     max_count             = local.kubernetes_default_node_pool.cluster_auto_scaling_max_count
@@ -137,7 +137,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     var.custom_tags,
     {
       Terraform = "true"
-      Network   = "${local.network_name}"
+      Network   = local.network_name
       Role      = "kubernetes"
     }
   )
@@ -166,7 +166,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks_cluster_scalar_apps_node_po
   os_type               = local.kubernetes_scalar_apps_pool.node_os
   vnet_subnet_id        = azurerm_subnet.k8s_private["k8s_node_pod"].id
   node_taints           = [local.kubernetes_scalar_apps_pool.taints]
-  enable_node_public_ip = "false"
+  enable_node_public_ip = false
   enable_auto_scaling   = local.kubernetes_scalar_apps_pool.cluster_auto_scaling
   min_count             = local.kubernetes_scalar_apps_pool.cluster_auto_scaling_min_count
   max_count             = local.kubernetes_scalar_apps_pool.cluster_auto_scaling_max_count
@@ -175,7 +175,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks_cluster_scalar_apps_node_po
     var.custom_tags,
     {
       terraform = "true"
-      network   = "${local.network_name}"
+      network   = local.network_name
       role      = "kubernetes"
     }
   )

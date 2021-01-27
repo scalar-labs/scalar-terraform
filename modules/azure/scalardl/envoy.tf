@@ -72,7 +72,7 @@ resource "azurerm_public_ip" "envoy_public_ip" {
   name                = "PublicIPForEnvoy"
   domain_name_label   = "envoy-${local.network_name}"
   location            = local.region
-  sku                 = length(local.locations) > 0 ? "Standard" : "Basic"
+  sku                 = "Standard"
   resource_group_name = local.network_name
   allocation_method   = "Static"
 }
@@ -111,7 +111,7 @@ resource "azurerm_lb" "envoy_lb" {
   name                = "EnvoyLoadBalancer"
   location            = local.region
   resource_group_name = local.network_name
-  sku                 = length(local.locations) > 0 ? "Standard" : "Basic"
+  sku                 = "Standard"
 
   frontend_ip_configuration {
     name                          = "EnvoyLBAddress"

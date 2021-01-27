@@ -33,6 +33,30 @@ resource "azurerm_subnet" "subnet" {
   service_endpoints    = each.value.service_endpoints
 }
 
+resource "azurerm_public_ip" "nat_ip" {
+  name                = "natip"
+  location            = var.region
+  resource_group_name = azurerm_resource_group.resource_group.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_nat_gateway" "nat_gateway" {
+  name                    = "nat-gateway"
+  location                = var.region
+  resource_group_name     = azurerm_resource_group.resource_group.name
+  public_ip_address_ids   = [azurerm_public_ip.nat_ip.id]
+  sku_name                = "Standard"
+  idle_timeout_in_minutes = 10
+}
+
+resource "azurerm_subnet_nat_gateway_association" "nat_gateway_assoc" {
+  for_each = toset(local.subnet.keys)
+
+  subnet_id      = azurerm_subnet.subnet["${each.key}"].id
+  nat_gateway_id = azurerm_nat_gateway.nat_gateway.id
+}
+
 resource "azurerm_private_dns_zone" "dns" {
   name                = var.internal_domain
   resource_group_name = azurerm_resource_group.resource_group.name

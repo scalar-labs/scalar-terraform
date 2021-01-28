@@ -87,7 +87,7 @@ resource "azurerm_lb" "envoy_lb" {
 
   frontend_ip_configuration {
     name                          = "EnvoyLBAddress"
-    public_ip_address_id          = local.envoy.nlb_internal ? "" : azurerm_public_ip.envoy_public_ip.*.id[count.index]
+    public_ip_address_id          = local.envoy.nlb_internal ? "" : azurerm_public_ip.envoy_public_ip[count.index].id
     subnet_id                     = local.envoy.nlb_internal ? local.envoy_nlb_subnet_id : ""
     private_ip_address_allocation = "dynamic"
   }
@@ -97,7 +97,7 @@ resource "azurerm_lb_backend_address_pool" "envoy_lb_pool" {
   count = local.envoy.enable_nlb ? 1 : 0
 
   resource_group_name = local.network_name
-  loadbalancer_id     = azurerm_lb.envoy_lb.*.id[count.index]
+  loadbalancer_id     = azurerm_lb.envoy_lb[count.index].id
   name                = "EnvoyAddressPool"
 }
 
@@ -105,35 +105,48 @@ resource "azurerm_lb_rule" "envoy_lb_rule" {
   count = local.envoy.enable_nlb ? 1 : 0
 
   resource_group_name            = local.network_name
-  loadbalancer_id                = azurerm_lb.envoy_lb.*.id[count.index]
+  loadbalancer_id                = azurerm_lb.envoy_lb[count.index].id
   name                           = "EnvoyLBRule"
   protocol                       = "Tcp"
   frontend_port                  = local.envoy.listen_port
   backend_port                   = local.envoy.target_port
   frontend_ip_configuration_name = "EnvoyLBAddress"
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool.*.id[count.index]
-  probe_id                       = azurerm_lb_probe.envoy_lb_probe.*.id[count.index]
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool[count.index].id
+  probe_id                       = azurerm_lb_probe.envoy_lb_probe[count.index].id
 }
 
 resource "azurerm_lb_rule" "envoy_lb_privileged_rule" {
   count = local.envoy.enable_nlb ? 1 : 0
 
   resource_group_name            = local.network_name
-  loadbalancer_id                = azurerm_lb.envoy_lb.*.id[count.index]
+  loadbalancer_id                = azurerm_lb.envoy_lb[count.index].id
   name                           = "EnvoyLBPrivilegedRule"
   protocol                       = "Tcp"
   frontend_port                  = local.envoy.privileged_listen_port
   backend_port                   = local.envoy.privileged_target_port
   frontend_ip_configuration_name = "EnvoyLBAddress"
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool.*.id[count.index]
-  probe_id                       = azurerm_lb_probe.envoy_lb_privileged_probe.*.id[count.index]
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool[count.index].id
+  probe_id                       = azurerm_lb_probe.envoy_lb_privileged_probe[count.index].id
+}
+
+resource "azurerm_lb_rule" "envoy_lb_udp_rule" {
+  count = local.envoy.enable_nlb ? 1 : 0
+
+  resource_group_name            = local.network_name
+  loadbalancer_id                = azurerm_lb.envoy_lb[count.index].id
+  name                           = "EnvoyLBUdpRule"
+  protocol                       = "Udp"
+  frontend_port                  = 123
+  backend_port                   = 123
+  frontend_ip_configuration_name = "EnvoyLBAddress"
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool[count.index].id
 }
 
 resource "azurerm_lb_probe" "envoy_lb_probe" {
   count = local.envoy.enable_nlb ? 1 : 0
 
   resource_group_name = local.network_name
-  loadbalancer_id     = azurerm_lb.envoy_lb.*.id[count.index]
+  loadbalancer_id     = azurerm_lb.envoy_lb[count.index].id
   name                = "envoy-running-probe"
   port                = local.envoy.target_port
 }
@@ -142,7 +155,7 @@ resource "azurerm_lb_probe" "envoy_lb_privileged_probe" {
   count = local.envoy.enable_nlb ? 1 : 0
 
   resource_group_name = local.network_name
-  loadbalancer_id     = azurerm_lb.envoy_lb.*.id[count.index]
+  loadbalancer_id     = azurerm_lb.envoy_lb[count.index].id
   name                = "envoy-running-privileged-probe"
   port                = local.envoy.privileged_target_port
 }
@@ -152,7 +165,7 @@ resource "azurerm_network_interface_backend_address_pool_association" "envoy_lb_
 
   network_interface_id    = module.envoy_cluster.network_interface_ids[count.index]
   ip_configuration_name   = "ipconfig${count.index}"
-  backend_address_pool_id = azurerm_lb_backend_address_pool.envoy_lb_pool.*.id[0]
+  backend_address_pool_id = azurerm_lb_backend_address_pool.envoy_lb_pool[0].id
 }
 
 resource "azurerm_private_dns_a_record" "envoy_lb" {

@@ -55,3 +55,23 @@ services:
       - prometheus
       - alertmanager
       - grafana
+
+  tailon:
+    image: port22/tailon:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - /log:/log
+      - ./tailon/config.yaml:/tailon/config.yaml
+    command:
+      - "/usr/local/bin/tailon"
+      - "-b"
+      - "0.0.0.0:8080"
+      - "-t"
+      - "9999"
+      - "-a"
+      - "-f"
+      - "/log/*/*.log"
+      - "-m"
+      - "tail"
+    restart: always

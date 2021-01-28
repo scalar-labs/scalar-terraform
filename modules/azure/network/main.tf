@@ -51,7 +51,9 @@ resource "azurerm_nat_gateway" "nat_gateway" {
 }
 
 resource "azurerm_subnet_nat_gateway_association" "nat_gateway_assoc" {
-  for_each = toset(local.subnet.keys)
+  for_each = toset([
+    for s in keys(local.subnet) : s if s != "public"
+  ])
 
   subnet_id      = azurerm_subnet.subnet["${each.key}"].id
   nat_gateway_id = azurerm_nat_gateway.nat_gateway.id

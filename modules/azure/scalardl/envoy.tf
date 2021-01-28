@@ -77,34 +77,6 @@ resource "azurerm_public_ip" "envoy_public_ip" {
   allocation_method   = "Static"
 }
 
-resource "azurerm_public_ip" "envoy_nat_ip" {
-  count = local.envoy.enable_nlb && local.envoy.nlb_internal ? 1 : 0
-
-  name                = "envoy-natip"
-  location            = local.region
-  resource_group_name = local.network_name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-}
-
-resource "azurerm_nat_gateway" "envoy_natgw" {
-  count = local.envoy.enable_nlb && local.envoy.nlb_internal ? 1 : 0
-
-  name                    = "envoy-natgw"
-  location                = local.region
-  resource_group_name     = local.network_name
-  public_ip_address_ids   = [azurerm_public_ip.envoy_nat_ip[count.index].id]
-  sku_name                = "Standard"
-  idle_timeout_in_minutes = 10
-}
-
-resource "azurerm_subnet_nat_gateway_association" "envoy_natgw_assoc" {
-  count = local.envoy.enable_nlb && local.envoy.nlb_internal ? 1 : 0
-
-  subnet_id      = local.envoy.subnet_id
-  nat_gateway_id = azurerm_nat_gateway.envoy_natgw[count.index].id
-}
-
 resource "azurerm_lb" "envoy_lb" {
   count = local.envoy.enable_nlb ? 1 : 0
 

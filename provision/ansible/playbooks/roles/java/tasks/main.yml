@@ -1,7 +1,7 @@
 ---
 - name: Install Open JDK {{ java_package }}
   package:
-    name: "{{ java_package }}*"
+    name: "{{ java_package }}"
     state: present
   register: install_java_result
   until: install_java_result is succeeded

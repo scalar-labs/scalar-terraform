@@ -1,4 +1,4 @@
 ---
 java_version: 1.8.0
 java_build_num: 275
-java_package: java-{{ java_version }}-openjdk-{{ java_version }}.{{ java_build_num }}
+java_package: java-{{ java_version }}-openjdk-{{ java_version }}.{{ java_build_num }}*

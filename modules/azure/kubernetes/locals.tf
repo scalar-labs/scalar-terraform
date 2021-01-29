@@ -56,7 +56,7 @@ locals {
     vm_size                        = "Standard_D2s_v3"
     max_pods                       = 10
     os_disk_size_gb                = 64
-    cluster_auto_scaling           = true
+    cluster_auto_scaling           = false
     cluster_auto_scaling_min_count = 3
     cluster_auto_scaling_max_count = 6
   }
@@ -80,7 +80,7 @@ locals {
     os_disk_size_gb                = 64
     node_os                        = "Linux"
     taints                         = "kubernetes.io/app=scalardlpool:NoSchedule"
-    cluster_auto_scaling           = true
+    cluster_auto_scaling           = false
     cluster_auto_scaling_min_count = 3
     cluster_auto_scaling_max_count = 6
   }

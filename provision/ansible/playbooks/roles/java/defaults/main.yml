@@ -1,3 +1,7 @@
 ---
-java_tar_gz_source: jre-8u201-linux-x64.tar.gz
+java_version: 1.8.0
+java_build_num: 275
+java_package: java-{{ java_version }}-openjdk-{{ java_version }}.{{ java_build_num }}
+
 install_java_from_source: false
+java_download_url: https://developers.redhat.com/download-manager/file/java-{{ java_version }}-openjdk-{{ java_version }}.{{ java_build_num }}-1.b01.src.zip

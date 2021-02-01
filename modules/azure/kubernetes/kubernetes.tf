@@ -106,8 +106,8 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     vnet_subnet_id        = azurerm_subnet.k8s_private["k8s_node_pod"].id
     enable_node_public_ip = false
     enable_auto_scaling   = local.kubernetes_default_node_pool.cluster_auto_scaling
-    min_count             = local.kubernetes_default_node_pool.cluster_auto_scaling_min_count
-    max_count             = local.kubernetes_default_node_pool.cluster_auto_scaling_max_count
+    min_count             = local.kubernetes_default_node_pool.cluster_auto_scaling ? local.kubernetes_default_node_pool.cluster_auto_scaling_min_count : null
+    max_count             = local.kubernetes_default_node_pool.cluster_auto_scaling ? local.kubernetes_default_node_pool.cluster_auto_scaling_max_count : null
   }
 
   role_based_access_control {
@@ -168,8 +168,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks_cluster_scalar_apps_node_po
   node_taints           = [local.kubernetes_scalar_apps_pool.taints]
   enable_node_public_ip = false
   enable_auto_scaling   = local.kubernetes_scalar_apps_pool.cluster_auto_scaling
-  min_count             = local.kubernetes_scalar_apps_pool.cluster_auto_scaling_min_count
-  max_count             = local.kubernetes_scalar_apps_pool.cluster_auto_scaling_max_count
+  min_count             = local.kubernetes_default_node_pool.cluster_auto_scaling ? local.kubernetes_scalar_apps_pool.cluster_auto_scaling_min_count : null
+  max_count             = local.kubernetes_default_node_pool.cluster_auto_scaling ? local.kubernetes_scalar_apps_pool.cluster_auto_scaling_max_count : null
 
   tags = merge(
     var.custom_tags,

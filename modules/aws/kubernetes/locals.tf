@@ -26,6 +26,7 @@ locals {
     cluster_encryption_config_enabled    = false
     cluster_encryption_config_resources  = ""
     cluster_encryption_config_kms_key_id = ""
+    cluster_auto_scaling                 = false
     aws_auth_system_master_role          = data.aws_iam_role.bastion.arn
     subnet_ids                           = concat(local.subnet_ids, local.public_subnet_ids, local.private_subnet_ids)
     use_fargate_profile                  = false

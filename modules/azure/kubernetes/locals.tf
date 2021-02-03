@@ -32,6 +32,7 @@ locals {
     public_ssh_key_path       = var.network.public_key_path
     role_based_access_control = true
     kube_dashboard            = true
+    public_cluster_enabled    = false
     network_plugin            = "azure"
     load_balancer_sku         = "Standard"
     service_cidr              = cidrsubnet(var.network.cidr, 6, 12)

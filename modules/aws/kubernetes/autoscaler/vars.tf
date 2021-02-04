@@ -24,8 +24,6 @@ variable "region" {
   description = "The region"
 }
 
-# cluster autoscaler
-
 variable "helm_chart_name" {
   type        = string
   default     = "cluster-autoscaler-chart"

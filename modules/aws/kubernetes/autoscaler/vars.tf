@@ -60,3 +60,9 @@ variable "settings" {
   default     = {}
   description = "Additional settings which will be passed to the Helm chart values, see https://artifacthub.io/packages/helm/cluster-autoscaler/cluster-autoscaler-chart"
 }
+
+variable "mod_depends_on" {
+  type        = any
+  default     = null
+  description = "List of references to other resources this submodule depends on"
+}

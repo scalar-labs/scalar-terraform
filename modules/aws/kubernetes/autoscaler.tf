@@ -12,6 +12,7 @@ module "cluster_autoscaler" {
   cluster_identity_oidc_issuer     = join("", aws_eks_cluster.eks_cluster.*.identity.0.oidc.0.issuer)
   cluster_identity_oidc_issuer_arn = join("", aws_iam_openid_connect_provider.cluster_autoscaler.*.arn)
   region                           = local.region
+  mod_depends_on                   = [local_file.kubeconfig]
 }
 
 resource "aws_iam_openid_connect_provider" "cluster_autoscaler" {

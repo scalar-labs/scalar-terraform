@@ -45,4 +45,6 @@ resource "helm_release" "cluster_autoscaler" {
       value = set.value
     }
   }
+
+  depends_on = [var.mod_depends_on]
 }

@@ -168,8 +168,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks_cluster_scalar_apps_node_po
   node_taints           = [local.kubernetes_scalar_apps_pool.taints]
   enable_node_public_ip = false
   enable_auto_scaling   = local.kubernetes_scalar_apps_pool.cluster_auto_scaling
-  min_count             = local.kubernetes_default_node_pool.cluster_auto_scaling ? local.kubernetes_scalar_apps_pool.cluster_auto_scaling_min_count : null
-  max_count             = local.kubernetes_default_node_pool.cluster_auto_scaling ? local.kubernetes_scalar_apps_pool.cluster_auto_scaling_max_count : null
+  min_count             = local.kubernetes_scalar_apps_pool.cluster_auto_scaling ? local.kubernetes_scalar_apps_pool.cluster_auto_scaling_min_count : null
+  max_count             = local.kubernetes_scalar_apps_pool.cluster_auto_scaling ? local.kubernetes_scalar_apps_pool.cluster_auto_scaling_max_count : null
 
   tags = merge(
     var.custom_tags,

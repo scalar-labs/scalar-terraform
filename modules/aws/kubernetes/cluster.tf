@@ -41,9 +41,9 @@ resource "aws_eks_cluster" "eks_cluster" {
   vpc_config {
     security_group_ids      = compact([aws_security_group.eks_cluster.id])
     subnet_ids              = local.kubernetes_cluster.subnet_ids
-    endpoint_private_access = local.kubernetes_cluster.cluster_endpoint_private_access
-    endpoint_public_access  = local.kubernetes_cluster.cluster_endpoint_public_access
-    public_access_cidrs     = split(",", local.kubernetes_cluster.cluster_endpoint_public_access_cidrs)
+    endpoint_private_access = true
+    endpoint_public_access  = local.kubernetes_cluster.public_cluster_enabled
+    public_access_cidrs     = local.kubernetes_cluster.public_cluster_enabled ? split(",", local.kubernetes_cluster.cluster_endpoint_public_access_cidrs) : null
   }
 
   timeouts {

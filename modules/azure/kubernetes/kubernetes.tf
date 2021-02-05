@@ -22,7 +22,7 @@ resource "random_id" "id" {
 
 # Create application for Service Principals
 resource "azuread_application" "app" {
-  name                       = "scalar-k8s-app-${local.network_name}-${random_id.id.b64_url}"
+  display_name               = "scalar-k8s-app-${local.network_name}-${random_id.id.b64_url}"
   homepage                   = "https://aks-${local.network_name}-${random_id.id.b64_url}"
   identifier_uris            = ["https://aks-${local.network_name}-${random_id.id.b64_url}"]
   reply_urls                 = ["https://aks-${local.network_name}-${random_id.id.b64_url}"]

@@ -18,8 +18,6 @@ locals {
     cluster_enabled_log_types            = "" # api,audit,authenticator,controllerManager,scheduler
     cluster_log_retention_in_days        = 90
     cluster_log_kms_key_id               = ""
-    cluster_endpoint_private_access      = true
-    cluster_endpoint_public_access       = true
     cluster_endpoint_public_access_cidrs = "0.0.0.0/0"
     cluster_create_timeout               = "30m"
     cluster_delete_timeout               = "15m"
@@ -27,6 +25,7 @@ locals {
     cluster_encryption_config_resources  = ""
     cluster_encryption_config_kms_key_id = ""
     cluster_auto_scaling                 = false
+    public_cluster_enabled               = true
     aws_auth_system_master_role          = data.aws_iam_role.bastion.arn
     subnet_ids                           = concat(local.subnet_ids, local.public_subnet_ids, local.private_subnet_ids)
     use_fargate_profile                  = false

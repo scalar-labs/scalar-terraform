@@ -4,7 +4,7 @@
 
 By default, `scalar-terraform` will create eks cluster with `Public and private` endpoint access.
 It is recommended to enable both public and private endpoint access by `public_cluster_enabled = "true"` when first build an environment.
-This is an important prerequisite for creating `aws-auth` ConfigMap and `Autoscaler` from `scalar-terraform`.
+This is an important prerequisite for creating [aws-auth ConfigMap](#managing-bastion-role-for-eks-cluster) and [Autoscaler](#managing-cluster-autoscaler-for-node-autoscaling) with `scalar-terraform`.
 
 ```example.tfvars
 region = "ap-northeast-1"

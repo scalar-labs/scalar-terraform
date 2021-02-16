@@ -7,4 +7,4 @@ cloud_provider: aws
 base: bai
 
 goss_vars_yaml: config_vars/{{ cloud_provider }}_{{ base }}.yaml
-goss_resources_path: config_resources
+goss_validates_path: config_validates

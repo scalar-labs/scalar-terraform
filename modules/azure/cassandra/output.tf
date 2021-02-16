@@ -32,3 +32,25 @@ output "cassandra_start_on_initial_boot" {
   value       = local.cassandra.start_on_initial_boot
   description = "A flag to start Cassandra or not on the initial boot."
 }
+
+output "inventory_ini" {
+  value = <<EOF
+[cassandra]
+%{for f in azurerm_private_dns_a_record.cassandra_dns.*.fqdn~}
+${f}
+%{endfor}
+[cassy]
+%{for f in azurerm_private_dns_a_record.cassy_dns.*.fqdn~}
+${f}
+%{endfor}
+[reaper]
+%{for f in azurerm_private_dns_a_record.reaper_dns.*.fqdn~}
+${f}
+%{endfor}
+
+[all:vars]
+base=${var.base}
+EOF
+
+  description = "The inventory file for Ansible."
+}

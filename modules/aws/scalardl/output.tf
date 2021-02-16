@@ -47,3 +47,25 @@ output "envoy_listen_port" {
   value       = local.envoy.listen_port
   description = "A listen port of an envoy cluster."
 }
+
+output "inventory_ini" {
+  value = <<EOF
+[scalardl_blue]
+%{for f in aws_route53_record.scalardl_blue_dns.*.fqdn~}
+${f}
+%{endfor}
+[scalardl_green]
+%{for f in aws_route53_record.scalardl_green_dns.*.fqdn~}
+${f}
+%{endfor}
+[envoy]
+%{for f in aws_route53_record.envoy_dns.*.fqdn~}
+${f}
+%{endfor}
+
+[all:vars]
+base=${var.base}
+EOF
+
+  description = "The inventory file for Ansible."
+}

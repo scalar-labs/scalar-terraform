@@ -96,7 +96,7 @@ output "inventory_ini" {
   value = <<EOF
 [bastion]
 %{for f in module.bastion.bastion_host_ips~}
-${f}
+${f}.${local.internal_domain}
 %{endfor}
 EOF
 

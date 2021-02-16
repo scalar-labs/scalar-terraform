@@ -184,10 +184,10 @@ $ ssh -F ssh.cfg monitor-1.internal.scalar-labs.com
 
 ## Next Steps
 
-* Please follow [How to install Kubernetes CLI and Helm on the bastion](./PrepareBastionTool.md) to install required tools to deploy applications from the bastion host, then go to [How to deploy Scalar DL on Kubernetes with Ansible](./DeployScalarDLAnsible.md) to do the deployment.
-* Alternatively, you can do the deployment process by running Helm charts directly from your local machine. Please refer to [Deploy Scalar DL with Helm](./DeployScalarDLHelm.md) for details.
+* Please follow [How to install Kubernetes CLI and Helm on the bastion](https://github.com/scalar-labs/scalar-kubernetes/tree/master/docs/PrepareBastionTool.md) to install required tools to deploy applications from the bastion host, then go to [How to deploy Scalar DL on Kubernetes with Ansible](https://github.com/scalar-labs/scalar-kubernetes/tree/master/docs/DeployScalarDLAnsible.md) to do the deployment.
+* Alternatively, you can do the deployment process by running Helm charts directly from your local machine. Please refer to [Deploy Scalar DL with Helm](https://github.com/scalar-labs/scalar-kubernetes/tree/master/docs/DeployScalarDLHelm.md) for details.
 
 ### Monitoring and log collection
 
-* Please refer to [Kubernetes Monitor Guide](./K8sMonitorGuide.md) for monitoring with Grafana, Alertmanager, and Prometheus.
-* Please refer to [How to collect logs from Kubernetes applications](./K8sLogCollectionGuide.md) for collecting logs in the monitor server with Fluent Bit.
+* Please refer to [Kubernetes Monitor Guide](https://github.com/scalar-labs/scalar-kubernetes/tree/master/docs/K8sMonitorGuide.md) for monitoring with Grafana, Alertmanager, and Prometheus.
+* Please refer to [How to collect logs from Kubernetes applications](https://github.com/scalar-labs/scalar-kubernetes/tree/master/docs/K8sLogCollectionGuide.md) for collecting logs in the monitor server with Fluent Bit.

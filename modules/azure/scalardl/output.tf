@@ -51,15 +51,15 @@ output "envoy_listen_port" {
 output "inventory_ini" {
   value = <<EOF
 [scalardl_blue]
-%{for f in azurerm_private_dns_a_record.scalardl_blue_dns.*.fqdn~}
+%{for f in azurerm_private_dns_a_record.scalardl_blue_dns.*.name~}
 ${f}
 %{endfor}
 [scalardl_green]
-%{for f in azurerm_private_dns_a_record.scalardl_green_dns.*.fqdn~}
+%{for f in azurerm_private_dns_a_record.scalardl_green_dns.*.name~}
 ${f}
 %{endfor}
 [envoy]
-%{for f in azurerm_private_dns_a_record.envoy_dns.*.fqdn~}
+%{for f in azurerm_private_dns_a_record.envoy_dns.*.name~}
 ${f}
 %{endfor}
 

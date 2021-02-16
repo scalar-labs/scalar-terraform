@@ -1,7 +1,7 @@
 output "inventory_ini" {
   value = <<EOF
 [ca]
-%{for f in azurerm_private_dns_a_record.ca_dns.*.fqdn~}
+%{for f in azurerm_private_dns_a_record.ca_dns.*.name~}
 ${f}
 %{endfor}
 EOF

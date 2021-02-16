@@ -1,0 +1,22 @@
+---
+- name: Create Goss path
+  file:
+    state: directory
+    path: "{{ goss_path }}"
+
+- name: Download Goss binary
+  get_url:
+    url: "{{ goss_url }}"
+    dest: "{{ goss_path }}/goss-{{ goss_version }}"
+    checksum: sha256:{{ goss_checksum_sha256 }}
+    mode: 0755
+  register: download_result
+  until: download_result is succeeded
+  retries: 3
+
+- name: Create Goss symlink
+  file:
+    state: link
+    src: "{{ goss_path }}/goss-{{ goss_version }}"
+    path: /usr/local/bin/goss
+    force: yes

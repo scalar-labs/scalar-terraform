@@ -1,0 +1,27 @@
+---
+- name: Copy goss.yaml file
+  copy:
+    src: goss.yaml
+    dest: "{{ goss_path }}/goss.yaml"
+    mode: 0644
+
+- name: Copy Goss configuration files
+  copy:
+    src: "{{ goss_resources_path }}/{{ item }}.yaml"
+    dest: "{{ goss_path }}/goss_{{ item }}.yaml"
+    mode: 0644
+  when: item != ""
+  loop:
+    - "common"
+    - "{{ host }}"
+
+- name: Copy Goss vars file
+  copy:
+    src: "{{ goss_vars_yaml }}"
+    dest: "{{ goss_path }}/vars.yaml"
+    mode: 0644
+
+- name: Execute Goss test
+  shell:
+    cmd: "host={{ host }} /usr/local/bin/goss --vars vars.yaml validate"
+    chdir: "{{ goss_path }}"

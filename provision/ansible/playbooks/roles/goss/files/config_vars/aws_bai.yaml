@@ -1,0 +1,13 @@
+bastion:
+  cpu_cores: 2
+  mem: 963M
+cassandra:
+  cpu_cores: 2
+  mem: 15G
+  jvm:
+    xms: 4G
+    xmx: 4G
+    xmn: 200M
+  tuned:
+    readahead: 8
+    devices: "!sda, !xvda, !nvme0n1"

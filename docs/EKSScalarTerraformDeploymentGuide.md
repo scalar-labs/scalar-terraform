@@ -2,8 +2,6 @@
 
 This document shows how to create a Kubernetes cluster in Amazon Elastic Kubernetes Service (EKS) along with a VPC, a bastion host, and database resources using Terraform scripts.
 
-The Terraform scripts for creating resources with [scalar-terraform](https://github.com/scalar-labs/scalar-terraform) are available in a separate repository:  [scalar-terraform-examples](https://github.com/scalar-labs/scalar-terraform-examples).
-
 ## Prerequisites
 
 * Terraform >= 0.12.x
@@ -70,7 +68,11 @@ It is needed to connect to the various hosts created with scalar-terraform in th
 
 ## Create Kubernetes cluster
 
-By default, `scalar-terraform` will create eks cluster with `Public and private` endpoint access and disable autoscaling. Please see [Amazon EKS Guide](./EKSGuide.md) for more detail.
+By default, `scalar-terraform` creates an EKS cluster with `public and private` endpoint accesses.
+
+It is recommended to deploy without changing `public_cluster_enabled` and later deploy with `public_cluster_enabled = false` to make it not publically available for security reasons since some configurations like `cluster_auto_scaling` (false by default) requires the cluster to be public to work properly.
+
+Please see [Amazon EKS Guide](./EKSGuide.md) for more detail.
 
 ```console
 $ cd ${SCALAR_TERRAFORM_EXAMPLES}/aws/kubernetes

@@ -4,7 +4,7 @@ goss_checksum_sha256: 827e354b48f93bce933f5efcd1f00dc82569c42a179cf2d384b040d8a8
 goss_url: https://github.com/aelsabbahy/goss/releases/download/{{ goss_version }}/goss-linux-amd64
 goss_path: /opt/goss
 cloud_provider: aws
-base: bai
+base: default
 
 goss_vars_yaml: config_vars/{{ cloud_provider }}_{{ base }}.yaml
 goss_validates_path: config_validates

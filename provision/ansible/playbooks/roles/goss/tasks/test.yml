@@ -5,15 +5,25 @@
     dest: "{{ goss_path }}/goss.yaml"
     mode: 0644
 
-- name: Copy Goss configuration files
+- name: Copy Goss validate common files
   copy:
     src: "{{ goss_validates_path }}/{{ item }}.yaml"
     dest: "{{ goss_path }}/goss_{{ item }}.yaml"
     mode: 0644
-  when: item != ""
   loop:
     - "common"
-    - "{{ host }}"
+
+- name: Check Goss validate {{ host }} file
+  stat:
+    path: "{{ goss_validates_path }}/{{ host }}.yaml"
+  register: result_file
+
+- name: Copy Goss validate {{ host }} files
+  copy:
+    src: "{{ goss_validates_path }}/{{ host }}.yaml"
+    dest: "{{ goss_path }}/goss_{{ host }}.yaml"
+    mode: 0644
+  when: result_file.stat.exists
 
 - name: Copy Goss vars file
   copy:

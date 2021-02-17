@@ -63,7 +63,6 @@ services:
       - 8080:8080
     volumes:
       - /log:/log
-      - ./tailon/config.yaml:/tailon/config.yaml
     command:
       - "/usr/local/bin/tailon"
       - "-b"

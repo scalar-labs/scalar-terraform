@@ -50,12 +50,11 @@ output "envoy_listen_port" {
 
 output "inventory_ini" {
   value = <<EOF
-[scalardl_blue]
+[scalardl]
 %{for f in aws_route53_record.scalardl_blue_dns.*.fqdn~}
 ${f}
 %{endfor}
-[scalardl_green]
-%{for f in aws_route53_record.scalardl_green_dns.*.fqdn~}
+%{~for f in aws_route53_record.scalardl_green_dns.*.fqdn~}
 ${f}
 %{endfor}
 [envoy]
@@ -63,10 +62,7 @@ ${f}
 ${f}
 %{endfor}
 
-[scalardl_blue:vars]
-host=scalardl
-
-[scalardl_green:vars]
+[scalardl:vars]
 host=scalardl
 
 [envoy:vars]

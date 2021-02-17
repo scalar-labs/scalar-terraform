@@ -9,7 +9,7 @@ This document shows how to create a Kubernetes cluster in Azure Kubernetes Servi
 * Azure CLI configured with `az login`
 * ssh-agent
 
-You also need to have enough permissions to deploy the Kubernetes cluster with Terraform. Please see [Cloud Privileges for scalar-kubernetes](./CloudPrivileges.md#Azure) for more detail.
+You also need to have enough permissions to deploy the Kubernetes cluster with Terraform. Please see [A Role for Deployment with scalar-terraform kubernetes module](./CloudPrivileges.md#a-role-for-deployment-with-scalar-terraform-kubernetes-module) for more detail.
 
 ## Architecture
 

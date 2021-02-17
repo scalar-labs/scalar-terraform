@@ -98,6 +98,12 @@ output "inventory_ini" {
 %{for f in module.bastion.bastion_host_ips~}
 ${f}.${local.internal_domain}
 %{endfor}
+
+[bastion:vars]
+host=bastion
+
+[all:vars]
+cloud_provider=azure
 EOF
 
   description = "The inventory file for Ansible."

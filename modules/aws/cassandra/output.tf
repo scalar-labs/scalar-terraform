@@ -58,8 +58,18 @@ ${f}
 ${f}
 %{endfor}
 
+[cassandra:vars]
+host=cassandra
+
+cassy:vars]
+host=cassy
+
+reaper:vars]
+host=reaper
+
 [all:vars]
 base=${var.base}
+cloud_provider=aws
 EOF
 
   description = "The inventory file for Ansible."

@@ -63,8 +63,18 @@ ${f}.${local.internal_domain}
 ${f}.${local.internal_domain}
 %{endfor}
 
+[scalardl_blue:vars]
+host=scalardl
+
+[scalardl_green:vars]
+host=scalardl
+
+[envoy:vars]
+host=envoy
+
 [all:vars]
 base=${var.base}
+cloud_provider=azure
 EOF
 
   description = "The inventory file for Ansible."

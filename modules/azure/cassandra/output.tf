@@ -48,8 +48,18 @@ ${f}.${local.internal_domain}
 ${f}.${local.internal_domain}
 %{endfor}
 
+[cassandra:vars]
+host=cassandra
+
+cassy:vars]
+host=cassy
+
+reaper:vars]
+host=reaper
+
 [all:vars]
 base=${var.base}
+cloud_provider=azure
 EOF
 
   description = "The inventory file for Ansible."

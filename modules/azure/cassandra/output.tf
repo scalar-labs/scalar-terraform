@@ -51,10 +51,10 @@ ${f}.${local.internal_domain}
 [cassandra:vars]
 host=cassandra
 
-cassy:vars]
+[cassy:vars]
 host=cassy
 
-reaper:vars]
+[reaper:vars]
 host=reaper
 
 [all:vars]

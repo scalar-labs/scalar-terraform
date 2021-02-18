@@ -93,3 +93,20 @@ EOF
 
   description = "The Configuration file for SSH access."
 }
+
+output "inventory_ini" {
+  value = <<EOF
+[bastion]
+%{for f in module.bastion.bastion_host_ips~}
+${f}
+%{endfor}
+
+[bastion:vars]
+host=bastion
+
+[all:vars]
+cloud_provider=aws
+EOF
+
+  description = "The inventory file for Ansible."
+}

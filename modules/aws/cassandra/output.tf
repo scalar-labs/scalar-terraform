@@ -42,3 +42,35 @@ output "cassandra_start_on_initial_boot" {
   value       = local.cassandra.start_on_initial_boot
   description = "A flag to start Cassandra or not on the initial boot."
 }
+
+output "inventory_ini" {
+  value = <<EOF
+[cassandra]
+%{for f in aws_route53_record.cassandra_dns.*.fqdn~}
+${f}
+%{endfor}
+[cassy]
+%{for f in aws_route53_record.cassy_dns.*.fqdn~}
+${f}
+%{endfor}
+[reaper]
+%{for f in aws_route53_record.reaper_dns.*.fqdn~}
+${f}
+%{endfor}
+
+[cassandra:vars]
+host=cassandra
+
+[cassy:vars]
+host=cassy
+
+[reaper:vars]
+host=reaper
+
+[all:vars]
+base=${var.base}
+cloud_provider=aws
+EOF
+
+  description = "The inventory file for Ansible."
+}

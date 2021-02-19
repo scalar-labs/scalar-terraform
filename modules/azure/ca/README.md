@@ -1,19 +1,18 @@
 # CA Azure Module
 The CA module deploys a CA resource used to sign keys for Scalar DL.
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| azurerm | =1.38.0 |
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
-| ca | The custom settings of CA resource | `map` | `{}` | no |
+|------|-------------|------|---------|:--------:|
 | network | The network settings of CA resource | `map` | n/a | yes |
+| ca | The custom settings of CA resource | `map` | `{}` | no |
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| inventory_ini | The inventory file for Ansible. |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

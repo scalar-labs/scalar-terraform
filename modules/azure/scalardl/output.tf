@@ -47,3 +47,31 @@ output "envoy_listen_port" {
   value       = local.envoy.listen_port
   description = "A listen port of envoy cluster."
 }
+
+output "inventory_ini" {
+  value = <<EOF
+[scalardl]
+%{for f in azurerm_private_dns_a_record.scalardl_blue_dns.*.name~}
+${f}.${local.internal_domain}
+%{endfor}
+%{~for f in azurerm_private_dns_a_record.scalardl_green_dns.*.name~}
+${f}.${local.internal_domain}
+%{endfor}
+[envoy]
+%{for f in azurerm_private_dns_a_record.envoy_dns.*.name~}
+${f}.${local.internal_domain}
+%{endfor}
+
+[scalardl:vars]
+host=scalardl
+
+[envoy:vars]
+host=envoy
+
+[all:vars]
+base=${var.base}
+cloud_provider=azure
+EOF
+
+  description = "The inventory file for Ansible."
+}

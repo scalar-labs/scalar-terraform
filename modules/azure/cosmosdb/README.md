@@ -1,10 +1,12 @@
 # Cosmos DB Azure Module
 The Cosmos DB Azure module deploys a Cosmos DB account.
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
+| terraform | ~> 0.14.7 |
 | azurerm | =1.38.0 |
 
 ## Providers
@@ -34,3 +36,4 @@ The Cosmos DB Azure module deploys a Cosmos DB account.
 | cosmosdb_account_secondary_readonly_master_key | The secondary read-only master key for the Cosmos DB account. |
 | cosmosdb_account_write_endpoints | A list of write endpoints available for the Cosmos DB account. |
 
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

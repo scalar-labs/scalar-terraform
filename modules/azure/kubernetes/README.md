@@ -2,22 +2,34 @@
 
 The Azure Kubernetes Module creates a subnet for k8s, service principal, set permission and deploy AKS in azure with one additional node pool
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.20 |
-| azuread | >= 0.8 |
-| azurerm | >=2.5.0 |
+| terraform | ~> 0.14.7 |
+| azuread | ~> 1.4 |
+| azurerm | ~> 2.48 |
+| random | ~> 2.3 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| azuread | ~> 1.4 |
+| azurerm | ~> 2.48 |
+| random | ~> 2.3 |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| kubernetes_scalar_apps_pool | Custom definition kubernetes scalar apps node pools, same as default_node_pool | `map` | `{}` | no |
+| custom_tags | The map of custom tags | `map` | `{}` | no |
 | kubernetes_cluster | Custom definition kubernetes properties that include name of the cluster, kubernetes version, etc.. | `map` | `{}` | no |
 | kubernetes_default_node_pool | Custom definition kubernetes default node pool that include number of node, node size, autoscaling, etc.. | `map` | `{}` | no |
+| kubernetes_scalar_apps_pool | Custom definition kubernetes scalar apps node pool, same as default_node_pool | `map` | `{}` | no |
 | network | Custom definition for network and bastion | `map` | `{}` | no |
+| use_cosmosdb | Whether to use Cosmos DB. If true, a service endpoint for Cosmos DB is enabled. | `bool` | `false` | no |
 
 ### kubernetes_cluster_properties map
 
@@ -61,5 +73,8 @@ The Azure Kubernetes Module creates a subnet for k8s, service principal, set per
 
 | Name | Description |
 |------|-------------|
-| k8s_ssh_config |The configuration file for K8s API local port forward and SSH K8s Nodes access. |
+| k8s_ssh_config | The configuration file for K8s API local port forward and SSH K8s Nodes access. |
 | kube_config | kubectl configuration e.g: ~/.kube/config |
+| node_pool_subnet_id | n/a |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

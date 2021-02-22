@@ -11,5 +11,10 @@ terraform {
       source  = "hashicorp/azuread"
       version = "~> 1.4"
     }
+
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 2.3"
+    }
   }
 }

@@ -8,6 +8,22 @@ The Scalar DL module deploys a scalardl resource cluster using blue/green deploy
 | azurerm | =1.38.0 |
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12 |
+| azurerm | =1.38.0 |
+| null | ~> 3.0 |
+| random | ~> 2.3 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| azurerm | =1.38.0 |
+| null | ~> 3.0 |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |

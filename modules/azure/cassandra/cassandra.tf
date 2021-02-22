@@ -5,7 +5,7 @@ resource "null_resource" "wait_for" {
 }
 
 module "cassandra_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=af49eab"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=upgrade-terraform-to-0.14"
 
   nb_instances                  = local.cassandra.resource_count
   admin_username                = local.user_name
@@ -23,7 +23,7 @@ module "cassandra_cluster" {
 }
 
 resource "azurerm_managed_disk" "cassandra_data_volume" {
-  count      = local.cassandra.enable_data_volume && ! local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
+  count      = local.cassandra.enable_data_volume && !local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
   depends_on = [null_resource.wait_for]
 
   name                 = "data-disk-cassandra${count.index}"
@@ -36,7 +36,7 @@ resource "azurerm_managed_disk" "cassandra_data_volume" {
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "cassandra_data_volume_attachment" {
-  count = local.cassandra.enable_data_volume && ! local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
+  count = local.cassandra.enable_data_volume && !local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
   managed_disk_id    = azurerm_managed_disk.cassandra_data_volume[count.index].id
   virtual_machine_id = module.cassandra_cluster.vm_ids[count.index]
@@ -45,7 +45,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "cassandra_data_volume_a
 }
 
 resource "null_resource" "volume_data_remote" {
-  count = local.cassandra.enable_data_volume && ! local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
+  count = local.cassandra.enable_data_volume && !local.cassandra.data_use_local_volume ? local.cassandra.resource_count : 0
 
   triggers = {
     triggers = azurerm_virtual_machine_data_disk_attachment.cassandra_data_volume_attachment[count.index].id
@@ -89,7 +89,7 @@ resource "null_resource" "volume_data_local" {
 }
 
 resource "azurerm_managed_disk" "cassandra_commitlog_volume" {
-  count      = local.cassandra.enable_commitlog_volume && ! local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
+  count      = local.cassandra.enable_commitlog_volume && !local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
   depends_on = [null_resource.wait_for]
 
   name                 = "commitlog-cassandra${count.index}"
@@ -102,7 +102,7 @@ resource "azurerm_managed_disk" "cassandra_commitlog_volume" {
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "cassandra_commitlog_volume_attachment" {
-  count = local.cassandra.enable_commitlog_volume && ! local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
+  count = local.cassandra.enable_commitlog_volume && !local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
 
   managed_disk_id    = azurerm_managed_disk.cassandra_commitlog_volume[count.index].id
   virtual_machine_id = module.cassandra_cluster.vm_ids[count.index]
@@ -111,7 +111,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "cassandra_commitlog_vol
 }
 
 resource "null_resource" "volume_commitlog" {
-  count = local.cassandra.enable_commitlog_volume && ! local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
+  count = local.cassandra.enable_commitlog_volume && !local.cassandra.commitlog_use_local_volume ? local.cassandra.resource_count : 0
 
   triggers = {
     triggers = azurerm_virtual_machine_data_disk_attachment.cassandra_commitlog_volume_attachment[count.index].id
@@ -203,7 +203,7 @@ resource "azurerm_private_dns_srv_record" "node_exporter_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.cassandra_dns.*.name
 
     content {
@@ -223,7 +223,7 @@ resource "azurerm_private_dns_srv_record" "cassanda_exporter_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.cassandra_dns.*.name
 
     content {
@@ -243,7 +243,7 @@ resource "azurerm_private_dns_srv_record" "cassandra_fluentd_prometheus_dns_srv"
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.cassandra_dns.*.name
 
     content {

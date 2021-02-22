@@ -1,5 +1,5 @@
 module "cassy_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=af49eab"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=upgrade-terraform-to-0.14"
 
   nb_instances                  = local.cassy.resource_count
   admin_username                = local.user_name
@@ -52,7 +52,7 @@ resource "azurerm_private_dns_srv_record" "cassy_exporter_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.cassy_dns.*.name
 
     content {
@@ -72,7 +72,7 @@ resource "azurerm_private_dns_srv_record" "cassy_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.cassy_dns.*.name
 
     content {
@@ -92,7 +92,7 @@ resource "azurerm_private_dns_srv_record" "cassy_cadvisor_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.cassy_dns.*.name
 
     content {
@@ -112,7 +112,7 @@ resource "azurerm_private_dns_srv_record" "cassy_fluentd_prometheus_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.cassy_dns.*.name
 
     content {

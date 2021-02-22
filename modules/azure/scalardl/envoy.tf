@@ -5,7 +5,7 @@ resource "null_resource" "envoy_wait_for" {
 }
 
 module "envoy_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=af49eab"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=upgrade-terraform-to-0.14"
 
   nb_instances                  = local.envoy.resource_count
   admin_username                = local.user_name
@@ -66,7 +66,7 @@ resource "azurerm_network_security_rule" "envoy_privileged_nsg" {
 }
 
 resource "azurerm_public_ip" "envoy_public_ip" {
-  count      = local.envoy.enable_nlb && ! local.envoy.nlb_internal ? 1 : 0
+  count      = local.envoy.enable_nlb && !local.envoy.nlb_internal ? 1 : 0
   depends_on = [null_resource.envoy_wait_for]
 
   name                = "PublicIPForEnvoy"
@@ -198,7 +198,7 @@ resource "azurerm_private_dns_srv_record" "envoy_exporter_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.envoy_dns.*.name
 
     content {
@@ -218,7 +218,7 @@ resource "azurerm_private_dns_srv_record" "envoy_node_exporter_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.envoy_dns.*.name
 
     content {
@@ -238,7 +238,7 @@ resource "azurerm_private_dns_srv_record" "envoy_cadvisor_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.envoy_dns.*.name
 
     content {
@@ -258,7 +258,7 @@ resource "azurerm_private_dns_srv_record" "envoy_fluentd_prometheus_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.envoy_dns.*.name
 
     content {

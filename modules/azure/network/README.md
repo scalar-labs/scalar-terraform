@@ -3,6 +3,21 @@
 The Network module creates a virtual network with subnets.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | ~> 0.14.7 |
+| azurerm | =1.38.0 |
+| null | ~> 3.0 |
+| random | ~> 2.3 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| azurerm | =1.38.0 |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |

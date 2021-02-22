@@ -1,12 +1,6 @@
 # Cassandra Azure Module
 The Cassandra Azure module deploys a Cassandra cluster tuned for a Scalar DL environment.
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| azurerm | =1.38.0 |
-
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

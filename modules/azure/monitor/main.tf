@@ -127,7 +127,7 @@ resource "azurerm_private_dns_srv_record" "monitor_exporter_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.monitor_host_dns.*.name
 
     content {
@@ -147,7 +147,7 @@ resource "azurerm_private_dns_srv_record" "monitor_cadvisor_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.monitor_host_dns.*.name
 
     content {
@@ -167,7 +167,7 @@ resource "azurerm_private_dns_srv_record" "monitor_fluentd_prometheus_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.monitor_host_dns.*.name
 
     content {

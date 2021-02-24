@@ -1,4 +1,9 @@
 # Required Variable
+variable "base" {
+  default     = "default"
+  description = "The base of network"
+}
+
 variable "name" {
   description = "A short name to attach to resources"
 }

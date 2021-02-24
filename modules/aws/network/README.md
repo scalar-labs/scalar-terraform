@@ -13,6 +13,7 @@ The Network module creates a virtual network with subnets.
 | private_key_path | The path to a private key file ~/.ssh/key.pem | `any` | n/a | yes |
 | public_key_path | The path to a public key file ~/.ssh/key.pub | `any` | n/a | yes |
 | additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `string` | `""` | no |
+| base | The base of network | `string` | `"default"` | no |
 | custom_tags | The map of custom tags | `map` | `{}` | no |
 | network | Custom definition for network and bastion | `map` | `{}` | no |
 

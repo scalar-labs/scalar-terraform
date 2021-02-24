@@ -31,13 +31,6 @@ locals {
 }
 
 locals {
-  network = merge(
-    local.network_default,
-    var.network
-  )
-}
-
-locals {
   dist_locations = distinct(var.locations)
 
   locations = length(local.dist_locations) == 2 ? concat(local.dist_locations, [local.dist_locations[0]]) : local.dist_locations

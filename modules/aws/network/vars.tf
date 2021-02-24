@@ -22,7 +22,7 @@ variable "internal_domain" {
 
 # Optional Variable
 variable "network" {
-  type        = map
+  type        = map(string)
   default     = {}
   description = "Custom definition for network and bastion"
 }
@@ -33,7 +33,7 @@ variable "additional_public_keys_path" {
 }
 
 variable "custom_tags" {
-  type        = map
+  type        = map(string)
   default     = {}
   description = "The map of custom tags"
 }

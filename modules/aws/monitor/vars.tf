@@ -4,24 +4,24 @@ variable "base" {
 }
 
 variable "network" {
-  type        = map
+  type        = map(string)
   description = "The network settings of monitor resources"
 }
 
 variable "cassandra" {
-  type        = map
+  type        = map(string)
   default     = {}
   description = "The provisioning settings of a cassandra cluster"
 }
 
 variable "scalardl" {
-  type        = map
+  type        = map(string)
   default     = {}
   description = "The provisioning settings of a scalardl cluster"
 }
 
 variable "monitor" {
-  type        = map
+  type        = map(string)
   default     = {}
   description = "The custom settings of monitor resources"
 }

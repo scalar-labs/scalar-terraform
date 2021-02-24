@@ -1,11 +1,11 @@
 variable "network" {
-  type        = map
+  type        = map(string)
   default     = {}
   description = "Custom definition for network and bastion"
 }
 
 variable "kubernetes_cluster" {
-  type        = map
+  type        = map(string)
   default     = {}
   description = "Custom definition kubernetes properties that include the name of the cluster, kubernetes version, etc.."
 }
@@ -20,7 +20,7 @@ variable "kubernetes_node_groups" {
 }
 
 variable "custom_tags" {
-  type        = map
+  type        = map(string)
   default     = {}
   description = "The map of custom tags"
 }

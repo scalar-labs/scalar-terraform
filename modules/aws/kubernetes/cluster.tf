@@ -51,7 +51,7 @@ resource "aws_eks_cluster" "eks_cluster" {
     delete = local.kubernetes_cluster.cluster_delete_timeout
   }
 
-  dynamic encryption_config {
+  dynamic "encryption_config" {
     for_each = local.kubernetes_cluster.cluster_encryption_config_enabled ? [local.cluster_encryption_config] : []
 
     content {

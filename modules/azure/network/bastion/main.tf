@@ -1,5 +1,5 @@
 module "bastion_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=upgrade-terraform-to-0.14"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=2d31780"
 
   nb_instances                  = var.resource_count
   admin_username                = var.user_name

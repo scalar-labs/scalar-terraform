@@ -1,0 +1,7 @@
+---
+- name: Add goss and test
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - { role: goss, tags: goss }

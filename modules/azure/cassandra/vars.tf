@@ -4,24 +4,24 @@ variable "base" {
 }
 
 variable "network" {
-  type        = map(any)
+  type        = map(string)
   description = "The network settings of Cassandra cluster"
 }
 
 variable "cassandra" {
-  type        = map(any)
+  type        = map(string)
   default     = {}
   description = "The custom settings of Cassandra cluster"
 }
 
 variable "cassy" {
-  type        = map(any)
+  type        = map(string)
   default     = {}
   description = "The custom settings of Cassy resources"
 }
 
 variable "reaper" {
-  type        = map(any)
+  type        = map(string)
   default     = {}
   description = "The custom settings of Reaper resources"
 }

@@ -26,7 +26,7 @@ variable "internal_domain" {
 
 # Optional Variable
 variable "network" {
-  type        = map(any)
+  type        = map(string)
   default     = {}
   description = "Custom definition for network and bastion"
 }

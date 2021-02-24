@@ -1,10 +1,10 @@
 variable "network" {
-  type        = map(any)
+  type        = map(string)
   description = "The network settings of CA resource"
 }
 
 variable "ca" {
-  type        = map(any)
+  type        = map(string)
   default     = {}
   description = "The custom settings of CA resource"
 }

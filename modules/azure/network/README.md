@@ -22,15 +22,15 @@ The Network module creates a virtual network with subnets.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| internal_domain | An internal DNS domain name to use for mapping IP addresses | `any` | n/a | yes |
-| name | A short name to attach to resources | `any` | n/a | yes |
-| private_key_path | The path to a private key file ~/.ssh/key.pem | `any` | n/a | yes |
-| public_key_path | The path to a public key file ~/.ssh/key.pub | `any` | n/a | yes |
-| region | The Azure region to deploy environment | `any` | n/a | yes |
+| internal_domain | An internal DNS domain name to use for mapping IP addresses | `string` | n/a | yes |
+| name | A short name to attach to resources | `string` | n/a | yes |
+| private_key_path | The path to a private key file ~/.ssh/key.pem | `string` | n/a | yes |
+| public_key_path | The path to a public key file ~/.ssh/key.pub | `string` | n/a | yes |
+| region | The Azure region to deploy environment | `string` | n/a | yes |
 | additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `string` | `""` | no |
 | base | The base of network | `string` | `"default"` | no |
-| locations | The Azure availability zones to deploy environment | `list` | `[]` | no |
-| network | Custom definition for network and bastion | `map` | `{}` | no |
+| locations | The Azure availability zones to deploy environment | `list(string)` | `[]` | no |
+| network | Custom definition for network and bastion | `map(string)` | `{}` | no |
 | use_cosmosdb | Whether to use Cosmos DB. If true, a service endpoint for Cosmos DB is enabled. | `bool` | `false` | no |
 
 ## Outputs

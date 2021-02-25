@@ -22,8 +22,8 @@ The CA module deploys a CA resource used to sign keys for Scalar DL.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| network | The network settings of CA resource | `map` | n/a | yes |
-| ca | The custom settings of CA resource | `map` | `{}` | no |
+| network | The network settings of CA resource | `map(string)` | n/a | yes |
+| ca | The custom settings of CA resource | `map(string)` | `{}` | no |
 
 ## Outputs
 

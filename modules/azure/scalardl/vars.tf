@@ -1,4 +1,5 @@
 variable "base" {
+  type        = string
   default     = "default"
   description = "The base of a scalardl cluster"
 }

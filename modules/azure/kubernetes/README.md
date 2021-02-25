@@ -24,11 +24,11 @@ The Azure Kubernetes Module creates a subnet for k8s, service principal, set per
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| custom_tags | The map of custom tags | `map` | `{}` | no |
-| kubernetes_cluster | Custom definition kubernetes properties that include name of the cluster, kubernetes version, etc.. | `map` | `{}` | no |
-| kubernetes_default_node_pool | Custom definition kubernetes default node pool that include number of node, node size, autoscaling, etc.. | `map` | `{}` | no |
-| kubernetes_scalar_apps_pool | Custom definition kubernetes scalar apps node pool, same as default_node_pool | `map` | `{}` | no |
-| network | Custom definition for network and bastion | `map` | `{}` | no |
+| custom_tags | The map of custom tags | `map(string)` | `{}` | no |
+| kubernetes_cluster | Custom definition kubernetes properties that include name of the cluster, kubernetes version, etc.. | `map(string)` | `{}` | no |
+| kubernetes_default_node_pool | Custom definition kubernetes default node pool that include number of node, node size, autoscaling, etc.. | `map(string)` | `{}` | no |
+| kubernetes_scalar_apps_pool | Custom definition kubernetes scalar apps node pool, same as default_node_pool | `map(string)` | `{}` | no |
+| network | Custom definition for network and bastion | `map(string)` | `{}` | no |
 | use_cosmosdb | Whether to use Cosmos DB. If true, a service endpoint for Cosmos DB is enabled. | `bool` | `false` | no |
 
 ### kubernetes_cluster_properties map

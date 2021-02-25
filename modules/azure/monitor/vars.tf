@@ -1,4 +1,5 @@
 variable "base" {
+  type        = string
   default     = "default"
   description = "The base of monitor resources"
 }
@@ -33,6 +34,7 @@ variable "targets" {
 }
 
 variable "slack_webhook_url" {
+  type        = string
   default     = ""
   description = "The Webhook URL of Slack for alerting"
 }

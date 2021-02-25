@@ -49,6 +49,7 @@ variable "helm_repo_url" {
 }
 
 variable "k8s_service_account_name" {
+  type        = string
   default     = "cluster-autoscaler"
   description = "The k8s cluster-autoscaler service account name"
 }

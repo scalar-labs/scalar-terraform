@@ -22,11 +22,11 @@ The Network module creates a virtual network with subnets.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| internal_domain | An internal DNS domain name to use for mapping IP addresses | `any` | n/a | yes |
+| internal_domain | An internal DNS domain name to use for mapping IP addresses | `string` | n/a | yes |
 | locations | The AWS availability zones to deploy environment `ap-northeast-1a` | `list(string)` | n/a | yes |
 | name | A short name to attach to resources | `any` | n/a | yes |
-| private_key_path | The path to a private key file ~/.ssh/key.pem | `any` | n/a | yes |
-| public_key_path | The path to a public key file ~/.ssh/key.pub | `any` | n/a | yes |
+| private_key_path | The path to a private key file ~/.ssh/key.pem | `string` | n/a | yes |
+| public_key_path | The path to a public key file ~/.ssh/key.pub | `string` | n/a | yes |
 | additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `string` | `""` | no |
 | base | The base of network | `string` | `"default"` | no |
 | custom_tags | The map of custom tags | `map(string)` | `{}` | no |

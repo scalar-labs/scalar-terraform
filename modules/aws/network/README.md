@@ -3,6 +3,21 @@
 The Network module creates a virtual network with subnets.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | ~> 0.14.7 |
+| aws | ~> 2.70 |
+| null | ~> 3.1 |
+| random | ~> 3.1 |
+| template | ~> 2.2 |
+
+## Providers
+
+| Name | Version |
+| aws | ~> 2.70 |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -14,8 +29,8 @@ The Network module creates a virtual network with subnets.
 | public_key_path | The path to a public key file ~/.ssh/key.pub | `any` | n/a | yes |
 | additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `string` | `""` | no |
 | base | The base of network | `string` | `"default"` | no |
-| custom_tags | The map of custom tags | `map` | `{}` | no |
-| network | Custom definition for network and bastion | `map` | `{}` | no |
+| custom_tags | The map of custom tags | `map(string)` | `{}` | no |
+| network | Custom definition for network and bastion | `map(string)` | `{}` | no |
 
 ## Outputs
 

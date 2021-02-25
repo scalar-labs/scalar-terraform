@@ -3,7 +3,7 @@
 ## Manage bastion role for an EKS cluster
 
 To grant bastion role the ability to interact with your cluster, you must edit the aws-auth ConfigMap within Kubernetes.
-By default, `scalar-terraform` will automatically create when `public_cluster_enabled` is set true (true by default).
+By default, `scalar-terraform` will automatically create the aws-auth ConfigMap when `public_cluster_enabled` is set true (true by default).
 
 If you want to add permissions manually, see [Managing users or IAM roles for your cluster](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html).
 

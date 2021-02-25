@@ -12,8 +12,20 @@ locals {
 }
 
 locals {
+  network_base = {
+    default = local.network_default
+
+    bai = merge(local.network_default, {})
+
+    chiku = merge(local.network_default, {})
+
+    sho = merge(local.network_default, {})
+  }
+}
+
+locals {
   network = merge(
-    local.network_default,
+    local.network_base[var.base],
     var.network
   )
 }

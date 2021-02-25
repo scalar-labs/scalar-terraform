@@ -10,7 +10,7 @@ ssh-add ~/.ssh/mykey.pem
 * One of the terraform outputs is an ssh config file.
 
 ```console
-terraform output ssh_config > ssh.cfg
+terraform output -raw ssh_config > ssh.cfg
 
 ssh -F ssh.cfg resource-name-[1-3].internal.scalar-labs.com
 ```

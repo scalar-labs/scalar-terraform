@@ -15,7 +15,7 @@ ssh-add ~/.ssh/mykey.pem
 To access the monitoring apps such as Grafana, you need to create an SSH tunnel to the bastion host.
 
 ```console
-terraform output ssh_config > ssh.cfg
+terraform output -raw ssh_config > ssh.cfg
 ssh -F ssh.cfg bastion
 ```
 

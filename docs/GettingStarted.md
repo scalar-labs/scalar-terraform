@@ -5,7 +5,7 @@ This guide will cover how to use the Scalar DL Orchestration tools to build an e
 
 ### Terraform
 * Terraform install instructions can be found here: https://www.terraform.io/downloads.html
-* Please use Terraform 0.12.x
+* Please use Terraform 0.14.x
 
 #### OSX
 * brew
@@ -15,14 +15,14 @@ brew install terraform
 * [tfenv](https://github.com/tfutils/tfenv)
 ```console
 brew install tfenv
-tfenv install 0.12.x
+tfenv install 0.14.x
 ```
 NOTE: Please replace `x` with the version you would like to use.
 
 #### Linux
 ```console
-wget https://releases.hashicorp.com/terraform/0.12.8/terraform_0.12.8_linux_amd64.zip
-unzip terraform_0.12.8_linux_amd64.zip
+wget https://releases.hashicorp.com/terraform/0.14.7/terraform_0.14.7_linux_amd64.zip
+unzip terraform_0.14.7_linux_amd64.zip
 sudo cp terraform /usr/local/bin/
 ```
 

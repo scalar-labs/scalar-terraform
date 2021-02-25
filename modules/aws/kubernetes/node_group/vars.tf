@@ -10,7 +10,7 @@ variable "tags" {
 
 variable "node_group" {
   description = "A map of `eks_node_group` to create."
-  type        = map(any)
+  type        = any
   default     = {}
 }
 

@@ -10,7 +10,7 @@
 | create_enable | Flag for create node group resources. | `bool` | `false` | no |
 | kubernetes_labels | List of kubernetes labels | `map(string)` | `{}` | no |
 | ng_depends_on | List of references to other resources this submodule depends on | `any` | `null` | no |
-| node_group | A map of `eks_node_group` to create. | `map(any)` | `{}` | no |
+| node_group | A map of `eks_node_group` to create. | `any` | `{}` | no |
 
 ## Outputs
 

@@ -1,0 +1,19 @@
+{{$vars := index .Vars .Env.host}}
+
+command:
+  cpu:
+    exit-status: 0
+    exec: "grep 'processor' /proc/cpuinfo | wc -l"
+    stdout:
+      - {{$vars.cpu_cores}}
+    stderr: []
+    timeout: 10000
+    skip: false
+  mem:
+    exit-status: 0
+    exec: "free -h | awk '/Mem\\:/ { print $2 }'"
+    stdout:
+      - {{$vars.mem}}
+    stderr: []
+    timeout: 10000
+    skip: false

@@ -1,0 +1,37 @@
+---
+- name: Copy goss.yaml file
+  copy:
+    src: goss.yaml
+    dest: "{{ goss_path }}/goss.yaml"
+    mode: 0644
+
+- name: Copy Goss validate common files
+  copy:
+    src: "{{ goss_validates_path }}/{{ item }}.yaml"
+    dest: "{{ goss_path }}/goss_{{ item }}.yaml"
+    mode: 0644
+  loop:
+    - "common"
+
+- name: Check Goss validate {{ host }} file
+  stat:
+    path: "{{ goss_validates_path }}/{{ host }}.yaml"
+  register: result_file
+
+- name: Copy Goss validate {{ host }} files
+  copy:
+    src: "{{ goss_validates_path }}/{{ host }}.yaml"
+    dest: "{{ goss_path }}/goss_{{ host }}.yaml"
+    mode: 0644
+  when: result_file.stat.exists
+
+- name: Copy Goss vars file
+  copy:
+    src: "{{ goss_vars_yaml }}"
+    dest: "{{ goss_path }}/vars.yaml"
+    mode: 0644
+
+- name: Execute Goss test
+  shell:
+    cmd: "host={{ host }} /usr/local/bin/goss --vars vars.yaml validate"
+    chdir: "{{ goss_path }}"

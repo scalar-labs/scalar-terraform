@@ -1,4 +1,4 @@
-# Sidenotes on How to create a Kubernetes cluster in Amazon EKS with scalar-terraform
+# Sidenotes on how to create a Kubernetes cluster in Amazon EKS with scalar-terraform
 
 ## Manage bastion role for an EKS cluster
 
@@ -28,21 +28,21 @@ To disable public access for your cluster's Kubernetes API server endpoint, plea
 
 - Edit [example.tfvars](https://github.com/scalar-labs/scalar-terraform-examples/blob/main/aws/kubernetes/example.tfvars)
 
-```terraform
-region = "ap-northeast-1"
+    ```terraform
+    region = "ap-northeast-1"
 
-kubernetes_cluster = {
-  public_cluster_enabled = "false"
-}
-```
+    kubernetes_cluster = {
+      public_cluster_enabled = "false"
+    }
+    ```
 
 - Terraform apply
 
-```console
-cd aws/kubernetes
-terraform init
-terraform apply -var-file example.tfvars
-```
+    ```console
+    cd aws/kubernetes
+    terraform init
+    terraform apply -var-file example.tfvars
+    ```
 
 ## Update EKS cluster endpoint access from `Private` to `Public and private`
 

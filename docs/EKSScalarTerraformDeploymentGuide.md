@@ -54,7 +54,7 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
-Note that the current version uses [the `network` module](./modules/aws/network). It uses the master branch, but it would probably need to be changed if you deploy it in your production environment.
+Note that the current version uses [the `network` module](../modules/aws/network). It uses the master branch, but it would probably need to be changed if you deploy it in your production environment.
 
 ### Create SSH config file
 
@@ -72,7 +72,7 @@ By default, `scalar-terraform` creates an EKS cluster with `public and private` 
 
 It is recommended to deploy without changing `public_cluster_enabled` and later deploy with `public_cluster_enabled = false` to make it not publically available for security reasons since some configurations like `cluster_auto_scaling` (false by default) requires the cluster to be public to work properly.
 
-Please see [Amazon EKS Guide](./EKSGuide.md) for more detail.
+Please see [the sidenote](./EKSDeploymentSidenote.md) for more detail.
 
 ```console
 $ cd ${SCALAR_TERRAFORM_EXAMPLES}/aws/kubernetes
@@ -82,7 +82,7 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
-For more information about the variables in `example.tfvars`, please refer to [`kubernetes` module](./modules/aws/kubernetes).
+For more information about the variables in `example.tfvars`, please refer to [`kubernetes` module](../modules/aws/kubernetes).
 
 ## Create database resources
 
@@ -98,7 +98,7 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
-Note that the current version uses [the `cassandra` module](./modules/aws/cassandra). It uses the master branch, but it would probably need to be changed if you deploy it in your production environment.
+Note that the current version uses [the `cassandra` module](../modules/aws/cassandra). It uses the master branch, but it would probably need to be changed if you deploy it in your production environment.
 
 By default, Cassandra nodes don't start up after the deployment. Once you update the configuration of each node, you need to start up the Cassandra service manually.
 
@@ -128,7 +128,7 @@ $ terraform init
 $ terraform apply -var-file example.tfvars
 ```
 
-Note that the current version uses [the monitor module](./modules/aws/monitor). It uses the master branch, but it would probably need to be changed if you deploy it in your production environment.
+Note that the current version uses [the monitor module](../modules/aws/monitor). It uses the master branch, but it would probably need to be changed if you deploy it in your production environment.
 
 ## How to access scalar-terraform network
 

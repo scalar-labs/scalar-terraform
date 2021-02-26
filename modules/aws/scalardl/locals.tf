@@ -51,9 +51,7 @@ locals {
 
     bai = merge(local.scalardl_default, {})
 
-    chiku = merge(local.scalardl_default,
-      { resource_type = "t3.large" }
-    )
+    chiku = merge(local.scalardl_default, {})
 
     sho = merge(local.scalardl_default,
       { resource_type = "t3.large" }

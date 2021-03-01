@@ -4,7 +4,7 @@ This document shows how to create a Kubernetes cluster in Azure Kubernetes Servi
 
 ## Prerequisites
 
-* Terraform >= 0.12.x
+* Terraform ~> 0.14.7
 * Ansible >= 2.9
 * Azure CLI configured with `az login`
 * ssh-agent
@@ -62,7 +62,7 @@ Note that the current version uses [the `network` module](https://github.com/sca
 Once the `terraform apply` is finished, the network module can output the SSH config file.
 
 ```console
-terraform output ssh_config > ssh.cfg
+terraform output -raw ssh_config > ssh.cfg
 ```
 
 It is needed to connect to the various hosts created with scalar-terraform in the following steps.
@@ -159,7 +159,7 @@ Save the SSH config to a file named `ssh.cfg` in the `network` module. The confi
 
 ```console
 cd ${SCALAR_TERRAFORM_EXAMPLES}/azure/network
-terraform output ssh_config > ssh.cfg
+terraform output -raw ssh_config > ssh.cfg
 ```
 
 ### How to SSH to instances

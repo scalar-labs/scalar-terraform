@@ -87,7 +87,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   dns_prefix              = local.kubernetes_cluster.dns_prefix
   kubernetes_version      = local.kubernetes_cluster.kubernetes_version
   node_resource_group     = "${local.kubernetes_cluster.resource_group_name}_MC"
-  private_cluster_enabled = ! local.kubernetes_cluster.public_cluster_enabled
+  private_cluster_enabled = !local.kubernetes_cluster.public_cluster_enabled
 
   linux_profile {
     admin_username = local.kubernetes_cluster.admin_username

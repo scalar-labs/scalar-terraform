@@ -125,7 +125,7 @@ resource "azurerm_private_dns_srv_record" "node_exporter_blue_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.scalardl_blue_dns.*.name
 
     content {
@@ -145,7 +145,7 @@ resource "azurerm_private_dns_srv_record" "node_exporter_green_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.scalardl_green_dns.*.name
 
     content {
@@ -165,7 +165,7 @@ resource "azurerm_private_dns_srv_record" "cadvisor_blue_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.scalardl_blue_dns.*.name
 
     content {
@@ -185,7 +185,7 @@ resource "azurerm_private_dns_srv_record" "cadvisor_green_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.scalardl_green_dns.*.name
 
     content {
@@ -205,7 +205,7 @@ resource "azurerm_private_dns_srv_record" "fluentd_prometheus_blue_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.scalardl_blue_dns.*.name
 
     content {
@@ -225,7 +225,7 @@ resource "azurerm_private_dns_srv_record" "fluentd_prometheus_green_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.scalardl_green_dns.*.name
 
     content {
@@ -245,7 +245,7 @@ resource "azurerm_private_dns_srv_record" "scalardl_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = concat(azurerm_private_dns_a_record.scalardl_blue_dns.*.name, azurerm_private_dns_a_record.scalardl_green_dns.*.name)
 
     content {

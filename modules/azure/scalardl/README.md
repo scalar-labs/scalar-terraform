@@ -1,22 +1,32 @@
 # Scalar DL Azure Module
 The Scalar DL module deploys a scalardl resource cluster using blue/green deployment.
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | ~> 0.14.7 |
+| azurerm | =1.38.0 |
+| null | ~> 3.0 |
+| random | ~> 2.3 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
 | azurerm | =1.38.0 |
+| null | ~> 3.0 |
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| cassandra | The provisioning settings of a cassandra cluster | `map` | n/a | yes |
-| network | The network settings of a scalardl cluster | `map` | n/a | yes |
+| cassandra | The provisioning settings of a cassandra cluster | `map(string)` | n/a | yes |
+| network | The network settings of a scalardl cluster | `map(string)` | n/a | yes |
 | base | The base of a scalardl cluster | `string` | `"default"` | no |
-| envoy | The custom settings of an envoy cluster | `map` | `{}` | no |
-| scalardl | The custom settings of a scalardl cluster | `map` | `{}` | no |
+| envoy | The custom settings of an envoy cluster | `map(string)` | `{}` | no |
+| scalardl | The custom settings of a scalardl cluster | `map(string)` | `{}` | no |
 
 ## Outputs
 

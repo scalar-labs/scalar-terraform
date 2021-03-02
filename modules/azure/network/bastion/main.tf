@@ -1,5 +1,5 @@
 module "bastion_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=af49eab"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=2d31780"
 
   nb_instances                  = var.resource_count
   admin_username                = var.user_name
@@ -50,7 +50,7 @@ resource "azurerm_private_dns_srv_record" "bastion_dns_srv" {
   resource_group_name = var.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.bastion_dns_a.*.name
 
     content {
@@ -70,7 +70,7 @@ resource "azurerm_private_dns_srv_record" "bastion_fluentd_prometheus_dns_srv" {
   resource_group_name = var.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.bastion_dns_a.*.name
 
     content {

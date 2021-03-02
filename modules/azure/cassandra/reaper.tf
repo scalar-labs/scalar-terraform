@@ -1,5 +1,5 @@
 module "reaper_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=af49eab"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=2d31780"
 
   nb_instances                  = local.reaper.resource_count
   admin_username                = local.user_name
@@ -52,7 +52,7 @@ resource "azurerm_private_dns_srv_record" "reaper_exporter_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.reaper_dns.*.name
 
     content {
@@ -72,7 +72,7 @@ resource "azurerm_private_dns_srv_record" "reaper_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.reaper_dns.*.name
 
     content {
@@ -92,7 +92,7 @@ resource "azurerm_private_dns_srv_record" "reaper_cadvisor_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.reaper_dns.*.name
 
     content {
@@ -112,7 +112,7 @@ resource "azurerm_private_dns_srv_record" "reaper_fluentd_prometheus_dns_srv" {
   resource_group_name = local.network_name
   ttl                 = 300
 
-  dynamic record {
+  dynamic "record" {
     for_each = azurerm_private_dns_a_record.reaper_dns.*.name
 
     content {

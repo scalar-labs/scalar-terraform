@@ -4,7 +4,7 @@ module "name_generator" {
 }
 
 module "vpc" {
-  source = "github.com/scalar-labs/terraform-aws-vpc?ref=32c0802"
+  source = "github.com/scalar-labs/terraform-aws-vpc?ref=e039430"
 
   cidr = local.network.cidr
   azs  = local.locations

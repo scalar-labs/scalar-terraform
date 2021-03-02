@@ -2,16 +2,32 @@
 The Cassandra AWS module deploys a Cassandra cluster tuned for a Scalar DL environment.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12 |
+| aws | ~> 2.70 |
+| null | ~> 3.1 |
+| tls | ~> 3.1 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | ~> 2.70 |
+| null | ~> 3.1 |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| network | The network settings of Cassandra cluster | `map` | n/a | yes |
+| network | The network settings of Cassandra cluster | `map(string)` | n/a | yes |
 | base | The base of Cassandra cluster | `string` | `"default"` | no |
-| cassandra | The custom settings of Cassandra cluster | `map` | `{}` | no |
-| cassy | The custom settings of Cassy resources | `map` | `{}` | no |
+| cassandra | The custom settings of Cassandra cluster | `map(string)` | `{}` | no |
+| cassy | The custom settings of Cassy resources | `map(string)` | `{}` | no |
 | custom_tags | The map of custom tags | `map(string)` | `{}` | no |
-| reaper | The custom settings of Reaper resources | `map` | `{}` | no |
+| reaper | The custom settings of Reaper resources | `map(string)` | `{}` | no |
 
 ## Outputs
 

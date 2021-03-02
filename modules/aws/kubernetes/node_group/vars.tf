@@ -1,11 +1,11 @@
 variable "cluster_name" {
-  description = "Name of parent cluster"
   type        = string
+  description = "Name of parent cluster"
 }
 
 variable "tags" {
-  description = "A map of tags to add to all resources"
   type        = map(string)
+  description = "A map of tags to add to all resources"
 }
 
 variable "node_group" {
@@ -15,19 +15,19 @@ variable "node_group" {
 }
 
 variable "ng_depends_on" {
-  description = "List of references to other resources this submodule depends on"
   type        = any
+  description = "List of references to other resources this submodule depends on"
   default     = null
 }
 
 variable "kubernetes_labels" {
-  description = "List of kubernetes labels"
   type        = map(string)
   default     = {}
+  description = "List of kubernetes labels"
 }
 
 variable "create_enable" {
-  description = "Flag for create node group resources."
   type        = bool
   default     = false
+  description = "Flag for create node group resources."
 }

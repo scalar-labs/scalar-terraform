@@ -2,16 +2,31 @@
 The Scalar DL module deploys a scalardl resource cluster using blue/green deployment.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | ~> 0.14.7 |
+| aws | ~> 2.70 |
+| null | ~> 3.1 |
+| template | ~> 2.2 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | ~> 2.70 |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| cassandra | The provisioning settings of a cassandra cluster | `map` | n/a | yes |
-| network | The network settings of a scalardl cluster | `map` | n/a | yes |
+| cassandra | The provisioning settings of a cassandra cluster | `map(string)` | n/a | yes |
+| network | The network settings of a scalardl cluster | `map(string)` | n/a | yes |
 | base | The base of a scalardl cluster | `string` | `"default"` | no |
 | custom_tags | The map of custom tags | `map(string)` | `{}` | no |
-| envoy | The custom settings of an envoy cluster | `map` | `{}` | no |
-| scalardl | The custom settings of a scalardl cluster | `map` | `{}` | no |
+| envoy | The custom settings of an envoy cluster | `map(string)` | `{}` | no |
+| scalardl | The custom settings of a scalardl cluster | `map(string)` | `{}` | no |
 
 ## Outputs
 

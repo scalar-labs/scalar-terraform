@@ -46,4 +46,4 @@ To disable public access for your cluster's Kubernetes API server endpoint, plea
 
 ## Update EKS cluster endpoint access from `Private` to `Public and private`
 
-Since `scalar-terraform` does not support the flow yet, please change it from the AWS console, AWS CLI, see [Modifying cluster endpoint access](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html#modify-endpoint-access).
+Since `scalar-terraform` does not support the flow yet, please change it with the AWS console or the AWS CLI. Please see [Modifying cluster endpoint access](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html#modify-endpoint-access) for more detail.

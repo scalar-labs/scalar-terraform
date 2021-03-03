@@ -67,3 +67,19 @@ locals {
   enable_log_archive_storage = local.log_archive_storage_bucket != ""
   log_archive_storage_info   = local.enable_log_archive_storage ? "aws_s3:${local.log_archive_storage_bucket}:${local.region}" : ""
 }
+
+locals {
+  inventory = <<EOF
+[monitor]
+%{for f in aws_route53_record.monitor_host_dns.*.fqdn~}
+${f}
+%{endfor}
+
+[monitor:vars]
+host=monitor
+
+[all:vars]
+base=${var.base}
+cloud_provider=aws
+EOF
+}

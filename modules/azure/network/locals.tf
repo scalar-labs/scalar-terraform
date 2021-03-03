@@ -58,3 +58,32 @@ locals {
 
   locations = compact(var.locations)
 }
+
+locals {
+  ssh_config = <<EOF
+Host *
+User ${local.network.user_name}
+UserKnownHostsFile /dev/null
+StrictHostKeyChecking no
+
+Host bastion
+HostName ${module.bastion.bastion_host_ips[0]}
+LocalForward 8000 monitor.${var.internal_domain}:80
+
+Host *.${var.internal_domain}
+ProxyCommand ssh -F ssh.cfg bastion -W %h:%p
+EOF
+
+  inventory = <<EOF
+[bastion]
+%{for f in module.bastion.bastion_host_ips~}
+${f}
+%{endfor}
+
+[bastion:vars]
+host=bastion
+
+[all:vars]
+cloud_provider=azure
+EOF
+}

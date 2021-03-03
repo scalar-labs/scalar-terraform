@@ -26,3 +26,18 @@ locals {
 
   ca = merge(local.ca_default, var.ca)
 }
+
+locals {
+  inventory = <<EOF
+[ca]
+%{for f in aws_route53_record.ca_dns.*.fqdn~}
+${f}
+%{endfor}
+
+[ca:vars]
+host=ca
+
+[all:vars]
+cloud_provider=aws
+EOF
+}

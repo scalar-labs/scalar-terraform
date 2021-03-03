@@ -1,4 +1,4 @@
-esource "local_file" "ssh_config" {
+resource "local_file" "ssh_config" {
   content              = local.ssh_config
   filename             = "ssh.cfg"
   file_permission      = "0644"

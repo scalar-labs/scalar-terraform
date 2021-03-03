@@ -81,7 +81,7 @@ locals {
 locals {
   policy_arn_prefix = "arn:${data.aws_partition.current.partition}:iam::aws:policy"
 
-  kubeconfig_name = "${local.network_name}_kubeconfig"
+  kubeconfig_name = "kube_config"
 
   kubeconfig = templatefile("${path.module}/templates/kubeconfig.tpl",
     {

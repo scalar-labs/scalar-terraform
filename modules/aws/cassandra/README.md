@@ -8,6 +8,7 @@ The Cassandra AWS module deploys a Cassandra cluster tuned for a Scalar DL envir
 |------|---------|
 | terraform | >= 0.12 |
 | aws | ~> 2.70 |
+| local | ~> 2.1 |
 | null | ~> 3.1 |
 | tls | ~> 3.1 |
 
@@ -16,6 +17,7 @@ The Cassandra AWS module deploys a Cassandra cluster tuned for a Scalar DL envir
 | Name | Version |
 |------|---------|
 | aws | ~> 2.70 |
+| local | ~> 2.1 |
 | null | ~> 3.1 |
 
 ## Inputs

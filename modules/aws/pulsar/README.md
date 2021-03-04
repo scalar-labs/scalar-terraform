@@ -8,6 +8,7 @@ The Pulsar module deploys a zookeeper, bookkeeper, broker resource cluster.
 |------|---------|
 | terraform | ~> 0.14.7 |
 | aws | ~> 2.70 |
+| local | ~> 2.1 |
 | template | ~> 2.2 |
 
 ## Providers
@@ -15,6 +16,7 @@ The Pulsar module deploys a zookeeper, bookkeeper, broker resource cluster.
 | Name | Version |
 |------|---------|
 | aws | ~> 2.70 |
+| local | ~> 2.1 |
 
 ## Inputs
 

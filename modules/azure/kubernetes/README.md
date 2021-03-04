@@ -10,6 +10,7 @@ The Azure Kubernetes Module creates a subnet for k8s, service principal, set per
 | terraform | ~> 0.14.7 |
 | azuread | ~> 1.4 |
 | azurerm | ~> 2.48 |
+| local | ~> 2.1 |
 | random | ~> 2.3 |
 
 ## Providers
@@ -18,6 +19,7 @@ The Azure Kubernetes Module creates a subnet for k8s, service principal, set per
 |------|---------|
 | azuread | ~> 1.4 |
 | azurerm | ~> 2.48 |
+| local | ~> 2.1 |
 | random | ~> 2.3 |
 
 ## Inputs

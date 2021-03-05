@@ -114,12 +114,6 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     enabled = local.kubernetes_cluster.role_based_access_control
   }
 
-  addon_profile {
-    kube_dashboard {
-      enabled = local.kubernetes_cluster.kube_dashboard
-    }
-  }
-
   service_principal {
     client_id     = azuread_service_principal.sp.application_id
     client_secret = azuread_service_principal_password.sp_password.value

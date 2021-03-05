@@ -31,7 +31,7 @@ locals {
     admin_username            = "azureuser"
     public_ssh_key_path       = var.network.public_key_path
     role_based_access_control = true
-    kube_dashboard            = false
+    kube_dashboard            = false # Dashboard add-on is deprecated for versions 1.19+
     public_cluster_enabled    = false
     network_plugin            = "azure"
     load_balancer_sku         = "Standard"

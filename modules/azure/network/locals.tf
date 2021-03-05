@@ -85,6 +85,7 @@ host=bastion
 
 [all:vars]
 internal_domain=${local.network.internal_domain}
+base=${var.base}
 cloud_provider=azure
 ansible_user=${local.network.user_name}
 ansible_python_interpreter=/usr/bin/python3

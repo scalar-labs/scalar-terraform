@@ -45,3 +45,36 @@ locals {
     kubernetes     = cidrsubnets(cidrsubnet(local.network.cidr, 6, 10), 2, 2, 2)
   }
 }
+
+locals {
+  ssh_config = <<EOF
+Host *
+User ${local.network.user_name}
+UserKnownHostsFile /dev/null
+StrictHostKeyChecking no
+
+Host bastion
+HostName ${module.bastion.bastion_host_ips[0]}
+LocalForward 8000 monitor.${var.internal_domain}:80
+
+Host *.${var.internal_domain}
+ProxyCommand ssh -F ssh.cfg bastion -W %h:%p
+EOF
+
+  inventory = <<EOF
+[bastion]
+%{for f in module.bastion.bastion_host_ips~}
+${f}
+%{endfor}
+
+[bastion:vars]
+host=bastion
+
+[all:vars]
+internal_domain=${local.network.internal_domain}
+base=${var.base}
+cloud_provider=aws
+ansible_user=${local.network.user_name}
+ansible_python_interpreter=/usr/bin/python3
+EOF
+}

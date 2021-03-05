@@ -63,3 +63,19 @@ locals {
   enable_log_archive_storage = local.log_archive_storage.storage_account != null
   log_archive_storage_info   = local.enable_log_archive_storage ? "azure_blob:${local.log_archive_storage.storage_account}:${local.log_archive_storage.container_name}" : ""
 }
+
+locals {
+  inventory = <<EOF
+[monitor]
+%{for f in azurerm_private_dns_a_record.monitor_host_dns.*.name~}
+${f}.${local.internal_domain}
+%{endfor}
+
+[monitor:vars]
+host=monitor
+
+[all:vars]
+base=${var.base}
+cloud_provider=azure
+EOF
+}

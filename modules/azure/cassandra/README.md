@@ -8,6 +8,7 @@ The Cassandra Azure module deploys a Cassandra cluster tuned for a Scalar DL env
 |------|---------|
 | terraform | ~> 0.14.7 |
 | azurerm | =1.38.0 |
+| local | ~> 2.1 |
 | null | ~> 3.0 |
 | random | ~> 2.3 |
 | tls | ~> 3.1 |
@@ -17,6 +18,7 @@ The Cassandra Azure module deploys a Cassandra cluster tuned for a Scalar DL env
 | Name | Version |
 |------|---------|
 | azurerm | =1.38.0 |
+| local | ~> 2.1 |
 | null | ~> 3.0 |
 
 ## Inputs

@@ -8,6 +8,7 @@ The monitor Azure module deploys a Prometheus monitoring service along with an A
 |------|---------|
 | terraform | ~> 0.14.7 |
 | azurerm | =1.38.0 |
+| local | ~> 2.1 |
 | null | ~> 3.0 |
 | random | ~> 2.3 |
 
@@ -16,6 +17,7 @@ The monitor Azure module deploys a Prometheus monitoring service along with an A
 | Name | Version |
 |------|---------|
 | azurerm | =1.38.0 |
+| local | ~> 2.1 |
 | null | ~> 3.0 |
 
 ## Inputs

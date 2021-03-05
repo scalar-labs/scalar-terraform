@@ -49,29 +49,6 @@ output "envoy_listen_port" {
 }
 
 output "inventory_ini" {
-  value = <<EOF
-[scalardl]
-%{for f in aws_route53_record.scalardl_blue_dns.*.fqdn~}
-${f}
-%{endfor}
-%{~for f in aws_route53_record.scalardl_green_dns.*.fqdn~}
-${f}
-%{endfor}
-[envoy]
-%{for f in aws_route53_record.envoy_dns.*.fqdn~}
-${f}
-%{endfor}
-
-[scalardl:vars]
-host=scalardl
-
-[envoy:vars]
-host=envoy
-
-[all:vars]
-base=${var.base}
-cloud_provider=aws
-EOF
-
+  value       = local.inventory
   description = "The inventory file for Ansible."
 }

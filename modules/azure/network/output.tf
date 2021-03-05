@@ -75,36 +75,11 @@ output "internal_domain" {
 }
 
 output "ssh_config" {
-  value = <<EOF
-Host *
-User ${local.network.user_name}
-UserKnownHostsFile /dev/null
-StrictHostKeyChecking no
-
-Host bastion
-HostName ${module.bastion.bastion_host_ips[0]}
-LocalForward 8000 monitor.${var.internal_domain}:80
-
-Host *.${var.internal_domain}
-ProxyCommand ssh -F ssh.cfg bastion -W %h:%p
-EOF
-
+  value       = local.ssh_config
   description = "The configuration file for SSH access."
 }
 
 output "inventory_ini" {
-  value = <<EOF
-[bastion]
-%{for f in module.bastion.bastion_host_ips~}
-${f}
-%{endfor}
-
-[bastion:vars]
-host=bastion
-
-[all:vars]
-cloud_provider=azure
-EOF
-
+  value       = local.inventory
   description = "The inventory file for Ansible."
 }

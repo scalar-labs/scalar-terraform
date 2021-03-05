@@ -8,6 +8,7 @@ The CA module deploys a CA resource used to sign keys for Scalar DL.
 |------|---------|
 | terraform | ~> 0.14.7 |
 | azurerm | =1.38.0 |
+| local | ~> 2.1 |
 | null | ~> 3.0 |
 | random | ~> 2.3 |
 
@@ -16,6 +17,7 @@ The CA module deploys a CA resource used to sign keys for Scalar DL.
 | Name | Version |
 |------|---------|
 | azurerm | =1.38.0 |
+| local | ~> 2.1 |
 | null | ~> 3.0 |
 
 ## Inputs

@@ -8,6 +8,7 @@ The Scalar DL module deploys a scalardl resource cluster using blue/green deploy
 |------|---------|
 | terraform | ~> 0.14.7 |
 | aws | ~> 2.70 |
+| local | ~> 2.1 |
 | null | ~> 3.1 |
 | template | ~> 2.2 |
 
@@ -16,6 +17,7 @@ The Scalar DL module deploys a scalardl resource cluster using blue/green deploy
 | Name | Version |
 |------|---------|
 | aws | ~> 2.70 |
+| local | ~> 2.1 |
 
 ## Inputs
 

@@ -9,6 +9,7 @@ The Network module creates a virtual network with subnets.
 |------|---------|
 | terraform | ~> 0.14.7 |
 | azurerm | =1.38.0 |
+| local | ~> 2.1 |
 | null | ~> 3.0 |
 | random | ~> 2.3 |
 
@@ -17,6 +18,7 @@ The Network module creates a virtual network with subnets.
 | Name | Version |
 |------|---------|
 | azurerm | =1.38.0 |
+| local | ~> 2.1 |
 
 ## Inputs
 

@@ -118,3 +118,29 @@ locals {
     local.scalardl.database == "cassandra" && var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id
   ]
 }
+
+locals {
+  inventory = <<EOF
+[scalardl]
+%{for f in aws_route53_record.scalardl_blue_dns.*.fqdn~}
+${f}
+%{endfor}
+%{~for f in aws_route53_record.scalardl_green_dns.*.fqdn~}
+${f}
+%{endfor}
+[envoy]
+%{for f in aws_route53_record.envoy_dns.*.fqdn~}
+${f}
+%{endfor}
+
+[scalardl:vars]
+host=scalardl
+
+[envoy:vars]
+host=envoy
+
+[all:vars]
+base=${var.base}
+cloud_provider=aws
+EOF
+}

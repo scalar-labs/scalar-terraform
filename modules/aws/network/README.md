@@ -9,6 +9,7 @@ The Network module creates a virtual network with subnets.
 |------|---------|
 | terraform | ~> 0.14.7 |
 | aws | ~> 2.70 |
+| local | ~> 2.1 |
 | null | ~> 3.1 |
 | random | ~> 3.1 |
 | template | ~> 2.2 |
@@ -16,7 +17,9 @@ The Network module creates a virtual network with subnets.
 ## Providers
 
 | Name | Version |
+|------|---------|
 | aws | ~> 2.70 |
+| local | ~> 2.1 |
 
 ## Inputs
 

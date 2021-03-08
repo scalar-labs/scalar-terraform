@@ -10,7 +10,6 @@ resource "azurerm_resource_group" "resource_group" {
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  depends_on          = [azurerm_resource_group.resource_group]
   name                = module.name_generator.name
   location            = var.region
   address_space       = [local.network.cidr]

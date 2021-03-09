@@ -20,6 +20,12 @@ variable "scalardl" {
   description = "The custom settings of a scalardl cluster"
 }
 
+variable "auditor" {
+  type        = map(string)
+  default     = {}
+  description = "The custom settings of a scalar-auditor cluster"
+}
+
 variable "envoy" {
   type        = map(string)
   default     = {}

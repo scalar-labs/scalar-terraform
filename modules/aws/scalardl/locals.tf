@@ -41,6 +41,13 @@ locals {
     database_username            = "cassandra"
     database_password            = "cassandra"
     cassandra_replication_factor = 3
+
+    auditor_ledger_host            = ""
+    auditor_ledger_port            = 50051
+    auditor_ledger_privileged_port = 50052
+    auditor_cert_holder_id         = "scalar"
+    auditor_cert_pem               = ""
+    auditor_private_key_pem        = ""
   }
 }
 

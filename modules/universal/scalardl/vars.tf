@@ -77,3 +77,27 @@ variable "cassandra_replication_factor" {
   default     = 3
   description = "The replication factor for the Cassandra schema"
 }
+
+variable "auditor_ledger_host" {
+  description = "The host of the ledger (used only if deploying scalar-auditor)"
+}
+
+variable "auditor_ledger_port" {
+  description = "The port of the ledger (used only if deploying scalar-auditor)"
+}
+
+variable "auditor_ledger_privileged_port" {
+  description = "The privileged port of the ledger (used only if deploying scalar-auditor)"
+}
+
+variable "auditor_cert_holder_id" {
+  description = "The cert holder ID of Scalar Auditor (used only if deploying scalar-auditor)"
+}
+
+variable "auditor_cert_pem" {
+  description = "The cert of Scalar Auditor in PEM format (used only if deploying scalar-auditor)"
+}
+
+variable "auditor_private_key_pem" {
+  description = "The private key of Scalar Auditor in PEM format (used only if deploying scalar-auditor)"
+}

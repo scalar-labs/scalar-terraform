@@ -232,6 +232,13 @@ resource "null_resource" "scalardl_container" {
       "echo export SCALAR_DB_CONTACT_PORT=${var.database_contact_port} >> env",
       "echo export SCALAR_DB_USERNAME=${var.database_username} >> env",
       "echo export SCALAR_DB_PASSWORD=${var.database_password} >> env",
+      # SCALAR_DL_AUDITOR_* variables are used if we are running scalar-auditor
+      "echo export SCALAR_DL_AUDITOR_LEDGER_HOST=${var.auditor_ledger_host} >> env",
+      "echo export SCALAR_DL_AUDITOR_LEDGER_PORT=${var.auditor_ledger_port} >> env",
+      "echo export SCALAR_DL_AUDITOR_LEDGER_PRIVILEGED_PORT=${var.auditor_ledger_privileged_port} >> env",
+      "echo export SCALAR_DL_AUDITOR_CERT_HOLDER_ID=${var.auditor_cert_holder_id} >> env",
+      "echo export SCALAR_DL_AUDITOR_CERT_PEM=${var.auditor_cert_pem} >> env",
+      "echo export SCALAR_DL_AUDITOR_PRIVATE_KEY_PEM=${var.auditor_private_key_pem} >> env",
       "source ./env",
       "docker-compose up -d",
     ]

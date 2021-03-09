@@ -25,6 +25,7 @@ The Scalar DL module deploys a scalardl resource cluster using blue/green deploy
 |------|-------------|------|---------|:--------:|
 | cassandra | The provisioning settings of a cassandra cluster | `map(string)` | n/a | yes |
 | network | The network settings of a scalardl cluster | `map(string)` | n/a | yes |
+| auditor | The custom settings of a scalar-auditor cluster | `map(string)` | `{}` | no |
 | base | The base of a scalardl cluster | `string` | `"default"` | no |
 | custom_tags | The map of custom tags | `map(string)` | `{}` | no |
 | envoy | The custom settings of an envoy cluster | `map(string)` | `{}` | no |
@@ -42,7 +43,10 @@ The Scalar DL module deploys a scalardl resource cluster using blue/green deploy
 | green_scalardl_ips | A list of host IP addresess for green cluster. |
 | inventory_ini | The inventory file for Ansible. |
 | scalardl_blue_resource_count | The number of resources to create for blue cluster. |
+| scalardl_dns | The FQDN of Scalar DL |
 | scalardl_green_resource_count | The number of resources to create for green cluster. |
+| scalardl_port | The port of Scalar DL |
+| scalardl_privileged_port | The privileged port of Scalar DL |
 | scalardl_replication_factor | The replication factor for the schema of scalardl. |
 | scalardl_security_id | The security group ID of a scalardl cluster. |
 

@@ -25,14 +25,6 @@ module "scalardl_blue" {
   database_username            = local.scalardl.database_username
   database_password            = local.scalardl.database_password
   cassandra_replication_factor = local.scalardl.cassandra_replication_factor
-
-  auditor_ledger_host            = local.scalardl.auditor_ledger_host
-  auditor_ledger_port            = local.scalardl.auditor_ledger_port
-  auditor_ledger_privileged_port = local.scalardl.auditor_ledger_privileged_port
-  auditor_cert_holder_id         = local.scalardl.auditor_cert_holder_id
-  auditor_cert_pem               = local.scalardl.auditor_cert_pem
-  auditor_private_key_pem        = local.scalardl.auditor_private_key_pem
-
   custom_tags                  = var.custom_tags
 }
 

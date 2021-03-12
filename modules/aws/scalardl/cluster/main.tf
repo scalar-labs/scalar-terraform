@@ -62,11 +62,4 @@ module "scalardl_provision" {
   database_username            = var.database_username
   database_password            = var.database_password
   cassandra_replication_factor = var.cassandra_replication_factor
-
-  auditor_ledger_host            = var.auditor_ledger_host
-  auditor_ledger_port            = var.auditor_ledger_port
-  auditor_ledger_privileged_port = var.auditor_ledger_privileged_port
-  auditor_cert_holder_id         = var.auditor_cert_holder_id
-  auditor_cert_pem               = var.auditor_cert_pem
-  auditor_private_key_pem        = var.auditor_private_key_pem
 }

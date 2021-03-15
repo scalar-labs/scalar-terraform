@@ -32,8 +32,6 @@ locals {
     green_discoverable_by_envoy  = false
     target_port                  = 50051
     privileged_target_port       = 50052
-    listen_port                  = 50051
-    privileged_listen_port       = 50052
     enable_tdagent               = true
     database                     = "cassandra"
     database_contact_points      = "cassandra-lb.${local.internal_domain}"

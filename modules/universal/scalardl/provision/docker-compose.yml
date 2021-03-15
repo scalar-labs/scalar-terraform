@@ -3,10 +3,10 @@ version: '3.7'
 services:
   scalar:
     image: ${SCALAR_IMAGE}
+    ports:
+      - "${SCALAR_PORT}:${SCALAR_PORT}"
+      - "${SCALAR_PRIVILEGED_PORT}:${SCALAR_PRIVILEGED_PORT}"
+      - "50053:50053"
     env_file:
       - container.env
-    ports:
-      - 50051:50051 # TODO: SCALAR_PORT
-      - 50052:50052 # TODO: SCALAR_PRIVILEGED_PORT
-      - 50053:50053
     restart: always

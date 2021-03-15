@@ -18,6 +18,8 @@ module "scalardl_blue" {
   scalardl_image_name          = local.scalardl.blue_image_name
   scalardl_image_tag           = local.scalardl.blue_image_tag
   container_env_file           = local.scalardl.blue_container_env_file
+  scalardl_port                = local.scalardl.target_port
+  scalardl_privileged_port     = local.scalardl.privileged_target_port
   enable_tdagent               = local.scalardl.enable_tdagent
   internal_domain              = local.internal_domain
   cassandra_replication_factor = local.scalardl.cassandra_replication_factor
@@ -44,6 +46,8 @@ module "scalardl_green" {
   scalardl_image_name          = local.scalardl.green_image_name
   scalardl_image_tag           = local.scalardl.green_image_tag
   container_env_file           = local.scalardl.green_container_env_file
+  scalardl_port                = local.scalardl.target_port
+  scalardl_privileged_port     = local.scalardl.privileged_target_port
   enable_tdagent               = local.scalardl.enable_tdagent
   internal_domain              = local.internal_domain
   cassandra_replication_factor = local.scalardl.cassandra_replication_factor

@@ -80,6 +80,18 @@ variable "scalardl_image_tag" {
   description = "The docker image tag for Scalar DL"
 }
 
+variable "scalardl_port" {
+  type        = number
+  default     = 50051
+  description = "The port number the Scalar DL Docker container listens on"
+}
+
+variable "scalardl_privileged_port" {
+  type        = number
+  default     = 50052
+  description = "The privileged port number the Scalar DL Docker container listens on"
+}
+
 variable "container_env_file" {
   type        = string
   description = "The environment variables file for the docker container"

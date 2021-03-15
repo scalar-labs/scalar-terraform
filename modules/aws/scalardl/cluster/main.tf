@@ -55,6 +55,8 @@ module "scalardl_provision" {
 
   scalardl_image_name          = var.scalardl_image_name
   scalardl_image_tag           = var.scalardl_image_tag
+  scalardl_port                = var.scalardl_port
+  scalardl_privileged_port     = var.scalardl_privileged_port
   container_env_file           = var.container_env_file
   internal_domain              = var.internal_domain
   cassandra_replication_factor = var.cassandra_replication_factor

@@ -37,11 +37,6 @@ locals {
     listen_port                  = 50051
     privileged_listen_port       = 50052
     enable_tdagent               = true
-    database                     = "cassandra"
-    database_contact_points      = "cassandra-lb.${local.internal_domain}"
-    database_contact_port        = 9042
-    database_username            = "cassandra"
-    database_password            = "cassandra"
     cassandra_replication_factor = 3
   }
 }
@@ -117,7 +112,7 @@ locals {
 
 locals {
   triggers = [
-    local.scalardl.database == "cassandra" && var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id
+    length(var.cassandra.provision_ids) > 0 && var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id
   ]
 }
 

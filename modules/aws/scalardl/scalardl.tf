@@ -20,11 +20,6 @@ module "scalardl_blue" {
   container_env_file           = local.scalardl.blue_container_env_file
   enable_tdagent               = local.scalardl.enable_tdagent
   internal_domain              = local.internal_domain
-  database                     = local.scalardl.database
-  database_contact_points      = local.scalardl.database_contact_points
-  database_contact_port        = local.scalardl.database_contact_port
-  database_username            = local.scalardl.database_username
-  database_password            = local.scalardl.database_password
   cassandra_replication_factor = local.scalardl.cassandra_replication_factor
   custom_tags                  = var.custom_tags
 }
@@ -51,11 +46,6 @@ module "scalardl_green" {
   container_env_file           = local.scalardl.green_container_env_file
   enable_tdagent               = local.scalardl.enable_tdagent
   internal_domain              = local.internal_domain
-  database                     = local.scalardl.database
-  database_contact_points      = local.scalardl.database_contact_points
-  database_contact_port        = local.scalardl.database_contact_port
-  database_username            = local.scalardl.database_username
-  database_password            = local.scalardl.database_password
   cassandra_replication_factor = local.scalardl.cassandra_replication_factor
   custom_tags                  = var.custom_tags
 }

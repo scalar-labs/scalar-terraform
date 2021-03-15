@@ -99,6 +99,8 @@ resource "null_resource" "envoy_container" {
       "cd $HOME/provision",
       "export internal_domain=${var.internal_domain}",
       "export envoy_tls=${var.envoy_tls}",
+      "export port=${var.envoy_port}",
+      "export privileged_port=${var.envoy_privileged_port}",
       "j2 ./envoy.yaml.j2 > ./envoy.yaml",
       "echo export ENVOY_CERT_AUTO_GEN=${var.envoy_cert_auto_gen}",
       "echo export ENVOY_IMAGE=${var.envoy_image} > env",

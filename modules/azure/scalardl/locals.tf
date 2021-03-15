@@ -75,10 +75,8 @@ locals {
     resource_type                 = "Standard_B2s"
     resource_count                = 3
     resource_root_volume_size     = 64
-    target_port                   = local.scalardl.port
-    privileged_target_port        = local.scalardl.privileged_port
-    listen_port                   = 50051
-    privileged_listen_port        = 50052
+    port                          = local.scalardl.port
+    privileged_port               = local.scalardl.privileged_port
     subnet_id                     = var.network.private_subnet_id
     enable_nlb                    = true
     nlb_internal                  = true

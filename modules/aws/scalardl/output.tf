@@ -43,8 +43,8 @@ output "envoy_dns" {
   description = "A list of DNS URLs to access an envoy cluster."
 }
 
-output "envoy_listen_port" {
-  value       = local.envoy.listen_port
+output "envoy_port" {
+  value       = local.envoy.port
   description = "A listen port of an envoy cluster."
 }
 

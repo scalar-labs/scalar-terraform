@@ -55,8 +55,8 @@ module "envoy_provision" {
   envoy_cert_auto_gen   = local.envoy.cert_auto_gen
   envoy_tag             = local.envoy.tag
   envoy_image           = local.envoy.image
-  envoy_port            = local.envoy.target_port
-  envoy_privileged_port = local.envoy.privileged_target_port
+  envoy_port            = local.envoy.port
+  envoy_privileged_port = local.envoy.privileged_port
   enable_tdagent        = local.envoy.enable_tdagent
   custom_config_path    = local.envoy.custom_config_path
   internal_domain       = local.internal_domain
@@ -96,8 +96,8 @@ resource "aws_security_group_rule" "envoy_target_port" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
-  from_port   = local.envoy.target_port
-  to_port     = local.envoy.target_port
+  from_port   = local.envoy.port
+  to_port     = local.envoy.port
   protocol    = "tcp"
   cidr_blocks = [local.envoy.nlb_internal ? local.network_cidr : "0.0.0.0/0"]
   description = "Envoy Target Port"
@@ -109,8 +109,8 @@ resource "aws_security_group_rule" "envoy_privileged_target_port" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
   type        = "ingress"
-  from_port   = local.envoy.privileged_target_port
-  to_port     = local.envoy.privileged_target_port
+  from_port   = local.envoy.privileged_port
+  to_port     = local.envoy.privileged_port
   protocol    = "tcp"
   cidr_blocks = [local.envoy.nlb_internal ? local.network_cidr : "0.0.0.0/0"]
   description = "Envoy Privileged Target Port"
@@ -207,7 +207,7 @@ resource "aws_lb_target_group" "envoy_lb_target_group" {
   count = local.envoy.enable_nlb ? 1 : 0
 
   name     = "${local.network_name}-envoy-tg"
-  port     = local.envoy.target_port
+  port     = local.envoy.port
   protocol = "TCP"
   vpc_id   = local.network_id
 
@@ -223,7 +223,7 @@ resource "aws_lb_target_group" "envoy_lb_privileged_target_group" {
   count = local.envoy.enable_nlb ? 1 : 0
 
   name     = "${local.network_name}-envoy-pv-tg"
-  port     = local.envoy.privileged_target_port
+  port     = local.envoy.privileged_port
   protocol = "TCP"
   vpc_id   = local.network_id
 
@@ -239,7 +239,7 @@ resource "aws_lb_listener" "envoy_lb_listener" {
   count = local.envoy.enable_nlb ? 1 : 0
 
   load_balancer_arn = aws_lb.envoy_lb[0].arn
-  port              = local.envoy.listen_port
+  port              = local.envoy.port
   protocol          = "TCP"
 
   default_action {
@@ -252,7 +252,7 @@ resource "aws_lb_listener" "envoy_lb_privileged_listener" {
   count = local.envoy.enable_nlb ? 1 : 0
 
   load_balancer_arn = aws_lb.envoy_lb[0].arn
-  port              = local.envoy.privileged_listen_port
+  port              = local.envoy.privileged_port
   protocol          = "TCP"
 
   default_action {
@@ -266,7 +266,7 @@ resource "aws_lb_target_group_attachment" "envoy_target_group_attachments" {
 
   target_group_arn = aws_lb_target_group.envoy_lb_target_group[0].arn
   target_id        = module.envoy_cluster.id[count.index]
-  port             = local.envoy.target_port
+  port             = local.envoy.port
 
   lifecycle {
     ignore_changes = all
@@ -278,7 +278,7 @@ resource "aws_lb_target_group_attachment" "envoy_privileged_target_group_attachm
 
   target_group_arn = aws_lb_target_group.envoy_lb_privileged_target_group[0].arn
   target_id        = module.envoy_cluster.id[count.index]
-  port             = local.envoy.privileged_target_port
+  port             = local.envoy.privileged_port
 
   lifecycle {
     ignore_changes = all

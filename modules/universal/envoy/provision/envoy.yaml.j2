@@ -4,7 +4,7 @@ admin:
   address:
     socket_address: { address: 0.0.0.0, port_value: 9001 }
 
-{% set envoy_listeners = {'scalar-service': 50051, 'scalar-privileged': 50052} -%}
+{% set envoy_listeners = {'scalar-service': port, 'scalar-privileged': privileged_port} -%}
 static_resources:
   listeners:
   {%- for key, value in envoy_listeners.items() %}

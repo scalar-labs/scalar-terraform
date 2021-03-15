@@ -108,8 +108,8 @@ resource "azurerm_lb_rule" "envoy_lb_rule" {
   loadbalancer_id                = azurerm_lb.envoy_lb[count.index].id
   name                           = "EnvoyLBRule"
   protocol                       = "Tcp"
-  frontend_port                  = local.envoy.listen_port
-  backend_port                   = local.envoy.target_port
+  frontend_port                  = local.envoy.port
+  backend_port                   = local.envoy.port
   frontend_ip_configuration_name = "EnvoyLBAddress"
   backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool[count.index].id
   probe_id                       = azurerm_lb_probe.envoy_lb_probe[count.index].id
@@ -122,8 +122,8 @@ resource "azurerm_lb_rule" "envoy_lb_privileged_rule" {
   loadbalancer_id                = azurerm_lb.envoy_lb[count.index].id
   name                           = "EnvoyLBPrivilegedRule"
   protocol                       = "Tcp"
-  frontend_port                  = local.envoy.privileged_listen_port
-  backend_port                   = local.envoy.privileged_target_port
+  frontend_port                  = local.envoy.privileged_port
+  backend_port                   = local.envoy.privileged_port
   frontend_ip_configuration_name = "EnvoyLBAddress"
   backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool[count.index].id
   probe_id                       = azurerm_lb_probe.envoy_lb_privileged_probe[count.index].id

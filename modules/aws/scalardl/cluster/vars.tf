@@ -80,6 +80,11 @@ variable "scalardl_image_tag" {
   description = "The docker image tag for Scalar DL"
 }
 
+variable "container_env_file" {
+  type        = string
+  description = "The environment variables file for the docker container"
+}
+
 variable "enable_tdagent" {
   type        = bool
   default     = true

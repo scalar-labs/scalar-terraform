@@ -55,6 +55,7 @@ module "scalardl_provision" {
 
   scalardl_image_name          = var.scalardl_image_name
   scalardl_image_tag           = var.scalardl_image_tag
+  container_env_file           = var.container_env_file
   internal_domain              = var.internal_domain
   database                     = var.database
   database_contact_points      = var.database_contact_points

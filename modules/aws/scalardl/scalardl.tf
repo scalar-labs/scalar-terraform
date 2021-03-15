@@ -17,6 +17,7 @@ module "scalardl_blue" {
   network_dns                  = local.network_dns
   scalardl_image_name          = local.scalardl.blue_image_name
   scalardl_image_tag           = local.scalardl.blue_image_tag
+  container_env_file           = local.scalardl.blue_container_env_file
   enable_tdagent               = local.scalardl.enable_tdagent
   internal_domain              = local.internal_domain
   database                     = local.scalardl.database
@@ -47,6 +48,7 @@ module "scalardl_green" {
   network_dns                  = local.network_dns
   scalardl_image_name          = local.scalardl.green_image_name
   scalardl_image_tag           = local.scalardl.green_image_tag
+  container_env_file           = local.scalardl.green_container_env_file
   enable_tdagent               = local.scalardl.enable_tdagent
   internal_domain              = local.internal_domain
   database                     = local.scalardl.database

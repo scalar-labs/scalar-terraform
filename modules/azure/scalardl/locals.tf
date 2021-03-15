@@ -35,6 +35,8 @@ locals {
     green_subnet_id                     = var.network.green_subnet_id
     green_discoverable_by_envoy         = false
     green_enable_accelerated_networking = false
+    port                                = 50051
+    privileged_port                     = 50052
     enable_tdagent                      = true
     database                            = "cassandra"
     database_contact_points             = "cassandra-lb.${local.internal_domain}"
@@ -73,8 +75,8 @@ locals {
     resource_type                 = "Standard_B2s"
     resource_count                = 3
     resource_root_volume_size     = 64
-    target_port                   = 50051
-    privileged_target_port        = 50052
+    target_port                   = local.scalardl.port
+    privileged_target_port        = local.scalardl.privileged_port
     listen_port                   = 50051
     privileged_listen_port        = 50052
     subnet_id                     = var.network.private_subnet_id

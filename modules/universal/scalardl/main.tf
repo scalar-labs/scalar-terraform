@@ -227,6 +227,8 @@ resource "null_resource" "scalardl_container" {
     inline = [
       "cd $HOME/provision",
       "echo export SCALAR_IMAGE=${local.scalar_image} > env",
+      "echo export SCALAR_PORT=${var.scalardl_port} >> env",
+      "echo export SCALAR_PRIVILEGED_PORT=${var.scalardl_privileged_port} >> env",
       "echo export SCALAR_DB_STORAGE=${var.database} >> env",
       "echo export SCALAR_DB_CONTACT_POINTS=${var.database_contact_points} >> env",
       "echo export SCALAR_DB_CONTACT_PORT=${var.database_contact_port} >> env",

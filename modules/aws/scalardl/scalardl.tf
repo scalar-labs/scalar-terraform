@@ -92,8 +92,8 @@ resource "aws_security_group_rule" "scalardl_target_port" {
   count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   type        = "ingress"
-  from_port   = local.scalardl.target_port
-  to_port     = local.scalardl.target_port
+  from_port   = local.scalardl.port
+  to_port     = local.scalardl.port
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
   description = "Scalar DL Target Port"
@@ -105,8 +105,8 @@ resource "aws_security_group_rule" "scalardl_privileged_port" {
   count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   type        = "ingress"
-  from_port   = local.scalardl.privileged_target_port
-  to_port     = local.scalardl.privileged_target_port
+  from_port   = local.scalardl.privileged_port
+  to_port     = local.scalardl.privileged_port
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
   description = "Scalar DL Privileged Port"

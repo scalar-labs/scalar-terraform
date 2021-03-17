@@ -4,9 +4,9 @@ services:
   envoy:
     image: ${ENVOY_IMAGE}:${ENVOY_TAG}
     ports:
-      - ${ENVOY_PORT}:50051
-      - ${ENVOY_PRIVILEGED_PORT}:50052
-      - 9001:9001
+      - "${ENVOY_PORT}:${ENVOY_PORT}"
+      - "${ENVOY_PRIVILEGED_PORT}:${ENVOY_PRIVILEGED_PORT}"
+      - "9001:9001"
     volumes:
       - ./:/etc/envoy
     command: /usr/local/bin/envoy -c /etc/envoy/envoy.yaml

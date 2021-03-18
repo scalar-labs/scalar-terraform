@@ -5,15 +5,16 @@
     mode: 0755
 
 - name: Set nr_requests
-  import_tasks: set_fs_param.yml
+  include_tasks: set_fs_param.yml
   vars:
     fs_param_name: "nr_requests"
     fs_param_value: "{{ nr_request }}"
-  loop:
-    - {{ disk_devices }}
+  loop: "{{ disk_devices }}"
+  loop_control:
+    loop_var: fs_device
 
 - name: Set scheduler
-  import_tasks: set_fs_param.yml
+  include_tasks: set_fs_param.yml
   vars:
     fs_param: "scheduler"
 

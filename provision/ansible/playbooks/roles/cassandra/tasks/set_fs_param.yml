@@ -1,15 +1,15 @@
 ---
 - name: Check file {{ fs_param_name }}
   stat:
-    path: "/sys/block/{{ item }}/queue/{{ fs_param_name }}"
+    path: "/sys/block/{{ fs_device }}/queue/{{ fs_param_name }}"
   register: file_exists
 
 - name: Set {{ fs_param_value }} to {{ fs_param_name }}
-  command: "echo {{ fs_param_value }} > /sys/block/{{ item }}/queue/{{ fs_param_name }}"
+  command: "echo {{ fs_param_value }} > /sys/block/{{ fs_device }}/queue/{{ fs_param_name }}"
   when: file_exists.stat.exists
 
 - name: Add {{ fs_param_name }} to rc.local
   lineinfile:
     dest: /etc/rc.d/rc.local
-    line: "echo {{ fs_param_value }} > /sys/block/{{ item }}/queue/{{ fs_param_name }}"
+    line: "echo {{ fs_param_value }} > /sys/block/{{ fs_device }}/queue/{{ fs_param_name }}"
   when: file_exists.stat.exists

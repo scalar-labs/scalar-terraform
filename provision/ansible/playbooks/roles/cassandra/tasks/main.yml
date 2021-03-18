@@ -72,6 +72,8 @@
     daemon_reload: yes
     state: started
 
+- import_tasks: setup_fs_params.yml
+
 - name: Install jemalloc
   package:
     name: jemalloc

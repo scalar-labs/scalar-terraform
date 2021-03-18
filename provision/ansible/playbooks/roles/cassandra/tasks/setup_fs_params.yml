@@ -1,0 +1,17 @@
+---
+- name: Set nr_requests
+  import_tasks: set_fs_param.yml
+  vars:
+    fs_param_name: "nr_requests"
+    fs_param_value: "{{ nr_request }}"
+  loop:
+    - {{ disk_devices }}
+
+- name: Set scheduler
+  import_tasks: set_fs_param.yml
+  vars:
+    fs_param: "scheduler"
+
+- name: Change /etc/rc.d permission
+
+- name: Enable rc.local

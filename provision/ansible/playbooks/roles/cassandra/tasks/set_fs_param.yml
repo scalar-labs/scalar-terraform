@@ -1,0 +1,9 @@
+---
+- name: Check file {{ fs_param_name }}
+  stat:
+    path: "/sys/block/{{ item }}/queue/{{ fs_param_name }}"
+  register: file_exists
+
+- name: Set {{ fs_param_value }} to {{ fs_param_name }}
+  command: "echo {{ fs_param_value }} > /sys/block/{{ item }}/queue/{{ fs_param_name }}"
+  when: file_exists.stat.exists

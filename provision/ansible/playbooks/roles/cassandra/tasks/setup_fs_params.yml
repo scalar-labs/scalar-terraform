@@ -1,4 +1,9 @@
 ---
+- name: Change /etc/rc.d/rc.local permission
+  file:
+    path: /etc/rc.d/rc.local
+    mode: 0755
+
 - name: Set nr_requests
   import_tasks: set_fs_param.yml
   vars:
@@ -12,6 +17,9 @@
   vars:
     fs_param: "scheduler"
 
-- name: Change /etc/rc.d permission
-
-- name: Enable rc.local
+- name: Ensure rc-local is started and enabled at boot
+  systemd:
+    name: rc-local
+    enabled: yes
+    daemon_reload: yes
+    state: started

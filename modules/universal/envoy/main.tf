@@ -98,12 +98,11 @@ resource "null_resource" "envoy_container" {
       "export internal_domain=${var.internal_domain}",
       "export envoy_tls=${var.envoy_tls}",
       "j2 ./envoy.yaml.j2 > ./envoy.yaml",
-      "echo export ENVOY_CERT_AUTO_GEN=${var.envoy_cert_auto_gen}",
+      "chmod 755 ./auto_gen_cert.sh",
+      "envoy_cert_auto_gen=${var.envoy_cert_auto_gen} ./auto_gen_cert.sh",
       "echo export ENVOY_IMAGE=${var.envoy_image} > env",
       "echo export ENVOY_TAG=${var.envoy_tag} >> env",
       "source ./env",
-      "chmod 755 ./auto_gen_cert.sh",
-      "./auto_gen_cert.sh",
       "docker-compose up -d",
     ]
   }

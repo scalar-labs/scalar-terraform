@@ -8,15 +8,15 @@
   include_tasks: set_fs_param.yml
   vars:
     fs_param_name: "nr_requests"
-    fs_param_value: "{{ nr_request }}"
+    fs_param_value: "{{ disk_nr_requests }}"
   loop: "{{ disk_devices }}"
-  loop_control:
-    loop_var: fs_device
 
 - name: Set scheduler
   include_tasks: set_fs_param.yml
   vars:
-    fs_param: "scheduler"
+    fs_param_name: "scheduler"
+    fs_param_value: "{{ disk_scheduler }}"
+  loop: "{{ disk_devices }}"
 
 - name: Ensure rc-local is started and enabled at boot
   systemd:

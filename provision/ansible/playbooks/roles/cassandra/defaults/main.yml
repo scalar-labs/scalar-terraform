@@ -21,6 +21,6 @@ disk_devices:
   - sda
   - sdb
   - sdc
-  - nvme0n1p1
+  - nvme0n1
   - nvme1n1
   - nvme2n1

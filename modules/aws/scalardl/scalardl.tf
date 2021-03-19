@@ -17,8 +17,6 @@ module "scalardl_blue" {
   network_dns                  = local.network_dns
   scalardl_image_name          = local.scalardl.blue_image_name
   scalardl_image_tag           = local.scalardl.blue_image_tag
-  scalardl_port                = local.scalardl.port
-  scalardl_privileged_port     = local.scalardl.privileged_port
   enable_tdagent               = local.scalardl.enable_tdagent
   internal_domain              = local.internal_domain
   database                     = local.scalardl.database
@@ -49,8 +47,6 @@ module "scalardl_green" {
   network_dns                  = local.network_dns
   scalardl_image_name          = local.scalardl.green_image_name
   scalardl_image_tag           = local.scalardl.green_image_tag
-  scalardl_port                = local.scalardl.port
-  scalardl_privileged_port     = local.scalardl.privileged_port
   enable_tdagent               = local.scalardl.enable_tdagent
   internal_domain              = local.internal_domain
   database                     = local.scalardl.database
@@ -96,8 +92,8 @@ resource "aws_security_group_rule" "scalardl_port" {
   count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   type        = "ingress"
-  from_port   = local.scalardl.port
-  to_port     = local.scalardl.port
+  from_port   = 50051
+  to_port     = 50051
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
   description = "Scalar DL Port"
@@ -109,8 +105,8 @@ resource "aws_security_group_rule" "scalardl_privileged_port" {
   count = local.scalardl.green_resource_count > 0 || local.scalardl.blue_resource_count > 0 ? 1 : 0
 
   type        = "ingress"
-  from_port   = local.scalardl.privileged_port
-  to_port     = local.scalardl.privileged_port
+  from_port   = 50052
+  to_port     = 50052
   protocol    = "tcp"
   cidr_blocks = [local.network_cidr]
   description = "Scalar DL Privileged Port"

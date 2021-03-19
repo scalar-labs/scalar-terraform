@@ -80,18 +80,6 @@ variable "scalardl_image_tag" {
   description = "The docker image tag for Scalar DL"
 }
 
-variable "scalardl_port" {
-  type        = number
-  default     = 50051
-  description = "The port number the Scalar DL Docker container listens on"
-}
-
-variable "scalardl_privileged_port" {
-  type        = number
-  default     = 50052
-  description = "The privileged port number the Scalar DL Docker container listens on"
-}
-
 variable "enable_tdagent" {
   type        = bool
   default     = true

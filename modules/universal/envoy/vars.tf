@@ -59,16 +59,6 @@ variable "envoy_cert_auto_gen" {
   description = "Flag to generate a self signed key and cert. Set to false to pass your own key and cert"
 }
 
-variable "envoy_port" {
-  default     = 50051
-  description = "The host access port to listen on"
-}
-
-variable "envoy_privileged_port" {
-  default     = 50052
-  description = "The host access privileged port to listen on"
-}
-
 variable "enable_tdagent" {
   default     = true
   description = "A flag to install td-agent that forwards logs to the monitor host"

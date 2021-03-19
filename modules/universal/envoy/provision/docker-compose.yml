@@ -4,8 +4,8 @@ services:
   envoy:
     image: ${ENVOY_IMAGE}:${ENVOY_TAG}
     ports:
-      - "${ENVOY_PORT}:${ENVOY_PORT}"
-      - "${ENVOY_PRIVILEGED_PORT}:${ENVOY_PRIVILEGED_PORT}"
+      - "50051:50051"
+      - "50052:50052"
       - "9001:9001"
     volumes:
       - ./:/etc/envoy

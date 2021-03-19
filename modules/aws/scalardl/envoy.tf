@@ -55,8 +55,6 @@ module "envoy_provision" {
   envoy_cert_auto_gen   = local.envoy.cert_auto_gen
   envoy_tag             = local.envoy.tag
   envoy_image           = local.envoy.image
-  envoy_port            = local.envoy.target_port
-  envoy_privileged_port = local.envoy.privileged_target_port
   enable_tdagent        = local.envoy.enable_tdagent
   custom_config_path    = local.envoy.custom_config_path
   internal_domain       = local.internal_domain

@@ -68,8 +68,6 @@ locals {
     resource_type             = "t3.medium"
     resource_count            = 3
     resource_root_volume_size = 64
-    target_port               = 50051
-    privileged_target_port    = 50052
     listen_port               = 50051
     privileged_listen_port    = 50052
     subnet_ids                = local.private_subnet_ids

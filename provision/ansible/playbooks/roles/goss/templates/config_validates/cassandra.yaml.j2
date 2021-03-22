@@ -12,3 +12,13 @@ file:
       - "-Xms{{$vars.jvm.xms}}"
       - "-Xmx{{$vars.jvm.xmx}}"
       - "-Xmn{{$vars.jvm.xmn}}"
+{% for d in disk_io_devices %}
+  /sys/block/{{ d }}/queue/nr_requests:
+    exists: true
+    contains:
+      - "{{$vars.nr_requests}}"
+  /sys/block/sdc/queue/scheduler:
+    exists: true
+    contains:
+      - "[{{$vars.scheduler}}]"
+{% endfor %}

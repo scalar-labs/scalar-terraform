@@ -19,8 +19,8 @@
   register: result_file
 
 - name: Copy Goss validate {{ host }} files
-  copy:
-    src: "{{ goss_validates_path }}/{{ host }}.yaml"
+  template:
+    src: "{{ goss_validates_path }}/{{ host }}.yaml.j2"
     dest: "{{ goss_path }}/goss_{{ host }}.yaml"
     mode: 0644
   when: result_file.stat.exists

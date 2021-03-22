@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-{%  for d in disk_io_devices %}
-echo {{ disk_io_nr_requests }} > /sys/block/{{ d }}/queue/nr_requests
-echo {{ disk_io_scheduler }} > /sys/block/{{ d }}/queue/scheduler
+{% for p in disk_io_params %}
+{%   for d in disk_io_devices %}
+[[ -f "/sys/block/{{ d }}/queue/{{ p['name'] }}" ]] && echo {{ p['value'] }} > /sys/block/{{ d }}/queue/{{ p['name'] }} || echo "File does not exists."
+{%   endfor %}
 {% endfor %}

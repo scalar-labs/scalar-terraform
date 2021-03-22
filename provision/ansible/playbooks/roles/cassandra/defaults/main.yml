@@ -15,12 +15,9 @@ cassandra_rack_id: rack1
 endpoint_snitch: GossipingPropertyFileSnitch
 vm_max_map_count: "1048575"
 
-disk_nr_requests: 128
-disk_scheduler: none
-disk_devices:
+disk_io_nr_requests: 128
+disk_io_scheduler: none
+disk_io_devices:
   - sda
   - sdb
   - sdc
-  - nvme0n1
-  - nvme1n1
-  - nvme2n1

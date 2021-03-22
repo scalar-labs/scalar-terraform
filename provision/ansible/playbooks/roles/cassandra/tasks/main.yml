@@ -72,7 +72,7 @@
     daemon_reload: yes
     state: started
 
-- import_tasks: setup_fs_params.yml
+- import_tasks: setup_disk_io_params.yml
 
 - name: Install jemalloc
   package:

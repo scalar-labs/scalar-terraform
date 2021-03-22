@@ -1,11 +1,11 @@
 [Unit]
 Description=Disk io parameters
-After=cloud-final.service
-Wants=cloud-final.service
+After=drivemount.service
+Wants=drivemount.service
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c '/usr/local/bin/disk_io_params.sh'
+ExecStart=/usr/local/bin/disk_io_params.sh
 
 [Install]
 WantedBy=multi-user.target

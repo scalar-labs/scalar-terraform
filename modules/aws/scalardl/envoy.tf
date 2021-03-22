@@ -41,23 +41,23 @@ module "envoy_cluster" {
 }
 
 module "envoy_provision" {
-  source                = "../../universal/envoy"
-  vm_ids                = module.envoy_cluster.id
-  triggers              = local.triggers
-  bastion_host_ip       = local.bastion_ip
-  host_list             = module.envoy_cluster.private_ip
-  user_name             = local.user_name
-  private_key_path      = local.private_key_path
-  provision_count       = local.envoy.resource_count
-  key                   = local.envoy.key
-  cert                  = local.envoy.cert
-  envoy_tls             = local.envoy.tls
-  envoy_cert_auto_gen   = local.envoy.cert_auto_gen
-  envoy_tag             = local.envoy.tag
-  envoy_image           = local.envoy.image
-  enable_tdagent        = local.envoy.enable_tdagent
-  custom_config_path    = local.envoy.custom_config_path
-  internal_domain       = local.internal_domain
+  source              = "../../universal/envoy"
+  vm_ids              = module.envoy_cluster.id
+  triggers            = local.triggers
+  bastion_host_ip     = local.bastion_ip
+  host_list           = module.envoy_cluster.private_ip
+  user_name           = local.user_name
+  private_key_path    = local.private_key_path
+  provision_count     = local.envoy.resource_count
+  key                 = local.envoy.key
+  cert                = local.envoy.cert
+  envoy_tls           = local.envoy.tls
+  envoy_cert_auto_gen = local.envoy.cert_auto_gen
+  envoy_tag           = local.envoy.tag
+  envoy_image         = local.envoy.image
+  enable_tdagent      = local.envoy.enable_tdagent
+  custom_config_path  = local.envoy.custom_config_path
+  internal_domain     = local.internal_domain
 }
 
 resource "aws_security_group" "envoy" {

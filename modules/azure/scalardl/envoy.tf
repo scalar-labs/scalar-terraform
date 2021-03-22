@@ -28,22 +28,22 @@ module "envoy_cluster" {
 module "envoy_provision" {
   source = "../../universal/envoy"
 
-  vm_ids                = module.envoy_cluster.vm_ids
-  triggers              = local.triggers
-  bastion_host_ip       = local.bastion_ip
-  host_list             = module.envoy_cluster.network_interface_private_ip
-  user_name             = local.user_name
-  private_key_path      = local.private_key_path
-  provision_count       = local.envoy.resource_count
-  key                   = local.envoy.key
-  cert                  = local.envoy.cert
-  envoy_tls             = local.envoy.tls
-  envoy_cert_auto_gen   = local.envoy.cert_auto_gen
-  envoy_tag             = local.envoy.tag
-  envoy_image           = local.envoy.image
-  enable_tdagent        = local.envoy.enable_tdagent
-  custom_config_path    = local.envoy.custom_config_path
-  internal_domain       = local.internal_domain
+  vm_ids              = module.envoy_cluster.vm_ids
+  triggers            = local.triggers
+  bastion_host_ip     = local.bastion_ip
+  host_list           = module.envoy_cluster.network_interface_private_ip
+  user_name           = local.user_name
+  private_key_path    = local.private_key_path
+  provision_count     = local.envoy.resource_count
+  key                 = local.envoy.key
+  cert                = local.envoy.cert
+  envoy_tls           = local.envoy.tls
+  envoy_cert_auto_gen = local.envoy.cert_auto_gen
+  envoy_tag           = local.envoy.tag
+  envoy_image         = local.envoy.image
+  enable_tdagent      = local.envoy.enable_tdagent
+  custom_config_path  = local.envoy.custom_config_path
+  internal_domain     = local.internal_domain
 }
 
 resource "azurerm_network_security_rule" "envoy_privileged_nsg" {
@@ -64,7 +64,7 @@ resource "azurerm_network_security_rule" "envoy_privileged_nsg" {
 }
 
 resource "azurerm_public_ip" "envoy_public_ip" {
-  count      = local.envoy.enable_nlb && !local.envoy.nlb_internal ? 1 : 0
+  count      = local.envoy.enable_nlb && ! local.envoy.nlb_internal ? 1 : 0
   depends_on = [null_resource.envoy_wait_for]
 
   name                = "PublicIPForEnvoy"

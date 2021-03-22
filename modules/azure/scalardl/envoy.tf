@@ -64,7 +64,7 @@ resource "azurerm_network_security_rule" "envoy_privileged_nsg" {
 }
 
 resource "azurerm_public_ip" "envoy_public_ip" {
-  count      = local.envoy.enable_nlb && ! local.envoy.nlb_internal ? 1 : 0
+  count      = local.envoy.enable_nlb && !local.envoy.nlb_internal ? 1 : 0
   depends_on = [null_resource.envoy_wait_for]
 
   name                = "PublicIPForEnvoy"

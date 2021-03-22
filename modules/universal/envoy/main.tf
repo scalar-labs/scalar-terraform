@@ -50,7 +50,7 @@ resource "null_resource" "docker_install" {
 }
 
 resource "null_resource" "envoy_tls" {
-  count = var.envoy_tls && !var.envoy_cert_auto_gen ? 1 : 0
+  count = var.envoy_tls && ! var.envoy_cert_auto_gen ? 1 : 0
 
   provisioner "local-exec" {
     command = "cp ${var.key} ${path.module}/provision/key.pem"
@@ -66,11 +66,11 @@ resource "null_resource" "envoy_container" {
   depends_on = [null_resource.envoy_tls]
 
   triggers = {
-    triggers              = null_resource.docker_install.*.id[count.index]
-    envoy_image           = var.envoy_image
-    envoy_tag             = var.envoy_tag
-    envoy_tls             = var.envoy_tls
-    envoy_cert_auto_gen   = var.envoy_cert_auto_gen
+    triggers            = null_resource.docker_install.*.id[count.index]
+    envoy_image         = var.envoy_image
+    envoy_tag           = var.envoy_tag
+    envoy_tls           = var.envoy_tls
+    envoy_cert_auto_gen = var.envoy_cert_auto_gen
   }
 
   connection {

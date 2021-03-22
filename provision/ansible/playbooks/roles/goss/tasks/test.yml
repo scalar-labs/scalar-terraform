@@ -14,8 +14,9 @@
     - "common"
 
 - name: Check Goss validate {{ host }} file
-  stat:
-    path: "{{ goss_validates_path }}/{{ host }}.yaml"
+  local_action:
+    stat:
+      path: "{{ goss_validates_path }}/{{ host }}.yaml"
   register: result_file
 
 - name: Copy Goss validate {{ host }} files

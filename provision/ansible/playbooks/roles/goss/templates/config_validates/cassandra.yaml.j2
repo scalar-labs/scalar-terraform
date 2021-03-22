@@ -1,3 +1,4 @@
+{% raw %}
 {{$vars := index .Vars .Env.host}}
 
 file:
@@ -12,13 +13,14 @@ file:
       - "-Xms{{$vars.jvm.xms}}"
       - "-Xmx{{$vars.jvm.xmx}}"
       - "-Xmn{{$vars.jvm.xmn}}"
+{% endraw %}
 {% for d in disk_io_devices %}
   /sys/block/{{ d }}/queue/nr_requests:
     exists: true
     contains:
-      - "{{$vars.nr_requests}}"
-  /sys/block/sdc/queue/scheduler:
+      - "{{ '{{' }}$vars.nr_requests{{ '}}' }}"
+  /sys/block/{{ d }}/queue/scheduler:
     exists: true
     contains:
-      - "[{{$vars.scheduler}}]"
+      - "[{{ '{{' }}$vars.scheduler{{ '}}' }}]"
 {% endfor %}

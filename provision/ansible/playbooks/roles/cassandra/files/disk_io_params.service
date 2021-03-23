@@ -4,7 +4,7 @@ After=cloud-final.service
 Wants=cloud-final.service
 
 [Service]
-Type=simple
+Type=oneshot
 ExecStart=/usr/local/bin/disk_io_params.sh
 
 [Install]

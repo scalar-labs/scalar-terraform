@@ -18,7 +18,7 @@ file:
   /sys/block/{{ d }}/queue/nr_requests:
     exists: true
     contains:
-      - "{{ '{{' }}$vars.nr_requests.{{ d }}{{ '}}' }}"
+      - "/^{{ '{{' }}$vars.nr_requests.{{ d }}{{ '}}' }}$/"
   /sys/block/{{ d }}/queue/scheduler:
     exists: true
     contains:
@@ -26,5 +26,5 @@ file:
   /sys/block/{{ d }}/queue/read_ahead_kb:
     exists: true
     contains:
-      - "{{ '{{' }}$vars.read_ahead_kb.{{ d }}{{ '}}' }}"
+      - "/^{{ '{{' }}$vars.read_ahead_kb.{{ d }}{{ '}}' }}$/"
 {% endfor %}

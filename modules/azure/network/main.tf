@@ -10,7 +10,6 @@ resource "azurerm_resource_group" "resource_group" {
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  depends_on          = [azurerm_resource_group.resource_group]
   name                = module.name_generator.name
   location            = var.region
   address_space       = [local.network.cidr]
@@ -74,7 +73,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dns_vnet_link" {
 module "bastion" {
   source = "./bastion"
 
-  network_name                  = module.name_generator.name
+  network_name                  = azurerm_resource_group.resource_group.name
   network_id                    = azurerm_virtual_network.vnet.id
   network_cidr                  = local.network.cidr
   network_dns                   = basename(azurerm_private_dns_zone.dns.id)

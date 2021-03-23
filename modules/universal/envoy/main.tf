@@ -66,13 +66,11 @@ resource "null_resource" "envoy_container" {
   depends_on = [null_resource.envoy_tls]
 
   triggers = {
-    triggers              = null_resource.docker_install.*.id[count.index]
-    envoy_image           = var.envoy_image
-    envoy_tag             = var.envoy_tag
-    envoy_tls             = var.envoy_tls
-    envoy_cert_auto_gen   = var.envoy_cert_auto_gen
-    envoy_port            = var.envoy_port
-    envoy_privileged_port = var.envoy_privileged_port
+    triggers            = null_resource.docker_install.*.id[count.index]
+    envoy_image         = var.envoy_image
+    envoy_tag           = var.envoy_tag
+    envoy_tls           = var.envoy_tls
+    envoy_cert_auto_gen = var.envoy_cert_auto_gen
   }
 
   connection {
@@ -103,8 +101,6 @@ resource "null_resource" "envoy_container" {
       "echo export ENVOY_CERT_AUTO_GEN=${var.envoy_cert_auto_gen}",
       "echo export ENVOY_IMAGE=${var.envoy_image} > env",
       "echo export ENVOY_TAG=${var.envoy_tag} >> env",
-      "echo export ENVOY_PORT=${var.envoy_port} >> env",
-      "echo export ENVOY_PRIVILEGED_PORT=${var.envoy_privileged_port} >> env",
       "source ./env",
       "chmod 755 ./auto_gen_cert.sh",
       "./auto_gen_cert.sh",

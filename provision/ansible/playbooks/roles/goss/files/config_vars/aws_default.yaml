@@ -11,5 +11,11 @@ cassandra:
   tuned:
     readahead: 8
     devices: "!sda, !xvda, !nvme0n1"
-  nr_requests: 127
-  scheduler: none
+  nr_requests:
+    nvme0n1: 31
+    nvme1n1: 127
+    nvme2n1: 31
+  scheduler:
+    nvme0n1: none
+    nvme1n1: none
+    nvme2n1: none

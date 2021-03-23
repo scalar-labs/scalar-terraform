@@ -9,5 +9,7 @@ base: default
 goss_vars_yaml: config_vars/{{ cloud_provider }}_{{ base }}.yaml
 goss_validates_path: config_validates
 
-cloud_disk_devices: {aws: [nvme0n1, nvme1n1, nvme2n1], azure: [sda, sdb, sdc]}
+cloud_disk_devices:
+  aws: [nvme0n1, nvme1n1, nvme2n1]
+  azure: [sda, sdb, sdc]
 disk_io_devices: "{{ cloud_disk_devices[cloud_provider] }}"

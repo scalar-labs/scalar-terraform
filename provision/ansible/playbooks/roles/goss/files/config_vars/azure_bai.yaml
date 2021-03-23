@@ -11,8 +11,14 @@ cassandra:
   tuned:
     readahead: 8
     devices: "!sda, !xvda, !nvme0n1"
-  nr_requests: 256
-  scheduler: none
+  nr_requests:
+    sda: 256
+    sdb: 256
+    sdc: 256
+  scheduler:
+    sda: none
+    sdb: none
+    sdc: none
 cassy:
   cpu_cores: 2
   mem: 3.9G

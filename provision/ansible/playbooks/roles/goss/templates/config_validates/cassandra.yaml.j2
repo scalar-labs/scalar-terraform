@@ -18,9 +18,9 @@ file:
   /sys/block/{{ d }}/queue/nr_requests:
     exists: true
     contains:
-      - "{{ '{{' }}$vars.nr_requests{{ '}}' }}"
+      - "{{ '{{' }}$vars.nr_requests.{{ d }}{{ '}}' }}"
   /sys/block/{{ d }}/queue/scheduler:
     exists: true
     contains:
-      - "[{{ '{{' }}$vars.scheduler{{ '}}' }}]"
+      - "[{{ '{{' }}$vars.scheduler.{{ d }}{{ '}}' }}]"
 {% endfor %}

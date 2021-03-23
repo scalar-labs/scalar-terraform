@@ -1,12 +1,4 @@
 ---
-- name: Set Disk IO Parameters
-  include_tasks: set_disk_io_param.yml
-  vars:
-    disk_param_name: "{{ item.1.name }}"
-    disk_param_value: "{{ item.1.value }}"
-    disk_device: "{{ item.0 }}"
-  loop: "{{ disk_io_devices|product(disk_io_params)|list }}"
-
 - name: Set Disk IO Parameters Script
   template:
     src: disk_io_params.sh.j2

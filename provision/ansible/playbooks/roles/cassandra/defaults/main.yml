@@ -16,8 +16,7 @@ endpoint_snitch: GossipingPropertyFileSnitch
 vm_max_map_count: "1048575"
 
 disk_io_params:
-  - { name: nr_requests, value: '128'}
-  - { name: scheduler, value: 'none'}
+  - { name: scheduler, value: none }
 disk_io_devices:
   - sda
   - sdb

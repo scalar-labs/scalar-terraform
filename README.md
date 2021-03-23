@@ -7,7 +7,7 @@ Scalar Terraform is a set of terraform modules and provisioing scritps that can 
 
 ## Requirements
 
-* [Terraform >= 0.12.x](https://www.terraform.io/downloads.html)
+* [Terraform >= 0.14.x](https://www.terraform.io/downloads.html)
 * [Ansible >= 2.8.x](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 * Cloud provider CLI tools such as `aws` and `az` (they need to be configured with credentials)
 * Docker Engine (with access to `ghcr.io/scalar-labs/scalar-ledger` docker registry)

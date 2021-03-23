@@ -19,3 +19,7 @@ cassandra:
     nvme0n1: none
     nvme1n1: none
     nvme2n1: none
+  read_ahead_kb:
+    nvme0n1: 128
+    nvme1n1: 8
+    nvme2n1: 8

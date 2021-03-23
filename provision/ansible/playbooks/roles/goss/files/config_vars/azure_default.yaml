@@ -19,3 +19,7 @@ cassandra:
     sda: none
     sdb: none
     sdc: none
+  read_ahead_kb:
+    sda: 128
+    sdb: 8
+    sdc: 8

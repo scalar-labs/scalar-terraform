@@ -23,4 +23,8 @@ file:
     exists: true
     contains:
       - "[{{ '{{' }}$vars.scheduler.{{ d }}{{ '}}' }}]"
+  /sys/block/{{ d }}/queue/read_ahead_kb:
+    exists: true
+    contains:
+      - "{{ '{{' }}$vars.read_ahead_kb.{{ d }}{{ '}}' }}"
 {% endfor %}

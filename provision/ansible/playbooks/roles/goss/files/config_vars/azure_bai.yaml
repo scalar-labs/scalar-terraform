@@ -19,6 +19,10 @@ cassandra:
     sda: none
     sdb: none
     sdc: none
+  read_ahead_kb:
+    sda: 128
+    sdb: 8
+    sdc: 8
 cassy:
   cpu_cores: 2
   mem: 3.9G

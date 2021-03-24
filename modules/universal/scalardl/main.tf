@@ -248,8 +248,6 @@ resource "null_resource" "scalardl_container" {
     inline = [
       "cd $HOME/provision",
       "echo export SCALAR_IMAGE=${local.scalar_image} > env",
-      "echo export SCALAR_PORT=${var.scalardl_port} >> env",
-      "echo export SCALAR_PRIVILEGED_PORT=${var.scalardl_privileged_port} >> env",
       "source ./env",
       "docker-compose up -d",
     ]

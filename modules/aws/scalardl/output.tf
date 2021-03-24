@@ -38,21 +38,6 @@ output "scalardl_replication_factor" {
   description = "The replication factor for the schema of scalardl."
 }
 
-output "scalardl_dns" {
-  value       = length(aws_route53_record.scalardl_dns) > 0 ? aws_route53_record.scalardl_dns[0].fqdn : ""
-  description = "The FQDN of Scalar DL"
-}
-
-output "scalardl_port" {
-  value       = local.scalardl.listen_port
-  description = "The port of Scalar DL"
-}
-
-output "scalardl_privileged_port" {
-  value       = local.scalardl.privileged_listen_port
-  description = "The privileged port of Scalar DL"
-}
-
 output "envoy_dns" {
   value       = local.envoy.enable_nlb ? (local.envoy.nlb_internal ? [aws_route53_record.envoy_dns_lb[0].fqdn] : aws_lb.envoy_lb.*.dns_name) : []
   description = "A list of DNS URLs to access an envoy cluster."

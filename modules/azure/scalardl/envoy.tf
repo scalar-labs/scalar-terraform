@@ -21,44 +21,42 @@ module "envoy_cluster" {
   storage_account_type          = "StandardSSD_LRS"
   storage_os_disk_size          = local.envoy.resource_root_volume_size
   delete_os_disk_on_termination = true
-  remote_port                   = local.envoy.target_port
+  remote_port                   = 50051
   enable_accelerated_networking = local.envoy.enable_accelerated_networking
 }
 
 module "envoy_provision" {
   source = "../../universal/envoy"
 
-  vm_ids                = module.envoy_cluster.vm_ids
-  triggers              = local.triggers
-  bastion_host_ip       = local.bastion_ip
-  host_list             = module.envoy_cluster.network_interface_private_ip
-  user_name             = local.user_name
-  private_key_path      = local.private_key_path
-  provision_count       = local.envoy.resource_count
-  key                   = local.envoy.key
-  cert                  = local.envoy.cert
-  envoy_tls             = local.envoy.tls
-  envoy_cert_auto_gen   = local.envoy.cert_auto_gen
-  envoy_tag             = local.envoy.tag
-  envoy_image           = local.envoy.image
-  envoy_port            = local.envoy.target_port
-  envoy_privileged_port = local.envoy.privileged_target_port
-  enable_tdagent        = local.envoy.enable_tdagent
-  custom_config_path    = local.envoy.custom_config_path
-  internal_domain       = local.internal_domain
+  vm_ids              = module.envoy_cluster.vm_ids
+  triggers            = local.triggers
+  bastion_host_ip     = local.bastion_ip
+  host_list           = module.envoy_cluster.network_interface_private_ip
+  user_name           = local.user_name
+  private_key_path    = local.private_key_path
+  provision_count     = local.envoy.resource_count
+  key                 = local.envoy.key
+  cert                = local.envoy.cert
+  envoy_tls           = local.envoy.tls
+  envoy_cert_auto_gen = local.envoy.cert_auto_gen
+  envoy_tag           = local.envoy.tag
+  envoy_image         = local.envoy.image
+  enable_tdagent      = local.envoy.enable_tdagent
+  custom_config_path  = local.envoy.custom_config_path
+  internal_domain     = local.internal_domain
 }
 
 resource "azurerm_network_security_rule" "envoy_privileged_nsg" {
   count = local.envoy.resource_count > 0 ? 1 : 0
 
-  name                        = "allow_remote_${local.envoy.privileged_target_port}_in_all"
+  name                        = "allow_remote_50052_in_all"
   description                 = "Allow remote protocol in from all locations"
   priority                    = 200
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
-  destination_port_range      = local.envoy.privileged_target_port
+  destination_port_range      = 50052
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
   resource_group_name         = local.network_name
@@ -109,7 +107,7 @@ resource "azurerm_lb_rule" "envoy_lb_rule" {
   name                           = "EnvoyLBRule"
   protocol                       = "Tcp"
   frontend_port                  = local.envoy.listen_port
-  backend_port                   = local.envoy.target_port
+  backend_port                   = 50051
   frontend_ip_configuration_name = "EnvoyLBAddress"
   backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool[count.index].id
   probe_id                       = azurerm_lb_probe.envoy_lb_probe[count.index].id
@@ -123,7 +121,7 @@ resource "azurerm_lb_rule" "envoy_lb_privileged_rule" {
   name                           = "EnvoyLBPrivilegedRule"
   protocol                       = "Tcp"
   frontend_port                  = local.envoy.privileged_listen_port
-  backend_port                   = local.envoy.privileged_target_port
+  backend_port                   = 50052
   frontend_ip_configuration_name = "EnvoyLBAddress"
   backend_address_pool_id        = azurerm_lb_backend_address_pool.envoy_lb_pool[count.index].id
   probe_id                       = azurerm_lb_probe.envoy_lb_privileged_probe[count.index].id
@@ -148,7 +146,7 @@ resource "azurerm_lb_probe" "envoy_lb_probe" {
   resource_group_name = local.network_name
   loadbalancer_id     = azurerm_lb.envoy_lb[count.index].id
   name                = "envoy-running-probe"
-  port                = local.envoy.target_port
+  port                = 50051
 }
 
 resource "azurerm_lb_probe" "envoy_lb_privileged_probe" {
@@ -157,7 +155,7 @@ resource "azurerm_lb_probe" "envoy_lb_privileged_probe" {
   resource_group_name = local.network_name
   loadbalancer_id     = azurerm_lb.envoy_lb[count.index].id
   name                = "envoy-running-privileged-probe"
-  port                = local.envoy.privileged_target_port
+  port                = 50052
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "envoy_lb_association" {

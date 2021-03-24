@@ -73,8 +73,6 @@ locals {
     resource_type                 = "Standard_B2s"
     resource_count                = 3
     resource_root_volume_size     = 64
-    target_port                   = 50051
-    privileged_target_port        = 50052
     listen_port                   = 50051
     privileged_listen_port        = 50052
     subnet_id                     = var.network.private_subnet_id

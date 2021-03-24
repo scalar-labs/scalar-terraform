@@ -30,10 +30,6 @@ locals {
     green_image_tag              = "2.1.0"
     green_image_name             = "ghcr.io/scalar-labs/scalar-ledger"
     green_discoverable_by_envoy  = false
-    target_port                  = 50051
-    privileged_target_port       = 50052
-    listen_port                  = 50051
-    privileged_listen_port       = 50052
     enable_tdagent               = true
     database                     = "cassandra"
     database_contact_points      = "cassandra-lb.${local.internal_domain}"
@@ -72,8 +68,6 @@ locals {
     resource_type             = "t3.medium"
     resource_count            = 3
     resource_root_volume_size = 64
-    target_port               = 50051
-    privileged_target_port    = 50052
     listen_port               = 50051
     privileged_listen_port    = 50052
     subnet_ids                = local.private_subnet_ids

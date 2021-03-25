@@ -17,6 +17,8 @@ vm_max_map_count: "1048575"
 
 disk_io_params:
   - { name: scheduler, value: none }
+
+# Only the list of disk devices in the Azure. Since disk io parameters in the AWS instances cannot be changed.
 disk_io_devices:
   - sda
   - sdb

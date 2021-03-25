@@ -1,0 +1,30 @@
+{% raw %}
+{{$vars := index .Vars .Env.host}}
+
+file:
+  /etc/tuned/cassandra/tuned.conf:
+    exists: true
+    contains:
+      - "devices={{$vars.tuned.devices}}"
+      - "readahead={{$vars.tuned.readahead}}"
+  /etc/cassandra/conf/jvm.options:
+    exists: true
+    contains:
+      - "-Xms{{$vars.jvm.xms}}"
+      - "-Xmx{{$vars.jvm.xmx}}"
+      - "-Xmn{{$vars.jvm.xmn}}"
+{% endraw %}
+{% for d in disk_io_devices %}
+  /sys/block/{{ d }}/queue/nr_requests:
+    exists: true
+    contains:
+      - "/^{{ '{{' }}$vars.nr_requests.{{ d }}{{ '}}' }}$/"
+  /sys/block/{{ d }}/queue/scheduler:
+    exists: true
+    contains:
+      - "[{{ '{{' }}$vars.scheduler.{{ d }}{{ '}}' }}]"
+  /sys/block/{{ d }}/queue/read_ahead_kb:
+    exists: true
+    contains:
+      - "/^{{ '{{' }}$vars.read_ahead_kb.{{ d }}{{ '}}' }}$/"
+{% endfor %}

@@ -99,7 +99,7 @@ resource "null_resource" "envoy_container" {
       "export envoy_tls=${var.envoy_tls}",
       "j2 ./envoy.yaml.j2 > ./envoy.yaml",
       "chmod 755 ./auto_gen_cert.sh",
-      "envoy_cert_auto_gen=${var.envoy_cert_auto_gen} ./auto_gen_cert.sh",
+      "[[ '${var.envoy_cert_auto_gen}' == 'true' ]] && ./auto_gen_cert.sh",
       "echo export ENVOY_IMAGE=${var.envoy_image} > env",
       "echo export ENVOY_TAG=${var.envoy_tag} >> env",
       "source ./env",

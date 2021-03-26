@@ -14,3 +14,12 @@ cassandra_dc_id: dc1
 cassandra_rack_id: rack1
 endpoint_snitch: GossipingPropertyFileSnitch
 vm_max_map_count: "1048575"
+
+disk_io_params:
+  - { name: scheduler, value: none }
+
+# The following list of devices is for only Azure since the kernel parameters of AWS instances cannot be changed.
+disk_io_devices:
+  - sda
+  - sdb
+  - sdc

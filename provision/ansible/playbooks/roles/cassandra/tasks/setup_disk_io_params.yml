@@ -1,0 +1,19 @@
+---
+- name: Set Disk IO Parameters Script
+  template:
+    src: disk_io_params.sh.j2
+    dest: /usr/local/bin/disk_io_params.sh
+    mode: 0755
+
+- name: Copy Disk IO Parameters Service
+  copy:
+    src: disk_io_params.service
+    dest: /etc/systemd/system/disk_io_params.service
+    mode: 0644
+
+- name: Ensure Disk IO Parameters is started and enabled at boot
+  systemd:
+    name: disk_io_params
+    enabled: yes
+    daemon_reload: yes
+    state: started

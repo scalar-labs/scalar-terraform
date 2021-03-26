@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+{% for p in disk_io_params %}
+{%   for d in disk_io_devices %}
+[[ -f "/sys/block/{{ d }}/queue/{{ p['name'] }}" ]] && echo {{ p['value'] }} > /sys/block/{{ d }}/queue/{{ p['name'] }} || echo "File does not exists."
+{%   endfor %}
+{% endfor %}

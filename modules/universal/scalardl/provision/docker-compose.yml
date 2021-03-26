@@ -3,6 +3,8 @@ version: '3.7'
 services:
   scalar:
     image: ${SCALAR_IMAGE}
+    env_file:
+      - container.env
     environment:
       # The port numbers used by the container are fixed at 50051-50053 when deploying with scalar-terraform.
       # For the ledger.properties in the scalar-ledger container:
@@ -13,8 +15,6 @@ services:
       - SCALAR_DL_AUDITOR_SERVER_PORT=50051
       - SCALAR_DL_AUDITOR_SERVER_PRIVILEGED_PORT=50052
       - SCALAR_DL_AUDITOR_SERVER_ADMIN_PORT=50053
-    env_file:
-      - container.env
     ports:
       - "50051:50051"
       - "50052:50052"

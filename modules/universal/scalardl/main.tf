@@ -217,6 +217,7 @@ resource "null_resource" "scalardl_schema" {
   provisioner "remote-exec" {
     inline = [
       "set -x",
+      # Source only SCALAR_DB_* variables from the env file for docker-compose
       "source <(grep '^SCALAR_DB_' $HOME/provision/container.env)",
       "cmd=\"docker run --rm ${var.schema_loader_image} -u $SCALAR_DB_USERNAME -p $SCALAR_DB_PASSWORD\"",
       "if [[ $SCALAR_DB_STORAGE == 'cassandra' ]]; then $cmd --cassandra -h $SCALAR_DB_CONTACT_POINTS -P $SCALAR_DB_CONTACT_PORT -n NetworkTopologyStrategy -R ${var.cassandra_replication_factor};",

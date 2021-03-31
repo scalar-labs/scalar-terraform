@@ -233,8 +233,9 @@ resource "null_resource" "scalardl_container" {
   count = var.provision_count
 
   triggers = {
-    scalardl_load   = null_resource.scalardl_load[count.index].id
-    scalardl_schema = null_resource.scalardl_schema[0].id
+    scalardl_load                    = null_resource.scalardl_load[count.index].id
+    scalardl_schema                  = null_resource.scalardl_schema[0].id
+    scalardl_container_env_file_push = null_resource.scalardl_container_env_file_push[count.index].id
   }
 
   connection {

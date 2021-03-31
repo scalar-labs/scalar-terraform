@@ -178,7 +178,7 @@ resource "null_resource" "schema_loader_image_load" {
 }
 
 resource "null_resource" "scalardl_container_env_file_push" {
-  count = var.provision_count > 0 ? 1 : 0
+  count = var.provision_count
 
   connection {
     bastion_host = var.bastion_host_ip

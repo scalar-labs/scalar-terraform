@@ -10,9 +10,9 @@ file:
   /etc/cassandra/conf/jvm.options:
     exists: true
     contains:
-      - "-Xms{{$vars.jvm.xms}}"
-      - "-Xmx{{$vars.jvm.xmx}}"
-      - "-Xmn{{$vars.jvm.xmn}}"
+      - "/^-Xms{{$vars.jvm.xms}}$/"
+      - "/^-Xmx{{$vars.jvm.xmx}}$/"
+      - "/^-Xmn{{$vars.jvm.xmn}}$/"
 {% endraw %}
 {% for d in disk_io_devices %}
   /sys/block/{{ d }}/queue/nr_requests:

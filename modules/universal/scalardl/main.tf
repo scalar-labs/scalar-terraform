@@ -137,13 +137,9 @@ resource "null_resource" "scalardl_load" {
     private_key  = file(var.private_key_path)
   }
 
-  provisioner "remote-exec" {
-    inline = ["mkdir -p $HOME/provision"]
-  }
-
   provisioner "file" {
-    source      = "${path.module}/provision/"
-    destination = "$HOME/provision"
+    source      = "${path.module}/provision"
+    destination = "$HOME"
   }
 
   provisioner "remote-exec" {
@@ -180,16 +176,16 @@ resource "null_resource" "schema_loader_image_load" {
 resource "null_resource" "scalardl_container_env_file_push" {
   count = var.provision_count
 
+  triggers = {
+    scalardl_load = null_resource.scalardl_load[count.index].id,
+  }
+
   connection {
     bastion_host = var.bastion_host_ip
     host         = var.host_list[count.index]
     user         = var.user_name
     agent        = true
     private_key  = file(var.private_key_path)
-  }
-
-  provisioner "remote-exec" {
-    inline = ["mkdir -p $HOME/provision"]
   }
 
   provisioner "file" {

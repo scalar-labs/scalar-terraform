@@ -220,9 +220,9 @@ resource "null_resource" "scalardl_schema" {
       # Get the SCALAR_DB_* variables from the env file for docker-compose
       "eval `grep '^SCALAR_DB_' $HOME/provision/container.env`",
       "cmd=\"docker run --rm ${var.schema_loader_image} -u $SCALAR_DB_USERNAME -p $SCALAR_DB_PASSWORD\"",
-      "if [[ $SCALAR_DB_STORAGE == 'cassandra' ]]; then $cmd --cassandra -h $SCALAR_DB_CONTACT_POINTS -P $SCALAR_DB_CONTACT_PORT -n NetworkTopologyStrategy -R ${var.cassandra_replication_factor};",
-      "elif [[ $SCALAR_DB_STORAGE == 'dynamo' ]]; then $cmd --dynamo --region $SCALAR_DB_CONTACT_POINTS;",
-      "elif [[ $SCALAR_DB_STORAGE == 'cosmos' ]]; then $cmd --cosmos -h $SCALAR_DB_CONTACT_POINTS;",
+      "if [ $SCALAR_DB_STORAGE = 'cassandra' ]; then $cmd --cassandra -h $SCALAR_DB_CONTACT_POINTS -P $SCALAR_DB_CONTACT_PORT -n NetworkTopologyStrategy -R ${var.cassandra_replication_factor};",
+      "elif [ $SCALAR_DB_STORAGE = 'dynamo' ]; then $cmd --dynamo --region $SCALAR_DB_CONTACT_POINTS;",
+      "elif [ $SCALAR_DB_STORAGE = 'cosmos' ]; then $cmd --cosmos -h $SCALAR_DB_CONTACT_POINTS;",
       "else /bin/false;",
       "fi"
     ]

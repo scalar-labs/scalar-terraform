@@ -28,7 +28,6 @@ locals {
     blue_image_name                     = "ghcr.io/scalar-labs/scalar-ledger"
     blue_subnet_id                      = var.network.blue_subnet_id
     blue_discoverable_by_envoy          = true
-    blue_container_env_file             = "scalardl_blue_container.env"
     blue_enable_accelerated_networking  = false
     green_resource_count                = 0
     green_image_tag                     = "2.1.0"
@@ -36,7 +35,7 @@ locals {
     green_subnet_id                     = var.network.green_subnet_id
     green_discoverable_by_envoy         = false
     green_enable_accelerated_networking = false
-    green_container_env_file            = "scalardl_green_container.env"
+    container_env_file                  = "scalardl_container.env"
     enable_tdagent                      = true
     database                            = "cassandra"
     database_contact_points             = "cassandra-lb.${local.internal_domain}"

@@ -26,12 +26,11 @@ locals {
     blue_image_tag               = "2.1.0"
     blue_image_name              = "ghcr.io/scalar-labs/scalar-ledger"
     blue_discoverable_by_envoy   = true
-    blue_container_env_file      = "scalardl_blue_container.env"
     green_resource_count         = 0
     green_image_tag              = "2.1.0"
     green_image_name             = "ghcr.io/scalar-labs/scalar-ledger"
     green_discoverable_by_envoy  = false
-    green_container_env_file     = "scalardl_green_container.env"
+    container_env_file           = "scalardl_container.env"
     enable_tdagent               = true
     cassandra_replication_factor = 3
   }

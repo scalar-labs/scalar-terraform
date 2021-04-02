@@ -5,8 +5,8 @@ cassandra:
   cpu_cores: 2
   mem: 15G
   jvm:
-    xms: 4G
-    xmx: 4G
+    xms: 8G
+    xmx: 8G
     xmn: 200M
   tuned:
     readahead: 8

@@ -14,7 +14,7 @@ locals {
   internal_domain  = var.network.internal_domain
 
   triggers = [
-    length(lookup(var.cassandra, "provision_ids", "")) > 0 && var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id
+    length(lookup(var.cassandra, "provision_ids", "")) > 0 && lookup(var.cassandra, "start_on_initial_boot") ? var.cassandra.provision_ids : var.network.bastion_provision_id
   ]
 }
 

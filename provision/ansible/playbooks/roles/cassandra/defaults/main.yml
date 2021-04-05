@@ -15,8 +15,10 @@ cassandra_rack_id: rack1
 endpoint_snitch: GossipingPropertyFileSnitch
 vm_max_map_count: "1048575"
 
+# The scheduler should always be defined first.
 disk_io_params:
   - { name: scheduler, value: none }
+  - { name: nr_requests, value: 128 }
 
 # The following list of devices is for only Azure since the kernel parameters of AWS instances cannot be changed.
 disk_io_devices:

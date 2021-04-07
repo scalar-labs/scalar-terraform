@@ -14,7 +14,6 @@ resource "null_resource" "scalardl_image" {
 
   triggers = {
     scalar_tag = var.scalardl_image_tag
-    triggers   = join(",", var.triggers)
   }
 
   provisioner "local-exec" {
@@ -48,7 +47,6 @@ resource "null_resource" "schema_loader_image" {
   count = var.provision_count > 0 ? 1 : 0
 
   triggers = {
-    triggers            = join(",", var.triggers)
     schema_loader_image = var.schema_loader_image
   }
 
@@ -63,7 +61,6 @@ resource "null_resource" "scalardl_waitfor" {
   count = var.provision_count
 
   triggers = {
-    triggers = join(",", var.triggers)
     vm_id    = var.vm_ids[count.index]
   }
 

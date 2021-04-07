@@ -33,7 +33,6 @@ The Cluster module deploys a Scalar DL cluster on Azure.
 | cassandra_replication_factor | The replication factor for the Cassandra schema | `number` | `3` | no |
 | enable_accelerated_networking | A flag to enable accelerated networking on network interface | `bool` | `false` | no |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `bool` | `true` | no |
-| triggers | A trigger key that will initiate provisioning of scalardl resource | `list(string)` | `[]` | no |
 
 ## Outputs
 

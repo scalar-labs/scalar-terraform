@@ -30,7 +30,6 @@ The Cluster module deploys a Scalar DL cluster.
 | custom_tags | The map of custom tags | `map(string)` | `{}` | no |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `bool` | `true` | no |
 | security_group_ids | A list of security groups to attach to resources | `list(string)` | `[]` | no |
-| triggers | A trigger key that will initiate provisioning of scalardl resource | `list(string)` | `[]` | no |
 
 ## Outputs
 

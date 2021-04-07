@@ -61,7 +61,7 @@ resource "null_resource" "scalardl_waitfor" {
   count = var.provision_count
 
   triggers = {
-    vm_id    = var.vm_ids[count.index]
+    vm_id = var.vm_ids[count.index]
   }
 
   connection {

@@ -37,10 +37,8 @@ The Cassandra Azure module deploys a Cassandra cluster tuned for a Scalar DL env
 |------|-------------|
 | cassandra_host_ids | A list of host IDs for the Cassandra cluster. |
 | cassandra_host_ips | A list of host IP addresess for the Cassandra cluster. |
-| cassandra_provision_ids | The IDs of the provisioning step. |
 | cassandra_resource_count | The number of Cassandra nodes to create. |
 | cassandra_seed_ips | A list of host IP addresess for the Cassandra seeds. |
-| cassandra_start_on_initial_boot | A flag to start Cassandra or not on the initial boot. |
 | inventory_ini | The inventory file for Ansible. |
 | network_interface_ids | A list of network interface IDs for the Cassandra cluster. |
 

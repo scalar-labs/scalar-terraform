@@ -10,11 +10,6 @@ variable "user_name" {
   description = "The user of the remote instance to provision"
 }
 
-variable "triggers" {
-  description = "A trigger to initiate provisioning"
-  default     = []
-}
-
 variable "vm_ids" {
   default     = []
   description = "A list of virtual machine IDs to provision"

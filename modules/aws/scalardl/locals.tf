@@ -108,12 +108,6 @@ locals {
 }
 
 locals {
-  triggers = [
-    local.scalardl.database == "cassandra" && var.cassandra.start_on_initial_boot ? var.cassandra.provision_ids : var.network.bastion_provision_id
-  ]
-}
-
-locals {
   inventory = <<EOF
 [scalardl]
 %{for f in aws_route53_record.scalardl_blue_dns.*.fqdn~}

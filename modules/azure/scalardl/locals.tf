@@ -12,10 +12,6 @@ locals {
   public_key_path  = var.network.public_key_path
   user_name        = var.network.user_name
   internal_domain  = var.network.internal_domain
-
-  triggers = [
-    length(lookup(var.cassandra, "provision_ids", "")) > 0 && lookup(var.cassandra, "start_on_initial_boot") ? var.cassandra.provision_ids : var.network.bastion_provision_id
-  ]
 }
 
 ### default
@@ -80,7 +76,7 @@ locals {
     tag                           = "v1.14.1"
     image                         = "envoyproxy/envoy"
     tls                           = false
-    cert_auto_gen                 = true
+    cert_auto_gen                 = false
     custom_config_path            = ""
     enable_accelerated_networking = false
   }

@@ -14,13 +14,12 @@
     - "common"
 
 - name: Check Goss validate {{ host }} file
-  stat:
-    path: "{{ goss_validates_path }}/{{ host }}.yaml"
+  local_action: stat path="{{ role_path }}/templates/{{ goss_validates_path }}/{{ host }}.yaml.j2"
   register: result_file
 
 - name: Copy Goss validate {{ host }} files
-  copy:
-    src: "{{ goss_validates_path }}/{{ host }}.yaml"
+  template:
+    src: "{{ goss_validates_path }}/{{ host }}.yaml.j2"
     dest: "{{ goss_path }}/goss_{{ host }}.yaml"
     mode: 0644
   when: result_file.stat.exists

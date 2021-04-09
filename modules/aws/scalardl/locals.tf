@@ -75,7 +75,7 @@ locals {
     tag                       = "v1.14.1"
     image                     = "envoyproxy/envoy"
     tls                       = false
-    cert_auto_gen             = true
+    cert_auto_gen             = false
     custom_config_path        = ""
   }
 }
@@ -101,12 +101,6 @@ locals {
   envoy_create_count     = local.envoy.resource_count > 0 ? 1 : 0
   envoy_nlb_create_count = local.envoy.enable_nlb ? 1 : 0
   envoy_nlb_subnet_ids   = local.envoy.nlb_internal ? slice(local.private_subnet_ids, 0, length(distinct(local.locations))) : slice(local.public_subnet_ids, 0, length(distinct(local.locations)))
-}
-
-locals {
-  triggers = [
-    length(lookup(var.cassandra, "provision_ids", "")) > 0 && lookup(var.cassandra, "start_on_initial_boot") ? var.cassandra.provision_ids : var.network.bastion_provision_id
-  ]
 }
 
 locals {

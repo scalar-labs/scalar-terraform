@@ -23,7 +23,6 @@ module "scalardl_provision" {
   source = "../../../universal/scalardl"
 
   vm_ids           = module.cluster.vm_ids
-  triggers         = var.triggers
   bastion_host_ip  = var.bastion_ip
   host_list        = module.cluster.network_interface_private_ip
   user_name        = var.user_name

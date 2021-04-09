@@ -14,7 +14,6 @@ module "scalardl_blue" {
   resource_count                = local.scalardl.blue_resource_count
   resource_cluster_name         = "blue"
   resource_root_volume_size     = local.scalardl.resource_root_volume_size
-  triggers                      = local.triggers
   region                        = local.region
   locations                     = local.locations
   private_key_path              = local.private_key_path
@@ -43,7 +42,6 @@ module "scalardl_green" {
   resource_count                = local.scalardl.green_resource_count
   resource_cluster_name         = "green"
   resource_root_volume_size     = local.scalardl.resource_root_volume_size
-  triggers                      = local.triggers
   region                        = local.region
   locations                     = local.locations
   private_key_path              = local.private_key_path

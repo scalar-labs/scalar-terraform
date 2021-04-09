@@ -8,7 +8,6 @@ module "scalardl_blue" {
   resource_count               = local.scalardl.blue_resource_count
   resource_cluster_name        = "blue"
   resource_root_volume_size    = local.scalardl.resource_root_volume_size
-  triggers                     = local.triggers
   private_key_path             = local.private_key_path
   user_name                    = local.user_name
   subnet_ids                   = local.blue_subnet_ids
@@ -34,7 +33,6 @@ module "scalardl_green" {
   resource_count               = local.scalardl.green_resource_count
   resource_cluster_name        = "green"
   resource_root_volume_size    = local.scalardl.resource_root_volume_size
-  triggers                     = local.triggers
   private_key_path             = local.private_key_path
   user_name                    = local.user_name
   subnet_ids                   = local.green_subnet_ids

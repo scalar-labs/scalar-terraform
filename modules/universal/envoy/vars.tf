@@ -55,7 +55,7 @@ variable "envoy_tls" {
 }
 
 variable "envoy_cert_auto_gen" {
-  default     = true
+  default     = false
   description = "Flag to generate a self signed key and cert. Set to false to pass your own key and cert"
 }
 

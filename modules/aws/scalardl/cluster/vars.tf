@@ -34,12 +34,6 @@ variable "resource_root_volume_size" {
   description = "The size of resource root volume size"
 }
 
-variable "triggers" {
-  type        = list(string)
-  default     = []
-  description = "A trigger key that will initiate provisioning of scalardl resource"
-}
-
 variable "private_key_path" {
   type        = string
   description = "The path to the private key for SSH access"

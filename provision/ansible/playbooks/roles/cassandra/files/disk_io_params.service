@@ -1,0 +1,11 @@
+[Unit]
+Description=Disk io parameters
+After=cloud-final.service
+Wants=cloud-final.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/disk_io_params.sh
+
+[Install]
+WantedBy=multi-user.target

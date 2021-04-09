@@ -11,3 +11,16 @@ cassandra:
   tuned:
     readahead: 8
     devices: "!sda, !xvda, !nvme0n1"
+  # They are the default values since nr_requests in the Azure instances cannot be changed.
+  nr_requests:
+    sda: 128
+    sdb: 128
+    sdc: 128
+  scheduler:
+    sda: none
+    sdb: none
+    sdc: none
+  read_ahead_kb:
+    sda: 128
+    sdb: 8
+    sdc: 8

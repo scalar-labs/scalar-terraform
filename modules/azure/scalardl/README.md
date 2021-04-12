@@ -24,7 +24,6 @@ The Scalar DL module deploys a scalardl resource cluster using blue/green deploy
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| cassandra | The provisioning settings of a cassandra cluster | `map(string)` | n/a | yes |
 | network | The network settings of a scalardl cluster | `map(string)` | n/a | yes |
 | base | The base of a scalardl cluster | `string` | `"default"` | no |
 | envoy | The custom settings of an envoy cluster | `map(string)` | `{}` | no |

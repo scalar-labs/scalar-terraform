@@ -3,16 +3,18 @@ version: '3.7'
 services:
   scalar:
     image: ${SCALAR_IMAGE}
+    env_file:
+      - container.env
     environment:
-      - SCALAR_DB_STORAGE=${SCALAR_DB_STORAGE}
-      - SCALAR_DB_CONTACT_POINTS=${SCALAR_DB_CONTACT_POINTS}
-      - SCALAR_DB_CONTACT_PORT=${SCALAR_DB_CONTACT_PORT}
-      - SCALAR_DB_USERNAME=${SCALAR_DB_USERNAME}
-      - SCALAR_DB_PASSWORD=${SCALAR_DB_PASSWORD}
-      # For ledger.properties in scalar-ledger container
+      # The port numbers used by the container are fixed at 50051-50053 when deploying with scalar-terraform.
+      # For the ledger.properties in the scalar-ledger container:
       - SCALAR_DL_LEDGER_SERVER_PORT=50051
       - SCALAR_DL_LEDGER_SERVER_PRIVILEGED_PORT=50052
       - SCALAR_DL_LEDGER_SERVER_ADMIN_PORT=50053
+      # For the auditor.properties in the scalar-auditor container:
+      - SCALAR_DL_AUDITOR_SERVER_PORT=50051
+      - SCALAR_DL_AUDITOR_SERVER_PRIVILEGED_PORT=50052
+      - SCALAR_DL_AUDITOR_SERVER_ADMIN_PORT=50053
     ports:
       - "50051:50051"
       - "50052:50052"

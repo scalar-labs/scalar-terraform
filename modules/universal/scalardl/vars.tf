@@ -37,6 +37,11 @@ variable "schema_loader_image" {
   description = "The docker image for the schema loader"
 }
 
+variable "container_env_file" {
+  type        = string
+  description = "The environment variables file for the docker container"
+}
+
 variable "enable_tdagent" {
   default     = true
   description = "A flag to install td-agent that forwards logs to the monitor host"
@@ -44,28 +49,6 @@ variable "enable_tdagent" {
 
 variable "internal_domain" {
   description = "Internal domain"
-}
-
-variable "database" {
-  default     = "cassandra"
-  description = "The database. This should be \"cassandra\", \"dynamo\", or \"cosmos\""
-}
-
-variable "database_contact_points" {
-  description = "The database contact points"
-}
-
-variable "database_contact_port" {
-  default     = 9042
-  description = "The database contact port"
-}
-
-variable "database_username" {
-  description = "The database username"
-}
-
-variable "database_password" {
-  description = "The database password"
 }
 
 variable "cassandra_replication_factor" {

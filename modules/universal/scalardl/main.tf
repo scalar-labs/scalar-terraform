@@ -170,16 +170,33 @@ resource "null_resource" "schema_loader_image_load" {
   }
 }
 
+resource "null_resource" "scalardl_container_env_file_push" {
+  count = var.provision_count
+
+  triggers = {
+    scalardl_load = null_resource.scalardl_load[count.index].id,
+  }
+
+  connection {
+    bastion_host = var.bastion_host_ip
+    host         = var.host_list[count.index]
+    user         = var.user_name
+    agent        = true
+    private_key  = file(var.private_key_path)
+  }
+
+  provisioner "file" {
+    source      = var.container_env_file
+    destination = "$HOME/provision/container.env"
+  }
+}
+
 resource "null_resource" "scalardl_schema" {
   count = var.provision_count > 0 ? 1 : 0
 
   triggers = {
-    schema_loader_image_load = null_resource.schema_loader_image_load[0].id
-    database                 = var.database
-    database_contact_points  = var.database_contact_points
-    database_contact_port    = var.database_contact_port
-    database_username        = var.database_username
-    database_password        = var.database_password
+    schema_loader_image_load         = null_resource.schema_loader_image_load[0].id
+    scalardl_container_env_file_push = null_resource.scalardl_container_env_file_push[0].id
   }
 
   connection {
@@ -192,14 +209,15 @@ resource "null_resource" "scalardl_schema" {
 
   provisioner "remote-exec" {
     inline = [
-      format(
-        "%s %s",
-        "docker run --rm ${var.schema_loader_image} -h ${var.database_contact_points} -u ${var.database_username} -p ${var.database_password}",
-        var.database == "cassandra" ? "--cassandra -P ${var.database_contact_port} -n NetworkTopologyStrategy -R ${var.cassandra_replication_factor}" :
-        var.database == "dynamo" ? "--dynamo --region ${var.database_contact_points}" :
-        var.database == "cosmos" ? "--cosmos -h ${var.database_contact_points} -p ${var.database_password}" :
-        ""
-      )
+      "set -x",
+      # Get the SCALAR_DB_* variables from the env file for docker-compose
+      "eval `grep '^SCALAR_DB_' $HOME/provision/container.env`",
+      "cmd=\"docker run --rm ${var.schema_loader_image} -u $SCALAR_DB_USERNAME -p $SCALAR_DB_PASSWORD\"",
+      "if [ $SCALAR_DB_STORAGE = 'cassandra' ]; then $cmd --cassandra -h $SCALAR_DB_CONTACT_POINTS -P $SCALAR_DB_CONTACT_PORT -n NetworkTopologyStrategy -R ${var.cassandra_replication_factor};",
+      "elif [ $SCALAR_DB_STORAGE = 'dynamo' ]; then $cmd --dynamo --region $SCALAR_DB_CONTACT_POINTS;",
+      "elif [ $SCALAR_DB_STORAGE = 'cosmos' ]; then $cmd --cosmos -h $SCALAR_DB_CONTACT_POINTS;",
+      "else /bin/false;",
+      "fi"
     ]
   }
 }
@@ -208,8 +226,9 @@ resource "null_resource" "scalardl_container" {
   count = var.provision_count
 
   triggers = {
-    scalardl_load   = null_resource.scalardl_load[count.index].id
-    scalardl_schema = null_resource.scalardl_schema[0].id
+    scalardl_load                    = null_resource.scalardl_load[count.index].id
+    scalardl_schema                  = null_resource.scalardl_schema[0].id
+    scalardl_container_env_file_push = null_resource.scalardl_container_env_file_push[count.index].id
   }
 
   connection {
@@ -224,11 +243,6 @@ resource "null_resource" "scalardl_container" {
     inline = [
       "cd $HOME/provision",
       "echo export SCALAR_IMAGE=${local.scalar_image} > env",
-      "echo export SCALAR_DB_STORAGE=${var.database} >> env",
-      "echo export SCALAR_DB_CONTACT_POINTS=${var.database_contact_points} >> env",
-      "echo export SCALAR_DB_CONTACT_PORT=${var.database_contact_port} >> env",
-      "echo export SCALAR_DB_USERNAME=${var.database_username} >> env",
-      "echo export SCALAR_DB_PASSWORD=${var.database_password} >> env",
       "source ./env",
       "docker-compose up -d",
     ]

@@ -74,6 +74,11 @@ variable "scalardl_image_tag" {
   description = "The docker image tag for Scalar DL"
 }
 
+variable "container_env_file" {
+  type        = string
+  description = "The environment variables file for the docker container"
+}
+
 variable "enable_tdagent" {
   type        = bool
   default     = true
@@ -83,31 +88,6 @@ variable "enable_tdagent" {
 variable "internal_domain" {
   type        = string
   description = "Internal domain"
-}
-
-variable "database" {
-  type        = string
-  description = "The database. cassandra and dynamo are supported."
-}
-
-variable "database_contact_points" {
-  type        = string
-  description = "The database contact points. Specify the region name if the database is dynamo."
-}
-
-variable "database_contact_port" {
-  type        = string
-  description = "The database contact port. Ignored if the database is dynamo."
-}
-
-variable "database_username" {
-  type        = string
-  description = "The database username. Specify AWS_ACCESS_KEY_ID if the database is dynamo."
-}
-
-variable "database_password" {
-  type        = string
-  description = "The database password. Specify AWS_SECRET_ACCESS_KEY if the database is dynamo."
 }
 
 variable "cassandra_replication_factor" {

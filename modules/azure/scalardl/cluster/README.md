@@ -8,11 +8,7 @@ The Cluster module deploys a Scalar DL cluster on Azure.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | bastion_ip | The IP to bastion host used for provisioning | `string` | n/a | yes |
-| database | The database. cassandra and cosmos are supported. | `string` | n/a | yes |
-| database_contact_points | The database contact points. Specify the account endpoint if the database is cosmos. | `string` | n/a | yes |
-| database_contact_port | The database contact port. Ignored if the database is cosmos. | `number` | n/a | yes |
-| database_password | The database password. Specify the master key if the database is cosmos. | `string` | n/a | yes |
-| database_username | The database username. Ignored if the database is cosmos. | `string` | n/a | yes |
+| container_env_file | The environment variables file for the docker container | `string` | n/a | yes |
 | image_id | The image id to initiate | `string` | n/a | yes |
 | internal_domain | Internal domain | `string` | n/a | yes |
 | locations | The Azure availability zones to deploy environment | `list(string)` | n/a | yes |

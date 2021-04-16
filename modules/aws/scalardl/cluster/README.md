@@ -7,11 +7,7 @@ The Cluster module deploys a Scalar DL cluster.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | bastion_ip | The IP to bastion host used for provisioning | `string` | n/a | yes |
-| database | The database. cassandra and dynamo are supported. | `string` | n/a | yes |
-| database_contact_points | The database contact points. Specify the region name if the database is dynamo. | `string` | n/a | yes |
-| database_contact_port | The database contact port. Ignored if the database is dynamo. | `string` | n/a | yes |
-| database_password | The database password. Specify AWS_SECRET_ACCESS_KEY if the database is dynamo. | `string` | n/a | yes |
-| database_username | The database username. Specify AWS_ACCESS_KEY_ID if the database is dynamo. | `string` | n/a | yes |
+| container_env_file | The environment variables file for the docker container | `string` | n/a | yes |
 | image_id | The image id to initiate | `string` | n/a | yes |
 | internal_domain | Internal domain | `string` | n/a | yes |
 | key_name | The key-pair name to assign to cluster resources | `string` | n/a | yes |

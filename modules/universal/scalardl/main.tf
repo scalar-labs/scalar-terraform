@@ -10,7 +10,7 @@ module "ansible" {
 }
 
 resource "null_resource" "scalardl_image" {
-  count = var.provision_count > 0 ? 1 : 0
+  count = var.provision_count > 0 && !fileexists("${path.module}/${local.image_filename}") ? 1 : 0
 
   triggers = {
     scalar_tag = var.scalardl_image_tag
@@ -44,7 +44,7 @@ resource "null_resource" "scalardl_image_push" {
 }
 
 resource "null_resource" "schema_loader_image" {
-  count = var.provision_count > 0 ? 1 : 0
+  count = var.provision_count > 0 && !fileexists("${path.module}/${local.schema_loader_image_filename}") ? 1 : 0
 
   triggers = {
     schema_loader_image = var.schema_loader_image

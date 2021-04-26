@@ -28,8 +28,12 @@ module.network.module.bastion.module.bastion_provision.null_resource.ansible_pla
 ```
 # AWS
 module.scalardl.module.scalardl_blue.module.scalardl_cluster.aws_instance.this[0]
+module.scalardl.module.scalardl_blue.module.scalardl_provision.null_resource.schema_loader_image[0]
+module.scalardl.module.scalardl_blue.module.scalardl_provision.null_resource.scalardl_image[0]
 # Azure
 module.scalardl.module.scalardl_blue.module.cluster.azurerm_virtual_machine.vm-linux[0]
+module.scalardl.module.scalardl_blue.module.scalardl_provision.null_resource.schema_loader_image[0]
+module.scalardl.module.scalardl_blue.module.scalardl_provision.null_resource.scalardl_image[0]
 ```
 
 * The index for `aws_instance.this` or `azurerm_virtual_machine.vm-linux` should be changed according to the node you want to replace.

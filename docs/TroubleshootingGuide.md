@@ -24,7 +24,7 @@ terraform state rm "module.cassandra.azurerm_virtual_machine_data_disk_attachmen
 ```
 * Do `terraform apply`
 
-Follow [Cassandra Post Recovery Steps](CassandraOperation.md#post-terraform-steps)
+Follow [Cassandra Post Terraform Steps](CassandraOperation.md#post-terraform-steps)
 
 ### Recover a node with data disk from accidental deletion of a node and data disk in Azure
 If you accidentally delete a node and data disk in Azure, you can recover that node and data disk using the following steps.
@@ -39,6 +39,6 @@ terraform state rm "module.cassandra.azurerm_managed_disk.cassandra_data_volume[
 ```
 * Do `terraform apply`
 
-Follow [Cassandra Post Recovery Steps](CassandraOperation.md#post-terraform-steps-2)
+Follow [Cassandra Post Terraform Steps](CassandraOperation.md#post-terraform-steps-2)
 
 

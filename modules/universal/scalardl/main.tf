@@ -47,7 +47,8 @@ resource "null_resource" "schema_loader_image" {
   count = var.provision_count > 0 ? 1 : 0
 
   triggers = {
-    schema_loader_image = var.schema_loader_image
+    schema_loader_image = var.schema_loader_image,
+    triggers            = null_resource.docker_install[count.index].id
   }
 
   provisioner "local-exec" {
@@ -189,7 +190,7 @@ resource "null_resource" "schema_loader_image_load" {
 
   triggers = {
     triggers     = null_resource.docker_install[0].id,
-    scalar_image = null_resource.schema_loader_image[0].id
+    scalar_image = null_resource.schema_loader_push[0].id
   }
 
   connection {

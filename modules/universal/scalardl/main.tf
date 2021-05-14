@@ -48,7 +48,7 @@ resource "null_resource" "schema_loader_image" {
 
   triggers = {
     schema_loader_image = var.schema_loader_image,
-    triggers            = null_resource.docker_install[count.index].id
+    triggers            = null_resource.docker_install[0].id
   }
 
   provisioner "local-exec" {
@@ -169,7 +169,7 @@ resource "null_resource" "schema_loader_push" {
   count = var.provision_count > 0 ? 1 : 0
 
   triggers = {
-    triggers     = null_resource.docker_install[count.index].id,
+    triggers     = null_resource.docker_install[0].id,
     scalar_image = null_resource.schema_loader_image_push[0].id
   }
 
@@ -181,7 +181,7 @@ resource "null_resource" "schema_loader_push" {
   }
 
   provisioner "remote-exec" {
-    inline = ["rsync -e 'ssh -o StrictHostKeyChecking=no' -cvv ${module.ansible.remote_playbook_path}/${local.schema_loader_image_filename} ${var.user_name}@${var.host_list[count.index]}:/tmp/"]
+    inline = ["rsync -e 'ssh -o StrictHostKeyChecking=no' -cvv ${module.ansible.remote_playbook_path}/${local.schema_loader_image_filename} ${var.user_name}@${var.host_list[0]}:/tmp/"]
   }
 }
 

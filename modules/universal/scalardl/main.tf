@@ -59,6 +59,26 @@ resource "null_resource" "schema_loader_image" {
   }
 }
 
+resource "null_resource" "schema_loader_image_push" {
+  count = var.provision_count > 0 ? 1 : 0
+
+  triggers = {
+    docker_image = null_resource.schema_loader_image[0].id
+  }
+
+  connection {
+    host        = var.bastion_host_ip
+    user        = var.user_name
+    agent       = true
+    private_key = file(var.private_key_path)
+  }
+
+  provisioner "file" {
+    source      = "${path.module}/${local.schema_loader_image_filename}"
+    destination = "${module.ansible.remote_playbook_path}/${local.schema_loader_image_filename}"
+  }
+}
+
 resource "null_resource" "scalardl_waitfor" {
   count = var.provision_count
 
@@ -147,12 +167,32 @@ resource "null_resource" "scalardl_load" {
   }
 }
 
+resource "null_resource" "schema_loader_push" {
+  count = var.provision_count > 0 ? 1 : 0
+
+  triggers = {
+    triggers     = null_resource.docker_install[0].id,
+    scalar_image = null_resource.schema_loader_image_push[0].id
+  }
+
+  connection {
+    host        = var.bastion_host_ip
+    user        = var.user_name
+    agent       = true
+    private_key = file(var.private_key_path)
+  }
+
+  provisioner "remote-exec" {
+    inline = ["rsync -e 'ssh -o StrictHostKeyChecking=no' -cvv ${module.ansible.remote_playbook_path}/${local.schema_loader_image_filename} ${var.user_name}@${var.host_list[0]}:/tmp/"]
+  }
+}
+
 resource "null_resource" "schema_loader_image_load" {
   count = var.provision_count > 0 ? 1 : 0
 
   triggers = {
     triggers     = null_resource.docker_install[0].id,
-    scalar_image = null_resource.schema_loader_image[0].id
+    scalar_image = null_resource.schema_loader_push[0].id
   }
 
   connection {
@@ -161,11 +201,6 @@ resource "null_resource" "schema_loader_image_load" {
     user         = var.user_name
     agent        = true
     private_key  = file(var.private_key_path)
-  }
-
-  provisioner "file" {
-    source      = "${path.module}/${local.schema_loader_image_filename}"
-    destination = "/tmp/${local.schema_loader_image_filename}"
   }
 
   provisioner "remote-exec" {

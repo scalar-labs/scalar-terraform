@@ -3,6 +3,10 @@
   rpm_key:
     key: "{{ tdagent_gpg_key }}"
     state: present
+  register: rpm_key_result
+  until: rpm_key_result is succeeded
+  retries: 3
+  delay: 5
 
 - name: Add td-agent repository
   template:

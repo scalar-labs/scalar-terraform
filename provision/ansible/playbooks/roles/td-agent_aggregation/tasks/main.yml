@@ -18,6 +18,12 @@
     daemon_reload: yes
     state: started
 
+- name: Set context to allow logrotate for aggregated logs
+  community.general.sefcontext:
+    target: '/log/*/*.log'
+    setype: var_log_t
+    state: present
+
 - name: Setup logrotate.d
   template:
     src: monitor.logrotate.j2

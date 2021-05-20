@@ -1,4 +1,9 @@
 ---
+- name: Install policycoreutils
+  package:
+    name: policycoreutils-python
+    state: present
+
 - name: Copy Drive Mount Script
   copy:
     src: drive_mount.sh

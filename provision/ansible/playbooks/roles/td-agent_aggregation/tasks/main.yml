@@ -20,9 +20,12 @@
 
 - name: Set context to allow logrotate for aggregated logs
   community.general.sefcontext:
-    target: '/log/*/*.log'
+    target: '/log(/.*)?(/.*)?(/*.log)?'
     setype: var_log_t
     state: present
+
+- name: Apply new SELinux file context to filesystem
+  command: restorecon -irv /log
 
 - name: Setup logrotate.d
   template:

@@ -23,7 +23,7 @@
     daemon_reload: yes
     state: started
 
-- name: Set context to allow logrotate for aggregated logs
+- name: Set SELinux file context for aggregated logs
   community.general.sefcontext:
     target: '/log(/.*)?(/.*)?(/*.log)?'
     setype: var_log_t

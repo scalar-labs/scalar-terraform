@@ -1,0 +1,27 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+template: |
+  # What's Changed
+  $CHANGES
+categories:
+  - title: 'Enhancements'
+    label: 'type: feature'
+  - title: 'Bug Fixes'
+    label: 'type: bugfix'
+  - title: 'Documentation'
+    label: 'type: documentation'
+
+version-resolver:
+  major:
+    labels:
+      - 'type: breaking'
+  minor:
+    labels:
+      - 'type: feature'
+  patch:
+    labels:
+      - 'type: bugfix'
+      - 'type: documentation'
+
+exclude-labels:
+  - 'skip-changelog'

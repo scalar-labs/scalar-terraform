@@ -1,27 +1,34 @@
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
-template: |
-  # What's Changed
-  $CHANGES
+prerelease: true
+exclude-labels:
+  - 'skip-changelog'
 categories:
   - title: 'Enhancements'
-    label: 'type: feature'
+    labels:
+      - 'feature'
+      - 'internal'
+      - 'enhancement'
+  - title: 'Improvements'
+    label: 'improvement'
   - title: 'Bug Fixes'
-    label: 'type: bugfix'
+    label: 'bugfix'
   - title: 'Documentation'
-    label: 'type: documentation'
+    label: 'documentation'
 
 version-resolver:
   major:
     labels:
-      - 'type: breaking'
+      - 'major'
   minor:
     labels:
-      - 'type: feature'
+      - 'minor'
   patch:
     labels:
-      - 'type: bugfix'
-      - 'type: documentation'
+      - 'patch'
+  default: patch
+change-template: '- #$NUMBER: $TITLE'
+template: |
+  ## Changes
 
-exclude-labels:
-  - 'skip-changelog'
+  $CHANGES

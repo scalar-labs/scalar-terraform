@@ -20,7 +20,7 @@ One of the Scalar DL nodes (`scalardl-blue-1`) was accidentally deleted in the A
 
 ## Impact
 
-The Azure PSIM environment generated the critical and warning alerts for `scalardl-blue-1` and PSIM continued testing with the other 2 `scalardl-blue` nodes.
+The Azure PSIM environment generated the critical and warning alerts for `scalardl-blue-1` and continued the PSIM test with the other 2 `scalardl-blue` nodes.
 
 ## Root Causes
 
@@ -28,9 +28,9 @@ The `scalardl-blue-1` node was accidentally deleted by me.
 
 ## Trigger
 
-Scalardl node replacement failed while trying to replace the node with current [Troubleshooting Guide](../TroubleshootingGuide.md).
+Scalardl node replacement failed while trying to replace the node with the current [Troubleshooting Guide](../TroubleshootingGuide.md).
 
-Following are procedures to resolve the issue:
+Following are the procedures used:
 
 1. On the Azure portal, manually delete the orphaned osdisk `osdisk-scalar-blue-1`.
 

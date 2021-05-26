@@ -5,10 +5,7 @@ exclude-labels:
   - 'skip-changelog'
 categories:
   - title: 'Enhancements'
-    labels:
-      - 'feature'
-      - 'internal'
-      - 'enhancement'
+    label: 'enhancement'
   - title: 'Improvements'
     label: 'improvement'
   - title: 'Bug Fixes'

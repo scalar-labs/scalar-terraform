@@ -24,7 +24,7 @@ The Azure PSIM environment generated the critical and warning alerts for `scalar
 
 ## Root Causes
 
-The `scalardl-blue-1` node was accidentally deleted by me.
+I accidentally deleted `scalardl-blue-1` node from Azure portal.
 
 ## Trigger
 
@@ -215,10 +215,12 @@ A new Scalar DL node was added as `scalar-blue-1` by the steps below with the Sc
 
 2. Configured the environment [Share Environment](../ShareEnvironment.md) document.
 
-3. Executed `terraform destroy` command for removing `envoy-1` node
+3. Executed `terraform destroy` command for removing `scalardl-blue-x` node
    
     ``` console
-    terraform destroy -target='module.scalardl.module.envoy_cluster.azurerm_virtual_machine.vm-linux[0]'
+    $ terraform destroy -target='module.scalardl.module.scalardl_blue.module.cluster.azurerm_virtual_machine.vm-linux[0]'
+    $ terraform destroy -target='module.scalardl.module.scalardl_blue.module.cluster.azurerm_virtual_machine.vm-linux[1]'
+    $ terraform destroy -target='module.scalardl.module.scalardl_blue.module.cluster.azurerm_virtual_machine.vm-linux[2]'
     ```
 
 4. Finally run the `apply` command and confirm what will happen, then answer `yes`.

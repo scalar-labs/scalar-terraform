@@ -24,7 +24,7 @@ The Azure PSIM environment generated the critical and warning alerts for `scalar
 
 ## Root Causes
 
-I accidentally deleted `scalardl-blue-1` node from Azure portal.
+I accidentally deleted `scalardl-blue-1` node from the Azure portal.
 
 ## Trigger
 

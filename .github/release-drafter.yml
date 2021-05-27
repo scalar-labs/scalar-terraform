@@ -1,0 +1,29 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+prerelease: true
+exclude-labels:
+  - 'skip-changelog'
+categories:
+  - title: 'Enhancements'
+    label: 'enhancement'
+  - title: 'Improvements'
+    label: 'improvement'
+  - title: 'Bug Fixes'
+    label: 'bugfix'
+  - title: 'Documentation'
+    label: 'documentation'
+
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
+change-template: '- #$NUMBER: $TITLE'
+template: |
+  $CHANGES

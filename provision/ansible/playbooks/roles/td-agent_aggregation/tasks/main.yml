@@ -1,4 +1,9 @@
 ---
+- name: Install policycoreutils
+  package:
+    name: policycoreutils-python
+    state: present
+
 - name: Copy Drive Mount Script
   copy:
     src: drive_mount.sh
@@ -17,6 +22,15 @@
     enabled: yes
     daemon_reload: yes
     state: started
+
+- name: Set SELinux file context for aggregated logs
+  community.general.sefcontext:
+    target: '/log(/.*)?(/.*)?(/*.log)?'
+    setype: var_log_t
+    state: present
+
+- name: Apply new SELinux file context to filesystem
+  command: restorecon -irv /log
 
 - name: Setup logrotate.d
   template:

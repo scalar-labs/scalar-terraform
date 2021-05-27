@@ -33,7 +33,7 @@ Then, update tfstate file as follows.
 ```
 cd /path/to/network
 terraform init
-terraform refresh -var-file=example.tfvars
+terraform apply -var-file=example.tfvars
 ```
 
 ## Update the tfstate of the cassandra, scalardl, and monitor modules
@@ -43,5 +43,5 @@ Then, do the following to reflect the above changes to each module.
 ```
 cd /path/to/[cassandra|scalardl|monitor]
 terraform init
-terraform refresh -var-file=example.tfvars
+terraform apply -var-file=example.tfvars
 ```

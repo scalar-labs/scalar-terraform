@@ -75,8 +75,8 @@ Second, do `terraform plan` to check if Cloud resources' states are the same as 
 $ terraform plan -var-file=your.tfvars
 ```
 
-Third, do `terraform refresh` to update tfstate.
+Third, do `terraform apply` to update tfstate.
 
 ```console
-$ terraform refresh -var-file=your.tfvars
+$ terraform apply -var-file=your.tfvars
 ```

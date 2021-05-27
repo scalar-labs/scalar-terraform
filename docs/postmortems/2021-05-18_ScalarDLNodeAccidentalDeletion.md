@@ -16,7 +16,12 @@
 
 ## Summary
 
-One of the Scalar DL nodes (`scalardl-blue-1`) was accidentally deleted in the Azure production simulated environment.
+Azure PSIM environment is a Scalar DL production simulated test environment created using scalar-terraform.
+This postmortem report describes an unexpected scenario that occurred during the restoration of an accidentally deleted scalardl node.
+
+One of the scalar DL nodes (`Scalardl-blue-1`) was accidentally deleted in the Azure production simulated environment. 
+Then immediately tried to restore the accidentally deleted `scalardl-blue-1` with the [Troubleshooting Guide](../TroubleshootingGuide.md), but it led to some unexpected scenarios. 
+It was eventually recovered through a few additional steps.
 
 ## Impact
 
@@ -34,7 +39,7 @@ Following are the procedures used:
 
 1. On the Azure portal, manually delete the orphaned osdisk `osdisk-scalar-blue-1`.
 
-2. cd to the azure orchestration directory in [scalar-production-simulated-testing](https://github.com/scalar-labs/scalar-production-simulated-testing).
+2. Move to the scalardl azure terraform directory in [scalar-production-simulated-testing](https://github.com/scalar-labs/scalar-production-simulated-testing).
    
     ```console
     $ cd scalar-production-simulated-testing/terraform/azure/scalardl
@@ -205,9 +210,9 @@ Following are the procedures used:
 
 ## Resolution
 
-A new Scalar DL node was added as `scalar-blue-1` by the steps below with the Scalar DL Orchestration Tools.
+A new Scalar DL node was added as `scalar-blue-1` by the steps below with the scalar-terraform.
 
-1. cd to the azure orchestration directory in [scalar-production-simulated-testing](https://github.com/scalar-labs/scalar-production-simulated-testing).
+1. Move to the scalardl azure terraform directory in [scalar-production-simulated-testing](https://github.com/scalar-labs/scalar-production-simulated-testing).
 
     ```console
     $ cd scalar-production-simulated-testing/terraform/azure

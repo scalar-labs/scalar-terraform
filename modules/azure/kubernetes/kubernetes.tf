@@ -81,7 +81,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   resource_group_name     = local.kubernetes_cluster.resource_group_name
   location                = local.kubernetes_cluster.region
   dns_prefix              = local.kubernetes_cluster.dns_prefix
-  kubernetes_version      = local.kubernetes_cluster.kubernetes_version != null ? local.kubernetes_cluster.kubernetes_version : data.azurerm_kubernetes_service_versions.current[0].latest_version
+  kubernetes_version      = data.azurerm_kubernetes_service_versions.current.latest_version
   node_resource_group     = "${local.kubernetes_cluster.resource_group_name}_MC"
   private_cluster_enabled = !local.kubernetes_cluster.public_cluster_enabled
 
@@ -104,7 +104,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     enable_auto_scaling   = local.kubernetes_default_node_pool.cluster_auto_scaling
     min_count             = local.kubernetes_default_node_pool.cluster_auto_scaling ? local.kubernetes_default_node_pool.cluster_auto_scaling_min_count : null
     max_count             = local.kubernetes_default_node_pool.cluster_auto_scaling ? local.kubernetes_default_node_pool.cluster_auto_scaling_max_count : null
-    orchestrator_version  = local.kubernetes_cluster.kubernetes_version != null ? local.kubernetes_cluster.kubernetes_version : data.azurerm_kubernetes_service_versions.current[0].latest_version
+    orchestrator_version  = data.azurerm_kubernetes_service_versions.current.latest_version
   }
 
   role_based_access_control {

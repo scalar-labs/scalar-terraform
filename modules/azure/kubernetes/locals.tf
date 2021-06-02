@@ -27,8 +27,7 @@ locals {
     resource_group_name       = var.network.name
     region                    = var.network.region
     dns_prefix                = "scalar-kubernetes"
-    kubernetes_version_prefix = "1.19"
-    kubernetes_version        = null
+    kubernetes_version        = "1.19"
     admin_username            = "azureuser"
     public_ssh_key_path       = var.network.public_key_path
     role_based_access_control = true

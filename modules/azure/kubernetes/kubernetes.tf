@@ -59,10 +59,6 @@ resource "azuread_service_principal_password" "sp_password" {
   }
 }
 
-# Retrieve scope id for assignment
-data "azurerm_subscription" "current" {
-}
-
 # Set assignment Contributor to Service Principal
 resource "azurerm_role_assignment" "sp_role_assignment" {
   scope                = "${data.azurerm_subscription.current.id}/resourceGroups/${local.network_name}"

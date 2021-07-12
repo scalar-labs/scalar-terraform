@@ -26,5 +26,10 @@ terraform {
       source  = "hashicorp/local"
       version = "~> 2.1"
     }
+
+    http = {
+      source  = "terraform-aws-modules/http"
+      version = ">= 2.4.1"
+    }
   }
 }

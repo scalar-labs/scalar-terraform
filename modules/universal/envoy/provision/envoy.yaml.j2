@@ -29,6 +29,8 @@ static_resources:
                 - name: envoy.filters.http.router
               codec_type: auto
               stat_prefix: ingress_http
+              common_http_protocol_options:
+                max_connection_duration: 300s
               route_config:
                 name: scalar_route
                 virtual_hosts:

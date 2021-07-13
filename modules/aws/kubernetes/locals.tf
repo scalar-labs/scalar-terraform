@@ -50,7 +50,7 @@ locals {
     subnet_ids                     = local.private_subnet_ids
     kubernetes_labels              = {}
     allow_remote_access            = true
-    ssh_key_name                   = var.network.key_name
+    ssh_key_name                   = var.network.ssh_key_name
     source_security_group_ids      = [var.network.bastion_security_group_id]
   }
 
@@ -74,7 +74,7 @@ locals {
       agentpool = "scalardlpool"
     }
     allow_remote_access       = true
-    ssh_key_name              = var.network.key_name
+    ssh_key_name              = var.network.ssh_key_name
     source_security_group_ids = [var.network.bastion_security_group_id]
   }
 

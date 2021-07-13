@@ -11,7 +11,5 @@ locals {
   max_capacity              = var.node_group.cluster_auto_scaling_max_count
   min_capacity              = var.node_group.cluster_auto_scaling_min_count
 
-
-
   policy_arn_prefix = "arn:${data.aws_partition.current.partition}:iam::aws:policy"
 }

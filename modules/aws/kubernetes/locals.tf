@@ -49,6 +49,9 @@ locals {
     cluster_auto_scaling_max_count = "6"
     subnet_ids                     = local.private_subnet_ids
     kubernetes_labels              = {}
+    allow_remote_access            = true
+    ssh_key_name                   = var.network.key_name
+    source_security_group_ids      = [var.network.bastion_security_group_id]
   }
 
   kubernetes_default_node_pool = merge(
@@ -70,6 +73,9 @@ locals {
     kubernetes_labels = {
       agentpool = "scalardlpool"
     }
+    allow_remote_access       = true
+    ssh_key_name              = var.network.key_name
+    source_security_group_ids = [var.network.bastion_security_group_id]
   }
 
   kubernetes_scalar_apps_pool = merge(

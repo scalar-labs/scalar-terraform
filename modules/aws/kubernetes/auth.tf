@@ -42,27 +42,10 @@ provider "kubernetes" {
   load_config_file       = false
 }
 
-resource "null_resource" "wait_for_cluster" {
-  count = local.kubernetes_cluster.manage_aws_auth ? 1 : 0
-
-  depends_on = [
-    aws_eks_cluster.eks_cluster,
-    aws_security_group.eks_cluster
-  ]
-
-  provisioner "local-exec" {
-    command     = "curl --silent --fail --retry 60 --retry-delay 5 --retry-connrefused --insecure --output /dev/null $ENDPOINT/healthz"
-    interpreter = ["/bin/sh", "-c"]
-    environment = {
-      ENDPOINT = aws_eks_cluster.eks_cluster.endpoint
-    }
-  }
-}
-
 resource "kubernetes_config_map" "aws_auth" {
   count = local.kubernetes_cluster.manage_aws_auth ? 1 : 0
 
-  depends_on = [null_resource.wait_for_cluster[0]]
+  depends_on = [data.http.wait_for_cluster[0]]
 
   metadata {
     name      = "aws-auth"

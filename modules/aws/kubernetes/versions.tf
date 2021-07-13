@@ -7,11 +7,6 @@ terraform {
       version = "~> 2.70"
     }
 
-    null = {
-      source  = "hashicorp/null"
-      version = "~> 3.1"
-    }
-
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 1.13"
@@ -25,6 +20,11 @@ terraform {
     local = {
       source  = "hashicorp/local"
       version = "~> 2.1"
+    }
+
+    http = {
+      source  = "terraform-aws-modules/http"
+      version = "~> 2.4"
     }
   }
 }

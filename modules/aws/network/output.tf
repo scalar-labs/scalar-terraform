@@ -51,6 +51,11 @@ output "bastion_ip" {
   description = "Public IP address to bastion host"
 }
 
+output "bastion_security_group_id" {
+  value       = module.bastion.bastion_security_group_id
+  description = "The security group ID of the bastion resource."
+}
+
 output "locations" {
   value       = local.locations
   description = "The AWS availability zones to deploy environment."

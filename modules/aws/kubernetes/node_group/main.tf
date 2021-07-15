@@ -17,6 +17,18 @@ resource "aws_eks_node_group" "default" {
   disk_size      = local.disk_size
   instance_types = [local.instance_type]
 
+  dynamic "remote_access" {
+    for_each = local.enable_remote_access ? [{
+      ec2_ssh_key               = local.ssh_key_name
+      source_security_group_ids = local.source_security_group_ids
+    }] : []
+
+    content {
+      ec2_ssh_key               = remote_access.value["ec2_ssh_key"]
+      source_security_group_ids = remote_access.value["source_security_group_ids"]
+    }
+  }
+
   labels = var.kubernetes_labels
 
   tags = var.tags

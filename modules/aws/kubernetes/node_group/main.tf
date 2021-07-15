@@ -18,7 +18,7 @@ resource "aws_eks_node_group" "default" {
   instance_types = [local.instance_type]
 
   dynamic "remote_access" {
-    for_each = local.allow_remote_access ? [{
+    for_each = local.enable_remote_access ? [{
       ec2_ssh_key               = local.ssh_key_name
       source_security_group_ids = local.source_security_group_ids
     }] : []

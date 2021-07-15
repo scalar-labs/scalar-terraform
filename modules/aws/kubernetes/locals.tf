@@ -49,7 +49,7 @@ locals {
     cluster_auto_scaling_max_count = "6"
     subnet_ids                     = local.private_subnet_ids
     kubernetes_labels              = {}
-    allow_remote_access            = true
+    enable_remote_access           = true
     ssh_key_name                   = var.network.ssh_key_name
     source_security_group_ids      = [var.network.bastion_security_group_id]
   }
@@ -73,7 +73,7 @@ locals {
     kubernetes_labels = {
       agentpool = "scalardlpool"
     }
-    allow_remote_access       = true
+    enable_remote_access      = true
     ssh_key_name              = var.network.ssh_key_name
     source_security_group_ids = [var.network.bastion_security_group_id]
   }

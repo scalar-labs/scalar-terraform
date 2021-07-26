@@ -9,7 +9,8 @@
   pip:
     name: pip
     executable: pip3
-    state: latest
+    state: present
+    version: "{{ pip_version }}"
 
 - name: Install required packages via pip
   pip:

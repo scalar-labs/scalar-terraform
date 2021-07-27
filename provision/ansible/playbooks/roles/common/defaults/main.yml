@@ -1,4 +1,5 @@
 ---
+pip_version: 21.1.3
 pip_packages:
   - j2cli
 

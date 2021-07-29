@@ -10,10 +10,10 @@ resource "azurerm_cosmosdb_account" "db" {
   is_virtual_network_filter_enabled = true
 
   dynamic "virtual_network_rule" {
-    for_each = var.allowed_subnet_ids
-    iterator = subnet_id
+    for_each = toset(var.allowed_subnet_ids)
     content {
-      id = subnet_id.value
+      id                                   = each.key
+      ignore_missing_vnet_service_endpoint = false
     }
   }
 

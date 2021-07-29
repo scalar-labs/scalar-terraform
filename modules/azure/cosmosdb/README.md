@@ -19,8 +19,8 @@ The Cosmos DB Azure module deploys a Cosmos DB account.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| allowed_subnet_ids | The subnet IDs to allow access to Cosmos DB | `list(string)` | n/a | yes |
 | network | The network settings of Cosmos DB | `map(string)` | n/a | yes |
+| allowed_subnet_ids | The subnet IDs to allow access to Cosmos DB | `list(string)` | `[]` | no |
 
 ## Outputs
 

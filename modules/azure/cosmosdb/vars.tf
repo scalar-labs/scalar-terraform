@@ -6,4 +6,5 @@ variable "network" {
 variable "allowed_subnet_ids" {
   type        = list(string)
   description = "The subnet IDs to allow access to Cosmos DB"
+  default     = []
 }

@@ -31,7 +31,7 @@ resource "azuread_application" "app" {
     redirect_uris = ["https://aks-${local.network_name}-${random_id.id.b64_url}"]
 
     implicit_grant {
-      access_token_issuance_enabled = true
+      access_token_issuance_enabled = false
     }
   }
   # Waiting for AAD global replication - see https://github.com/Azure/AKS/issues/1206#issue-493516902

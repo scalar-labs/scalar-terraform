@@ -22,9 +22,9 @@ resource "random_id" "id" {
 
 # Create application for Service Principals
 resource "azuread_application" "app" {
-  display_name               = "scalar-k8s-app-${local.network_name}-${random_id.id.b64_url}"
-  identifier_uris            = ["https://aks-${local.network_name}-${random_id.id.b64_url}"]
-  sign_in_audience           = "AzureADMyOrg"
+  display_name     = "scalar-k8s-app-${local.network_name}-${random_id.id.b64_url}"
+  identifier_uris  = ["https://aks-${local.network_name}-${random_id.id.b64_url}"]
+  sign_in_audience = "AzureADMyOrg"
 
   web {
     homepage_url  = "https://aks-${local.network_name}-${random_id.id.b64_url}"

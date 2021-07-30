@@ -12,7 +12,7 @@ resource "azurerm_cosmosdb_account" "db" {
   dynamic "virtual_network_rule" {
     for_each = toset(var.allowed_subnet_ids)
     content {
-      id                                   = each.key
+      id                                   = virtual_network_rule.value
       ignore_missing_vnet_service_endpoint = false
     }
   }

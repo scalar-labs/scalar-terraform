@@ -22,13 +22,18 @@ resource "random_id" "id" {
 
 # Create application for Service Principals
 resource "azuread_application" "app" {
-  display_name               = "scalar-k8s-app-${local.network_name}-${random_id.id.b64_url}"
-  homepage                   = "https://aks-${local.network_name}-${random_id.id.b64_url}"
-  identifier_uris            = ["https://aks-${local.network_name}-${random_id.id.b64_url}"]
-  reply_urls                 = ["https://aks-${local.network_name}-${random_id.id.b64_url}"]
-  available_to_other_tenants = false
-  oauth2_allow_implicit_flow = false
+  display_name     = "scalar-k8s-app-${local.network_name}-${random_id.id.b64_url}"
+  identifier_uris  = ["https://aks-${local.network_name}-${random_id.id.b64_url}"]
+  sign_in_audience = "AzureADMyOrg"
 
+  web {
+    homepage_url  = "https://aks-${local.network_name}-${random_id.id.b64_url}"
+    redirect_uris = ["https://aks-${local.network_name}-${random_id.id.b64_url}"]
+
+    implicit_grant {
+      access_token_issuance_enabled = false
+    }
+  }
   # Waiting for AAD global replication - see https://github.com/Azure/AKS/issues/1206#issue-493516902
   provisioner "local-exec" {
     command = "sleep 60"

@@ -94,6 +94,7 @@ locals {
       kubeconfig_name                   = local.kubeconfig_name
       endpoint                          = aws_eks_cluster.eks_cluster.endpoint
       cluster_auth_base64               = aws_eks_cluster.eks_cluster.certificate_authority[0].data
+      aws_authenticator_api_version     = "client.authentication.k8s.io/v1beta1"
       aws_authenticator_command         = "aws"
       aws_authenticator_command_args    = ["eks", "get-token", "--cluster-name", aws_eks_cluster.eks_cluster.name]
       aws_authenticator_additional_args = ["--region", local.region]

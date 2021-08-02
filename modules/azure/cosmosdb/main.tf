@@ -7,7 +7,7 @@ resource "azurerm_cosmosdb_account" "db" {
 
   enable_automatic_failover = false
 
-  is_virtual_network_filter_enabled = true
+  is_virtual_network_filter_enabled = var.is_virtual_network_filter_enabled
 
   dynamic "virtual_network_rule" {
     for_each = toset(var.allowed_subnet_ids)
@@ -16,6 +16,8 @@ resource "azurerm_cosmosdb_account" "db" {
       ignore_missing_vnet_service_endpoint = false
     }
   }
+
+  ip_range_filter = join(",", var.allowed_cidrs)
 
   consistency_policy {
     consistency_level = "Strong"

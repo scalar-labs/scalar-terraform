@@ -7,7 +7,7 @@ resource "azurerm_cosmosdb_account" "db" {
 
   enable_automatic_failover = false
 
-  is_virtual_network_filter_enabled = var.is_virtual_network_filter_enabled
+  is_virtual_network_filter_enabled = var.enable_virtual_network_filter
 
   dynamic "virtual_network_rule" {
     for_each = toset(var.allowed_subnet_ids)

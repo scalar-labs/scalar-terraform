@@ -3,7 +3,7 @@ variable "network" {
   description = "The network settings of Cosmos DB"
 }
 
-variable "is_virtual_network_filter_enabled" {
+variable "enable_virtual_network_filter" {
   type        = bool
   description = "A flag to enable virtual network filtering for Cosmos DB"
   default     = true

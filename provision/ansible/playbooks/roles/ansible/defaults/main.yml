@@ -1,0 +1,5 @@
+---
+ansible_version: 2.11.x
+
+pip_package: python3-pip
+pip_executable: pip3

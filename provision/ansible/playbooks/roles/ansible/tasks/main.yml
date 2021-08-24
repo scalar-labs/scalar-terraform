@@ -1,6 +1,12 @@
 ---
+- name: Ensure pip3 is installed.
+  package:
+    name: "{{ pip_package }}"
+    state: present
+
 - name: Install Ansible
   pip:
     name: ansible
     state: present
-    executable: pip3
+    version: "{{ ansible_version }}"
+    executable: "{{ pip_executable }}"

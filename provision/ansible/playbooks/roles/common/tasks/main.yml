@@ -5,7 +5,7 @@
 - import_tasks: setup-debian.yml
   when: ansible_os_family == 'Debian'
 
-- name: Upgrade pip
+- name: Upgrade pip version 21.3 
   pip:
     name: pip
     executable: pip3

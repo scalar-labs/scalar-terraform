@@ -10,6 +10,6 @@
     state: present
   vars:
     packages:
-      - python39
-      - python39-pip
+      - python3
+      - python3-pip
       - python-setuptools

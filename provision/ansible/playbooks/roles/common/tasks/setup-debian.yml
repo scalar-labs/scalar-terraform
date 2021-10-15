@@ -5,6 +5,6 @@
     state: present
   vars:
     packages:
-      - python39
-      - python39-pip
+      - python36
+      - python36-pip
       - python-setuptools

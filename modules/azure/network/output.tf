@@ -29,6 +29,21 @@ output "image_id" {
   description = "The image id to initiate."
 }
 
+output "vm_os_publisher" {
+  value       = local.network.vm_os_publisher
+  description = "The vm os publisher to initiate."
+}
+
+output "vm_os_offer" {
+  value       = local.network.vm_os_offer
+  description = "The vm os offer to initiate."
+}
+
+output "vm_os_sku" {
+  value       = local.network.vm_os_sku
+  description = "The vm os sku to initiate."
+}
+
 output "dns_zone_id" {
   value       = basename(azurerm_private_dns_zone.dns.id)
   description = "The virtual network DNS ID."

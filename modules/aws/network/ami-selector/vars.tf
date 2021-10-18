@@ -5,10 +5,10 @@ variable "most_recent" {
 
 variable "owners" {
   type    = list(string)
-  default = ["825543958249"]
+  default = ["125523088429"]
 }
 
 variable "name" {
   type    = string
-  default = "CentOS Linux 7 x86_64 - 20200407*"
+  default = "CentOS Stream 8 x86_64* 202*"
 }

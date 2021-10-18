@@ -89,6 +89,9 @@ module "bastion" {
   user_name                     = local.network.user_name
   subnet_id                     = azurerm_subnet.subnet["public"].id
   image_id                      = local.network.image_id
+  vm_os_publisher               = local.network.vm_os_publisher
+  vm_os_offer                   = local.network.vm_os_offer
+  vm_os_sku                     = local.network.vm_os_sku
   enable_tdagent                = local.network.bastion_enable_tdagent
   enable_accelerated_networking = local.network.bastion_enable_accelerated_networking
 }

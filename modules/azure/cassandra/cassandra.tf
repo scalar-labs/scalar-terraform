@@ -15,6 +15,9 @@ module "cassandra_cluster" {
   vm_hostname                   = "cassandra"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id
+  vm_os_publisher               = local.vm_os_publisher
+  vm_os_offer                   = local.vm_os_offer
+  vm_os_sku                     = local.vm_os_sku
   vnet_subnet_id                = local.subnet_id
   vm_size                       = local.cassandra.resource_type
   ssh_key                       = local.public_key_path

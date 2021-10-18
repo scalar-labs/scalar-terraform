@@ -7,6 +7,9 @@ locals {
   region           = var.network.region
   locations        = compact(split(",", var.network.locations))
   image_id         = var.network.image_id
+  vm_os_publisher  = var.network.vm_os_publisher
+  vm_os_offer      = var.network.vm_os_offer
+  vm_os_sku        = var.network.vm_os_sku
   bastion_ip       = var.network.bastion_ip
   private_key_path = var.network.private_key_path
   public_key_path  = var.network.public_key_path
@@ -42,12 +45,16 @@ locals {
   scalardl_base = {
     default = local.scalardl_default
 
-    bai = merge(local.scalardl_default, {})
+    bai = merge(local.scalardl_default,
+      { resource_type = "Standard_B2ms" }
+    )
 
-    chiku = merge(local.scalardl_default, {})
+    chiku = merge(local.scalardl_default,
+      { resource_type = "Standard_B4ms" }
+    )
 
     sho = merge(local.scalardl_default,
-      { resource_type = "Standard_D2s_v3" }
+      { resource_type = "Standard_B8ms" }
     )
   }
 }
@@ -86,11 +93,17 @@ locals {
   envoy_base = {
     default = local.envoy_default
 
-    bai = merge(local.envoy_default, {})
+    bai = merge(local.envoy_default,
+      { resource_type = "Standard_B2ms" }
+    )
 
-    chiku = merge(local.envoy_default, {})
+    chiku = merge(local.envoy_default,
+      { resource_type = "Standard_B4ms" }
+    )
 
-    sho = merge(local.envoy_default, {})
+    sho = merge(local.envoy_default,
+      { resource_type = "Standard_B8ms" }
+    )
   }
 }
 

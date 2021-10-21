@@ -21,11 +21,16 @@
     path: /etc/tuned/cassandra
     state: directory
 
+- name: Register cassandra rpm_key
+  rpm_key:
+    key: https://archive.apache.org/dist/cassandra/KEYS
+    state: present
+
 # Tuned does not yet support nvme disk
 # https://github.com/redhat-performance/tuned/issues/101
 - name: Replace plugin_disk.py of tuned for supporting nvme disk
   replace:
-    path: /usr/lib/python2.7/site-packages/tuned/plugins/plugin_disk.py
+    path: /usr/lib/python3.6/site-packages/tuned/plugins/plugin_disk.py
     regexp: '^(\s*device.parent.subsystem in \["scsi", "virtio", "xen")\]\)$'
     replace: '\1, "nvme"])'
   notify: restart tuned

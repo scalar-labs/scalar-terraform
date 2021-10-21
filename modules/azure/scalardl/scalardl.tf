@@ -21,6 +21,9 @@ module "scalardl_blue" {
   user_name                     = local.user_name
   subnet_id                     = local.scalardl.blue_subnet_id
   image_id                      = local.image_id
+  vm_os_publisher               = local.vm_os_publisher
+  vm_os_offer                   = local.vm_os_offer
+  vm_os_sku                     = local.vm_os_sku
   network_dns                   = local.network_dns
   scalardl_image_name           = local.scalardl.blue_image_name
   scalardl_image_tag            = local.scalardl.blue_image_tag
@@ -49,6 +52,9 @@ module "scalardl_green" {
   user_name                     = local.user_name
   subnet_id                     = local.scalardl.green_subnet_id
   image_id                      = local.image_id
+  vm_os_publisher               = local.vm_os_publisher
+  vm_os_offer                   = local.vm_os_offer
+  vm_os_sku                     = local.vm_os_sku
   network_dns                   = local.network_dns
   scalardl_image_name           = local.scalardl.green_image_name
   scalardl_image_tag            = local.scalardl.green_image_tag

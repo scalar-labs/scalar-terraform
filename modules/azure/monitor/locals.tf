@@ -8,6 +8,9 @@ locals {
   locations        = compact(split(",", var.network.locations))
   subnet_id        = var.network.subnet_id
   image_id         = var.network.image_id
+  vm_os_publisher  = var.network.vm_os_publisher
+  vm_os_offer      = var.network.vm_os_offer
+  vm_os_sku        = var.network.vm_os_sku
   bastion_ip       = var.network.bastion_ip
   public_key_path  = var.network.public_key_path
   private_key_path = var.network.private_key_path

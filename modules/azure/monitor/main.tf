@@ -16,6 +16,9 @@ module "monitor_cluster" {
   nb_public_ip                  = local.monitor.set_public_access ? 1 : 0
   public_ip_dns                 = ["monitor-${local.network_name}"]
   vm_os_simple                  = local.image_id
+  vm_os_publisher               = local.vm_os_publisher
+  vm_os_offer                   = local.vm_os_offer
+  vm_os_sku                     = local.vm_os_sku
   vnet_subnet_id                = local.subnet_id
   vm_size                       = local.monitor.resource_type
   ssh_key                       = local.public_key_path

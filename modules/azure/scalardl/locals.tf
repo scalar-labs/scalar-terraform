@@ -20,7 +20,7 @@ locals {
 ### default
 locals {
   scalardl_default = {
-    resource_type                       = "Standard_B2s"
+    resource_type                       = "Standard_B2ms"
     resource_root_volume_size           = 64
     blue_resource_count                 = 3
     blue_image_tag                      = "2.1.0"
@@ -45,16 +45,12 @@ locals {
   scalardl_base = {
     default = local.scalardl_default
 
-    bai = merge(local.scalardl_default,
-      { resource_type = "Standard_B2ms" }
-    )
+    bai = merge(local.scalardl_default, {})
 
-    chiku = merge(local.scalardl_default,
-      { resource_type = "Standard_B4ms" }
-    )
+    chiku = merge(local.scalardl_default, {})
 
     sho = merge(local.scalardl_default,
-      { resource_type = "Standard_B8ms" }
+      { resource_type = "Standard_D2s_v3" }
     )
   }
 }
@@ -69,7 +65,7 @@ locals {
 ### envoy
 locals {
   envoy_default = {
-    resource_type                 = "Standard_B2s"
+    resource_type                 = "Standard_B2ms"
     resource_count                = 3
     resource_root_volume_size     = 64
     listen_port                   = 50051
@@ -93,17 +89,11 @@ locals {
   envoy_base = {
     default = local.envoy_default
 
-    bai = merge(local.envoy_default,
-      { resource_type = "Standard_B2ms" }
-    )
+    bai = merge(local.envoy_default, {})
 
-    chiku = merge(local.envoy_default,
-      { resource_type = "Standard_B4ms" }
-    )
+    chiku = merge(local.envoy_default, {})
 
-    sho = merge(local.envoy_default,
-      { resource_type = "Standard_B8ms" }
-    )
+    sho = merge(local.envoy_default, {})
   }
 }
 

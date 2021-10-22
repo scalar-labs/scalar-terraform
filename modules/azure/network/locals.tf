@@ -9,7 +9,10 @@ locals {
     bastion_enable_accelerated_networking = false
     user_name                             = "centos"
     cidr                                  = "10.42.0.0/16"
-    image_id                              = "CentOS"
+    vm_os_publisher                       = "OpenLogic"
+    vm_os_offer                           = "CentOS"
+    vm_os_sku                             = "8_4"
+    image_id                              = ""
   }
 }
 

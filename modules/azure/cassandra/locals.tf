@@ -8,6 +8,9 @@ locals {
   locations        = compact(split(",", var.network.locations))
   subnet_id        = var.network.subnet_id
   image_id         = var.network.image_id
+  vm_os_publisher  = var.network.vm_os_publisher
+  vm_os_offer      = var.network.vm_os_offer
+  vm_os_sku        = var.network.vm_os_sku
   bastion_ip       = var.network.bastion_ip
   private_key_path = var.network.private_key_path
   public_key_path  = var.network.public_key_path
@@ -88,7 +91,7 @@ locals {
 locals {
   cassy_default = {
     image_tag                     = "1.2.0"
-    resource_type                 = "Standard_B2s"
+    resource_type                 = "Standard_B2ms"
     resource_count                = 1
     resource_root_volume_size     = 64
     enable_tdagent                = true
@@ -121,7 +124,7 @@ locals {
 ### reaper
 locals {
   reaper_default = {
-    resource_type                 = "Standard_B2s"
+    resource_type                 = "Standard_B2ms"
     resource_root_volume_size     = "64"
     replication_factor            = 3
     resource_count                = 1

@@ -9,6 +9,9 @@ module "cluster" {
   vm_hostname                   = "scalardl-${var.resource_cluster_name}"
   nb_public_ip                  = "0"
   vm_os_simple                  = var.image_id
+  vm_os_publisher               = var.vm_os_publisher
+  vm_os_offer                   = var.vm_os_offer
+  vm_os_sku                     = var.vm_os_sku
   vnet_subnet_id                = var.subnet_id
   vm_size                       = var.resource_type
   ssh_key                       = var.public_key_path

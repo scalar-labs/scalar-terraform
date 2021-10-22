@@ -85,6 +85,24 @@ variable "image_id" {
   description = "The image id to initiate"
 }
 
+variable "vm_os_publisher" {
+  type        = string
+  description = "The image os publisher"
+  default     = ""
+}
+
+variable "vm_os_offer" {
+  type        = string
+  description = "The image os offer"
+  default     = ""
+}
+
+variable "vm_os_sku" {
+  type        = string
+  description = "The image os sku"
+  default     = ""
+}
+
 variable "enable_tdagent" {
   type        = bool
   description = "A flag to install td-agent that forwards logs to the monitor host"

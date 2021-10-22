@@ -7,6 +7,9 @@ locals {
   region           = var.network.region
   locations        = compact(split(",", var.network.locations))
   image_id         = var.network.image_id
+  vm_os_publisher  = var.network.vm_os_publisher
+  vm_os_offer      = var.network.vm_os_offer
+  vm_os_sku        = var.network.vm_os_sku
   bastion_ip       = var.network.bastion_ip
   private_key_path = var.network.private_key_path
   public_key_path  = var.network.public_key_path
@@ -17,7 +20,7 @@ locals {
 ### default
 locals {
   scalardl_default = {
-    resource_type                       = "Standard_B2s"
+    resource_type                       = "Standard_B2ms"
     resource_root_volume_size           = 64
     blue_resource_count                 = 3
     blue_image_tag                      = "2.1.0"
@@ -62,7 +65,7 @@ locals {
 ### envoy
 locals {
   envoy_default = {
-    resource_type                 = "Standard_B2s"
+    resource_type                 = "Standard_B2ms"
     resource_count                = 3
     resource_root_volume_size     = 64
     listen_port                   = 50051

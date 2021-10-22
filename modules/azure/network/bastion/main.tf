@@ -8,6 +8,9 @@ module "bastion_cluster" {
   availability_zones            = var.locations
   vm_hostname                   = "bastion"
   vm_os_simple                  = var.image_id
+  vm_os_publisher               = var.vm_os_publisher
+  vm_os_offer                   = var.vm_os_offer
+  vm_os_sku                     = var.vm_os_sku
   vnet_subnet_id                = var.subnet_id
   nb_public_ip                  = var.resource_count
   public_ip_dns                 = formatlist("bastion-%s-${var.network_name}", range(1, var.resource_count + 1))

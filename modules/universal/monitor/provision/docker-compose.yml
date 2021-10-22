@@ -58,7 +58,7 @@ services:
       - grafana
 
   tailon:
-    image: port22/tailon:latest
+    image: ghcr.io/kmlucy/docker-tailon:latest
     ports:
       - 8080:8080
     volumes:

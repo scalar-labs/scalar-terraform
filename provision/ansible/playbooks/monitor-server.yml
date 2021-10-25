@@ -1,6 +1,10 @@
 ---
 - name: Install td-agent
   hosts: all
+  pre_tasks:
+    - name: Switch Ansible's Python interpreter to Python 3
+      set_fact:
+        ansible_python_interpreter: "/usr/bin/python3"
   roles:
     - role: td-agent
       when: enable_tdagent is undefined or enable_tdagent == '1'
@@ -15,6 +19,10 @@
 
 - name: Common Install
   hosts: all
+  pre_tasks:
+    - name: Switch Ansible's Python interpreter to Python 3
+      set_fact:
+        ansible_python_interpreter: "/usr/bin/python3"
   roles:
     - common
     - node-exporter
@@ -23,6 +31,10 @@
 
 - name: Docker Server
   hosts: all
+  pre_tasks:
+    - name: Switch Ansible's Python interpreter to Python 3
+      set_fact:
+        ansible_python_interpreter: "/usr/bin/python3"
   roles:
     - docker
   gather_facts: yes

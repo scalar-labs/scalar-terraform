@@ -29,7 +29,7 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Terraform Validate and Format
+      - name: Terraform Validate and Format upgrade/azure_k8s_azuread_application
         run: |
           paths=(${GITHUB_WORKSPACE}/modules/aws/kubernetes)
           for d in "${paths[@]}"; do cd ${d} && terraform init -backend=false && terraform validate -no-color && terraform fmt -check -recursive; done

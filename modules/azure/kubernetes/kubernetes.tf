@@ -29,7 +29,7 @@ resource "azuread_application" "app" {
     description          = "Admins can manage roles and perform all task actions"
     display_name         = "Admin"
     enabled              = true
-    id                   = "scalar-k8s-app-${local.network_name}-${random_id.id.b64_url}"
+    id                   = "1b19509b-32b1-4e9f-b71d-4992aa991967"
     value                = "admin"
   }
 
@@ -38,9 +38,10 @@ resource "azuread_application" "app" {
     description          = "ReadOnly roles have limited query access"
     display_name         = "ReadOnly"
     enabled              = true
-    id                   = "scalar-k8s-app-${local.network_name}-${random_id.id.b64_url}"
+    id                   = "497406e4-012a-4267-bf18-45a1cb148a01"
     value                = "User"
   }
+
 
   # Waiting for AAD global replication - see https://github.com/Azure/AKS/issues/1206#issue-493516902
   provisioner "local-exec" {

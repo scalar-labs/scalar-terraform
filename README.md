@@ -1,3 +1,6 @@
+**scalar-terraform is maintained only for testing purposes but not recommended to be used for production, so please use it at your own risk.**
+
+
 [![AWS Integration Test](https://github.com/scalar-labs/scalar-terratest/workflows/Integration-test-with-terratest-for-AWS/badge.svg?branch=master)](https://github.com/scalar-labs/scalar-terratest/actions)
 
 [![Azure Integration Test](https://github.com/scalar-labs/scalar-terratest/workflows/Integration-test-with-terratest-for-Azure/badge.svg?branch=master)](https://github.com/scalar-labs/scalar-terratest/actions)

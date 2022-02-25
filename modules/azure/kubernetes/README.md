@@ -39,7 +39,7 @@ The Azure Kubernetes Module creates a subnet for k8s, service principal, set per
 |------|-------------|------|---------|:--------:|
 | name | cluster name | `string` | `scalar-kubernetes` | no |
 | dns_prefix | dns prefix for the cluster | `string` | `scalar-k8s` | no |
-| kubernetes_version | kubernetes version | `string` | `1.19` | no|
+| kubernetes_version | kubernetes version | `string` | `1.23.3` | no|
 | admin_username | ssh user for node | `string` | `azureuser` | no |
 | role_based_access_control | activate RBAC in k8s | `string` | `true` | no |
 

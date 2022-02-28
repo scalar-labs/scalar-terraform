@@ -1,5 +1,5 @@
 module "reaper_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=e22c302"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=e5cea65"
 
   nb_instances                  = local.reaper.resource_count
   admin_username                = local.user_name

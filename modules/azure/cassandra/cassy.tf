@@ -1,5 +1,5 @@
 module "cassy_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=upgrade/k8s_version"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=035179f"
 
   nb_instances                  = local.cassy.resource_count
   admin_username                = local.user_name

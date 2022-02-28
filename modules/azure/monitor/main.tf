@@ -5,7 +5,7 @@ resource "null_resource" "wait_for" {
 }
 
 module "monitor_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=upgrade/k8s_version"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=035179f"
 
   nb_instances                  = local.monitor.resource_count
   admin_username                = local.user_name

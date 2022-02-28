@@ -31,7 +31,7 @@ The Network module creates a virtual network with subnets.
 | region | The Azure region to deploy environment | `string` | n/a | yes |
 | additional_public_keys_path | The path to a file that contains multiple public keys for SSH access. | `string` | `""` | no |
 | base | The base of network | `string` | `"default"` | no |
-| locations | The Azure availability zones to deploy environment | `tolist(string)` | `[]` | no |
+| locations | The Azure availability zones to deploy environment | `list(string)` | `[]` | no |
 | network | Custom definition for network and bastion | `map(string)` | `{}` | no |
 | use_cosmosdb | Whether to use Cosmos DB. If true, a service endpoint for Cosmos DB is enabled. | `bool` | `false` | no |
 

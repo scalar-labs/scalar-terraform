@@ -10,7 +10,7 @@ The bastion module deploys a network bastion host used to access and configure t
 | bastion_access_cidr | You can limit access to the bastion node to a specified IP cidr range | `string` | n/a | yes |
 | enable_tdagent | A flag to install td-agent that forwards logs to the monitor host | `bool` | n/a | yes |
 | image_id | The image id to initiate | `string` | n/a | yes |
-| locations | The Azure availability zones to deploy environment | `tolist(string)` | n/a | yes |
+| locations | The Azure availability zones to deploy environment | `list(string)` | n/a | yes |
 | network_cidr | The network cidr address space | `string` | n/a | yes |
 | network_dns | The ID for the internal DNS zone | `string` | n/a | yes |
 | network_id | The id of the cloud provider network ID resource | `string` | n/a | yes |

@@ -24,7 +24,7 @@ variable "region" {
 }
 
 variable "locations" {
-  type        = tolist(string)
+  type        = list(string)
   description = "The Azure availability zones to deploy environment"
 }
 

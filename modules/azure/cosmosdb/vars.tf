@@ -10,13 +10,13 @@ variable "enable_virtual_network_filter" {
 }
 
 variable "allowed_subnet_ids" {
-  type        = tolist(string)
+  type        = list(string)
   description = "The subnet IDs to allow access to Cosmos DB"
   default     = []
 }
 
 variable "allowed_cidrs" {
-  type        = tolist(string)
+  type        = list(string)
   description = "IP addresses or IP address ranges in CIDR to allow access to Cosmos DB"
   default     = []
 }

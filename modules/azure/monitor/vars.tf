@@ -28,7 +28,7 @@ variable "monitor" {
 }
 
 variable "targets" {
-  type        = list(string)
+  type        = tolist(string)
   default     = []
   description = "The target monitoring"
 }

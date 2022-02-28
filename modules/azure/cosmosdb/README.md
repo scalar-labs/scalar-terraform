@@ -20,8 +20,8 @@ The Cosmos DB Azure module deploys a Cosmos DB account.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | network | The network settings of Cosmos DB | `map(string)` | n/a | yes |
-| allowed_cidrs | IP addresses or IP address ranges in CIDR to allow access to Cosmos DB | `list(string)` | `[]` | no |
-| allowed_subnet_ids | The subnet IDs to allow access to Cosmos DB | `list(string)` | `[]` | no |
+| allowed_cidrs | IP addresses or IP address ranges in CIDR to allow access to Cosmos DB | `tolist(string)` | `[]` | no |
+| allowed_subnet_ids | The subnet IDs to allow access to Cosmos DB | `tolist(string)` | `[]` | no |
 | is_virtual_network_filter_enabled | A flag to enable virtual network filtering for Cosmos DB | `bool` | `true` | no |
 
 ## Outputs

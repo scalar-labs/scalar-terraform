@@ -7,9 +7,18 @@
     for f in /etc/yum.repos.d/CentOS-*; do
       [ -f "$f" ] && sed -i 's/mirrorlist/#mirrorlist/g' "$f" && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' "$f"
     done
-    # Fix Azure/OpenLogic olcentgbl.trafficmanager.net (unreliable DNS) -> vault.centos.org
+    # Fix Azure/OpenLogic: only replace olcentgbl for /centos/ paths (vault hosts those).
+    # Do NOT replace for /openlogic/ paths - vault does not host openlogic; disable that repo instead.
     for f in /etc/yum.repos.d/*.repo; do
-      [ -f "$f" ] && sed -i 's|olcentgbl.trafficmanager.net|vault.centos.org|g' "$f"
+      [ -f "$f" ] && sed -i 's|olcentgbl.trafficmanager.net/centos/|vault.centos.org/centos/|g' "$f"
+    done
+    # Disable openlogic repo (olcentgbl is unreachable; vault has no openlogic content)
+    for f in /etc/yum.repos.d/*.repo; do
+      if [ -f "$f" ] && grep -q '^\[openlogic\]' "$f"; then
+        sed -i '/^\[openlogic\]/,/^\[/ s/^enabled=.*/enabled=0/' "$f"
+        # Ensure enabled=0 exists in section (insert after [openlogic] if section had no enabled= line)
+        grep -A10 '^\[openlogic\]' "$f" | grep -q '^enabled=' || sed -i '/^\[openlogic\]$/a enabled=0' "$f"
+      fi
     done
     yum clean all || true
     yum makecache || true

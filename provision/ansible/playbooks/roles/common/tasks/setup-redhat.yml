@@ -3,9 +3,19 @@
   when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
   become: yes
   shell: |
-    sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
-    sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
-    
+    # Fix standard mirror.centos.org (EOL) -> vault.centos.org
+    for f in /etc/yum.repos.d/CentOS-*; do
+      [ -f "$f" ] && sed -i 's/mirrorlist/#mirrorlist/g' "$f" && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' "$f"
+    done
+    # Fix Azure/OpenLogic olcentgbl.trafficmanager.net (unreliable DNS) -> vault.centos.org
+    for f in /etc/yum.repos.d/*.repo; do
+      [ -f "$f" ] && sed -i 's|olcentgbl.trafficmanager.net|vault.centos.org|g' "$f"
+    done
+    yum clean all || true
+    yum makecache || true
+  args:
+    executable: /bin/bash
+
 - name: Install epel-release
   package:
     name: epel-release

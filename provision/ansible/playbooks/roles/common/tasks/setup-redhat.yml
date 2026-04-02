@@ -39,3 +39,9 @@
       - python3
       - python3-pip
       - python-setuptools
+
+- name: Install python2 (redhat, EL8 — Cassandra 3.11 / cqlsh)
+  package:
+    name: python2
+    state: present
+  when: ansible_distribution_major_version|int == 8

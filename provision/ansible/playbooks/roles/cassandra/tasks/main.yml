@@ -23,11 +23,20 @@
 
 # Tuned does not yet support nvme disk
 # https://github.com/redhat-performance/tuned/issues/101
+# Path is python2.7 on EL7 and python3 on EL8+ (Rocky Linux 8, etc.)
+- name: Locate tuned plugin_disk.py for NVMe patch
+  shell: set -o pipefail && find /usr/lib -path '*/tuned/plugins/plugin_disk.py' 2>/dev/null | head -1
+  args:
+    executable: /bin/bash
+  register: tuned_plugin_disk_cmd
+  changed_when: false
+
 - name: Replace plugin_disk.py of tuned for supporting nvme disk
   replace:
-    path: /usr/lib/python2.7/site-packages/tuned/plugins/plugin_disk.py
+    path: "{{ tuned_plugin_disk_cmd.stdout | trim }}"
     regexp: '^(\s*device.parent.subsystem in \["scsi", "virtio", "xen")\]\)$'
     replace: '\1, "nvme"])'
+  when: tuned_plugin_disk_cmd.stdout | trim | length > 0
   notify: restart tuned
 
 - name: Add Cassandra Tuned Profile

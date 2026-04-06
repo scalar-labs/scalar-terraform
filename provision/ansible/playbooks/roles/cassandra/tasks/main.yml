@@ -90,7 +90,9 @@
   retries: 3
   delay: 5
 
-- name: Install Cassandra
+# EL8+ (Rocky Linux, RHEL 8): dnf enforces RPM GPG checks; the Apache archive RPM
+# does not match a pre-imported repo key. Use disable_gpg_check (RPM is from HTTPS Apache URL).
+- name: Install Cassandra (EL7)
   package:
     name: "{{ cassandra_rpm_url }}"
     state: present
@@ -98,6 +100,18 @@
   until: install_cassandra_result is succeeded
   retries: 3
   delay: 5
+  when: ansible_distribution_major_version|int == 7
+
+- name: Install Cassandra (EL8+)
+  dnf:
+    name: "{{ cassandra_rpm_url }}"
+    state: present
+    disable_gpg_check: true
+  register: install_cassandra_result
+  until: install_cassandra_result is succeeded
+  retries: 3
+  delay: 5
+  when: ansible_distribution_major_version|int >= 8
 
 - name: Set Cassandra Auth JMX
   lineinfile:

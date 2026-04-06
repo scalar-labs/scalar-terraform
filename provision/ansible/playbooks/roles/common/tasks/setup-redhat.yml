@@ -32,13 +32,11 @@
 
 - name: Install python (redhat)
   package:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
+    name:
       - python3
       - python3-pip
-      - python-setuptools
+      - "{{ 'python3-setuptools' if ansible_distribution_major_version|int >= 8 else 'python-setuptools' }}"
+    state: present
 
 - name: Install python2 (redhat, EL8 — Cassandra 3.11 / cqlsh)
   package:

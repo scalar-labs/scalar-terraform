@@ -90,6 +90,12 @@ if [[ $DATA_STORE == "local" ]] && [[ -d /mnt/resource ]]; then
   mkdir -p /mnt/resource/data
   chown -R cassandra:cassandra /mnt/resource/data
   ln -sf /mnt/resource/data /data
+elif [[ $DATA_STORE == "local" ]] && [[ ! -d /mnt/resource ]]; then
+  # Azure (and other clouds) do not use AWS-style disk serials; /mnt/resource may never be created.
+  # Without this branch, /data is never created and Cassandra cannot start.
+  echo "DATA_STORE=local but /mnt/resource missing: using /data on root volume"
+  mkdir -p /data
+  chown -R cassandra:cassandra /data
 elif [[ -z "$DATA_STORE" ]]; then
   # Setup /data directory on root volume
   echo "DATA_STORE is not set: Using Root Volume"
@@ -102,6 +108,10 @@ if [[ $COMMIT_STORE == "local" ]] && [[ -d /mnt/resource ]]; then
   mkdir -p /mnt/resource/commitlog
   chown -R cassandra:cassandra /mnt/resource/commitlog
   ln -snf /mnt/resource/commitlog /commitlog
+elif [[ $COMMIT_STORE == "local" ]] && [[ ! -d /mnt/resource ]]; then
+  echo "COMMIT_STORE=local but /mnt/resource missing: using /commitlog on root volume"
+  mkdir -p /commitlog
+  chown -R cassandra:cassandra /commitlog
 elif [[ -z "$COMMIT_STORE" ]]; then
   # Setup /commitlog directory on root volume
   echo "COMMIT_STORE is not set: Using Root Volume"

@@ -1,5 +1,5 @@
 module "cassy_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=af49eab-update"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=af49eab-update-os"
 
   nb_instances                  = local.cassy.resource_count
   admin_username                = local.user_name
@@ -9,6 +9,9 @@ module "cassy_cluster" {
   vm_hostname                   = "cassy"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id
+  vm_os_publisher               = local.image_id == "RockyLinux8" ? local.rocky_linux_8_marketplace.publisher : ""
+  vm_os_offer                   = local.image_id == "RockyLinux8" ? local.rocky_linux_8_marketplace.offer : ""
+  vm_os_sku                     = local.image_id == "RockyLinux8" ? local.rocky_linux_8_marketplace.sku : ""
   vnet_subnet_id                = local.subnet_id
   vm_size                       = local.cassy.resource_type
   delete_os_disk_on_termination = true

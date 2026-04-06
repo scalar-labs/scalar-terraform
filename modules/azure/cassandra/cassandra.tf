@@ -5,7 +5,7 @@ resource "null_resource" "wait_for" {
 }
 
 module "cassandra_cluster" {
-  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=af49eab-update"
+  source = "github.com/scalar-labs/terraform-azurerm-compute?ref=af49eab-update-os"
 
   nb_instances                  = local.cassandra.resource_count
   admin_username                = local.user_name
@@ -15,6 +15,9 @@ module "cassandra_cluster" {
   vm_hostname                   = "cassandra"
   nb_public_ip                  = "0"
   vm_os_simple                  = local.image_id
+  vm_os_publisher               = local.image_id == "RockyLinux8" ? local.rocky_linux_8_marketplace.publisher : ""
+  vm_os_offer                   = local.image_id == "RockyLinux8" ? local.rocky_linux_8_marketplace.offer : ""
+  vm_os_sku                     = local.image_id == "RockyLinux8" ? local.rocky_linux_8_marketplace.sku : ""
   vnet_subnet_id                = local.subnet_id
   vm_size                       = local.cassandra.resource_type
   ssh_key                       = local.public_key_path

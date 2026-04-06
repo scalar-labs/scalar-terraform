@@ -17,6 +17,16 @@ locals {
   triggers = [var.network.bastion_provision_id]
 }
 
+# Used when vm_os_simple is RockyLinux8 so image works even if terraform-azurerm-compute
+# standard_os omits RockyLinux8 (older Git refs).
+locals {
+  rocky_linux_8_marketplace = {
+    publisher = "resf"
+    offer     = "rockylinux-x86_64"
+    sku       = "8-base"
+  }
+}
+
 ### cassandra
 locals {
   cassandra_default = {
